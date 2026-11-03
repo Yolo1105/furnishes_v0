@@ -1,0 +1,95 @@
+/* the title and the hours on the left, a room on the right, under the bar
+   as the about page's opening */
+.top {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(24px, 4vw, 72px);
+  align-items: end;
+  padding: calc(var(--nav-h) + clamp(32px, 4vw, 64px)) var(--gutter) 0;
+}
+
+.topText {
+  display: grid;
+  gap: clamp(28px, 4vw, 56px);
+}
+
+/* hours and place side by side, each a pale label over its lines */
+.when {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px clamp(32px, 4vw, 64px);
+  margin: 0;
+}
+
+.when dd {
+  margin: 0;
+  color: var(--ink-dark);
+  font: 400 var(--text-lg) / 1.4 var(--font);
+}
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--birch);
+}
+
+.photo img {
+  object-fit: cover;
+}
+
+/* the four ways in a row, parted by space; each its way in at the foot */
+.ways {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px clamp(16px, 2vw, 32px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.way {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: start;
+}
+
+.go {
+  composes: caps underline-on-hover from global;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  margin-top: 12px;
+  color: var(--ink);
+  font-size: var(--text-md);
+}
+
+/* the ways in on a page still to come, in a row that wraps */
+.soonWays {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.soonWays .go {
+  margin-top: 0;
+}
+
+@media (width <= 1023px) {
+  .top {
+    grid-template-columns: 1fr;
+  }
+
+  .ways {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width <= 639px) {
+  .ways {
+    grid-template-columns: 1fr;
+  }
+}
