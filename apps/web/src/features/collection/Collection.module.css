@@ -397,6 +397,66 @@
   padding-top: 0;
 }
 
+/* ---------- a page's opening ---------- */
+
+/* after the owner's other site, for the pages without a banner: the title
+   large across the page, two rooms wide under it, then a line on the left
+   and the paragraphs (or the details) on the right; under the bar */
+.opening {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(24px, 3vw, 56px) clamp(24px, 4vw, 72px);
+  padding: calc(var(--nav-h) + clamp(32px, 4vw, 64px)) var(--gutter) 0;
+}
+
+.openingTitle {
+  grid-column: 1 / -1;
+  max-width: 18ch;
+  margin: 0;
+  color: var(--ink);
+  font: 400 var(--text-title) / 0.98 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-display);
+}
+
+.openingPhotos {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.5vw, 24px);
+}
+
+.openingPhoto {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+  background: var(--birch);
+}
+
+.openingPhoto img {
+  object-fit: cover;
+}
+
+/* the line on the left, in the title's brown second line */
+.openingRest {
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-rest) / 1.3 var(--font-wordmark);
+}
+
+.openingSide {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+
+.openingSide > p {
+  max-width: 44ch;
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
 /* ---------- the sections under the banner ---------- */
 
 .section {
@@ -1395,6 +1455,10 @@
 /* ---------- below the desktop, one card a row ---------- */
 
 @media (width <= 1023px) {
+  .opening {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .details {
     grid-template-columns: 1fr;
   }

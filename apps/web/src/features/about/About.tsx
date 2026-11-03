@@ -1,32 +1,15 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
+import { Opening } from "@/features/collection/Opening";
+import { Questions } from "@/features/collection/Questions";
 import { Section } from "@/features/collection/Sections";
 import collection from "@/features/collection/Collection.module.css";
 import { FIGURES, MAKING, MANIFESTO, RECOGNITION, STORY, TEAM, WHO, WORKSHOP } from "./aboutList";
 import styles from "./About.module.css";
 
-/**
- * The page's opening, after the owner's other site: the title large across
- * the page, two rooms wide under it, then who it is for beside one paragraph.
- */
+/** The page's opening, in the shape Contact shares: the title, two rooms, then the line and the paragraphs. */
 export function WhoWeAre() {
-  return (
-    <section className={styles.who} aria-labelledby="who-title">
-      <h1 id="who-title" className={styles.whoTitle}>
-        <span className={collection.headingLabel}>{WHO.label}</span>
-        {WHO.title}
-      </h1>
-      <div className={styles.whoPhotos}>
-        {WHO.photos.map((p) => (
-          <div key={p.alt} className={styles.photo}>
-            <Image src={p.src} alt={p.alt} fill sizes="(max-width: 1023px) 50vw, 48vw" priority />
-          </div>
-        ))}
-      </div>
-      <p className={styles.whoRest}>{WHO.rest}</p>
-      <p className={styles.lead}>{WHO.line}</p>
-    </section>
-  );
+  return <Opening label={WHO.label} title={WHO.title} photos={WHO.photos} rest={WHO.rest} lines={WHO.lines} />;
 }
 
 /**
@@ -112,13 +95,17 @@ export function MakingDays() {
   );
 }
 
-/** The people behind Furnishes: a portrait (its initial until there is a photo), the name, the role and one line. */
+/**
+ * The people behind Furnishes: a portrait (its initial until there is a
+ * photo), the name, the role and one line. A person still to be named has a
+ * shorter, paler frame, so the empty cards don't outweigh the named one.
+ */
 export function Team() {
   return (
     <Section id="team-title" label={TEAM.label} title={TEAM.title} rest={TEAM.rest}>
       <ul className={styles.team}>
         {TEAM.people.map((p, i) => (
-          <li key={`${p.name}-${i}`}>
+          <li key={`${p.name}-${i}`} data-pending={"initial" in p || undefined}>
             <div className={styles.portrait} aria-hidden="true">
               {p.initial ?? p.name.charAt(0)}
             </div>
@@ -132,20 +119,16 @@ export function Team() {
   );
 }
 
-/** Our story: three numbered parts side by side, spaced rather than ruled. */
+/** Our story: three numbered parts that open one at a time, as the questions do, so it doesn't read as a third row of columns. */
 export function Story() {
   return (
-    <Section id="story-title" label={STORY.label} title={STORY.title} rest={STORY.rest}>
-      <ol className={styles.story}>
-        {STORY.parts.map((p, i) => (
-          <li key={p.name}>
-            <p className={collection.cardLabel}>{String(i + 1).padStart(2, "0")}</p>
-            <h3 className={collection.promiseName}>{p.name}</h3>
-            <p className={collection.promiseLine}>{p.line}</p>
-          </li>
-        ))}
-      </ol>
-    </Section>
+    <Questions
+      questions={STORY.parts.map((p) => ({ q: p.name, a: p.line }))}
+      label={STORY.label}
+      title={STORY.title}
+      rest={STORY.rest}
+      ask={false}
+    />
   );
 }
 

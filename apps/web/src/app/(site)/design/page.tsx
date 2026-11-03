@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { logOut } from "@/features/account/actions";
 import { LOG_OUT } from "@/features/account/accountList";
+import account from "@/features/account/Account.module.css";
 import { isLoggedIn } from "@/features/account/session";
 import styles from "@/features/collection/Collection.module.css";
 import { Soon } from "@/features/soon/Soon";
@@ -26,9 +27,10 @@ export default async function DesignPage() {
       <SiteHeader />
       <main id="main" className={styles.page}>
         <Soon page={DESIGN_SOON}>
-          <form action={logOut}>
-            <button className={styles.outline} type="submit">
-              {LOG_OUT}
+          <form className={account.logOutLine} action={logOut}>
+            {LOG_OUT.line}{" "}
+            <button className={`${styles.qaMail} ${account.logOut}`} type="submit">
+              {LOG_OUT.go}
             </button>
           </form>
         </Soon>

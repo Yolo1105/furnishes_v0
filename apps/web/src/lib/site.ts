@@ -8,12 +8,13 @@ export const SITE = {
 /**
  * Facts the site states in many places, each set once here: the home
  * visit's length (minutes) and fee (SGD), the days a ready-made piece can
- * be returned in, and the modular boards' thickness. All are the owner's
- * placeholders until confirmed.
+ * be returned in, the modular boards' thickness, and how soon an email is
+ * answered. All are the owner's placeholders until confirmed.
  */
 export const FACTS = {
   visitMinutes: 60,
   visitFee: 120,
   returnDays: 14,
   board: "18 mm",
+  replyTime: "one working day",
 } as const;

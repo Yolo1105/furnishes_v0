@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MakingDays, Manifesto, Recognition, Story, Team, WhoWeAre, Workshop } from "@/features/about/About";
+import { MakingDays, Manifesto, Story, Team, WhoWeAre, Workshop } from "@/features/about/About";
 import { ABOUT_QUESTIONS } from "@/features/about/aboutList";
 import { Questions } from "@/features/collection/Questions";
 import { Visit } from "@/features/collection/Visit";
@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 
 /**
  * About: who we are, what we believe and four figures, our story, the
- * factory that makes the pieces, the five steps from order to your home,
- * the team and recognition, then questions and the home visit, as the
- * collection's pages end. The story's start, the team's other names and
- * every award are placeholders until the owner sends them.
+ * factory that makes the pieces, the five steps from order to your home and
+ * the team, then questions and the home visit, as the collection's pages
+ * end. The story's start and the team's other names are placeholders until
+ * the owner sends them; recognition waits for something to show.
  */
 export default function AboutPage() {
   return (
@@ -29,7 +29,7 @@ export default function AboutPage() {
         <Workshop />
         <MakingDays />
         <Team />
-        <Recognition />
+        {/* Recognition comes back here once there is an award or article to show. */}
         <Questions questions={ABOUT_QUESTIONS} />
         <Visit />
       </main>

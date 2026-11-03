@@ -1,95 +1,67 @@
-/* the title and the hours on the left, a room on the right, under the bar
-   as the about page's opening */
-.top {
+/* how to reach us, a row each: the label in pale capitals, its value after
+   it in brown; space alone parts them */
+.details {
   display: grid;
-  grid-template-columns: 5fr 7fr;
-  gap: clamp(24px, 4vw, 72px);
-  align-items: end;
-  padding: calc(var(--nav-h) + clamp(32px, 4vw, 64px)) var(--gutter) 0;
-}
-
-.topText {
-  display: grid;
-  gap: clamp(28px, 4vw, 56px);
-}
-
-/* hours and place side by side, each a pale label over its lines */
-.when {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px clamp(32px, 4vw, 64px);
+  gap: 14px;
   margin: 0;
 }
 
-.when dd {
+.details > div {
+  display: grid;
+  grid-template-columns: 9em minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+}
+
+.detailLabel {
+  composes: caps from global;
+  color: var(--ink-dark-pale);
+}
+
+.details dd {
+  display: grid;
   margin: 0;
   color: var(--ink-dark);
   font: 400 var(--text-lg) / 1.4 var(--font);
 }
 
-.photo {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background: var(--birch);
-}
-
-.photo img {
-  object-fit: cover;
-}
-
-/* the four ways in a row, parted by space; each its way in at the foot */
-.ways {
+/* what people write about, three to a row on the tile's faint red, each
+   its button at the foot so the buttons line up */
+.topics {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 40px clamp(16px, 2vw, 32px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.5vw, 24px);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.way {
+.topic {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 4px;
   justify-items: start;
+  padding: clamp(24px, 2.6vw, 40px);
+  background: var(--ink-tile);
 }
 
-.go {
-  composes: caps underline-on-hover from global;
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap);
-  margin-top: 12px;
-  color: var(--ink);
-  font-size: var(--text-md);
-}
-
-/* the ways in on a page still to come, in a row that wraps */
-.soonWays {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 28px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.soonWays .go {
-  margin-top: 0;
+.topic > a {
+  margin-top: 24px;
 }
 
 @media (width <= 1023px) {
-  .top {
-    grid-template-columns: 1fr;
-  }
-
-  .ways {
+  .topics {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (width <= 639px) {
-  .ways {
-    grid-template-columns: 1fr;
+  .topics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .details > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
   }
 }

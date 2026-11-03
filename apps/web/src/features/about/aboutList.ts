@@ -14,12 +14,19 @@ import { FACTS } from "@/lib/site";
  * those facts are still placeholders until the owner confirms them.
  */
 
-/** Who we are: the title, one paragraph, and two rooms beside it. */
+/**
+ * Who we are: the title, the line beside it, and the paragraphs from the
+ * rebuild's about page, under two rooms.
+ */
 export const WHO = {
   label: "About Furnishes",
   title: "Furniture that fits how you live and work",
-  rest: "For Singapore homes and small offices",
-  line: "Some of our pieces are ready-made. Others are modular, built from birch panels to your wall's size and colour. All are made by our partner factory in China and carried into your room in Singapore.",
+  rest: "Ready-made pieces, modular designs, and modular pieces you make your own, for Singapore homes and small offices.",
+  lines: [
+    "Some of our pieces are ready-made. Others are modular, built from birch panels to your wall's size and colour. All are made by our partner factory in China and carried into your room in Singapore.",
+    "A change at home can start small: a place for the bag by the door, or a bedside that keeps the book within reach. It can be bigger: a tall cabinet that divides a rented room, or a work area that grows with a team.",
+    "Each piece should be good on its own today; adding to it later is a bonus. If you need help choosing, we come to your room, and the AI assistant can help once you log in.",
+  ],
   photos: [
     { src: living, alt: "A living room with a long sofa and low shelves" },
     { src: shelfWall, alt: "A wall of shelves holding books and boxes" },
@@ -91,13 +98,16 @@ export const WORKSHOP = {
 export const MAKING = {
   label: "How it reaches you",
   title: "From order to your home",
-  rest: `Modular pieces take ${ARRIVALS.parts.weeks} flat-packed, ${ARRIVALS.built.weeks} built`,
+  rest: `Made after you order: modular pieces take ${ARRIVALS.parts.weeks} flat-packed, ${ARRIVALS.built.weeks} built`,
   steps: [
     { name: "You order", line: "You choose the piece, its size and finish, and how it arrives." },
     { name: "It is made", line: "Our partner factory in China makes the version you chose." },
     { name: "It is packed", line: "Packed with its parts and, if flat-packed, its steps." },
     { name: "It ships", line: "From China to Singapore. We email you when it moves." },
-    { name: "It arrives", line: "Carried into your room at a time you choose." },
+    {
+      name: "It arrives",
+      line: "Carried into your room at a time you choose: built pieces ready to use, flat-packed ones ready to put together.",
+    },
   ],
 };
 
@@ -114,10 +124,6 @@ export const ABOUT_QUESTIONS = [
   {
     q: "How long does it take?",
     a: `Modular pieces take ${ARRIVALS.parts.weeks} flat-packed and ${ARRIVALS.built.weeks} built. Ready-made pieces take ${FURNITURE_WEEKS}.`,
-  },
-  {
-    q: "Is there a showroom?",
-    a: `Not yet. We come to you instead: a home visit is ${sgd(FACTS.visitFee)}, taken off your order if you buy.`,
   },
   {
     q: "Can I see the finishes first?",
@@ -137,7 +143,7 @@ export const ABOUT_QUESTIONS = [
 export const TEAM = {
   label: "The team",
   title: "Who is behind Furnishes",
-  rest: "The people you are buying from",
+  rest: "The people you are buying from, based in Singapore",
   people: [
     { name: "Mohan", role: "Cofounder and CTO", line: "Leads the website, the 3D view and the AI assistant." },
     { name: "Name to come", role: "Cofounder", line: "What this person looks after, to come.", initial: "?" },
@@ -146,9 +152,9 @@ export const TEAM = {
 };
 
 /**
- * Our story, in three parts after the rebuild's. How it started is a draft
- * line until the owner writes it from fact; the other two follow what the
- * rest of the site says.
+ * Our story, in three parts after the rebuild's, as a numbered list that
+ * opens. How it started is a draft line until the owner writes it from
+ * fact; the other two follow what the rest of the site says.
  */
 export const STORY = {
   label: "Our story",
@@ -170,7 +176,10 @@ export const STORY = {
   ],
 };
 
-/** Awards and press, as the rebuild's recognition rows; every row a placeholder until there is one to show. */
+/**
+ * Awards and press, as the rebuild's recognition rows; every row a
+ * placeholder, so the page leaves it out until there is one to show.
+ */
 export const RECOGNITION = {
   label: "Recognition",
   title: "Awards and press",

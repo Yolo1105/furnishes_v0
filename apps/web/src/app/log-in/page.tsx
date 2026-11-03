@@ -10,8 +10,12 @@ export const metadata: Metadata = {
 };
 
 /** Log in: a room beside the form, with no bar or footer; once logged in, straight on to where you were going. */
-export default async function LogInPage({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
-  const { next } = await searchParams;
+export default async function LogInPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string; google?: string }>;
+}) {
+  const { next, google } = await searchParams;
   if (await isLoggedIn()) redirect(safeNext(next));
-  return <LogIn {...(next && { next: safeNext(next) })} />;
+  return <LogIn {...(next && { next: safeNext(next) })} googleSoon={google === "soon"} />;
 }

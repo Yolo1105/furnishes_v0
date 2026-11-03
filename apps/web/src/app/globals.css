@@ -93,6 +93,10 @@
   /* a faint red ground for bands and boxes that hold lists */
   --ink-wash: color-mix(in srgb, var(--ink) 7%, var(--paper));
 
+  /* a form field's ground: the cream lifted halfway to white, so a field
+     reads as a place to type on the cream page */
+  --field: color-mix(in srgb, var(--paper) 50%, #fff);
+
   /* the same red tint a little deeper, for tiles on the cream page, so
      they read as tiles at a glance */
   --ink-tile: color-mix(in srgb, var(--ink) 9%, var(--paper));

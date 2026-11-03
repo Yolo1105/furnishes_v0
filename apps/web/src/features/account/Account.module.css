@@ -60,41 +60,112 @@
   font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
 }
 
-/* the form, centred down the cream */
+/* the cream side: the way back at the top, the form in the middle, the
+   terms at the foot */
 .panel {
   display: grid;
-  align-items: center;
-  padding: clamp(40px, 6vw, 96px) clamp(24px, 5vw, 96px);
+  grid-template-rows: auto 1fr auto;
+  gap: 32px;
+  padding: clamp(20px, 3vw, 40px) clamp(24px, 5vw, 96px);
+}
+
+.back {
+  composes: caps underline-on-hover from global;
+  justify-self: end;
+  color: var(--ink-dark-pale);
 }
 
 .form {
   display: grid;
-  gap: 24px;
-  justify-items: start;
-  width: min(100%, 420px);
+  gap: 20px;
+  place-self: center center;
+  width: min(100%, 400px);
 }
 
-/* a field: its label in pale capitals over a square box, outlined as the
-   site's buttons are, the outline turning red while typing in it */
+.head {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* the title a step smaller than a section's, so the form leads the page */
+.title {
+  margin: 0;
+  color: var(--ink);
+  font: 400 var(--text-section) / 1.05 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.line {
+  margin: 0;
+  color: var(--ink-dark-pale);
+  font: var(--weight-title-rest) var(--text-lg) / 1.4 var(--font-wordmark);
+}
+
+/* a button the form's width, its words and any mark centred together */
+.wide {
+  gap: 12px;
+  width: 100%;
+  min-height: 52px;
+}
+
+.googleMark {
+  width: 18px;
+  height: 18px;
+}
+
+.note {
+  margin: 0;
+  color: var(--ink);
+  font: 400 var(--text-md) / 1.4 var(--font);
+}
+
+/* "or with email", set apart by space rather than a rule */
+.or {
+  composes: caps from global;
+  margin: 4px 0;
+  color: var(--ink-dark-pale);
+  text-align: center;
+}
+
+.fields {
+  display: grid;
+  gap: 20px;
+}
+
+/* a field: its label over a box on the lighter cream, outlined faintly,
+   the outline turning red while typing in it */
 .field {
   display: grid;
   gap: 8px;
-  justify-self: stretch;
+}
+
+/* the label and "Forgot it?" on one line, at the label's size */
+.fieldTop {
+  display: flex;
+  font: 400 var(--text-md) / 1.2 var(--font);
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .fieldLabel {
-  composes: caps from global;
-  color: var(--ink-dark-pale);
+  color: var(--ink-dark);
+  font: 500 var(--text-md) / 1.2 var(--font);
 }
 
 .field input {
-  min-height: var(--tap);
-  padding: 0 14px;
+  min-height: 52px;
+  padding: 0 16px;
   border: var(--line) solid var(--rule-strong);
   border-radius: 0;
-  background: none;
+  background: var(--field);
   color: var(--ink-dark);
   font: 400 var(--text-lg) / 1.2 var(--font);
+}
+
+.field input::placeholder {
+  color: var(--ink-dark-pale);
 }
 
 .field input:focus {
@@ -102,10 +173,39 @@
   outline: none;
 }
 
-.help {
+/* a link in a line: red, underlined only when pointed at */
+.link {
+  composes: underline-on-hover from global;
+  color: var(--ink);
+}
+
+/* a small line with a link in it: help under the form, and the way out on
+   the planner's placeholder */
+.help,
+.logOutLine {
   margin: 0;
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-md) / var(--leading-line) var(--font-wordmark);
+}
+
+.help {
+  text-align: center;
+}
+
+.agree {
+  margin: 0;
+  color: var(--ink-dark-pale);
+  font: var(--weight-title-rest) var(--text-sm) / 1.5 var(--font-wordmark);
+  text-align: center;
+}
+
+/* the button set as the questions' email link, which the page adds to it */
+.logOut {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
 }
 
 /* stacked, the room is a band over the form */

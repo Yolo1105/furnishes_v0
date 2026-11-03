@@ -12,12 +12,19 @@ export const LOG_IN = {
   label: "Log in",
   title: "Welcome back",
   line: "Log in to pick up where you left off.",
+  google: "Continue with Google",
+  googleSoon: "Google log-in opens with accounts. Use your email for now.",
+  or: "Or with email",
   email: "Email",
+  emailHint: "you@example.com",
   password: "Password",
+  forgot: { label: "Forgot it?", href: mailAbout("Forgot my password") },
   go: "Log in",
   trouble: "Trouble logging in?",
   help: { label: "Email us", href: mailAbout("Logging in") },
+  back: "Back to the site",
+  agree: ["By logging in you agree to our", "and", "."],
 };
 
-/** The placeholder shown once logged in, until the room planner opens. */
-export const LOG_OUT = "Log out";
+/** The way out, a line under the room planner's placeholder. */
+export const LOG_OUT = { line: "Done for now?", go: "Log out" };

@@ -26,3 +26,14 @@ export async function logOut() {
   (await cookies()).delete(SESSION);
   redirect(routes.home);
 }
+
+/**
+ * Google: not connected until real accounts, so it says so on the page
+ * and keeps where the visitor was going.
+ */
+export async function logInWithGoogle(form: FormData) {
+  const next = form.get("next");
+  const back = new URLSearchParams({ google: "soon" });
+  if (typeof next === "string") back.set("next", safeNext(next));
+  redirect(`${routes.logIn}?${back}`);
+}
