@@ -79,6 +79,14 @@
   /* the dot itself: pure white, the brightest thing on any room */
   --photo-dot: #fff;
 
+  /* a warm black across a whole photo, deepest on the left where the
+     words sit, for the closing band, as the owner's earlier studio page */
+  --photo-shade-side: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--ink-dark) 18%, #000 82%) 0%,
+    color-mix(in srgb, var(--ink-dark) 18%, #000 50%) 100%
+  );
+
   /* a light black over a whole photo, for words set anywhere on it */
   --photo-dim: color-mix(in srgb, #000 30%, transparent);
 

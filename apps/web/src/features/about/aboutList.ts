@@ -3,9 +3,12 @@ import shelfWall from "@/assets/rooms/shelf-wall.jpg";
 import sewing from "@/assets/details/sewing.jpg";
 import yellowChair from "@/assets/details/yellow-chair.jpg";
 import redSofa from "@/assets/details/red-sofa.jpg";
+import aFrame from "@/assets/banner/a-frame.jpg";
 import { ARRIVALS, FURNITURE_WEEKS } from "@/features/catalog/catalog";
 import { sgd } from "@/lib/money";
 import { FACTS } from "@/lib/site";
+import type { ClosingBand } from "@/features/collection/Closing";
+import { routes } from "@/lib/routes";
 
 /**
  * The about page's words, after the rebuild's about page, cut down. Every
@@ -189,4 +192,16 @@ export const RECOGNITION = {
     name: `Award or article ${n}, to come`,
     project: "The piece or project it was for",
   })),
+};
+
+/** The closing band: the next step after reading who we are. */
+export const ABOUT_CLOSING: ClosingBand = {
+  label: "Your room next",
+  title: "Start with the room you have",
+  line: "Draw it at real size in the room planner, place our pieces, and see what fits before you order.",
+  photo: aFrame,
+  calls: [
+    { label: "Design your room", href: routes.designYourRoom },
+    { label: "See the furniture", href: routes.collection },
+  ],
 };

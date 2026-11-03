@@ -1,4 +1,6 @@
+import showroom from "@/assets/banner/showroom.jpg";
 import { EMAIL, HOURS, mailAbout, MAILTO, PLACE } from "@/lib/contact";
+import type { ClosingBand } from "@/features/collection/Closing";
 import { routes } from "@/lib/routes";
 import { sgd } from "@/lib/money";
 import { FACTS } from "@/lib/site";
@@ -119,3 +121,15 @@ export const CONTACT_QUESTIONS = [
     a: "Not yet. We start in Singapore and may deliver further once that works well.",
   },
 ] as const;
+
+/** The closing band: what to do before writing, if seeing comes first. */
+export const CONTACT_CLOSING: ClosingBand = {
+  label: "Prefer to see it first",
+  title: "We bring the room to you",
+  line: `Ask for samples of the birch, walnut and red, or for a visit of ${FACTS.visitMinutes} minutes in your room, with ${sgd(FACTS.visitFee)} taken off your order if you buy.`,
+  photo: showroom,
+  calls: [
+    { label: "Book a home visit", href: mailAbout("Home visit") },
+    { label: "See the furniture", href: routes.collection },
+  ],
+};
