@@ -77,22 +77,24 @@
 
 .form {
   display: grid;
-  gap: 20px;
+  gap: 16px;
   place-self: center center;
-  width: min(100%, 400px);
+  width: min(100%, 360px);
 }
 
 .head {
   display: grid;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 6px;
+  margin-bottom: 8px;
 }
 
-/* the title a step smaller than a section's, so the form leads the page */
+/* one small scale for the whole form, in the one face: the title at the
+   card names' size, and everything else, the fields and buttons included,
+   at the same reading size, so nothing shouts over the rest */
 .title {
   margin: 0;
   color: var(--ink);
-  font: 400 var(--text-section) / 1.05 var(--font);
+  font: 400 var(--text-head) / 1.1 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
 }
@@ -100,19 +102,20 @@
 .line {
   margin: 0;
   color: var(--ink-dark-pale);
-  font: var(--weight-title-rest) var(--text-lg) / 1.4 var(--font-wordmark);
+  font: 400 var(--text-md) / 1.4 var(--font);
 }
 
 /* a button the form's width, its words and any mark centred together */
 .wide {
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  min-height: 52px;
+  min-height: 48px;
+  font-size: var(--text-md);
 }
 
 .googleMark {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 
 .note {
@@ -131,14 +134,14 @@
 
 .fields {
   display: grid;
-  gap: 20px;
+  gap: 16px;
 }
 
 /* a field: its label over a box on the lighter cream, outlined faintly,
    the outline turning red while typing in it */
 .field {
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 /* the label and "Forgot it?" on one line, at the label's size */
@@ -155,13 +158,13 @@
 }
 
 .field input {
-  min-height: 52px;
-  padding: 0 16px;
+  min-height: 48px;
+  padding: 0 14px;
   border: var(--line) solid var(--rule-strong);
   border-radius: 0;
   background: var(--field);
   color: var(--ink-dark);
-  font: 400 var(--text-lg) / 1.2 var(--font);
+  font: 400 var(--text-md) / 1.2 var(--font);
 }
 
 .field input::placeholder {
@@ -185,7 +188,7 @@
 .logOutLine {
   margin: 0;
   color: var(--ink-dark);
-  font: var(--weight-title-rest) var(--text-md) / var(--leading-line) var(--font-wordmark);
+  font: 400 var(--text-md) / 1.5 var(--font);
 }
 
 .help {
@@ -195,7 +198,7 @@
 .agree {
   margin: 0;
   color: var(--ink-dark-pale);
-  font: var(--weight-title-rest) var(--text-sm) / 1.5 var(--font-wordmark);
+  font: 400 var(--text-sm) / 1.5 var(--font);
   text-align: center;
 }
 
