@@ -6,7 +6,9 @@ import styles from "./Collection.module.css";
  * A page's opening, for the pages without a banner: the label and the title
  * large across the page, two rooms wide under it, then a line on the left
  * and on the right the paragraphs, or whatever the page puts there. A page
- * with no photos leaves the row out.
+ * with no photos leaves the row out. Set further down a page, as About's
+ * on the home page, it is a section: an h2 under the page's own h1, its
+ * own ids, and photos that load as they come into view.
  */
 export function Opening({
   label,
@@ -15,6 +17,8 @@ export function Opening({
   rest,
   lines = [],
   children,
+  id = "opening",
+  section = false,
 }: {
   label: string;
   title: string;
@@ -22,18 +26,21 @@ export function Opening({
   rest: string;
   lines?: readonly string[];
   children?: ReactNode;
+  id?: string;
+  section?: boolean;
 }) {
+  const Title = section ? "h2" : "h1";
   return (
-    <section className={styles.opening} aria-labelledby="opening-title">
-      <h1 id="opening-title" className={styles.openingTitle}>
+    <section id={section ? id : undefined} className={styles.opening} aria-labelledby={`${id}-title`}>
+      <Title id={`${id}-title`} className={styles.openingTitle}>
         <span className={styles.headingLabel}>{label}</span>
         {title}
-      </h1>
+      </Title>
       {photos.length > 0 && (
         <div className={styles.openingPhotos}>
           {photos.map((p) => (
             <div key={p.alt} className={styles.openingPhoto}>
-              <Image src={p.src} alt={p.alt} fill sizes="(max-width: 1023px) 50vw, 48vw" priority />
+              <Image src={p.src} alt={p.alt} fill sizes="(max-width: 1023px) 50vw, 48vw" priority={!section} />
             </div>
           ))}
         </div>

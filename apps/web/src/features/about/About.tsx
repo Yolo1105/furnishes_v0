@@ -6,9 +6,23 @@ import collection from "@/features/collection/Collection.module.css";
 import { FIGURES, MAKING, MANIFESTO, RECOGNITION, STORY, TEAM, WHO, WORKSHOP } from "./aboutList";
 import styles from "./About.module.css";
 
-/** The page's opening, in the shape Contact shares: the title, two rooms, then the line and the paragraphs. */
+/**
+ * About's opening, in the shape Contact shares: the title, two rooms, then
+ * the line and the paragraphs. A section of the home page, at #about, where
+ * the bar's About link leads.
+ */
 export function WhoWeAre() {
-  return <Opening label={WHO.label} title={WHO.title} photos={WHO.photos} rest={WHO.rest} lines={WHO.lines} />;
+  return (
+    <Opening
+      id="about"
+      section
+      label={WHO.label}
+      title={WHO.title}
+      photos={WHO.photos}
+      rest={WHO.rest}
+      lines={WHO.lines}
+    />
+  );
 }
 
 /**

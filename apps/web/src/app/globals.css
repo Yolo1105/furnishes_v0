@@ -217,7 +217,10 @@ body {
   overflow-x: clip;
 }
 
+/* a link to a part of a page, as the bar's About to the home page's,
+   stops with that part's title clear of the bar */
 html {
+  scroll-padding-top: var(--nav-h);
   background: var(--paper);
   color: var(--ink);
 }

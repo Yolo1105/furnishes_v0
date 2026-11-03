@@ -9,7 +9,8 @@ export const routes = {
   modular: "/collection/modular",
   inspiration: "/inspiration",
   quiz: "/quiz",
-  about: "/about",
+  /* About is a part of the home page, not a page of its own */
+  about: "/#about",
   contact: "/contact",
   buyingGuide: "/buying-guide",
   offices: "/offices",
