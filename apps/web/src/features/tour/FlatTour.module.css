@@ -220,7 +220,7 @@
   opacity: 1;
 }
 
-/* its finishes in turn: white matte, birch, a red one */
+/* its finishes in turn, the catalogue's three: birch, walnut, red */
 .flat:is([data-step="4"], [data-step="7"]) .piece rect {
   animation: finishes 3s steps(1) infinite;
 }
@@ -230,11 +230,18 @@
 }
 
 @keyframes finishes {
-  33% {
+  0% {
     fill: var(--birch);
   }
 
-  66% {
+  33% {
+    fill: var(--walnut);
+  }
+
+  /* held to the end on purpose: with no closing frame, Chrome blends the
+     red with the drawing's own fill and paints it black */
+  66%,
+  100% {
     fill: var(--finish-red);
   }
 }

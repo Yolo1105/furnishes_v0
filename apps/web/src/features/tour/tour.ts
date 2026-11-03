@@ -1,4 +1,10 @@
+import { FINISHES, finishBySlug } from "@/features/catalog/catalog";
 import { FACTS } from "@/lib/site";
+
+/** The catalogue's finishes in words, "birch, walnut or red", so the tour names what is sold. */
+const FINISH_NAMES = new Intl.ListFormat("en-GB", { type: "disjunction" }).format(
+  FINISHES.map((f) => f.name.toLowerCase()),
+);
 
 /**
  * The flat's tour, a step at a time: each step's headline (its lead, then
@@ -31,7 +37,7 @@ export const TOUR: readonly Step[] = [
     lead: "Then choose",
     soft: ["its finish."],
     name: "Materials",
-    line: "We start with white matte faces and birch edges, with more colours and textures to follow once real samples are confirmed. See how a finish sits beside the floor, the walls and everything else that stays.",
+    line: `Each piece comes in ${FINISH_NAMES}, with more to follow once real samples are confirmed. See how a finish sits beside the floor, the walls and everything else that stays.`,
   },
   {
     lead: "Try another layout.",
@@ -83,7 +89,7 @@ export const BOOKCASE_SIZE = `${BOOKCASE.w / 10} × ${BOOKCASE.d / 10} cm`;
 /** The order's card: what was ordered, and the stages it goes through. */
 export const ORDER = {
   name: `Bookcase, ${BOOKCASE_SIZE}`,
-  finish: "White matte faces, birch edges",
+  finish: finishBySlug("birch")!.name,
   stages: ["Ordered", "Made", "Shipped to Singapore", "At your door"],
 } as const;
 
