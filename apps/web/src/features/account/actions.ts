@@ -3,7 +3,16 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { routes } from "@/lib/routes";
-import { safeNext, SESSION, SESSION_AGE } from "./session";
+import { safeNext, SESSION, SESSION_AGE, WELCOMED } from "./session";
+
+/** Both of the stand-in's cookies: unread by the page's scripts, sent only to this site, kept as long as a log-in. */
+const COOKIE = {
+  httpOnly: true,
+  sameSite: "lax",
+  secure: process.env.NODE_ENV === "production",
+  path: "/",
+  maxAge: SESSION_AGE,
+} as const;
 
 /**
  * Logs in: for now any email will do, and the password is checked for
@@ -13,6 +22,15 @@ export async function logIn(form: FormData) {
   const email = form.get("email");
   if (typeof email !== "string" || !email.includes("@")) redirect(routes.logIn);
   await startSession();
+  const next = safeNext(form.get("next"));
+  // a first log-in here asks the welcome's questions, then goes on where it was going
+  if (!(await cookies()).has(WELCOMED)) redirect(`${routes.welcome}?${new URLSearchParams({ next })}`);
+  redirect(next);
+}
+
+/** The welcome answered or skipped: not asked again in this browser, and on to where the visitor was going. */
+export async function finishWelcome(form: FormData) {
+  (await cookies()).set(WELCOMED, "1", COOKIE);
   redirect(safeNext(form.get("next")));
 }
 
@@ -27,13 +45,7 @@ export async function tryDemo() {
 }
 
 async function startSession() {
-  (await cookies()).set(SESSION, "1", {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: SESSION_AGE,
-  });
+  (await cookies()).set(SESSION, "1", COOKIE);
 }
 
 export async function logOut() {

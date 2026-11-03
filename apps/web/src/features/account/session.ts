@@ -8,6 +8,12 @@ import { routes } from "@/lib/routes";
  */
 export const SESSION = "furnishes-session";
 
+/**
+ * Set once the welcome's questions are answered or skipped, so a first
+ * log-in in this browser asks them and later ones don't.
+ */
+export const WELCOMED = "furnishes-welcomed";
+
 /** How long a log-in lasts, in seconds: 30 days. */
 export const SESSION_AGE = 60 * 60 * 24 * 30;
 

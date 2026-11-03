@@ -4,8 +4,9 @@ import account from "@/features/account/Account.module.css";
 import collection from "@/features/collection/Collection.module.css";
 import { Opening } from "@/features/collection/Opening";
 import { Index, Section, Steps } from "@/features/collection/Sections";
+import { Assistant } from "./Assistant";
 import { Brief } from "./Brief";
-import { EVA, PLANNER, PLANNING, WAYS } from "./planningList";
+import { PLANNER, PLANNING, WAYS } from "./planningList";
 
 /**
  * Planning help, for a visitor not logged in: what Eva and the room planner
@@ -33,9 +34,7 @@ export function Planning() {
         </form>
       </Opening>
 
-      <Section id={EVA.id} label={EVA.label} title={EVA.title} rest={EVA.rest}>
-        <Index entries={EVA.tiles} />
-      </Section>
+      <Assistant more={false} />
 
       <Steps {...PLANNER} />
 

@@ -6,13 +6,14 @@ import { Questions } from "@/features/collection/Questions";
 import { Visit } from "@/features/collection/Visit";
 import styles from "@/features/collection/Collection.module.css";
 import { Partners } from "@/features/partners/Partners";
+import { Assistant } from "@/features/planning/Assistant";
 import { RoomProvider } from "@/features/rooms/RoomContext";
 import { FlatTour } from "@/features/tour/FlatTour";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 /**
  * The landing: the banner of rooms, the partners, the flat toured a step at
- * a time, then About in full (who we are, what we believe and four figures,
+ * a time, Eva the assistant, then About in full (who we are, what we believe and four figures,
  * our story, the factory, the five steps to your home, the team, questions
  * and the home visit) and the closing band. The story's start and the
  * team's other names are placeholders until the owner sends them;
@@ -27,6 +28,7 @@ export default function Home() {
           <Banner />
           <Partners />
           <FlatTour />
+          <Assistant />
           <WhoWeAre />
           <Manifesto />
           <Story />

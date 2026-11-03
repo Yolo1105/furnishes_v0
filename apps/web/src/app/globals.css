@@ -349,6 +349,19 @@ h3 {
   color: var(--ink-dark);
 }
 
+/* the filled one, for the one call a section most wants pressed: the warm
+   red ground, darkening to the red on hover */
+.button-fill {
+  border-color: var(--ink-warm);
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+.button-fill:hover {
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
 .button:disabled {
   border-color: var(--ink-pale);
   background: none;

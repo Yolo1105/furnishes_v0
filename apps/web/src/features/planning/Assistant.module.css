@@ -1,0 +1,147 @@
+/* Eva's band: the title and its two ways in on the left, what Eva does on
+   the right at the title's height, and the three cards across under both */
+.assistant {
+  display: grid;
+  gap: clamp(32px, 4vw, 56px);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px clamp(24px, 4vw, 72px);
+  align-items: end;
+}
+
+.top > h2 {
+  max-width: 14ch;
+}
+
+/* the line in the subtitle face, beside the title's foot */
+.line {
+  grid-row: 1;
+  grid-column: 2;
+  max-width: 44ch;
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-rest) / 1.4 var(--font-wordmark);
+}
+
+.calls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.start {
+  composes: button button-fill from global;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.5vw, 20px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* a card in the thin frame the site's boxes share: the drawing on the
+   faint red ground over its top, the words under it on the cream */
+.card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border: var(--line) solid var(--rule-strong);
+}
+
+.drawing {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--ink-wash);
+}
+
+.words {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: clamp(18px, 1.8vw, 24px);
+}
+
+.name {
+  margin: 0;
+  color: var(--ink-dark);
+  font: 500 var(--text-lg) / 1.3 var(--font);
+}
+
+.cardLine {
+  margin: 0;
+  color: var(--ink-dark-pale);
+  font: 400 var(--text-md) / 1.5 var(--font);
+}
+
+/* ---------- the drawings, in the planner's own lines ---------- */
+
+.drawing path,
+.drawing circle {
+  stroke-width: 1.25px;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* a piece: cream faces in the brown line */
+.face path {
+  fill: var(--paper);
+  stroke: var(--ink-dark);
+}
+
+/* a piece Eva points to: the red tint in the red line */
+.faceOn path {
+  fill: var(--ink-tile);
+  stroke: var(--ink);
+}
+
+/* a piece that doesn't exist: dashes only, faint */
+.ghost path {
+  fill: none;
+  stroke: var(--ink-dark-pale);
+  stroke-dasharray: 4 4;
+}
+
+.wall {
+  fill: none;
+  stroke: var(--ink-dark);
+}
+
+/* the floor's edge and Eva's lines of sight, dotted and faint */
+.guide {
+  fill: none;
+  stroke: var(--rule-strong);
+  stroke-dasharray: 2 4;
+}
+
+.measure {
+  fill: none;
+  stroke: var(--ink-dark-pale);
+}
+
+.dot {
+  fill: var(--paper);
+  stroke: var(--ink);
+}
+
+@media (width <= 1023px) {
+  .top {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .line {
+    grid-row: auto;
+    grid-column: auto;
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

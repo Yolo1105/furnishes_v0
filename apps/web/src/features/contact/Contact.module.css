@@ -366,15 +366,7 @@
 /* sending, the form's one filled button, so it reads as the step that
    ends it */
 .sendGo {
-  composes: button from global;
-  border-color: var(--ink-warm);
-  background: var(--ink-warm);
-  color: var(--paper);
-}
-
-.sendGo:hover {
-  border-color: var(--ink);
-  background: var(--ink);
+  composes: button button-fill from global;
 }
 
 @media (width <= 1023px) {

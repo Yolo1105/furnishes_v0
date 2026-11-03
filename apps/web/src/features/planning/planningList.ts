@@ -30,26 +30,37 @@ export const PLANNING = {
   demo: { line: "No account yet?", go: "Try it as a demo" },
 };
 
+/**
+ * Eva's band, after the owner's reference: the title and the two ways in on
+ * the left, what she does on the right, then three cards, each drawn in
+ * the planner's own lines. Home shows it with a way to this page; this page
+ * leaves that way out.
+ */
 export const EVA = {
   id: "eva-title",
   label: "Eva, the assistant",
-  title: "Asks about the room first",
-  rest: "Then suggests, and says why",
+  title: "An assistant that knows your home",
+  line: "Eva asks about your home first, checks your room as you draw it and suggests what fits, so you aren't left to work it out alone.",
+  start: { label: "Log in to start", href: DESIGN_NEXT },
+  more: { label: "How Eva works", href: routes.planning },
   tiles: [
     {
+      drawing: "room",
       name: "The room, then you",
       line: "Eva asks about the room and how you live in it before suggesting anything.",
     },
     {
+      drawing: "three",
       name: "Three pieces at most",
       line: "Each suggestion comes with why it fits your room, so you can disagree with a reason.",
     },
     {
+      drawing: "ours",
       name: "Only what we sell",
       line: "Eva never makes up a piece or a price. If nothing fits, she says so.",
     },
   ],
-};
+} as const;
 
 export const PLANNER = {
   id: "planner-title",

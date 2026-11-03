@@ -18,6 +18,7 @@ export const routes = {
   help: "/help",
   designYourRoom: "/design",
   logIn: "/log-in",
+  welcome: "/welcome",
   cart: "/cart",
   checkout: "/checkout",
   products: "/products",
