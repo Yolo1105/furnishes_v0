@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import collection from "@/features/collection/Collection.module.css";
 import { routes } from "@/lib/routes";
 import { logIn, logInWithGoogle } from "./actions";
 import { LOG_IN } from "./accountList";
@@ -57,13 +56,12 @@ export function LogIn({ next, googleSoon }: { next?: string; googleSoon?: boolea
         </Link>
         <div className={styles.form}>
           <div className={styles.head}>
-            <p className={collection.headingLabel}>{LOG_IN.label}</p>
             <h1 className={styles.title}>{LOG_IN.title}</h1>
             <p className={styles.line}>{LOG_IN.line}</p>
           </div>
           <form action={logInWithGoogle}>
             {keepNext}
-            <button className={`${collection.outline} ${styles.wide}`} type="submit">
+            <button className={styles.google} type="submit">
               <GoogleMark />
               {LOG_IN.google}
             </button>
@@ -91,7 +89,7 @@ export function LogIn({ next, googleSoon }: { next?: string; googleSoon?: boolea
               </span>
               <input id="log-in-password" type="password" name="password" autoComplete="current-password" required />
             </div>
-            <button className={`${collection.outline} ${styles.wide}`} type="submit">
+            <button className={styles.go} type="submit">
               {LOG_IN.go}
             </button>
           </form>

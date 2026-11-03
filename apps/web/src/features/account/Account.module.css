@@ -84,8 +84,8 @@
 
 .head {
   display: grid;
-  gap: 6px;
-  margin-bottom: 8px;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
 /* one small scale for the whole form, in the one face: the title at the
@@ -105,12 +105,35 @@
   font: 400 var(--text-md) / 1.4 var(--font);
 }
 
-/* a button the form's width, its words and any mark centred together */
-.wide {
+/* the form's two buttons, the site's button at the form's width and reading
+   size. Google is a box like the fields, in the brown, so the one red thing
+   to press is Log in, filled as the site's button is when pointed at. */
+.google,
+.go {
+  composes: button from global;
   gap: 10px;
   width: 100%;
   min-height: 48px;
   font-size: var(--text-md);
+}
+
+.google {
+  border-color: var(--rule-strong);
+  background: var(--field);
+  color: var(--ink-dark);
+}
+
+.google:hover {
+  border-color: var(--ink-dark);
+  background: var(--field);
+  color: var(--ink-dark);
+}
+
+.go {
+  margin-top: 8px;
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .googleMark {
@@ -124,11 +147,11 @@
   font: 400 var(--text-md) / 1.4 var(--font);
 }
 
-/* "or with email", set apart by space rather than a rule */
+/* "or", set apart by space rather than a rule */
 .or {
-  composes: caps from global;
-  margin: 4px 0;
+  margin: 0;
   color: var(--ink-dark-pale);
+  font: 400 var(--text-md) / 1 var(--font);
   text-align: center;
 }
 
