@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { EMAIL, HOURS, MAILTO, PLACE } from "@/lib/contact";
-import { BROWSE, LEGAL, routes } from "@/lib/routes";
+import { FOOT_PAGES, LEGAL, routes } from "@/lib/routes";
 import { SITE } from "@/lib/site";
 import styles from "./SiteFooter.module.css";
 
@@ -56,7 +56,7 @@ export function SiteFooter() {
             Pages
           </h2>
           <ul>
-            {BROWSE.map((l) => (
+            {FOOT_PAGES.map((l) => (
               <li key={l.href}>
                 <Link href={l.href}>{l.label}</Link>
               </li>

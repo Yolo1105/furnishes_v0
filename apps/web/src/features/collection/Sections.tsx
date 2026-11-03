@@ -54,20 +54,22 @@ export function LinePieces({ line, aside }: { line: LineSlug; aside?: Aside }) {
 
 type Step = { name: string; line: string };
 
-/** Numbered steps on one tile. */
+/** Numbered steps on one tile; `id` names its title, where a page has more than one. */
 export function Steps({
+  id = "steps-title",
   label,
   title,
   rest,
   steps,
 }: {
+  id?: string;
   label: string;
   title: string;
   rest: string;
   steps: readonly Step[];
 }) {
   return (
-    <Section id="steps-title" label={label} title={title} rest={rest}>
+    <Section id={id} label={label} title={title} rest={rest}>
       <ol className={styles.steps}>
         {steps.map((s, i) => (
           <li key={s.name}>

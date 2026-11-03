@@ -20,6 +20,7 @@ import {
   type Piece,
   withCustom,
 } from "@/features/catalog/catalog";
+import { mailAbout } from "@/lib/contact";
 import { sgd } from "@/lib/money";
 import { routes } from "@/lib/routes";
 import catalog from "@/features/catalog/Catalog.module.css";
@@ -252,9 +253,9 @@ export function PieceView({ piece }: { piece: Piece }) {
               </label>
             ))}
           </div>
-          <Link className={styles.link} href={routes.contact}>
-            See the finishes first? Order samples
-          </Link>
+          <a className={styles.link} href={mailAbout(`Finish samples for the ${piece.name.toLowerCase()}`)}>
+            See the finishes first? Ask for samples
+          </a>
         </fieldset>
 
         <p className={styles.lead}>
