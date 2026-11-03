@@ -1,4 +1,4 @@
-import lounge from "@/assets/banner/lounge.jpg";
+import home from "@/assets/rooms/home.jpg";
 import { mailAbout } from "@/lib/contact";
 
 /**
@@ -6,9 +6,9 @@ import { mailAbout } from "@/lib/contact";
  * left with a line over it, the form on the right.
  */
 export const LOG_IN = {
-  photo: lounge,
-  over: "Your rooms, kept for you",
-  overLine: "Log in to keep your rooms, your orders and the assistant in one place.",
+  photo: home,
+  over: "Your rooms, in one place",
+  overLine: "Your saved rooms, your orders and the assistant.",
   title: "Welcome back",
   line: "Pick up where you left off.",
   google: "Continue with Google",

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { sgd } from "@/lib/money";
 import { pieceOf } from "@/lib/routes";
@@ -11,17 +12,20 @@ import styles from "./Catalog.module.css";
  * card opens it. `kind` puts its kind in small capitals over the name;
  * `brief` leaves only the name and price, for a featured grid; `stack` sets
  * the price under the name on a square photo, as the ready-made row.
+ * `children` follow the card, outside its link, as the quiz's reasons.
  */
 export function PieceCard({
   piece,
   kind,
   brief,
   stack,
+  children,
 }: {
   piece: Piece;
   kind?: boolean;
   brief?: boolean;
   stack?: boolean;
+  children?: ReactNode;
 }) {
   const sizes = piece.sizes.length;
   const modular = piece.line === "modular";
@@ -62,6 +66,7 @@ export function PieceCard({
           </>
         )}
       </Link>
+      {children}
     </li>
   );
 }

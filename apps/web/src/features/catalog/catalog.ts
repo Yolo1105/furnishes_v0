@@ -41,7 +41,7 @@ export const LINES: readonly Line[] = [
 /** A lead time in weeks, shortest to longest; placeholders. */
 export type Lead = readonly [number, number];
 
-const inWeeks = ([from, to]: Lead) => `${from}–${to} weeks`;
+export const inWeeks = ([from, to]: Lead) => `${from}–${to} weeks`;
 
 /** How a modular piece arrives; both can be customized. */
 export type Arrival = "built" | "parts";
@@ -287,3 +287,69 @@ export const dims = (s: Size) => `${s.w} × ${s.d} × ${s.h} mm`;
 
 /** A size's price as it arrives. */
 export const priceOf = (s: Size, arrival: Arrival | null) => (arrival === "built" && s.built ? s.built : s.price);
+
+/**
+ * Add-ons a modular piece takes, after the rebuild's kits, keeping the ones
+ * it offers first. Prices (SGD) are drafts inside the rebuild's ranges
+ * ($12 to $35 small, $45 to $160 large), placeholders until confirmed.
+ */
+export type AddOn = { id: string; name: string; price: number };
+
+const DRAWER: AddOn = { id: "drawer", name: "Drawer", price: 60 };
+const FABRIC: AddOn = { id: "fabric", name: "Fabric face panels", price: 35 };
+
+export const ADD_ONS: Record<string, readonly AddOn[]> = {
+  "entry-pack": [{ id: "door", name: "Door on the lower tier", price: 45 }, DRAWER, FABRIC],
+  "desk-side-pack": [
+    { id: "rail", name: "Aluminium rail", price: 35 },
+    { id: "monitor-arm", name: "Monitor arm", price: 120 },
+    DRAWER,
+    FABRIC,
+  ],
+  "bedside-block": [{ id: "casters", name: "Casters", price: 45 }, DRAWER],
+  "kitchen-cart": [DRAWER, { id: "hooks", name: "Hooks, a set of four", price: 12 }],
+  "low-cabinet": [{ id: "doors", name: "Doors on all three bays", price: 135 }, DRAWER],
+  "coat-stand": [{ id: "hooks", name: "Hooks, a set of four", price: 12 }],
+  "room-divider": [{ id: "doors", name: "Doors on one side", price: 90 }, DRAWER],
+  "sofa-back-divider": [{ id: "doors", name: "Doors on one side", price: 90 }, DRAWER],
+};
+
+export const addOnsOf = (slug: string) => ADD_ONS[slug] ?? [];
+
+/**
+ * A modular piece made to your space: width and height in mm, between the
+ * least and the most the panels allow, at the piece's own depth. It costs
+ * its size's price for the area, plus `markup`, and takes `extra` longer;
+ * the rebuild's drafts, so an estimate until we confirm it by email.
+ */
+export const CUSTOM = {
+  least: { w: 400, h: 400 },
+  most: { w: 1800, h: 1600 },
+  markup: 0.15,
+  extra: [2, 3] as Lead,
+} as const;
+
+/** A size you asked for, in mm. */
+export type Custom = { w: number; h: number };
+
+/** Rounds a price to the nearest $10. */
+const tens = (n: number) => Math.round(n / 10) * 10;
+
+/** What one of a choice costs: its size (or yours), how it arrives, and its add-ons. */
+export function priceOfChoice(
+  piece: Piece,
+  size: Size,
+  arrival: Arrival | null,
+  custom: Custom | null,
+  addOns: readonly string[],
+) {
+  const base = priceOf(size, arrival);
+  const made = custom ? tens(((base * custom.w * custom.h) / (size.w * size.h)) * (1 + CUSTOM.markup)) : base;
+  return made + addOnsOf(piece.slug).reduce((sum, a) => sum + (addOns.includes(a.id) ? a.price : 0), 0);
+}
+
+/** A size you asked for, in words, in cm, at the piece's depth. */
+export const customDims = (c: Custom, d: number) => `${c.w / 10} × ${d / 10} × ${c.h / 10} cm`;
+
+/** A lead time with the weeks a size of your own adds. */
+export const withCustom = ([from, to]: Lead): Lead => [from + CUSTOM.extra[0], to + CUSTOM.extra[1]];

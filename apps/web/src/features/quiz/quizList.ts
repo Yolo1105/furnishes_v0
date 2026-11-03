@@ -146,3 +146,105 @@ export const PROBLEMS = [
     ],
   },
 ] as const;
+
+/**
+ * Four short questions, after the rebuild's quiz: where, what it should do,
+ * how wide the spot is and what one piece may cost. Any can be skipped; the
+ * pieces on the right follow every answer, and `short` names the
+ * answer in the summary. `pieces` are the catalogue slugs
+ * that do the job, `fits` the reason each gives. Widths are in mm and
+ * budgets in SGD, read against a piece's narrowest size and lowest price.
+ */
+export const FINDER_HEAD = {
+  label: "Four short questions",
+  title: "Not sure what you need?",
+  line: "Answer what you can and skip the rest. The pieces change with each answer.",
+  found: ["Nothing fits all of that yet", "One piece fits", "Two pieces fit", "Three pieces fit"],
+  none: "Change an answer, or we come to your room and suggest what fits.",
+  visit: { label: "Book a home visit", href: routes.contact },
+  back: "Back",
+  skip: "Skip",
+  again: "Start again",
+  skipped: "Any",
+  of: "of",
+};
+
+export const FINDER = [
+  {
+    id: "room",
+    short: "Room",
+    title: "Which room is it for?",
+    options: [
+      { id: "entryway", name: "Entryway", room: "Entryway" },
+      { id: "bedroom", name: "Bedroom", room: "Bedroom" },
+      { id: "living-room", name: "Living room", room: "Living room" },
+      { id: "study", name: "Study", room: "Study" },
+      { id: "office", name: "Office", room: "Office" },
+      { id: "kitchen", name: "Kitchen", room: "Kitchen" },
+    ],
+  },
+  {
+    id: "want",
+    short: "To do",
+    title: "What should it do?",
+    options: [
+      {
+        id: "hang",
+        name: "Hold coats, bags and keys",
+        pieces: ["coat-stand", "entry-pack"],
+        fits: "It gives coats, bags and keys a place by the door.",
+      },
+      {
+        id: "store",
+        name: "Store more along a wall",
+        pieces: ["low-cabinet", "bookcase", "sofa-back-divider", "room-divider"],
+        fits: "It stores along the wall instead of across the floor.",
+      },
+      {
+        id: "split",
+        name: "Split one room in two",
+        pieces: ["room-divider", "sofa-back-divider"],
+        fits: "It makes one room two, and stores on both sides.",
+      },
+      {
+        id: "reach",
+        name: "Keep things within reach",
+        pieces: ["bedside-block", "desk-side-pack", "kitchen-cart"],
+        fits: "It keeps what you use at hand's height.",
+      },
+      {
+        id: "work",
+        name: "Make room to work",
+        pieces: ["office-desk", "executive-desk", "desk-side-pack", "office-chair"],
+        fits: "It's made for a day at the desk.",
+      },
+      {
+        id: "sit",
+        name: "Add a seat or a table",
+        pieces: ["sofa", "dining-table", "office-chair"],
+        fits: "It adds a seat or a table where one is missing.",
+      },
+    ],
+  },
+  {
+    id: "width",
+    short: "Width",
+    title: "How wide is the spot?",
+    options: [
+      { id: "narrow", name: "Under 80 cm", up: 800 },
+      { id: "medium", name: "80 cm to 1.5 m", up: 1500 },
+      { id: "wide", name: "Wider than 1.5 m", up: Infinity },
+    ],
+  },
+  {
+    id: "budget",
+    short: "Budget",
+    title: "What would you spend on one piece?",
+    options: [
+      { id: "300", name: "Up to $300", up: 300 },
+      { id: "600", name: "Up to $600", up: 600 },
+      { id: "1000", name: "Up to $1,000", up: 1000 },
+      { id: "more", name: "More than that", up: Infinity },
+    ],
+  },
+] as const;

@@ -8,7 +8,8 @@
 }
 
 /* the room, its wordmark and line stacked over it on purpose, over a black
-   shade across its foot so the light words read on any room */
+   shade across its foot so the light words read on any room. The wordmark
+   and the words share one inset, the gutter, from every edge they touch. */
 .room {
   position: relative;
   overflow: hidden;
@@ -29,7 +30,7 @@
 .wordmark {
   composes: wordmark from global;
   position: absolute;
-  top: clamp(20px, 3vw, 40px);
+  top: var(--gutter);
   left: var(--gutter);
   z-index: 1;
   color: var(--photo-text);
@@ -38,26 +39,30 @@
 .over {
   position: absolute;
   right: var(--gutter);
-  bottom: clamp(24px, 4vw, 64px);
+  bottom: var(--gutter);
   left: var(--gutter);
   z-index: 1;
   display: grid;
-  gap: 12px;
-  max-width: 34ch;
+  gap: 10px;
+  max-width: 36ch;
 }
 
+/* the words on the room at the form title's size, never larger, so the
+   page's heading stays the form's; in the site's one face, wrapped evenly */
 .overTitle {
   margin: 0;
   color: var(--photo-text);
-  font: 400 var(--text-over) / 1.08 var(--font);
+  font: 400 var(--text-head) / 1.1 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
+  text-wrap: balance;
 }
 
 .overLine {
   margin: 0;
   color: var(--photo-text-dim);
-  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+  font: 400 var(--text-md) / 1.5 var(--font);
+  text-wrap: pretty;
 }
 
 /* the cream side: the way back at the top, the form in the middle, the
@@ -66,7 +71,7 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   gap: 32px;
-  padding: clamp(20px, 3vw, 40px) clamp(24px, 5vw, 96px);
+  padding: var(--gutter) clamp(24px, 5vw, 96px);
 }
 
 .back {
@@ -105,9 +110,9 @@
   font: 400 var(--text-md) / 1.4 var(--font);
 }
 
-/* the form's two buttons, the site's button at the form's width and reading
-   size. Google is a box like the fields, in the brown, so the one red thing
-   to press is Log in, filled as the site's button is when pointed at. */
+/* the form's two buttons, the site's outline at the form's width and
+   reading size. Google is outlined in the brown, as the fields are, so the
+   one red outline is Log in. */
 .google,
 .go {
   composes: button from global;
@@ -119,21 +124,17 @@
 
 .google {
   border-color: var(--rule-strong);
-  background: var(--field);
   color: var(--ink-dark);
 }
 
 .google:hover {
   border-color: var(--ink-dark);
-  background: var(--field);
+  background: none;
   color: var(--ink-dark);
 }
 
 .go {
   margin-top: 8px;
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--paper);
 }
 
 .googleMark {
@@ -160,7 +161,7 @@
   gap: 16px;
 }
 
-/* a field: its label over a box on the lighter cream, outlined faintly,
+/* a field: its label over a box on the page's cream, outlined faintly,
    the outline turning red while typing in it */
 .field {
   display: grid;
@@ -185,7 +186,7 @@
   padding: 0 14px;
   border: var(--line) solid var(--rule-strong);
   border-radius: 0;
-  background: var(--field);
+  background: none;
   color: var(--ink-dark);
   font: 400 var(--text-md) / 1.2 var(--font);
 }

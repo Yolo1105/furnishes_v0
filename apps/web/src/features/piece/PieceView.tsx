@@ -5,15 +5,20 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/features/cart/cart";
 import {
+  addOnsOf,
   ARRIVALS,
   type Arrival,
+  CUSTOM,
+  type Custom,
+  customDims,
   dims,
   finishBySlug,
   FURNITURE_LEAD,
-  FURNITURE_WEEKS,
-  priceOf,
+  inWeeks,
+  priceOfChoice,
   sizeName,
   type Piece,
+  withCustom,
 } from "@/features/catalog/catalog";
 import { sgd } from "@/lib/money";
 import { routes } from "@/lib/routes";
@@ -21,25 +26,47 @@ import catalog from "@/features/catalog/Catalog.module.css";
 import { arrivesBetween, useToday } from "./arrives";
 import styles from "./Piece.module.css";
 
+/** Centimetres typed into a field, in mm; nothing for what isn't a number. */
+const mm = (cm: string) => (cm.trim() && Number.isFinite(Number(cm)) ? Math.round(Number(cm) * 10) : null);
+
+/**
+ * The size made for the space typed in, in mm, held to what the panels
+ * allow; nothing while the space is smaller than the least we make.
+ */
+function madeFor(w: number | null, h: number | null): Custom | null {
+  if (w === null || h === null || w < CUSTOM.least.w || h < CUSTOM.least.h) return null;
+  return { w: Math.min(w, CUSTOM.most.w), h: Math.min(h, CUSTOM.most.h) };
+}
+
 /**
  * A piece's photos on the left, with small ones under to switch; its name,
  * price, size and finish on the right (and, for a modular piece, whether it
- * arrives built or in parts, each with its price and time), when it would
- * arrive, and the way to add it to the cart.
+ * arrives built or in parts, a size made to your space, and its add-ons),
+ * when it would arrive, and the way to add it to the cart.
  */
 export function PieceView({ piece }: { piece: Piece }) {
   const [photo, setPhoto] = useState(0);
-  const [size, setSize] = useState(0);
+  const [size, setSize] = useState<number | "custom">(0);
   const [finish, setFinish] = useState(piece.finishes[0]!);
   const [arrival, setArrival] = useState<Arrival>("built");
   const [added, setAdded] = useState(false);
+  const first = piece.sizes[0]!;
+  const [space, setSpace] = useState({ w: String(first.w / 10), h: String(first.h / 10) });
+  const [addOns, setAddOns] = useState<readonly string[]>([]);
   const { add } = useCart();
-  const chosen = piece.sizes[size]!;
+  const ownSize = size === "custom";
+  const chosen = ownSize ? first : piece.sizes[size]!;
   const modular = piece.line === "modular";
-  const price = priceOf(chosen, modular ? arrival : null);
+  const spaceW = mm(space.w);
+  const spaceH = mm(space.h);
+  const custom = ownSize ? madeFor(spaceW, spaceH) : null;
+  const price = priceOfChoice(piece, chosen, modular ? arrival : null, custom, addOns);
   const today = useToday();
-  const weeks = modular ? ARRIVALS[arrival].weeks : FURNITURE_WEEKS;
-  const lead = modular ? ARRIVALS[arrival].lead : FURNITURE_LEAD;
+  const usual = modular ? ARRIVALS[arrival].lead : FURNITURE_LEAD;
+  const lead = ownSize ? withCustom(usual) : usual;
+  const weeks = inWeeks(lead);
+  const extras = addOnsOf(piece.slug);
+  const changed = () => setAdded(false);
 
   return (
     <div className={styles.view}>
@@ -92,12 +119,13 @@ export function PieceView({ piece }: { piece: Piece }) {
                     checked={a === arrival}
                     onChange={() => {
                       setArrival(a);
-                      setAdded(false);
+                      changed();
                     }}
                   />
                   <span>{ARRIVALS[a].name}</span>
                   <span className={styles.arrivalMeta}>
-                    {sgd(priceOf(chosen, a))} · {ARRIVALS[a].weeks}
+                    {sgd(priceOfChoice(piece, chosen, a, custom, addOns))} ·{" "}
+                    {inWeeks(ownSize ? withCustom(ARRIVALS[a].lead) : ARRIVALS[a].lead)}
                   </span>
                 </label>
               ))}
@@ -120,15 +148,88 @@ export function PieceView({ piece }: { piece: Piece }) {
                   checked={n === size}
                   onChange={() => {
                     setSize(n);
-                    setAdded(false);
+                    changed();
                   }}
                 />
                 <span>{sizeName(s)}</span>
               </label>
             ))}
+            {modular && (
+              <label className={styles.option}>
+                <input
+                  type="radio"
+                  name="size"
+                  checked={ownSize}
+                  onChange={() => {
+                    setSize("custom");
+                    changed();
+                  }}
+                />
+                <span>Your size</span>
+              </label>
+            )}
           </div>
-          <p className={styles.dims}>{dims(chosen)} (width × depth × height)</p>
+          {ownSize ? (
+            <>
+              <div className={styles.space}>
+                {(["w", "h"] as const).map((k) => (
+                  <label key={k} className={styles.spaceField}>
+                    <span>{k === "w" ? "Width of your space" : "Height of your space"}</span>
+                    <span className={styles.spaceInput}>
+                      <input
+                        type="number"
+                        inputMode="decimal"
+                        min={CUSTOM.least[k] / 10}
+                        value={space[k]}
+                        onChange={(e) => {
+                          setSpace({ ...space, [k]: e.target.value });
+                          changed();
+                        }}
+                      />
+                      cm
+                    </span>
+                  </label>
+                ))}
+              </div>
+              <p className={styles.dims} role="status">
+                {custom ? (
+                  <>
+                    Made to {customDims(custom, chosen.d)} (width × depth × height).
+                    {(spaceW! > CUSTOM.most.w || spaceH! > CUSTOM.most.h) &&
+                      ` Our largest is ${CUSTOM.most.w / 10} × ${CUSTOM.most.h / 10} cm; for more, stand two side by side.`}{" "}
+                    The price is an estimate, confirmed by email before you pay.
+                  </>
+                ) : (
+                  `Too small: we make it from ${CUSTOM.least.w / 10} × ${CUSTOM.least.h / 10} cm.`
+                )}
+              </p>
+            </>
+          ) : (
+            <p className={styles.dims}>{dims(chosen)} (width × depth × height)</p>
+          )}
         </fieldset>
+
+        {extras.length > 0 && (
+          <fieldset className={styles.choose}>
+            <legend>Add-ons</legend>
+            <div className={styles.options}>
+              {extras.map((a) => (
+                <label key={a.id} className={styles.option}>
+                  <input
+                    type="checkbox"
+                    checked={addOns.includes(a.id)}
+                    onChange={(e) => {
+                      setAddOns(e.target.checked ? [...addOns, a.id] : addOns.filter((x) => x !== a.id));
+                      changed();
+                    }}
+                  />
+                  <span>{a.name}</span>
+                  <span className={styles.arrivalMeta}>+{sgd(a.price)}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        )}
 
         <fieldset className={styles.choose}>
           <legend>
@@ -143,7 +244,7 @@ export function PieceView({ piece }: { piece: Piece }) {
                   checked={f === finish}
                   onChange={() => {
                     setFinish(f);
-                    setAdded(false);
+                    changed();
                   }}
                 />
                 <span className={catalog.swatch} data-finish={f} aria-hidden="true" />
@@ -163,8 +264,16 @@ export function PieceView({ piece }: { piece: Piece }) {
         <button
           type="button"
           className={styles.add}
+          disabled={ownSize && !custom}
           onClick={() => {
-            add({ piece: piece.slug, size, finish, arrival: modular ? arrival : null });
+            add({
+              piece: piece.slug,
+              size: ownSize ? 0 : size,
+              finish,
+              arrival: modular ? arrival : null,
+              custom,
+              addOns,
+            });
             setAdded(true);
           }}
         >
@@ -183,7 +292,7 @@ export function PieceView({ piece }: { piece: Piece }) {
 
         <Link className={styles.link} href={routes.designYourRoom}>
           {modular
-            ? "Change its size or colour in Design your room (sign in first)"
+            ? "See it in your room in Design your room (log in first)"
             : "Not sure it fits? Design your room first"}
         </Link>
       </div>

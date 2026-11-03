@@ -1,13 +1,23 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import type { Arrival } from "@/features/catalog/catalog";
+import type { Arrival, Custom } from "@/features/catalog/catalog";
 
 /**
  * One line in the cart: a piece, its size (by place in its sizes), finish,
  * how a modular piece arrives (null for ready-made furniture), and how many.
+ * A modular piece may carry a size of your own and add-ons by id; lines kept
+ * before those existed have neither.
  */
-export type Line = { piece: string; size: number; finish: string; arrival: Arrival | null; qty: number };
+export type Line = {
+  piece: string;
+  size: number;
+  finish: string;
+  arrival: Arrival | null;
+  custom?: Custom | null;
+  addOns?: readonly string[];
+  qty: number;
+};
 type Choice = Omit<Line, "qty">;
 
 /** Where the cart is kept in the browser, so it survives a reload and reaches every page. */
@@ -58,8 +68,16 @@ function subscribe(listener: () => void) {
   };
 }
 
+/** A line's size of your own and add-ons, as one string, to tell two lines apart. */
+export const extrasKey = (l: Choice) =>
+  `${l.custom ? `${l.custom.w}x${l.custom.h}` : ""}-${[...(l.addOns ?? [])].toSorted().join(",")}`;
+
 const same = (a: Choice, b: Choice) =>
-  a.piece === b.piece && a.size === b.size && a.finish === b.finish && a.arrival === b.arrival;
+  a.piece === b.piece &&
+  a.size === b.size &&
+  a.finish === b.finish &&
+  a.arrival === b.arrival &&
+  extrasKey(a) === extrasKey(b);
 
 /** Adds one of a choice, or one more if it's already in. */
 function add(choice: Choice) {
