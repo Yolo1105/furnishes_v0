@@ -26,7 +26,7 @@ export const DETAILS = [
   { label: "Hours", lines: HOURS },
   { label: "Reply", lines: [`Within ${FACTS.replyTime}`] },
   { label: "Where", lines: PLACE },
-  { label: "Assistant", lines: ["Log in to ask the AI assistant"], href: routes.logIn },
+  { label: "Assistant", lines: ["What the AI assistant does"], href: routes.planning },
 ] as const;
 
 /** What people write about, each opening an email with its subject filled in, and what it leads to. */

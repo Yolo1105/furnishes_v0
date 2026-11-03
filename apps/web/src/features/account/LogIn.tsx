@@ -99,6 +99,12 @@ export function LogIn({ next, googleSoon }: { next?: string; googleSoon?: boolea
               {LOG_IN.help.label}
             </a>
           </p>
+          <p className={styles.help}>
+            {LOG_IN.what.line}{" "}
+            <Link className={styles.link} href={LOG_IN.what.href}>
+              {LOG_IN.what.label}
+            </Link>
+          </p>
         </div>
         <p className={styles.agree}>
           {LOG_IN.agree[0]}{" "}

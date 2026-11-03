@@ -243,8 +243,9 @@ export const PROMISES = [
 export const DESIGN = {
   title: "Design your own",
   rest: "See it before you order",
-  line: "Plan your room in our 3D visualizer: place our pieces, set each one's size and finish, and see it before you order. Sign in to start; it's free.",
-  go: "Customize",
+  line: "Plan your room in our 3D visualizer: place our pieces at real size, set each one's size and finish, and see it before you order. Opening soon, free with an account.",
+  go: "How it works",
+  href: routes.planning,
   photo: orangeRoom,
 };
 

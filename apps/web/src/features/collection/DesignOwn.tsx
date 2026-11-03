@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { routes } from "@/lib/routes";
 import { DESIGN } from "./collectionList";
 import styles from "./Collection.module.css";
 
@@ -18,7 +17,7 @@ export function DesignOwn() {
             {DESIGN.title} <span className={styles.headingRest}>{DESIGN.rest}</span>
           </h2>
           <p className={styles.designLine}>{DESIGN.line}</p>
-          <Link className={styles.outline} href={routes.logIn}>
+          <Link className={styles.outline} href={DESIGN.href}>
             {DESIGN.go}
           </Link>
         </div>

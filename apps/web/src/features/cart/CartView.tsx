@@ -2,18 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  addOnsOf,
-  ARRIVALS,
-  customDims,
-  finishBySlug,
-  pieceBySlug,
-  priceOfChoice,
-  sizeName,
-} from "@/features/catalog/catalog";
 import { sgd } from "@/lib/money";
 import { pieceOf, routes } from "@/lib/routes";
 import { extrasKey, MAX_QTY, useCart } from "./cart";
+import { cartRows } from "./rows";
 import styles from "./Cart.module.css";
 
 /**
@@ -23,17 +15,7 @@ import styles from "./Cart.module.css";
 export function CartView() {
   const { lines, setQty, remove } = useCart();
 
-  const rows = lines.flatMap((line, n) => {
-    const piece = pieceBySlug(line.piece);
-    const size = piece?.sizes[line.size];
-    if (!piece || !size) return [];
-    const custom = line.custom ?? null;
-    const addOns = line.addOns ?? [];
-    const price = priceOfChoice(piece, size, line.arrival, custom, addOns);
-    const extras = addOnsOf(piece.slug).filter((a) => addOns.includes(a.id));
-    return [{ n, line, piece, size, custom, extras, price }];
-  });
-  const total = rows.reduce((sum, r) => sum + r.price * r.line.qty, 0);
+  const { rows, total } = cartRows(lines);
 
   return (
     <section className={styles.cart} aria-labelledby="cart-title">
@@ -51,7 +33,7 @@ export function CartView() {
       ) : (
         <div className={styles.layout}>
           <ul className={styles.lines}>
-            {rows.map(({ n, line, piece, size, custom, extras, price }) => (
+            {rows.map(({ n, line, piece, choice, price }) => (
               <li
                 key={`${line.piece}-${line.size}-${line.finish}-${line.arrival}-${extrasKey(line)}`}
                 className={styles.line}
@@ -63,12 +45,7 @@ export function CartView() {
                   <Link className={styles.name} href={pieceOf(piece.slug)}>
                     {piece.name}
                   </Link>
-                  <p className={styles.choice}>
-                    {custom ? `${customDims(custom, size.d)}, your size` : sizeName(size)} ·{" "}
-                    {finishBySlug(line.finish)?.name}
-                    {line.arrival && ` · ${ARRIVALS[line.arrival].name}`}
-                    {extras.length > 0 && ` · With ${extras.map((a) => a.name.toLowerCase()).join(", ")}`}
-                  </p>
+                  <p className={styles.choice}>{choice}</p>
                   <div className={styles.qty} role="group" aria-label={`How many ${piece.name}`}>
                     <button
                       type="button"
@@ -108,13 +85,10 @@ export function CartView() {
               <span>Delivery and putting together</span>
               <span>At checkout</span>
             </p>
-            {/* payment opens once a payment provider is chosen */}
-            <button type="button" className={styles.checkout} disabled aria-describedby="checkout-note">
+            <Link className={styles.checkout} href={routes.checkout}>
               Check out
-            </button>
-            <p id="checkout-note" className={styles.note}>
-              Paying online opens soon.
-            </p>
+            </Link>
+            <p className={styles.note}>We confirm your order by email and send a link to pay.</p>
           </aside>
         </div>
       )}
