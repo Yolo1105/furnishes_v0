@@ -1276,8 +1276,9 @@
 
 /* ---------- three kinds compared ---------- */
 
-/* three columns, parted by space alone: each kind's name in red, then its
-   rows as a pale capital label over a brown value, and its way in */
+/* three columns, parted by space alone: each kind's photo, its name in
+   red, then its rows as a pale capital label over a brown value, and its
+   way in */
 .compare {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1289,9 +1290,22 @@
 
 .compareKind {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
   gap: 20px;
   justify-items: start;
+}
+
+/* the room, a little wider than tall, on the birch the photos load on */
+.comparePhoto {
+  position: relative;
+  justify-self: stretch;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--birch);
+}
+
+.comparePhoto img {
+  object-fit: cover;
 }
 
 .compareKind .promiseName {

@@ -10,6 +10,7 @@ import yellowChair from "@/assets/details/yellow-chair.jpg";
 import showroom from "@/assets/banner/showroom.jpg";
 import orangeRoom from "@/assets/banner/orange-room.jpg";
 import lounge from "@/assets/banner/lounge.jpg";
+import render from "@/assets/before-after/bookwall-after.webp";
 import hallway from "@/assets/rooms/hallway.jpg";
 import home from "@/assets/rooms/home.jpg";
 import kitchen from "@/assets/rooms/kitchen.jpg";
@@ -132,7 +133,8 @@ const lowest = (line: LineSlug) => sgd(Math.min(...PIECES.filter((p) => p.line =
 
 /**
  * The three ways to buy, side by side, after the rebuild's comparison cut
- * to four rows. Designing your own is priced with the design, so its price
+ * to four rows, each under a photo of it: a sofa, a wall of shelves, and
+ * a room drawn in 3D. Designing your own is priced with the design, so its price
  * and time are words rather than figures until the owner sets them.
  */
 export const COMPARE = {
@@ -146,6 +148,7 @@ export const COMPARE = {
       is: "Sofas, desks, chairs and tables in the sizes listed",
       takes: FURNITURE_WEEKS,
       price: `From ${lowest("furniture")}`,
+      photo: redSofa,
       go: { label: "Shop ready-made", href: routes.furniture },
     },
     {
@@ -153,6 +156,7 @@ export const COMPARE = {
       is: "Birch pieces sized to your wall, built or in parts",
       takes: `${ARRIVALS.parts.weeks} in parts, ${ARRIVALS.built.weeks} built`,
       price: `From ${lowest("modular")}`,
+      photo: shelfWall,
       go: { label: "Shop modular", href: routes.modular },
     },
     {
@@ -160,6 +164,7 @@ export const COMPARE = {
       is: "Your room drawn in 3D, with pieces set to fit it",
       takes: "Quoted with your design",
       price: "Priced on your design",
+      photo: render,
       go: { label: "Design your room", href: routes.designYourRoom },
     },
   ],
