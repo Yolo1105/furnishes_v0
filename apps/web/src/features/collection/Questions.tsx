@@ -2,14 +2,16 @@
 
 import { useId, useState } from "react";
 import { EMAIL, MAILTO } from "@/lib/contact";
+import { Icon, type IconName } from "./Icon";
 import styles from "./Collection.module.css";
 
-type Question = { q: string; a: string };
+type Question = { q: string; a: string; icon?: IconName };
 
 /**
  * Questions before ordering, as the owner's other site: the title and a way
  * to ask something else on the left, the questions on the right, one open at
- * a time, the first open on arrival, its answer sliding open under it. Other
+ * a time, the first open on arrival, its answer sliding open under it.
+ * A question may carry a small mark in place of its number. Other
  * numbered lists that open, such as the story, set their own title and leave
  * out the way to ask.
  */
@@ -60,7 +62,11 @@ export function Questions({
                 aria-controls={answer}
                 onClick={() => setOpen(on ? null : x.q)}
               >
-                <span className={styles.qaNumber}>{String(n + 1).padStart(2, "0")}</span>
+                {x.icon ? (
+                  <Icon name={x.icon} />
+                ) : (
+                  <span className={styles.qaNumber}>{String(n + 1).padStart(2, "0")}</span>
+                )}
                 <span className={styles.qaText}>{x.q}</span>
                 <span className={styles.qaMark} aria-hidden="true">
                   +

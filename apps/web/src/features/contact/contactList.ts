@@ -18,11 +18,42 @@ export const CONTACT = {
 
 /** How to reach us, a row each beside the opening's line. */
 export const DETAILS = [
-  { label: "Email", lines: [EMAIL], href: MAILTO },
-  { label: "Hours", lines: HOURS },
-  { label: "Reply", lines: [`Within ${FACTS.replyTime}`] },
-  { label: "Where", lines: PLACE },
-  { label: "Assistant", lines: ["What the AI assistant does"], href: routes.planning },
+  { label: "Email", icon: "mail", lines: [EMAIL], href: MAILTO },
+  { label: "Hours", icon: "clock", lines: HOURS },
+  { label: "Reply", icon: "reply", lines: [`Within ${FACTS.replyTime}`] },
+  { label: "Where", icon: "pin", lines: PLACE },
+  { label: "Assistant", icon: "spark", lines: ["What the AI assistant does"], href: routes.planning },
+] as const;
+
+/**
+ * The other ways we help, after the owner's reference, each to its own
+ * page: answers to read, the assistant to ask, and offices to quote.
+ */
+export const WAYS_HEAD = {
+  label: "Other ways we help",
+  title: "Not ready to write yet",
+  rest: "Read, ask, or see what we do for teams",
+};
+
+export const WAYS = [
+  {
+    name: "Help centre",
+    icon: "help",
+    line: "Every question asked before and after ordering, with a search to find yours.",
+    go: { label: "Find an answer", href: routes.help },
+  },
+  {
+    name: "The assistant",
+    icon: "spark",
+    line: "Log in and ask about a piece or a room at any hour, and it answers from what we sell.",
+    go: { label: "Meet the assistant", href: routes.planning },
+  },
+  {
+    name: "For offices",
+    icon: "office",
+    line: "Desks, storage and separator walls for a team, priced together in one quote.",
+    go: { label: "See office pieces", href: routes.offices },
+  },
 ] as const;
 
 /**
@@ -188,22 +219,27 @@ export const NEXT = {
 export const CONTACT_QUESTIONS = [
   {
     q: "How soon do you answer?",
+    icon: "clock",
     a: `Within ${FACTS.replyTime}. We read email ${HOURS.join(", ")}.`,
   },
   {
     q: "Is there a phone line or a showroom?",
+    icon: "pin",
     a: `Not yet. Write to us, or log in to ask the assistant, and we come to you: a home visit is ${sgd(FACTS.visitFee)}, taken off your order if you buy.`,
   },
   {
     q: "Do you take office and bulk orders?",
+    icon: "office",
     a: "Yes. Tell us the team's size and the space, and we send a quote for the pieces together.",
   },
   {
     q: "Can I change my order?",
+    icon: "change",
     a: "Until it goes into production, usually within a week of ordering.",
   },
   {
     q: "Do you deliver outside Singapore?",
+    icon: "truck",
     a: "Not yet. We start in Singapore and may deliver further once that works well.",
   },
 ] as const;

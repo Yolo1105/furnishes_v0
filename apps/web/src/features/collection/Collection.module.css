@@ -1444,6 +1444,27 @@
   list-style: none;
 }
 
+/* a small mark in a thin frame, over an entry's name, before a question,
+   or by a contact detail, after the owner's references */
+.icon {
+  flex: none;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  padding: 9px;
+  border: var(--line) solid var(--rule-strong);
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* the mark standing apart from the name under it */
+.entryHead > .icon {
+  margin-bottom: 10px;
+}
+
 .entry {
   display: grid;
   gap: 12px;
@@ -1600,6 +1621,11 @@
   font: 400 var(--text-line) / 1.3 var(--font);
   text-align: left;
   cursor: pointer;
+}
+
+/* a question with a mark in place of its number sits level with the mark */
+.qaQuestion:has(> .icon) {
+  align-items: center;
 }
 
 .qaNumber {

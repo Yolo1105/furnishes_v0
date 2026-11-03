@@ -1,15 +1,16 @@
 import Link from "next/link";
 import collection from "@/features/collection/Collection.module.css";
+import { Icon } from "@/features/collection/Icon";
 import { Index, Section, Steps } from "@/features/collection/Sections";
-import { CONTACT, DETAILS, NEXT, TOPICS, TOPICS_HEAD } from "./contactList";
+import { CONTACT, DETAILS, NEXT, TOPICS, TOPICS_HEAD, WAYS, WAYS_HEAD } from "./contactList";
 import { Enquiry } from "./Enquiry";
 import styles from "./Contact.module.css";
 
 /**
  * The contact page, after the owner's two references: the title and how
  * to reach us on the left, held in view while the enquiry on the right is
- * filled in, then what people write about, each its own email, and what
- * happens next. Every way in, the enquiry too, is an email or the assistant.
+ * filled in, then the other ways we help, what people write about, each
+ * its own email, and what happens next. Every way in, the enquiry too, is an email or the assistant.
  */
 export function Contact() {
   return (
@@ -24,7 +25,10 @@ export function Contact() {
           <dl className={styles.details}>
             {DETAILS.map((d) => (
               <div key={d.label}>
-                <dt className={styles.detailLabel}>{d.label}</dt>
+                <dt className={styles.detailLabel}>
+                  <Icon name={d.icon} />
+                  {d.label}
+                </dt>
                 <dd>
                   {"href" in d ? (
                     d.href.startsWith("/") ? (
@@ -47,6 +51,9 @@ export function Contact() {
         </div>
         <Enquiry />
       </section>
+      <Section id="ways-title" {...WAYS_HEAD}>
+        <Index entries={WAYS} />
+      </Section>
       <Section id="topics-title" {...TOPICS_HEAD}>
         <Index
           entries={TOPICS.map((t) => ({ name: t.name, note: t.get, line: t.line, go: { label: t.go, href: t.href } }))}

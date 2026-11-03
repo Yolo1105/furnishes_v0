@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { PieceList } from "@/features/catalog/PieceList";
 import type { LineSlug } from "@/features/catalog/catalog";
+import { Icon, type IconName } from "./Icon";
 import styles from "./Collection.module.css";
 
 type Aside = { href: string; label: string };
@@ -58,7 +59,8 @@ type Step = { name: string; line: string };
 /**
  * One entry of an index: a name, and to its right what it is, as a line,
  * a few short lines, or labelled facts; `note` sits over the name, and
- * `go` is the way on, a link at the foot of the words.
+ * `go` is the way on, a link at the foot of the words; `icon` a small mark
+ * over it all.
  */
 export type Entry = {
   name: string;
@@ -67,6 +69,7 @@ export type Entry = {
   lines?: readonly string[];
   facts?: readonly { label: string; value: string }[];
   go?: { label: string; href: string };
+  icon?: IconName;
 };
 
 /**
@@ -86,6 +89,7 @@ export function Index({ entries, numbered = false }: { entries: readonly Entry[]
       {entries.map((e, i) => (
         <li key={e.name} className={styles.entry} style={{ "--i": i } as CSSProperties}>
           <div className={styles.entryHead}>
+            {e.icon && <Icon name={e.icon} />}
             {numbered && (
               <span className={styles.entryNumber} aria-hidden="true">
                 {String(i + 1).padStart(2, "0")}

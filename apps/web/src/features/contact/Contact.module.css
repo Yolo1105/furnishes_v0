@@ -26,14 +26,24 @@
 
 .details > div {
   display: grid;
-  grid-template-columns: 9em minmax(0, 1fr);
+  grid-template-columns: 11em minmax(0, 1fr);
   gap: 16px;
-  align-items: baseline;
+  align-items: center;
 }
 
 .detailLabel {
   composes: caps from global;
+  display: flex;
+  gap: 12px;
+  align-items: center;
   color: var(--ink-dark-pale);
+}
+
+/* a detail's mark a size smaller, to sit with the small capitals */
+.detailLabel > svg {
+  width: 32px;
+  height: 32px;
+  padding: 6px;
 }
 
 .details dd {
