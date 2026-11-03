@@ -38,12 +38,15 @@ export const BROWSE = [
   { href: routes.collection, label: "Collection" },
   { href: routes.inspiration, label: "Inspiration" },
   { href: routes.quiz, label: "Quiz" },
-  { href: routes.about, label: "About" },
 ] as const;
 
-/** The footer's pages: the bar's, then the offices, planning help, the guide and help, which the bar leaves out. */
+/**
+ * The footer's pages: the bar's, then About (a part of the home page, so the
+ * bar leaves it out), the offices, planning help, the guide and help.
+ */
 export const FOOT_PAGES = [
   ...BROWSE,
+  { href: routes.about, label: "About" },
   { href: routes.offices, label: "For offices" },
   { href: routes.planning, label: "Planning help" },
   { href: routes.buyingGuide, label: "Buying guide" },
