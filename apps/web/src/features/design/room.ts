@@ -1,4 +1,4 @@
-import { PIECES, type Piece } from "@/features/catalog/catalog";
+import { PIECES, type Arrival, type Finish, type Piece } from "@/features/catalog/catalog";
 
 /**
  * One room, drawn from above, in mm, and the checks run on it. After the
@@ -41,6 +41,9 @@ export type Placed = {
   slug?: string;
   size?: number;
   own?: keyof typeof OWN;
+  /** For our pieces, the finish and how it arrives, as the cart takes them. */
+  finish?: Finish["slug"];
+  arrival?: Arrival | null;
   x: number;
   y: number;
   turn: Turn;

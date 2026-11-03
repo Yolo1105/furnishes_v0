@@ -231,6 +231,13 @@
   font-weight: 500;
 }
 
+/* a piece's line with its finish and arrival under it */
+.choice {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 8px;
+}
+
 @media (width <= 1023px) {
   .planner {
     grid-template-columns: minmax(0, 1fr);

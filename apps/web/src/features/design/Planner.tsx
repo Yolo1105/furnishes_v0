@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import account from "@/features/account/Account.module.css";
-import { PIECES } from "@/features/catalog/catalog";
+import { ARRIVALS, FINISHES, PIECES, priceOf, type Arrival, type Finish } from "@/features/catalog/catalog";
+import { useCart } from "@/features/cart/cart";
 import collection from "@/features/collection/Collection.module.css";
 import { MAILTO } from "@/lib/contact";
 import { sgd } from "@/lib/money";
-import { pieceOf } from "@/lib/routes";
+import { pieceOf, routes } from "@/lib/routes";
 import { ADDABLE, DESIGN, KINDS, START, WALLS } from "./designList";
 import { boxOf, check, fix, shapeOf, wallLength, type Opening, type Placed, type Plan, type Room } from "./room";
 import { useRoom } from "./store";
@@ -92,6 +93,8 @@ export function Planner() {
   const [plan, setPlan] = useRoom();
   const [picked, setPicked] = useState<string | null>(null);
   const [adding, setAdding] = useState(ADDABLE[0]?.key ?? "");
+  const [added, setAdded] = useState(0);
+  const cart = useCart();
   const svg = useRef<SVGSVGElement>(null);
   const drag = useRef<{ id: string; dx: number; dy: number } | null>(null);
 
@@ -183,17 +186,29 @@ export function Planner() {
     e.preventDefault();
   };
 
+  // our pieces as cart lines: the finish and arrival chosen here, or the
+  // piece's first finish and, for a modular one, in parts, shown to change
   const ours = plan.pieces.flatMap((p) => {
     const piece = PIECES.find((x) => x.slug === p.slug);
     const size = piece?.sizes[p.size ?? 0];
-    return piece && size ? [{ id: p.id, piece, size }] : [];
+    if (!piece || !size) return [];
+    const finish = p.finish ?? piece.finishes[0] ?? "birch";
+    const arrival = p.arrival !== undefined ? p.arrival : piece.line === "modular" ? "parts" : null;
+    return [{ id: p.id, piece, size: p.size ?? 0, finish, arrival, price: priceOf(size, arrival) }];
   });
-  const total = ours.reduce((n, o) => n + o.size.price, 0);
+  const total = ours.reduce((n, o) => n + o.price, 0);
+
+  const toCart = () => {
+    ours.forEach((o) => cart.add({ piece: o.piece.slug, size: o.size, finish: o.finish, arrival: o.arrival }));
+    setAdded(ours.length);
+  };
 
   const send = () => {
     const placed = plan.pieces.map((p) => {
       const s = shapeOf(p);
-      return `${s?.name ?? "?"}: ${p.x} mm from the left wall, ${p.y} mm from the top wall, turned ${p.turn}°`;
+      const o = ours.find((x) => x.id === p.id);
+      const choice = o ? ` (${o.finish}${o.arrival ? `, ${ARRIVALS[o.arrival].name.toLowerCase()}` : ""})` : "";
+      return `${s?.name ?? "?"}${choice}: ${p.x} mm from the left wall, ${p.y} mm from the top wall, turned ${p.turn}°`;
     });
     const body = [
       `${room.kind}, ${room.w} × ${room.d} mm`,
@@ -436,26 +451,70 @@ export function Planner() {
           {ours.length === 0 ? (
             <p className={styles.line}>{DESIGN.list.empty}</p>
           ) : (
-            <ul className={styles.list}>
-              {ours.map((o) => (
-                <li key={o.id} className={styles.item}>
-                  <Link className={account.link} href={pieceOf(o.piece.slug)}>
-                    {o.piece.name}
-                  </Link>
-                  <span>
-                    {DESIGN.list.from} {sgd(o.size.price)}
-                  </span>
+            <>
+              <ul className={styles.list}>
+                {ours.map((o) => (
+                  <li key={o.id} className={styles.choice}>
+                    <div className={styles.item}>
+                      <Link className={account.link} href={pieceOf(o.piece.slug)}>
+                        {o.piece.name}
+                      </Link>
+                      <span>{sgd(o.price)}</span>
+                    </div>
+                    <div className={styles.pair}>
+                      <label className={account.field}>
+                        <span className={styles.small}>{DESIGN.list.finish}</span>
+                        <select
+                          value={o.finish}
+                          onChange={(e) => setPiece(o.id, (p) => ({ ...p, finish: e.target.value as Finish["slug"] }))}
+                        >
+                          {FINISHES.filter((f) => o.piece.finishes.includes(f.slug)).map((f) => (
+                            <option key={f.slug} value={f.slug}>
+                              {f.name}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      {o.arrival && (
+                        <label className={account.field}>
+                          <span className={styles.small}>{DESIGN.list.arrives}</span>
+                          <select
+                            value={o.arrival}
+                            onChange={(e) => setPiece(o.id, (p) => ({ ...p, arrival: e.target.value as Arrival }))}
+                          >
+                            {(Object.keys(ARRIVALS) as Arrival[]).map((a) => (
+                              <option key={a} value={a}>
+                                {ARRIVALS[a].name}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                      )}
+                    </div>
+                  </li>
+                ))}
+                <li className={`${styles.item} ${styles.total}`}>
+                  <span>{DESIGN.list.together}</span>
+                  <span>{sgd(total)}</span>
                 </li>
-              ))}
-              <li className={`${styles.item} ${styles.total}`}>
-                <span />
-                <span>
-                  {DESIGN.list.from} {sgd(total)}
-                </span>
-              </li>
-            </ul>
+              </ul>
+              <p className={styles.small}>{DESIGN.list.extras}</p>
+            </>
+          )}
+          {added > 0 && (
+            <p className={styles.line} role="status">
+              {DESIGN.list.added(added)}{" "}
+              <Link className={account.link} href={routes.cart}>
+                {DESIGN.list.see}
+              </Link>
+            </p>
           )}
           <div className={styles.actions}>
+            {ours.length > 0 && (
+              <button className={collection.outline} type="button" onClick={toCart}>
+                {DESIGN.list.toCart}
+              </button>
+            )}
             <button className={collection.outline} type="button" onClick={send}>
               {DESIGN.list.send}
             </button>
