@@ -225,3 +225,303 @@
     grid-row: 2;
   }
 }
+
+/* ---------- how the pieces come together ---------- */
+
+/* the words on the left, the drawing on the right; on a phone the steps
+   sit beside a smaller drawing so the whole stage fits one screen */
+.assembly {
+  padding: clamp(48px, 6vw, 96px) var(--gutter) 0;
+}
+
+.assemblyStage {
+  display: grid;
+  grid-template: "head drawing" auto "steps drawing" auto "foot drawing" 1fr / 5fr 7fr;
+  gap: clamp(20px, 3svh, 40px) clamp(24px, 4vw, 80px);
+}
+
+.assemblyHead {
+  grid-area: head;
+}
+
+.assemblySteps {
+  display: grid;
+  grid-area: steps;
+  gap: clamp(12px, 2.4svh, 28px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.assemblyName {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font: 400 var(--text-rest) / 1.2 var(--font);
+}
+
+.assemblyLine {
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-lg) / var(--leading-line) var(--font-wordmark);
+}
+
+.assemblyFoot {
+  display: grid;
+  grid-area: foot;
+  gap: 16px;
+  align-content: end;
+  justify-items: start;
+}
+
+.assemblyPiece {
+  margin: 0;
+  color: var(--ink);
+  font: 400 var(--text-lg) / 1.4 var(--font);
+}
+
+.assemblyPiece span {
+  display: block;
+  color: var(--ink-dark-pale);
+  font-size: var(--text-md);
+}
+
+.assemblyDrawing {
+  grid-area: drawing;
+  place-self: center;
+  width: 100%;
+  height: min(72svh, 760px);
+  overflow: hidden;
+}
+
+/* the panels in birch, outlined in the brown, the floor a faint line */
+.assemblyPart {
+  fill: var(--birch);
+  stroke: var(--ink-dark);
+  stroke-width: var(--line);
+  vector-effect: non-scaling-stroke;
+}
+
+.assemblyFloor {
+  stroke: var(--rule-strong);
+  stroke-width: var(--line);
+  vector-effect: non-scaling-stroke;
+}
+
+/* where each part comes from, in the drawing's mm: a part's own height
+   above or below, or across from the side */
+.assemblyPart[data-from="above"] {
+  --dy: -400px;
+}
+
+.assemblyPart[data-from="below"] {
+  --dy: 400px;
+}
+
+.assemblyPart[data-from="left"] {
+  --dx: -700px;
+}
+
+.assemblyPart[data-from="right"] {
+  --dx: 700px;
+}
+
+/* the section runs three screens tall while the stage holds still under
+   the bar, as the flat's tour does; part i of n comes in over its own slice
+   of the hold's middle 80%, and each step lights across its parts' slices */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .assembly {
+      height: 320svh;
+      padding-top: 0;
+      view-timeline: --assembly block;
+    }
+
+    .assemblyStage {
+      position: sticky;
+      top: 0;
+      box-sizing: border-box;
+      height: 100svh;
+      padding: calc(var(--nav-h) + clamp(16px, 4svh, 48px)) 0 clamp(16px, 4svh, 48px);
+    }
+
+    .assemblyPart {
+      animation: land linear both;
+      animation-range: contain calc(8% + var(--i) / var(--n) * 80%) contain calc(8% + (var(--i) + 1) / var(--n) * 80%);
+      animation-timeline: --assembly;
+    }
+
+    .assemblyStep {
+      animation: step-on linear both;
+      animation-range: contain calc(8% + var(--a) / var(--n) * 80%) contain calc(8% + var(--b) / var(--n) * 80%);
+      animation-timeline: --assembly;
+    }
+  }
+}
+
+@keyframes land {
+  from {
+    opacity: 0;
+    transform: translate(var(--dx, 0), var(--dy, 0));
+  }
+}
+
+@keyframes step-on {
+  from {
+    opacity: 0.35;
+  }
+}
+
+/* ---------- sets ---------- */
+
+.sets {
+  display: grid;
+  gap: clamp(32px, 4vw, 64px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* a room's photo joined to its panel as one block, the two swapping sides
+   from one set to the next */
+.set {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  min-height: clamp(420px, 40vw, 680px);
+}
+
+.set:nth-child(even) .setPhoto {
+  order: 2;
+}
+
+/* the circles' frame is stacked on the photo on purpose, cropped as the
+   photo is, so each stays on its piece at any size */
+.setPhoto {
+  position: relative;
+  overflow: hidden;
+  background: var(--birch);
+  container-type: size;
+}
+
+.setPhoto img {
+  object-fit: cover;
+  object-position: 50% 62%;
+}
+
+/* a circle centred on its point, with its piece's name above it */
+.setSpot {
+  position: absolute;
+  translate: -50% -50%;
+}
+
+/* the name, a small cream label stacked over the circle on purpose, shown
+   when the circle is pointed at or tabbed to; held to the right near the
+   photo's right side */
+.setSpotName {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  padding: 8px 12px;
+  background: var(--paper);
+  box-shadow: var(--shadow-float);
+  color: var(--ink);
+  font: 400 var(--text-md) / 1.2 var(--font);
+  white-space: nowrap;
+  opacity: 0;
+  translate: -50% 0;
+  transition: opacity var(--dur-fast) var(--ease-out);
+  pointer-events: none;
+}
+
+.setSpot[data-edge] .setSpotName {
+  right: 0;
+  left: auto;
+  translate: none;
+}
+
+.setSpot:hover .setSpotName,
+.setSpot:focus-visible .setSpotName {
+  opacity: 1;
+}
+
+.setSide {
+  display: grid;
+  gap: 20px;
+  align-content: center;
+  justify-items: start;
+  padding: clamp(32px, 4vw, 72px) clamp(28px, 3.4vw, 56px);
+  background: var(--panel-orange);
+  color: var(--ink-dark);
+}
+
+.setPrice {
+  margin: 0;
+  color: var(--ink);
+  font: 400 var(--text-lg) / 1.3 var(--font);
+}
+
+.setContains {
+  justify-self: stretch;
+}
+
+/* what the set holds, a row a piece: its name and its price */
+.setPieces {
+  display: grid;
+  width: min(100%, 22em);
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+.setPieces li {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+.setPieces li span + span {
+  color: var(--ink-dark-pale);
+}
+
+@media (width <= 1023px) {
+  .set {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  /* stacked, the room comes first in every set */
+  .setPhoto,
+  .set:nth-child(even) .setPhoto {
+    order: -1;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (width <= 639px) {
+  .assemblyStage {
+    grid-template: "head head" auto "steps drawing" 1fr "foot foot" auto / minmax(0, 1fr) minmax(0, 0.8fr);
+  }
+
+  .assemblyDrawing {
+    height: auto;
+    max-height: 100%;
+  }
+
+  /* the list's own order numbers it on a phone, so the stage fits one screen */
+  .assemblyNo {
+    display: none;
+  }
+
+  .assemblySteps {
+    gap: 12px;
+  }
+
+  .assemblyName {
+    font-size: var(--text-lg);
+  }
+
+  .assemblyLine {
+    font-size: var(--text-md);
+  }
+}

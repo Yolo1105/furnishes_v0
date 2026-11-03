@@ -1,6 +1,9 @@
 import aFrame from "@/assets/banner/a-frame.jpg";
 import bookwallAfter from "@/assets/before-after/bookwall-after.webp";
 import bookwallBefore from "@/assets/before-after/bookwall-before.webp";
+import hallway from "@/assets/rooms/hallway.jpg";
+import shelfWall from "@/assets/rooms/shelf-wall.jpg";
+import study from "@/assets/rooms/study.jpg";
 import { ARRIVALS, FURNITURE_LEAD, FURNITURE_WEEKS } from "@/features/catalog/catalog";
 
 /**
@@ -114,4 +117,84 @@ export const SWATCHES = [
   { name: "Natural linen", fill: "linen" },
   { name: "Oat bouclé", fill: "boucle" },
   { name: "Pepper wool", fill: "wool" },
+] as const;
+
+/**
+ * One piece put together part by part as the page scrolls: the room
+ * divider, drawn from the front in mm (1200 wide, 1600 high). Each part is
+ * a rectangle brought in by one of the steps, from the side it comes from.
+ * A drawing to show the idea, not the factory's plan; the panels are drawn
+ * thicker than the board so they read at a small size.
+ */
+export const ASSEMBLY = {
+  label: "Make it yourself",
+  title: "How the pieces come together",
+  rest: "Scroll to put a room divider together",
+  piece: "room-divider",
+  steps: [
+    { name: "The base", line: "A plinth that stands level on any floor." },
+    { name: "The uprights", line: "Three uprights slot into the base." },
+    { name: "The shelves", line: "Six shelves, at the heights you chose." },
+    { name: "The top", line: "It ties the uprights together, and it's done." },
+  ],
+  parts: [
+    { step: 0, from: "above", x: 0, y: 1540, w: 1200, h: 60 },
+    { step: 1, from: "below", x: 0, y: 0, w: 36, h: 1540 },
+    { step: 1, from: "below", x: 582, y: 36, w: 36, h: 1504 },
+    { step: 1, from: "below", x: 1164, y: 0, w: 36, h: 1540 },
+    { step: 2, from: "left", x: 36, y: 1180, w: 546, h: 28 },
+    { step: 2, from: "right", x: 618, y: 1180, w: 546, h: 28 },
+    { step: 2, from: "left", x: 36, y: 790, w: 546, h: 28 },
+    { step: 2, from: "right", x: 618, y: 790, w: 546, h: 28 },
+    { step: 2, from: "left", x: 36, y: 400, w: 546, h: 28 },
+    { step: 2, from: "right", x: 618, y: 400, w: 546, h: 28 },
+    { step: 3, from: "above", x: 36, y: 0, w: 1128, h: 36 },
+  ],
+} as const;
+
+/** Sets: pieces from the list that work as one in a room. */
+export const SETS_HEAD = {
+  label: "Sets",
+  title: "Put together for a room",
+  rest: "Pieces that work as one, priced together",
+};
+
+/**
+ * Each set's pieces by slug, so names and prices come from the list, with
+ * where its circle sits on the photo, as shares of the photo's width and
+ * height. The photos are stand-in rooms until the sets are photographed:
+ * each circle marks where its piece would stand.
+ */
+export const SETS = [
+  {
+    name: "Entryway set",
+    line: "Keys, bags and shoes by the door, and coats off the chair.",
+    photo: hallway,
+    alt: "A lit open shelf beside a rail of hanging shirts",
+    pieces: [
+      { slug: "entry-pack", x: 32, y: 55 },
+      { slug: "coat-stand", x: 62, y: 22 },
+    ],
+  },
+  {
+    name: "Study set",
+    line: "What you use at the desk within reach, and a place for the jacket.",
+    photo: study,
+    alt: "An armchair beside open shelves and a hook on a panelled wall",
+    pieces: [
+      { slug: "desk-side-pack", x: 77, y: 45 },
+      { slug: "coat-stand", x: 46, y: 38 },
+    ],
+  },
+  {
+    name: "Living room set",
+    line: "Books, plants and pictures along the wall, and a table by the chair.",
+    photo: shelfWall,
+    alt: "Open shelves of books, plants and pictures beside an orange armchair",
+    pieces: [
+      { slug: "sofa-back-divider", x: 60, y: 62 },
+      { slug: "room-divider", x: 89, y: 58 },
+      { slug: "bedside-block", x: 27, y: 74 },
+    ],
+  },
 ] as const;

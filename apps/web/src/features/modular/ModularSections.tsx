@@ -1,13 +1,25 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { PIECES } from "@/features/catalog/catalog";
+import { fromPrice, pieceBySlug, PIECES } from "@/features/catalog/catalog";
 import { PieceCard } from "@/features/catalog/PieceCard";
 import catalog from "@/features/catalog/Catalog.module.css";
 import shared from "@/features/collection/Collection.module.css";
 import { Section } from "@/features/collection/Sections";
-import { lineOf } from "@/lib/routes";
-import { FEATURES, FEATURES_LIMIT, LEAD_HEAD, LEADS, SWATCHES, SWATCHES_HEAD, WALLS } from "./modularList";
-import { MAILTO } from "@/lib/contact";
+import { lineOf, pieceOf } from "@/lib/routes";
+import { sgd } from "@/lib/money";
+import {
+  FEATURES,
+  FEATURES_LIMIT,
+  LEAD_HEAD,
+  LEADS,
+  SETS,
+  SETS_HEAD,
+  SWATCHES,
+  SWATCHES_HEAD,
+  WALLS,
+} from "./modularList";
+import { mailAbout, MAILTO } from "@/lib/contact";
 import styles from "./Modular.module.css";
 
 /** What makes a piece modular, three short panels on the cream. */
@@ -107,5 +119,73 @@ export function Walls() {
         ))}
       </ul>
     </section>
+  );
+}
+
+/**
+ * Sets: each a room's photo joined to a light orange panel, the two
+ * swapping sides from one set to the next. A circle on the photo marks each
+ * piece, naming it when pointed at or tabbed to, and leads to its page; the
+ * panel says what the set is, what it costs together, what it contains,
+ * and how to ask about it.
+ */
+export function Sets() {
+  return (
+    <Section id="sets-title" {...SETS_HEAD}>
+      <ul className={styles.sets}>
+        {SETS.map((set) => {
+          const pieces = set.pieces.flatMap((s) => {
+            const piece = pieceBySlug(s.slug);
+            return piece ? [{ ...s, piece, price: fromPrice(piece) }] : [];
+          });
+          return (
+            <li key={set.name} className={styles.set}>
+              <div className={styles.setPhoto}>
+                <Image src={set.photo} alt={set.alt} fill sizes="(max-width: 1023px) 100vw, 58vw" />
+                <span
+                  className={shared.spotFrame}
+                  style={{ "--photo-ratio": set.photo.width / set.photo.height } as CSSProperties}
+                >
+                  {pieces.map((p) => (
+                    <Link
+                      key={p.slug}
+                      className={styles.setSpot}
+                      href={pieceOf(p.slug)}
+                      style={{ left: `${p.x}%`, top: `${p.y}%` }}
+                      data-edge={p.x > 75 || undefined}
+                      aria-label={`${p.piece.name}, ${sgd(p.price)}`}
+                    >
+                      <span className={shared.spotDot} aria-hidden="true" />
+                      <span className={styles.setSpotName} aria-hidden="true">
+                        {p.piece.name}
+                      </span>
+                    </Link>
+                  ))}
+                </span>
+              </div>
+              <div className={styles.setSide}>
+                <h3 className={shared.promiseName}>{set.name}</h3>
+                <p className={shared.promiseLine}>{set.line}</p>
+                <p className={styles.setPrice}>{sgd(pieces.reduce((sum, p) => sum + p.price, 0))} together, in parts</p>
+                <div className={styles.setContains}>
+                  <p className={shared.cardLabel}>Contains</p>
+                  <ul className={styles.setPieces}>
+                    {pieces.map((p) => (
+                      <li key={p.slug}>
+                        <span>{p.piece.name}</span>
+                        <span>{sgd(p.price)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <a className={shared.outline} href={mailAbout(`About the ${set.name.toLowerCase()}`)}>
+                  Ask about this set
+                </a>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </Section>
   );
 }
