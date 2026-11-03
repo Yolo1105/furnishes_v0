@@ -29,7 +29,6 @@ export function UnevenTiles({
               <span className={styles.kindWords}>
                 <span className={styles.kindName}>{t.name}</span>
                 <span className={styles.kindLine}>{t.line}</span>
-                <span className={styles.kindGo}>Explore</span>
               </span>
               <span className={styles.kindPhoto}>
                 <Image src={t.photo} alt="" fill sizes="(max-width: 639px) 100vw, 30vw" />

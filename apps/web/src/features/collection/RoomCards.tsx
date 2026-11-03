@@ -7,7 +7,7 @@ import styles from "./Collection.module.css";
 
 const rooms = ROOMS.filter((r) => ROOM_CARDS.names.includes(r.name));
 
-/** Four rooms in a row, each with its name, its line and the way in under its photo. */
+/** Four rooms in a row, each one link: its photo, then its name and line. */
 export function RoomCards() {
   return (
     <Section id="room-cards-title" label="Rooms" title={ROOM_CARDS.title} rest={ROOM_CARDS.rest}>
@@ -20,7 +20,6 @@ export function RoomCards() {
               </span>
               <span className={styles.roomName}>{r.name}</span>
               <span className={styles.roomLine}>{r.line}</span>
-              <span className={styles.roomGo}>Explore</span>
             </Link>
           </li>
         ))}

@@ -43,7 +43,8 @@ export function Questions({ questions }: { questions: readonly Question[] }) {
                 aria-controls={id}
                 onClick={() => setOpen(on ? null : x.q)}
               >
-                {x.q}
+                <span className={styles.qaNumber}>{String(n + 1).padStart(2, "0")}</span>
+                <span className={styles.qaText}>{x.q}</span>
                 <span className={styles.qaMark} aria-hidden="true">
                   +
                 </span>

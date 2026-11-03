@@ -132,38 +132,34 @@ export const MOSAIC = {
 const lowest = (line: LineSlug) => sgd(Math.min(...PIECES.filter((p) => p.line === line).map(fromPrice)));
 
 /**
- * The three ways to buy, side by side, after the rebuild's comparison cut
- * to four rows, each under a photo of it: a sofa, a wall of shelves, and
- * a room drawn in 3D. Designing your own is priced with the design, so its price
- * and time are words rather than figures until the owner sets them.
+ * The three ways to buy, side by side, each under a photo of it: a sofa,
+ * a wall of shelves, and a room drawn in 3D. Each says what it is once,
+ * then its price and time on one line. Designing your own is priced with
+ * the design, so its line is words until the owner sets figures.
  */
 export const COMPARE = {
   label: "Which kind",
   title: "Three kinds of furniture, and why",
   rest: "Ready-made, modular, or your own design",
-  rows: { is: "What it is", takes: "How long it takes", price: "Price" } as const,
   kinds: [
     {
       name: "Ready-made",
-      is: "Sofas, desks, chairs and tables in the sizes listed",
-      takes: FURNITURE_WEEKS,
-      price: `From ${lowest("furniture")}`,
+      line: "Sofas, desks, chairs and tables in the sizes listed",
+      facts: `From ${lowest("furniture")} · ${FURNITURE_WEEKS}`,
       photo: redSofa,
       go: { label: "Shop ready-made", href: routes.furniture },
     },
     {
       name: "Modular",
-      is: "Birch pieces sized to your wall, built or in parts",
-      takes: `${ARRIVALS.parts.weeks} in parts, ${ARRIVALS.built.weeks} built`,
-      price: `From ${lowest("modular")}`,
+      line: "Birch pieces sized to your wall, built or in parts",
+      facts: `From ${lowest("modular")} · ${ARRIVALS.parts.weeks} in parts, ${ARRIVALS.built.weeks} built`,
       photo: shelfWall,
       go: { label: "Shop modular", href: routes.modular },
     },
     {
       name: "Design your own",
-      is: "Your room drawn in 3D, with pieces set to fit it",
-      takes: "Quoted with your design",
-      price: "Priced on your design",
+      line: "Your room drawn in 3D, with pieces set to fit it",
+      facts: "Priced and timed with your design",
       photo: render,
       go: { label: "Design your room", href: routes.designYourRoom },
     },
@@ -357,7 +353,7 @@ export const DETAILS = {
   cards: [
     {
       name: "Made by hand",
-      line: "Every seam and joint finished at our partner factory.",
+      line: "Every seam and joint finished by hand.",
       href: routes.furniture,
       photo: sewing,
       tone: "walnut",

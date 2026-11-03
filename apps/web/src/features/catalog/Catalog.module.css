@@ -391,13 +391,8 @@
 
 /* the sheet's one filled button, as Add to cart */
 .show {
+  composes: button from global;
   flex: 1;
-  min-height: 52px;
-  border: 0;
-  background: var(--ink-warm);
-  color: var(--paper);
-  font: 500 var(--text-lg) / 1 var(--font);
-  cursor: pointer;
 }
 
 @media (prefers-reduced-motion: no-preference) {

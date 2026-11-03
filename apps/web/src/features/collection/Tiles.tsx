@@ -31,7 +31,7 @@ export function Tiles() {
                 <p className={styles.lineBandLabel}>{t.label}</p>
                 <h3 className={styles.lineBandName}>{t.title}</h3>
                 <p className={styles.lineBandIntro}>{t.intro}</p>
-                <Link className={styles.book} href={lineOf(t.show)}>
+                <Link className={styles.photoGo} href={lineOf(t.show)}>
                   {t.go}
                 </Link>
               </div>

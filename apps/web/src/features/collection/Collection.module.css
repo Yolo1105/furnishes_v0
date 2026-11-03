@@ -749,18 +749,7 @@
 
 /* a square link on the page's cream, filled red on hover */
 .quickLink {
-  display: inline-flex;
-  align-items: center;
-  min-height: 56px;
-  padding-inline: 28px;
-  background: var(--paper);
-  color: var(--ink-dark);
-  font: 400 var(--text-line) / 1 var(--font);
-}
-
-.quickLink:hover {
-  background: var(--ink-warm);
-  color: var(--paper);
+  composes: button from global;
 }
 
 /* ---------- ready-made ---------- */
@@ -826,8 +815,9 @@
   grid-row: span 2;
 }
 
-/* the photo fills the tile under a light black, a layer stacked on purpose
-   so the words read anywhere on it; photo and words share one grid cell */
+/* the photo fills the tile with a shade only at its foot, a layer stacked
+   on purpose so the words there read while the room stays clear; photo and
+   words share one grid cell */
 .mosaicTile {
   position: relative;
   display: grid;
@@ -842,51 +832,35 @@
 .mosaicTile::after {
   position: absolute;
   inset: 0;
-  background: var(--photo-dim);
+  background: var(--photo-shade-deep);
   content: "";
 }
 
-/* the small tiles' words in the middle; the large one's at its top left */
+/* every tile's words at its foot on the left, so the three line up */
 .mosaicWords {
   z-index: 1;
   display: grid;
-  gap: 16px;
-  place-self: center;
-  justify-items: center;
-  padding: clamp(20px, 3vw, 48px);
-  color: var(--photo-text-white);
-  text-align: center;
-}
-
-.mosaicMain .mosaicWords {
-  place-self: start;
+  gap: 20px;
+  align-self: end;
   justify-items: start;
-  text-align: left;
+  padding: clamp(20px, 2.4vw, 40px);
+  color: var(--photo-text-white);
 }
 
-/* held to about twelve letters a line, so the title breaks onto a few lines */
+/* the large tile's title leads; the two small ones a size down */
 .mosaicTitle {
-  max-width: 12ch;
+  max-width: 14ch;
   margin: 0;
-  font: 400 clamp(34px, 3.1vw, 56px) / 1.08 var(--font);
+  font: 400 var(--text-over) / 1.05 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
 }
 
 .mosaicName {
-  max-width: 12ch;
   margin: 0;
-  font: 400 clamp(34px, 3.1vw, 56px) / 1.08 var(--font);
+  font: 400 var(--text-head) / 1.1 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
-}
-
-/* the way in, underlined at rest, as the reference */
-.mosaicGo {
-  font: 400 var(--text-lg) / 1.3 var(--font);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.4em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -941,8 +915,7 @@
 }
 
 .detail[data-tone="walnut"] .detailWords {
-  background: var(--walnut);
-  color: var(--paper);
+  background: var(--panel-orange);
 }
 
 .detail[data-tone="red"] .detailWords {
@@ -966,16 +939,11 @@
 
 /* the way in, a square of the page's cream, red orange on hover */
 .detailGo {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap);
-  padding-inline: 24px;
-  background: var(--paper);
-  color: var(--ink-dark);
-  font: 400 var(--text-lg) / 1 var(--font);
+  composes: button from global;
 }
 
 .detail:hover .detailGo {
+  border-color: var(--ink-warm);
   background: var(--ink-warm);
   color: var(--paper);
 }
@@ -1032,28 +1000,12 @@
 }
 
 .roomLine {
-  margin-bottom: 8px;
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-lg) / 1.3 var(--font-wordmark);
 }
 
-/* the way in, an outlined square button, filled on hover */
-.roomGo {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap);
-  padding-inline: 24px;
-  border: var(--line) solid var(--ink);
-  color: var(--ink);
-  font: 400 var(--text-lg) / 1 var(--font);
-}
-
-.roomCard:hover .roomGo {
-  background: var(--ink-warm);
-  border-color: var(--ink-warm);
-  color: var(--paper);
-}
-
+/* the photo grows a little when the card is pointed at, to show the
+   whole card is the link */
 @media (prefers-reduced-motion: no-preference) {
   .roomCard img {
     transition: scale var(--dur-move) var(--ease-out);
@@ -1126,25 +1078,6 @@
   font: var(--weight-title-rest) var(--text-line) / 1.35 var(--font-wordmark);
 }
 
-/* the way in, underlined at rest, as the collection's links */
-.kindGo {
-  display: inline-flex;
-  gap: 6px;
-  align-items: center;
-  font: 500 var(--text-md) / 1.3 var(--font);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.35em;
-}
-
-.arrow {
-  width: 0.9em;
-  height: 0.9em;
-  fill: none;
-  stroke: currentcolor;
-  stroke-width: 1.6;
-}
-
 .kindPhoto {
   position: relative;
   overflow: hidden;
@@ -1212,18 +1145,7 @@
 /* the reference's outlined button, square as the site's others; it fills
    in red on hover */
 .outline {
-  display: inline-flex;
-  align-items: center;
-  min-height: 52px;
-  padding-inline: 36px;
-  border: var(--line) solid var(--ink);
-  color: var(--ink);
-  font: 500 var(--text-lg) / 1 var(--font);
-}
-
-.outline:hover {
-  background: var(--ink-warm);
-  color: var(--paper);
+  composes: button from global;
 }
 
 /* ---------- the visit ---------- */
@@ -1261,24 +1183,17 @@
 
 /* the page's filled button, as on a piece's page */
 .book {
-  display: inline-flex;
-  align-items: center;
-  min-height: 52px;
-  padding-inline: 28px;
-  background: var(--ink-warm);
-  color: var(--paper);
-  font: 500 var(--text-lg) / 1 var(--font);
+  composes: button from global;
 }
 
-.book:hover {
-  background: var(--ink-warm-deep);
+/* on a photo the button is filled, so it reads over the room */
+.photoGo {
+  composes: button button-filled from global;
 }
 
 /* ---------- three kinds compared ---------- */
 
-/* three columns, parted by space alone: each kind's photo, its name in
-   red, then its rows as a pale capital label over a brown value, and its
-   way in */
+/* three columns, parted by space alone */
 .compare {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1288,17 +1203,22 @@
   list-style: none;
 }
 
+/* each kind top to bottom: photo, name in red, what it is, its price and
+   time, and the way in held to the column's foot so the three line up */
 .compareKind {
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
-  gap: 20px;
+  grid-template-rows: auto auto 1fr auto auto;
+  gap: 12px;
   justify-items: start;
+  height: 100%;
+  color: var(--ink-dark);
 }
 
 /* the room, a little wider than tall, on the birch the photos load on */
 .comparePhoto {
   position: relative;
   justify-self: stretch;
+  margin-bottom: 8px;
   overflow: hidden;
   aspect-ratio: 4 / 3;
   background: var(--birch);
@@ -1308,41 +1228,55 @@
   object-fit: cover;
 }
 
-.compareKind .promiseName {
+.compare .compareName {
   margin: 0;
 }
 
-.compareRows {
-  display: grid;
-  gap: 16px;
-  align-content: start;
-  margin: 0;
+/* the words take the column's width so they wrap, while the way in
+   keeps its own */
+.compareLine,
+.compareFacts {
+  justify-self: stretch;
 }
 
-.compareLabel {
-  composes: caps from global;
-  margin-bottom: 4px;
-  color: var(--ink-dark-pale);
-}
-
-.compareValue {
+.compareLine {
   margin: 0;
-  color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
 }
 
+.compareFacts {
+  composes: caps from global;
+  margin: 0;
+  color: var(--ink-dark-pale);
+}
+
+/* the way in, the site's button; pointing at the photo fills it too, as
+   both go to the same place */
 .compareGo {
-  composes: caps underline-on-hover from global;
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap);
-  color: var(--ink);
-  font-size: var(--text-md);
+  composes: button from global;
+  margin-top: 8px;
+}
+
+.compareKind:has(.comparePhoto:hover) .compareGo {
+  border-color: var(--ink-warm);
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .comparePhoto img {
+    transition: scale var(--dur-move) var(--ease-out);
+  }
+
+  .comparePhoto:hover img,
+  .compareKind:has(.compareGo:hover) .comparePhoto img {
+    scale: 1.04;
+  }
 }
 
 @media (width <= 1023px) {
   .compare {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -1387,27 +1321,41 @@
   text-underline-offset: 0.3em;
 }
 
+/* the number's column, which the answer also starts after */
 .qaList {
+  --qa-number: clamp(44px, 4vw, 64px);
+
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* a question's whole row is its button, the question in the page's brown
-   and the plus in red; the plus turns to a cross when open */
+/* a question's whole row is its button: its number in small red capitals,
+   the question in the page's brown, and the plus in red, which turns to a
+   cross when open; space alone parts the rows */
 .qaQuestion {
-  display: flex;
+  display: grid;
+  grid-template-columns: var(--qa-number) 1fr auto;
   gap: 16px;
-  align-items: center;
-  justify-content: space-between;
+  align-items: baseline;
   width: 100%;
-  padding: 18px 0;
+  padding: 22px 0;
   border: 0;
   background: none;
   color: var(--ink-dark);
   font: 400 var(--text-line) / 1.3 var(--font);
   text-align: left;
   cursor: pointer;
+}
+
+.qaNumber {
+  composes: caps from global;
+  color: var(--ink);
+}
+
+/* the open question turns red, so it reads as the one being answered */
+.qaItem[data-open] .qaText {
+  color: var(--ink);
 }
 
 .qaMark {
@@ -1435,9 +1383,10 @@
   overflow: hidden;
 }
 
+/* the answer starts under the question's words, not its number */
 .qaAnswer p {
   max-width: 60ch;
-  padding-bottom: 20px;
+  padding: 0 0 24px calc(var(--qa-number) + 16px);
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-lg) / 1.5 var(--font-wordmark);
 }

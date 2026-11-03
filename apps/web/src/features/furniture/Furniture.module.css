@@ -55,32 +55,21 @@
   color: var(--paper-dim);
 }
 
-/* the cream button on the dark half; the page's filled button turned round */
-.light,
+/* the site's button; on the dark half its outline and words take the
+   paper, and it fills with the paper when pointed at */
 .solid {
-  display: inline-flex;
-  align-items: center;
-  min-height: 52px;
-  padding-inline: 28px;
-  font: 500 var(--text-lg) / 1 var(--font);
+  composes: button from global;
 }
 
 .light {
-  background: var(--paper);
-  color: var(--ink-dark);
-}
-
-.light:hover {
-  background: var(--birch);
-}
-
-.solid {
-  background: var(--ink-warm);
+  composes: button from global;
   color: var(--paper);
 }
 
-.solid:hover {
-  background: var(--ink-warm-deep);
+.light:hover {
+  border-color: var(--paper);
+  background: var(--paper);
+  color: var(--ink-dark);
 }
 
 .splitPhoto,

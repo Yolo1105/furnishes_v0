@@ -103,6 +103,10 @@
   /* the red finish on the bookcase (a fill, not text) */
   --finish-red: color-mix(in srgb, var(--ink) 35%, var(--paper));
 
+  /* a light orange panel from the site's red orange, a step paler than the
+     red finish, so the cards beside it stay in the page's warm colours */
+  --panel-orange: color-mix(in srgb, var(--ink-warm) 22%, var(--paper));
+
   /* the finishes coming next, as flat samples until they are photographed
      (fills, not text) */
   --finish-oiled-oak: #c79a62;
@@ -301,6 +305,47 @@ h3 {
   text-decoration: none;
   background: var(--ink-warm);
   color: var(--paper);
+}
+
+/* every button: a red outline round red words, filled red when pointed
+   at; on a dark ground a module turns the words and line to the paper */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
+  padding-inline: 24px;
+  border: var(--line) solid currentcolor;
+  background: none;
+  color: var(--ink);
+  font: 400 var(--text-lg) / 1 var(--font);
+  cursor: pointer;
+}
+
+.button:hover {
+  border-color: var(--ink-warm);
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+/* the same button filled red, for one that sits on a photo, where an
+   outline would be lost */
+.button-filled {
+  border-color: var(--ink-warm);
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+.button-filled:hover {
+  border-color: var(--ink-warm-deep);
+  background: var(--ink-warm-deep);
+}
+
+.button:disabled {
+  border-color: var(--ink-pale);
+  background: none;
+  color: var(--ink-pale);
+  cursor: not-allowed;
 }
 
 .visually-hidden {

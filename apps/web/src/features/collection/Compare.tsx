@@ -4,12 +4,11 @@ import { COMPARE } from "./collectionList";
 import { Section } from "./Sections";
 import styles from "./Collection.module.css";
 
-const ROWS = ["is", "takes", "price"] as const;
-
 /**
- * The three kinds side by side: each its photo, its name, then what it is, how long it
- * takes and its price as label and value, and the way in. Parted by space,
- * not rules; each column keeps its labels, so it reads alone on a phone.
+ * The three kinds side by side: each its photo, its name, what it is, its
+ * price and time, and the way in. Only the photo and the button are links,
+ * so only they answer the pointer; the photo's link is left out of the tab
+ * order and from screen readers, as it goes where the button goes.
  */
 export function Compare() {
   return (
@@ -17,18 +16,12 @@ export function Compare() {
       <ul className={styles.compare}>
         {COMPARE.kinds.map((k) => (
           <li key={k.name} className={styles.compareKind}>
-            <div className={styles.comparePhoto}>
+            <Link className={styles.comparePhoto} href={k.go.href} tabIndex={-1} aria-hidden="true">
               <Image src={k.photo} alt="" fill sizes="(max-width: 1023px) 100vw, 33vw" />
-            </div>
-            <h3 className={styles.promiseName}>{k.name}</h3>
-            <dl className={styles.compareRows}>
-              {ROWS.map((r) => (
-                <div key={r}>
-                  <dt className={styles.compareLabel}>{COMPARE.rows[r]}</dt>
-                  <dd className={styles.compareValue}>{k[r]}</dd>
-                </div>
-              ))}
-            </dl>
+            </Link>
+            <h3 className={`${styles.promiseName} ${styles.compareName}`}>{k.name}</h3>
+            <p className={styles.compareLine}>{k.line}</p>
+            <p className={styles.compareFacts}>{k.facts}</p>
             <Link className={styles.compareGo} href={k.go.href}>
               {k.go.label}
             </Link>

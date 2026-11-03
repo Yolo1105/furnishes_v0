@@ -143,18 +143,8 @@
 
 /* the one filled button on the page */
 .checkout {
-  min-height: var(--tap);
+  composes: button from global;
   margin-top: 8px;
-  border: 0;
-  background: var(--ink-warm);
-  color: var(--paper);
-  font: 500 var(--text-md) / 1 var(--font);
-  cursor: pointer;
-}
-
-.checkout:disabled {
-  background: var(--ink-pale);
-  cursor: not-allowed;
 }
 
 .note {
