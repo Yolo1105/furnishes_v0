@@ -41,9 +41,8 @@
 
 /* a detail's mark a size smaller, to sit with the small capitals */
 .detailLabel > svg {
-  width: 32px;
-  height: 32px;
-  padding: 6px;
+  width: 20px;
+  height: 20px;
 }
 
 .details dd {
@@ -52,12 +51,78 @@
   font: 400 var(--text-lg) / 1.4 var(--font);
 }
 
+/* ---------- the ways in ---------- */
+
+.ways {
+  display: grid;
+  gap: clamp(28px, 3vw, 48px);
+  padding: clamp(64px, 8vw, 128px) var(--gutter) 0;
+}
+
+/* a title set in the middle, as the owner's reference */
+.centred {
+  align-items: center;
+  text-align: center;
+}
+
+/* four cards in a row, each in a thin frame, so each way reads as its own */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 1.5vw, 24px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: grid;
+  grid-template-rows: 1fr auto auto auto;
+  gap: 10px;
+  align-content: start;
+  justify-items: start;
+  min-height: 240px;
+  padding: clamp(20px, 2vw, 28px);
+  border: var(--line) solid var(--rule-strong);
+}
+
+/* the mark at the top, the words held at the card's foot */
+.card > svg {
+  align-self: start;
+}
+
+.cardName {
+  margin: 0;
+  color: var(--ink);
+  font: 400 var(--text-head) / 1.1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.cardLine {
+  margin: 0;
+  color: var(--ink-dark);
+  font: 400 var(--text-md) / 1.5 var(--font);
+}
+
 /* ---------- the enquiry ---------- */
 
+/* the enquiry in its own framed panel, after the owner's reference, so the
+   form reads as one thing beside the title */
 .enquiry {
   display: grid;
   gap: clamp(28px, 3vw, 44px);
   justify-items: start;
+  padding: clamp(24px, 3vw, 48px);
+  border: var(--line) solid var(--rule-strong);
+}
+
+.panelTitle {
+  margin: 0;
+  color: var(--ink);
+  font: 400 var(--text-over) / 1.05 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
 }
 
 /* the sentence in the narrow cut, in the page's brown, the blanks set in
@@ -65,13 +130,13 @@
 .sentence {
   margin: 0;
   color: var(--ink-dark);
-  font: 400 var(--text-head) / 1.7 var(--font);
+  font: 400 var(--text-head) / 2 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
 }
 
-/* a blank: the field as wide as an answer, a firm line under it as the
-   only mark that it is a field, the answer in red */
+/* a blank: the field as wide as an answer, in a box so it reads at once
+   as a field, the answer in red */
 .blank {
   display: inline-block;
   width: 8em;
@@ -87,9 +152,8 @@
 .more {
   box-sizing: border-box;
   width: 100%;
-  padding: 0 0 4px;
-  border: 0;
-  border-bottom: var(--line) solid var(--rule-strong);
+  padding: 4px 12px;
+  border: var(--line) solid var(--rule-strong);
   border-radius: 0;
   background: none;
   color: var(--ink);
@@ -104,7 +168,7 @@
 
 .blank input:focus-visible,
 .more:focus-visible {
-  border-bottom-color: var(--ink);
+  border-color: var(--ink);
   outline: none;
 }
 
@@ -114,13 +178,8 @@
 .more {
   min-height: clamp(200px, 28vh, 320px);
   padding: 16px 18px;
-  border: var(--line) solid var(--rule-strong);
   font: 400 var(--text-line) / 1.5 var(--font);
   resize: vertical;
-}
-
-.more:focus-visible {
-  border-color: var(--ink);
 }
 
 /* the big questions, those the rest follows from, in the section titles'
@@ -269,6 +328,10 @@
 }
 
 @media (width <= 1023px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .top {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -279,6 +342,31 @@
 }
 
 @media (width <= 639px) {
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* one under the other, a card needs no height held for a row */
+  .card {
+    min-height: 0;
+  }
+
+  /* on a phone each box takes the panel's width, so none runs past it */
+  .blank,
+  .blankWide {
+    width: 100%;
+  }
+
+  .enquiry {
+    padding: 20px 16px;
+  }
+
+  /* with each box on a line of its own, the sentence's full stops would
+     stand alone, so they go */
+  .stop {
+    display: none;
+  }
+
   .options {
     grid-template-columns: minmax(0, 1fr);
   }

@@ -47,7 +47,7 @@ const PATHS = {
 
 export type IconName = keyof typeof PATHS;
 
-/** A mark in a small thin frame, after the owner's references; decoration, so hidden from readers. */
+/** A small bare mark, after the owner's references; decoration, so hidden from readers. */
 export function Icon({ name }: { name: IconName }) {
   return (
     <svg className={styles.icon} viewBox="0 0 24 24" aria-hidden="true">

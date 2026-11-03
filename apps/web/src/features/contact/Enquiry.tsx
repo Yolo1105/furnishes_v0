@@ -103,7 +103,7 @@ export function Enquiry() {
 
   return (
     <form className={styles.enquiry} onSubmit={send} aria-labelledby="enquiry-title">
-      <h2 id="enquiry-title" className="visually-hidden">
+      <h2 id="enquiry-title" className={styles.panelTitle}>
         {ENQUIRY.label}
       </h2>
       <fieldset className={styles.group}>
@@ -179,12 +179,12 @@ export function Enquiry() {
                   </label>
                 </>
               )}
-              . {ENQUIRY.write}{" "}
+              <span className={styles.stop}>.</span> {ENQUIRY.write}{" "}
               <label className={`${styles.blank} ${styles.blankWide}`}>
                 <span className="visually-hidden">{ENQUIRY.email}</span>
                 <input name="email" type="email" placeholder={ENQUIRY.email} autoComplete="email" required />
               </label>
-              .
+              <span className={styles.stop}>.</span>
             </p>
           </fieldset>
 

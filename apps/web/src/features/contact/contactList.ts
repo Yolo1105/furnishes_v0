@@ -26,33 +26,39 @@ export const DETAILS = [
 ] as const;
 
 /**
- * The other ways we help, after the owner's reference, each to its own
- * page: answers to read, the assistant to ask, and offices to quote.
+ * The ways in, after the owner's reference: four framed cards in a row
+ * under a centred title, each a mark, a name, a line and its link.
  */
 export const WAYS_HEAD = {
   label: "Other ways we help",
   title: "Not ready to write yet",
-  rest: "Read, ask, or see what we do for teams",
+  rest: "Read, ask, or have us come to you",
 };
 
 export const WAYS = [
   {
-    name: "Help centre",
-    icon: "help",
-    line: "Every question asked before and after ordering, with a search to find yours.",
-    go: { label: "Find an answer", href: routes.help },
+    name: "Email us",
+    icon: "mail",
+    line: "A question about a piece, an order or a room.",
+    go: { label: EMAIL, href: MAILTO },
   },
   {
-    name: "The assistant",
+    name: "Ask the assistant",
     icon: "spark",
-    line: "Log in and ask about a piece or a room at any hour, and it answers from what we sell.",
+    line: "Log in and ask at any hour. It answers from what we sell.",
     go: { label: "Meet the assistant", href: routes.planning },
   },
   {
-    name: "For offices",
-    icon: "office",
-    line: "Desks, storage and separator walls for a team, priced together in one quote.",
-    go: { label: "See office pieces", href: routes.offices },
+    name: "A home visit",
+    icon: "pin",
+    line: `${FACTS.visitMinutes} minutes in your room, ${sgd(FACTS.visitFee)} taken off your order.`,
+    go: { label: "Book a visit", href: mailAbout("Home visit") },
+  },
+  {
+    name: "Help centre",
+    icon: "help",
+    line: "Every question asked before and after ordering.",
+    go: { label: "Find an answer", href: routes.help },
   },
 ] as const;
 
@@ -122,7 +128,7 @@ export const TOPICS = [
  * email.
  */
 export const ENQUIRY = {
-  label: "Tell us about it",
+  label: "Let's talk",
   who: {
     legend: "Is it for your home or for a company",
     options: [

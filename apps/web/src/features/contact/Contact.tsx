@@ -51,9 +51,30 @@ export function Contact() {
         </div>
         <Enquiry />
       </section>
-      <Section id="ways-title" {...WAYS_HEAD}>
-        <Index entries={WAYS} />
-      </Section>
+      <section className={styles.ways} aria-labelledby="ways-title">
+        <h2 id="ways-title" className={`${collection.heading} ${styles.centred}`}>
+          <span className={collection.headingLabel}>{WAYS_HEAD.label}</span>
+          {WAYS_HEAD.title} <span className={collection.headingRest}>{WAYS_HEAD.rest}</span>
+        </h2>
+        <ul className={styles.cards}>
+          {WAYS.map((w) => (
+            <li key={w.name} className={styles.card}>
+              <Icon name={w.icon} />
+              <h3 className={styles.cardName}>{w.name}</h3>
+              <p className={styles.cardLine}>{w.line}</p>
+              {w.go.href.startsWith("/") ? (
+                <Link className={collection.qaMail} href={w.go.href}>
+                  {w.go.label}
+                </Link>
+              ) : (
+                <a className={collection.qaMail} href={w.go.href}>
+                  {w.go.label}
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
       <Section id="topics-title" {...TOPICS_HEAD}>
         <Index
           entries={TOPICS.map((t) => ({ name: t.name, note: t.get, line: t.line, go: { label: t.go, href: t.href } }))}

@@ -1444,15 +1444,12 @@
   list-style: none;
 }
 
-/* a small mark in a thin frame, over an entry's name, before a question,
-   or by a contact detail, after the owner's references */
+/* a small mark, bare, over an entry's name, before a question, or by a
+   contact detail, after the owner's references; no box round it */
 .icon {
   flex: none;
-  box-sizing: border-box;
-  width: 40px;
-  height: 40px;
-  padding: 9px;
-  border: var(--line) solid var(--rule-strong);
+  width: 26px;
+  height: 26px;
   fill: none;
   stroke: var(--ink);
   stroke-width: 1.5;
@@ -1462,7 +1459,7 @@
 
 /* the mark standing apart from the name under it */
 .entryHead > .icon {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .entry {
@@ -1669,6 +1666,36 @@
   padding: 0 0 24px calc(var(--qa-number) + 16px);
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-lg) / 1.5 var(--font-wordmark);
+}
+
+/* centred, after the owner's reference: the title over one middle column,
+   each question in a thin frame of its own, so each reads apart */
+.qa[data-centred] {
+  grid-template-columns: minmax(0, 860px);
+  justify-content: center;
+}
+
+.qa[data-centred] .qaSide {
+  justify-items: center;
+  text-align: center;
+}
+
+.qa[data-centred] .heading {
+  align-items: center;
+}
+
+.qa[data-centred] .qaList {
+  display: grid;
+  gap: 12px;
+}
+
+.qa[data-centred] .qaItem {
+  padding-inline: clamp(16px, 2vw, 24px);
+  border: var(--line) solid var(--rule-strong);
+}
+
+.qa[data-centred] .qaItem[data-open] {
+  border-color: var(--ink);
 }
 
 @media (prefers-reduced-motion: no-preference) {
