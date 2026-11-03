@@ -1,23 +1,17 @@
 import type { Metadata } from "next";
-import styles from "@/features/collection/Collection.module.css";
-import { Soon } from "@/features/soon/Soon";
-import { LOG_IN_SOON } from "@/features/soon/soonList";
-import { SiteHeader } from "@/shell/SiteHeader";
+import { redirect } from "next/navigation";
+import { LogIn } from "@/features/account/LogIn";
+import { isLoggedIn, safeNext } from "@/features/account/session";
 
 export const metadata: Metadata = {
   title: "Log in",
-  description: "Your rooms, orders and the assistant; opening soon.",
+  description: "Log in to your rooms, orders and the assistant.",
   robots: { index: false },
 };
 
-/** Log in: what it will do once it opens, and the ways in that work today. */
-export default function LogInPage() {
-  return (
-    <>
-      <SiteHeader />
-      <main id="main" className={styles.page}>
-        <Soon page={LOG_IN_SOON} />
-      </main>
-    </>
-  );
+/** Log in: a room beside the form, with no bar or footer; once logged in, straight on to where you were going. */
+export default async function LogInPage({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
+  const { next } = await searchParams;
+  if (await isLoggedIn()) redirect(safeNext(next));
+  return <LogIn {...(next && { next: safeNext(next) })} />;
 }

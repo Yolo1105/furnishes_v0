@@ -1,0 +1,121 @@
+/* The log-in page, after the owner's other site: a room on the left, the
+   form on the cream on the right, the two filling the screen. */
+
+.split {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  min-height: 100svh;
+}
+
+/* the room, its wordmark and line stacked over it on purpose, over a black
+   shade across its foot so the light words read on any room */
+.room {
+  position: relative;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.room img {
+  object-fit: cover;
+}
+
+.room::after {
+  position: absolute;
+  inset: 0;
+  background: var(--photo-shade-deep);
+  content: "";
+}
+
+.wordmark {
+  composes: wordmark from global;
+  position: absolute;
+  top: clamp(20px, 3vw, 40px);
+  left: var(--gutter);
+  z-index: 1;
+  color: var(--photo-text);
+}
+
+.over {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(24px, 4vw, 64px);
+  left: var(--gutter);
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+  max-width: 34ch;
+}
+
+.overTitle {
+  margin: 0;
+  color: var(--photo-text);
+  font: 400 var(--text-over) / 1.08 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.overLine {
+  margin: 0;
+  color: var(--photo-text-dim);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+/* the form, centred down the cream */
+.panel {
+  display: grid;
+  align-items: center;
+  padding: clamp(40px, 6vw, 96px) clamp(24px, 5vw, 96px);
+}
+
+.form {
+  display: grid;
+  gap: 24px;
+  justify-items: start;
+  width: min(100%, 420px);
+}
+
+/* a field: its label in pale capitals over a square box, outlined as the
+   site's buttons are, the outline turning red while typing in it */
+.field {
+  display: grid;
+  gap: 8px;
+  justify-self: stretch;
+}
+
+.fieldLabel {
+  composes: caps from global;
+  color: var(--ink-dark-pale);
+}
+
+.field input {
+  min-height: var(--tap);
+  padding: 0 14px;
+  border: var(--line) solid var(--rule-strong);
+  border-radius: 0;
+  background: none;
+  color: var(--ink-dark);
+  font: 400 var(--text-lg) / 1.2 var(--font);
+}
+
+.field input:focus {
+  border-color: var(--ink);
+  outline: none;
+}
+
+.help {
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-md) / var(--leading-line) var(--font-wordmark);
+}
+
+/* stacked, the room is a band over the form */
+@media (width <= 1023px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+
+  .room {
+    min-height: clamp(240px, 42svh, 420px);
+  }
+}

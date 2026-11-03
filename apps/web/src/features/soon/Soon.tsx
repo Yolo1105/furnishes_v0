@@ -1,14 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import collection from "@/features/collection/Collection.module.css";
 import contact from "@/features/contact/Contact.module.css";
 import type { SoonPage } from "./soonList";
 
 /**
  * A page whose tool is still to come, in the contact page's opening shape:
- * the title, what it will do, and the ways in that work today, beside a room.
+ * the title, what it will do, and the ways in that work today, beside a room,
+ * with anything the page adds under them.
  */
-export function Soon({ page }: { page: SoonPage }) {
+export function Soon({ page, children }: { page: SoonPage; children?: ReactNode }) {
   return (
     <section className={contact.top} aria-labelledby="soon-title">
       <div className={contact.topText}>
@@ -32,6 +34,7 @@ export function Soon({ page }: { page: SoonPage }) {
             </li>
           ))}
         </ul>
+        {children}
       </div>
       <div className={contact.photo}>
         <Image src={page.photo} alt="" fill priority sizes="(max-width: 1023px) 100vw, 55vw" />
