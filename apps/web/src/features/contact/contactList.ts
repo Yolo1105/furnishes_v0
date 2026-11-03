@@ -121,7 +121,7 @@ export const TOPICS = [
  * The enquiry, after the owner's three references. It asks first whether
  * it is for a home or a company, and the questions after follow that: what
  * they need, picked from a list with a line each, then where the home is,
- * or what kind of company and how large. It ends on one sentence with the
+ * or what kind of company and how large. It ends on two lines with the
  * name and email to fill. Sending writes it into an email that opens in the
  * visitor's mail app, its subject the first need picked. No budget is asked
  * until there are prices to set one against, and no phone, as we answer by
@@ -129,6 +129,8 @@ export const TOPICS = [
  */
 export const ENQUIRY = {
   label: "Let's talk",
+  /** the email's subject when no need is picked */
+  subject: "Enquiry",
   who: {
     legend: "Is it for your home or for a company",
     options: [
@@ -174,10 +176,6 @@ export const ENQUIRY = {
   size: {
     legend: "How large is the team",
     steps: ["1 to 10 people", "11 to 30 people", "31 to 100 people", "More than 100 people"],
-  },
-  found: {
-    legend: "How did you find us",
-    options: ["Instagram", "Google", "A friend", "Xiaohongshu", "Somewhere else"],
   },
   reach: { legend: "How do we reach you" },
   hi: "Hi, my name is",

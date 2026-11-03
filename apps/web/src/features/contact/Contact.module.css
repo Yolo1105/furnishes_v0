@@ -128,13 +128,13 @@
 .sentence {
   margin: 0;
   color: var(--ink-dark);
-  font: 400 var(--text-head) / 2 var(--font);
+  font: 400 var(--text-head) / 1.6 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
 }
 
-/* a blank: the field as wide as an answer, in a box so it reads at once
-   as a field, the answer in red */
+/* a blank: the field as wide as an answer, a firm line under it as the
+   mark that it is a field, the answer in red */
 .blank {
   display: inline-block;
   width: 8em;
@@ -150,7 +150,6 @@
 .more {
   box-sizing: border-box;
   width: 100%;
-  padding: 4px 12px;
   border: var(--line) solid var(--rule-strong);
   border-radius: 0;
   background: none;
@@ -159,15 +158,23 @@
   letter-spacing: inherit;
 }
 
+.blank input {
+  padding: 0 0 4px;
+  border-width: 0 0 var(--line);
+}
+
 .blank input::placeholder,
 .more::placeholder {
   color: var(--ink-dark-pale);
 }
 
+/* a field shows its focus by its line turning red, never by underlining
+   what is typed, as the site's other focus does */
 .blank input:focus-visible,
 .more:focus-visible {
   border-color: var(--ink);
   outline: none;
+  text-decoration: none;
 }
 
 /* the long answer: a large box in the choices' thin frame, so it reads as
@@ -235,19 +242,6 @@
   font: 400 var(--text-md) / 1.4 var(--font);
 }
 
-/* the team's size, said large over the slider that sets it */
-.sizeValue {
-  color: var(--ink);
-  font: 400 var(--text-head) / 1 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-}
-
-.size {
-  width: min(100%, 420px);
-  margin: 0;
-  accent-color: var(--ink);
-}
-
 /* a question: its name in small capitals over its buttons */
 .group {
   display: grid;
@@ -301,19 +295,66 @@
   text-decoration: underline;
 }
 
+/* the foot: agreeing on the left, sending on the right, on one line */
+.send {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 32px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .agree {
   display: flex;
   gap: 12px;
   align-items: center;
   color: var(--ink-dark);
   font: 400 var(--text-md) / 1.5 var(--font);
+  cursor: pointer;
 }
 
+/* the box drawn as the choices are, square in their thin line, filled in
+   the red orange once ticked, a ring of the page left inside */
 .agree input {
-  width: 20px;
-  height: 20px;
+  flex: none;
+  width: 22px;
+  height: 22px;
   margin: 0;
-  accent-color: var(--ink);
+  border: var(--line) solid var(--rule-strong);
+  border-radius: 0;
+  background: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.agree input:checked {
+  border-color: var(--ink-warm);
+  background: var(--ink-warm);
+  box-shadow: inset 0 0 0 4px var(--paper);
+}
+
+.agree input:focus-visible {
+  border-color: var(--ink);
+}
+
+.agreeLink {
+  composes: underline-on-hover from global;
+  color: var(--ink);
+}
+
+/* sending, the form's one filled button, so it reads as the step that
+   ends it */
+.sendGo {
+  composes: button from global;
+  border-color: var(--ink-warm);
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+.sendGo:hover {
+  border-color: var(--ink);
+  background: var(--ink);
 }
 
 @media (width <= 1023px) {

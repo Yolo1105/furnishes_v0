@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
-import collection from "@/features/collection/Collection.module.css";
 import { mailAbout } from "@/lib/contact";
 import { routes } from "@/lib/routes";
 import { ENQUIRY } from "./contactList";
@@ -73,7 +72,6 @@ function Option({
 export function Enquiry() {
   // a home to start, as most who write are families, so the whole form shows at once
   const [who, setWho] = useState<Who>("home");
-  const [size, setSize] = useState(0);
 
   const send = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -89,12 +87,11 @@ export function Enquiry() {
       [ENQUIRY.who.legend, ENQUIRY.who.options.find((o) => o.value === who)?.name ?? ""],
       [ENQUIRY.needs.legend, needs.join(", ")],
       company ? [ENQUIRY.kind.legend, say("kind")] : [ENQUIRY.space.legend, say("space")],
-      company ? [ENQUIRY.size.legend, ENQUIRY.size.steps[size] ?? ""] : ["", ""],
-      [ENQUIRY.found.legend, say("found")],
+      company ? [ENQUIRY.size.legend, say("size")] : ["", ""],
       ["", say("more")],
     ]);
     // an email address, not a page, so the mail app opens and the page stays
-    window.open(`${mailAbout(needs[0] ?? ENQUIRY.label)}&body=${encodeURIComponent(body)}`, "_self");
+    window.open(`${mailAbout(needs[0] ?? ENQUIRY.subject)}&body=${encodeURIComponent(body)}`, "_self");
   };
 
   return (
@@ -135,26 +132,9 @@ export function Enquiry() {
       ) : (
         <>
           <Pick name="kind" {...ENQUIRY.kind} />
-          <label className={styles.group}>
-            <span className={styles.groupLegend}>{ENQUIRY.size.legend}</span>
-            <span className={styles.sizeValue} aria-hidden="true">
-              {ENQUIRY.size.steps[size]}
-            </span>
-            <input
-              className={styles.size}
-              type="range"
-              min={0}
-              max={ENQUIRY.size.steps.length - 1}
-              step={1}
-              value={size}
-              aria-valuetext={ENQUIRY.size.steps[size]}
-              onChange={(e) => setSize(Number(e.target.value))}
-            />
-          </label>
+          <Pick name="size" legend={ENQUIRY.size.legend} options={ENQUIRY.size.steps} />
         </>
       )}
-
-      <Pick name="found" {...ENQUIRY.found} />
 
       <fieldset className={styles.group}>
         <legend className={styles.question}>{ENQUIRY.reach.legend}</legend>
@@ -174,7 +154,10 @@ export function Enquiry() {
               </label>
             </>
           )}
-          <span className={styles.stop}>.</span> {ENQUIRY.write}{" "}
+          <span className={styles.stop}>.</span>
+        </p>
+        <p className={styles.sentence}>
+          {ENQUIRY.write}{" "}
           <label className={`${styles.blank} ${styles.blankWide}`}>
             <span className="visually-hidden">{ENQUIRY.email}</span>
             <input name="email" type="email" placeholder={ENQUIRY.email} autoComplete="email" required />
@@ -187,22 +170,24 @@ export function Enquiry() {
         <span className={styles.groupLegend}>{ENQUIRY.more.legend}</span>
         <textarea className={styles.more} name="more" rows={8} placeholder={ENQUIRY.more.hint} />
       </label>
-      <label className={styles.agree}>
-        <input type="checkbox" name="agree" required />
-        <span>
-          {ENQUIRY.agree}{" "}
-          <Link className={collection.qaMail} href={routes.terms}>
-            {ENQUIRY.terms}
-          </Link>{" "}
-          {ENQUIRY.and}{" "}
-          <Link className={collection.qaMail} href={routes.privacy}>
-            {ENQUIRY.privacy}
-          </Link>
-        </span>
-      </label>
-      <button type="submit" className={collection.outline}>
-        {ENQUIRY.send}
-      </button>
+      <div className={styles.send}>
+        <label className={styles.agree}>
+          <input type="checkbox" name="agree" required />
+          <span>
+            {ENQUIRY.agree}{" "}
+            <Link className={styles.agreeLink} href={routes.terms}>
+              {ENQUIRY.terms}
+            </Link>{" "}
+            {ENQUIRY.and}{" "}
+            <Link className={styles.agreeLink} href={routes.privacy}>
+              {ENQUIRY.privacy}
+            </Link>
+          </span>
+        </label>
+        <button type="submit" className={styles.sendGo}>
+          {ENQUIRY.send}
+        </button>
+      </div>
     </form>
   );
 }
