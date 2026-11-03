@@ -1,18 +1,30 @@
 /* ---------- who we are ---------- */
 
-/* the title and its paragraph on the left, two rooms side by side on the
-   right; under the bar, as the inspiration page's opening */
+/* after the owner's other site: the title large across the page, the two
+   rooms wide under it, then who it is for on the left and the paragraph on
+   the right; under the bar, as the inspiration page's opening */
 .who {
   display: grid;
   grid-template-columns: 5fr 7fr;
-  gap: clamp(24px, 4vw, 72px);
-  align-items: end;
+  gap: clamp(24px, 3vw, 56px) clamp(24px, 4vw, 72px);
   padding: calc(var(--nav-h) + clamp(32px, 4vw, 64px)) var(--gutter) 0;
 }
 
-.whoText {
-  display: grid;
-  gap: 24px;
+.whoTitle {
+  grid-column: 1 / -1;
+  max-width: 18ch;
+  margin: 0;
+  color: var(--ink);
+  font: 400 var(--text-title) / 0.98 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-display);
+}
+
+/* who it is for, in the title's brown second line */
+.whoRest {
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-rest) / 1.3 var(--font-wordmark);
 }
 
 /* the paragraph in the collection's lighter Jost, in the page's brown */
@@ -25,8 +37,13 @@
 
 .whoPhotos {
   display: grid;
+  grid-column: 1 / -1;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(12px, 1.5vw, 24px);
+}
+
+.whoPhotos .photo {
+  aspect-ratio: 3 / 2;
 }
 
 .photo {
@@ -121,17 +138,19 @@
 
 /* ---------- the workshop ---------- */
 
-/* the words and facts on the left, a photo on the right of the same height */
-.workshop {
+/* the words and facts on a light orange panel joined to the photo as one
+   block, after the owner's other site, the photo the larger part */
+.workshopBlock {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(24px, 4vw, 72px);
+  grid-template-columns: 5fr 7fr;
 }
 
 .workshopText {
   display: grid;
   gap: 24px;
-  align-content: start;
+  align-content: center;
+  padding: clamp(32px, 4vw, 72px) clamp(28px, 3.4vw, 56px);
+  background: var(--panel-orange);
 }
 
 /* each fact on its own line: the label in pale capitals, its value after
@@ -294,8 +313,21 @@
   }
 
   .who,
-  .workshop {
-    grid-template-columns: 1fr;
+  .workshopBlock {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* on a phone each fact's label sits over its value, so the value keeps the panel's width */
+  .facts > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  /* stacked, the photo comes first, as the visit's */
+  .workshopPhoto {
+    order: -1;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
   }
 
   .figures {

@@ -403,6 +403,27 @@
   padding: clamp(48px, 6vw, 96px) var(--gutter) 0;
 }
 
+/* a section's title and what follows it each rise a short way into place
+   as they come up the screen, after the owner's other site, over the first
+   30% of a screen they travel; CSS only, so where the browser can't, or
+   motion is reduced, they simply stand */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .section > * {
+      animation: rise-in linear both;
+      animation-range: entry 0% entry 30svh;
+      animation-timeline: view();
+    }
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    translate: 0 32px;
+  }
+}
+
 .head {
   display: flex;
   flex-wrap: wrap;
@@ -1155,9 +1176,10 @@
   composes: button from global;
 }
 
-/* on a photo the button is filled, so it reads over the room */
+/* on a photo the button is the outline in cream, so it reads over the room
+   and stays one of the site's buttons */
 .photoGo {
-  composes: button button-filled from global;
+  composes: button button-light from global;
 }
 
 /* ---------- three kinds compared ---------- */

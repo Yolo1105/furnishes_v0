@@ -55,21 +55,14 @@
   color: var(--paper-dim);
 }
 
-/* the site's button; on the dark half its outline and words take the
-   paper, and it fills with the paper when pointed at */
+/* the site's button; on the dark half it is the light cream one, which
+   fills cream when pointed at */
 .solid {
   composes: button from global;
 }
 
 .light {
-  composes: button from global;
-  color: var(--paper);
-}
-
-.light:hover {
-  border-color: var(--paper);
-  background: var(--paper);
-  color: var(--ink-dark);
+  composes: button button-light from global;
 }
 
 .splitPhoto,

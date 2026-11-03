@@ -9,13 +9,10 @@
 
   /* the footer's ground: a red orange, between the red and orange, on the
      owner's word. The cream on it reads at 3.9:1, enough for the big
-     line but under the 4.5:1 the small text needs. */
+     line but under the 4.5:1 the small text needs. Every red-orange
+     ground, buttons and panels alike, is this one, on the owner's word:
+     the red stays for words. */
   --ink-warm: #d9380c;
-
-  /* every red-orange ground, buttons and panels alike, is this one, on the
-     owner's word: the red stays for words. A shade deeper for a filled
-     button's hover. */
-  --ink-warm-deep: color-mix(in srgb, var(--ink-warm) 82%, #000);
 
   /* the bookcase's birch, in the flat's tour */
   --birch: #e7c58f;
@@ -328,17 +325,17 @@ h3 {
   color: var(--paper);
 }
 
-/* the same button filled red, for one that sits on a photo, where an
-   outline would be lost */
-.button-filled {
-  border-color: var(--ink-warm);
-  background: var(--ink-warm);
-  color: var(--paper);
+/* the same outline in a light cream, for a button set on a photo or a
+   dark band: the light words read over any room, and it fills cream with
+   the brown words on hover, as the red one fills red */
+.button-light {
+  color: var(--photo-text);
 }
 
-.button-filled:hover {
-  border-color: var(--ink-warm-deep);
-  background: var(--ink-warm-deep);
+.button-light:hover {
+  border-color: var(--photo-text);
+  background: var(--photo-text);
+  color: var(--ink-dark);
 }
 
 .button:disabled {

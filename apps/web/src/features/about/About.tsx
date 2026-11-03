@@ -5,24 +5,26 @@ import collection from "@/features/collection/Collection.module.css";
 import { FIGURES, MAKING, MANIFESTO, RECOGNITION, STORY, TEAM, WHO, WORKSHOP } from "./aboutList";
 import styles from "./About.module.css";
 
-/** The page's opening: the title as every section's, one paragraph, and two rooms beside it. */
+/**
+ * The page's opening, after the owner's other site: the title large across
+ * the page, two rooms wide under it, then who it is for beside one paragraph.
+ */
 export function WhoWeAre() {
   return (
     <section className={styles.who} aria-labelledby="who-title">
-      <div className={styles.whoText}>
-        <h1 id="who-title" className={collection.heading}>
-          <span className={collection.headingLabel}>{WHO.label}</span>
-          {WHO.title} <span className={collection.headingRest}>{WHO.rest}</span>
-        </h1>
-        <p className={styles.lead}>{WHO.line}</p>
-      </div>
+      <h1 id="who-title" className={styles.whoTitle}>
+        <span className={collection.headingLabel}>{WHO.label}</span>
+        {WHO.title}
+      </h1>
       <div className={styles.whoPhotos}>
         {WHO.photos.map((p) => (
           <div key={p.alt} className={styles.photo}>
-            <Image src={p.src} alt={p.alt} fill sizes="(max-width: 1023px) 50vw, 28vw" priority />
+            <Image src={p.src} alt={p.alt} fill sizes="(max-width: 1023px) 50vw, 48vw" priority />
           </div>
         ))}
       </div>
+      <p className={styles.whoRest}>{WHO.rest}</p>
+      <p className={styles.lead}>{WHO.line}</p>
     </section>
   );
 }
@@ -65,27 +67,29 @@ export function Manifesto() {
   );
 }
 
-/** Where it is made: the facts as short label and value lines, a photo beside them. */
+/** Where it is made: the facts as short label and value lines on a panel, joined to a photo as one block. */
 export function Workshop() {
   return (
-    <section className={`${collection.section} ${styles.workshop}`} aria-labelledby="workshop-title">
-      <div className={styles.workshopText}>
-        <h2 id="workshop-title" className={collection.heading}>
-          <span className={collection.headingLabel}>{WORKSHOP.label}</span>
-          {WORKSHOP.title} <span className={collection.headingRest}>{WORKSHOP.rest}</span>
-        </h2>
-        <p className={styles.lead}>{WORKSHOP.line}</p>
-        <dl className={styles.facts}>
-          {WORKSHOP.facts.map((f) => (
-            <div key={f.label}>
-              <dt className={styles.factLabel}>{f.label}</dt>
-              <dd>{f.value}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-      <div className={styles.workshopPhoto}>
-        <Image src={WORKSHOP.photo} alt="" fill sizes="(max-width: 1023px) 100vw, 50vw" />
+    <section className={collection.section} aria-labelledby="workshop-title">
+      <div className={styles.workshopBlock}>
+        <div className={styles.workshopText}>
+          <h2 id="workshop-title" className={collection.heading}>
+            <span className={collection.headingLabel}>{WORKSHOP.label}</span>
+            {WORKSHOP.title} <span className={collection.headingRest}>{WORKSHOP.rest}</span>
+          </h2>
+          <p className={styles.lead}>{WORKSHOP.line}</p>
+          <dl className={styles.facts}>
+            {WORKSHOP.facts.map((f) => (
+              <div key={f.label}>
+                <dt className={styles.factLabel}>{f.label}</dt>
+                <dd>{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div className={styles.workshopPhoto}>
+          <Image src={WORKSHOP.photo} alt="" fill sizes="(max-width: 1023px) 100vw, 58vw" />
+        </div>
       </div>
     </section>
   );
