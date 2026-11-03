@@ -3,14 +3,36 @@
 import Link from "next/link";
 import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import account from "@/features/account/Account.module.css";
-import { ARRIVALS, FINISHES, PIECES, priceOf, type Arrival, type Finish } from "@/features/catalog/catalog";
+import {
+  addOnsOf,
+  ARRIVALS,
+  FINISHES,
+  PIECES,
+  priceOfChoice,
+  type Arrival,
+  type Finish,
+} from "@/features/catalog/catalog";
 import { useCart } from "@/features/cart/cart";
 import collection from "@/features/collection/Collection.module.css";
+import choose from "@/features/piece/Piece.module.css";
 import { MAILTO } from "@/lib/contact";
 import { sgd } from "@/lib/money";
 import { pieceOf, routes } from "@/lib/routes";
 import { ADDABLE, DESIGN, HDB_ROOMS, KINDS, START, WALLS } from "./designList";
-import { boxOf, check, fix, shapeOf, wallLength, type Opening, type Placed, type Plan, type Room } from "./room";
+import {
+  boxOf,
+  check,
+  fix,
+  shapeOf,
+  swingOf,
+  wallLength,
+  type Opening,
+  type Placed,
+  type Plan,
+  type Room,
+  type Shape,
+  type Turn,
+} from "./room";
 import { useRoom } from "./store";
 import styles from "./Design.module.css";
 
@@ -79,6 +101,48 @@ function Window({ room }: { room: Room }) {
     <g className={styles.window}>
       <Gap o={room.window} room={room} />
       <path d={`${at(0)}${at(WALL / 2)}${at(WALL)}`} />
+    </g>
+  );
+}
+
+/** Where a piece's front runs, in its own box, and which way is out of it. */
+const FACE: Record<
+  Turn,
+  (w: number, h: number) => { x: number; y: number; ax: number; ay: number; nx: number; ny: number }
+> = {
+  0: (_w, h) => ({ x: 0, y: h, ax: 1, ay: 0, nx: 0, ny: 1 }),
+  90: () => ({ x: 0, y: 0, ax: 0, ay: 1, nx: -1, ny: 0 }),
+  180: () => ({ x: 0, y: 0, ax: 1, ay: 0, nx: 0, ny: -1 }),
+  270: (w) => ({ x: w, y: 0, ax: 0, ay: 1, nx: 1, ny: 0 }),
+};
+
+/**
+ * A piece's doors standing open: each leaf and the arc it sweeps, hinged
+ * at alternate ends so pairs open from the middle as a wardrobe's do.
+ */
+function Swings({ s, w, h, turn }: { s: Shape; w: number; h: number; turn: Turn }) {
+  const leaf = swingOf(s);
+  if (!leaf) return null;
+  const f = FACE[turn](w, h);
+  return (
+    <g className={styles.leaves}>
+      {Array.from({ length: s.leaves ?? 0 }, (_, i) => {
+        const at = i % 2 === 0 ? i * leaf : (i + 1) * leaf;
+        const dir = i % 2 === 0 ? 1 : -1;
+        const hx = f.x + f.ax * at;
+        const hy = f.y + f.ay * at;
+        const ux = f.ax * dir;
+        const uy = f.ay * dir;
+        const sweep = ux * f.ny - uy * f.nx > 0 ? 1 : 0;
+        const ox = hx + f.nx * leaf;
+        const oy = hy + f.ny * leaf;
+        return (
+          <path
+            key={i}
+            d={`M${hx} ${hy}L${ox} ${oy}M${hx + ux * leaf} ${hy + uy * leaf}A${leaf} ${leaf} 0 0 ${sweep} ${ox} ${oy}`}
+          />
+        );
+      })}
     </g>
   );
 }
@@ -194,12 +258,25 @@ export function Planner() {
     if (!piece || !size) return [];
     const finish = p.finish ?? piece.finishes[0] ?? "birch";
     const arrival = p.arrival !== undefined ? p.arrival : piece.line === "modular" ? "parts" : null;
-    return [{ id: p.id, piece, size: p.size ?? 0, finish, arrival, price: priceOf(size, arrival) }];
+    const addOns = p.addOns ?? [];
+    return [
+      {
+        id: p.id,
+        piece,
+        size: p.size ?? 0,
+        finish,
+        arrival,
+        addOns,
+        price: priceOfChoice(piece, size, arrival, null, addOns),
+      },
+    ];
   });
   const total = ours.reduce((n, o) => n + o.price, 0);
 
   const toCart = () => {
-    ours.forEach((o) => cart.add({ piece: o.piece.slug, size: o.size, finish: o.finish, arrival: o.arrival }));
+    ours.forEach((o) =>
+      cart.add({ piece: o.piece.slug, size: o.size, finish: o.finish, arrival: o.arrival, addOns: o.addOns }),
+    );
     setAdded(ours.length);
   };
 
@@ -332,6 +409,7 @@ export function Planner() {
               >
                 <rect width={b.w} height={b.h} />
                 <line className={styles.front} x1={front[0]} y1={front[1]} x2={front[2]} y2={front[3]} />
+                <Swings s={s} w={b.w} h={b.h} turn={p.turn} />
                 {/* the name along the piece's long side, so a piece standing upright reads up it */}
                 <text x={b.w / 2} y={b.h / 2} transform={b.h > b.w ? `rotate(-90 ${b.w / 2} ${b.h / 2})` : undefined}>
                   {s.name}
@@ -509,6 +587,26 @@ export function Planner() {
                         </label>
                       )}
                     </div>
+                    {addOnsOf(o.piece.slug).length > 0 && (
+                      <div className={styles.actions}>
+                        {addOnsOf(o.piece.slug).map((a) => (
+                          <label key={a.id} className={choose.option}>
+                            <input
+                              type="checkbox"
+                              checked={o.addOns.includes(a.id)}
+                              onChange={(e) =>
+                                setPiece(o.id, (p) => ({
+                                  ...p,
+                                  addOns: e.target.checked ? [...o.addOns, a.id] : o.addOns.filter((x) => x !== a.id),
+                                }))
+                              }
+                            />
+                            <span>{a.name}</span>
+                            <span className={choose.arrivalMeta}>+{sgd(a.price)}</span>
+                          </label>
+                        ))}
+                      </div>
+                    )}
                   </li>
                 ))}
                 <li className={`${styles.item} ${styles.total}`}>

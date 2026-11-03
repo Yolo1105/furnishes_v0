@@ -80,6 +80,17 @@
   vector-effect: non-scaling-stroke;
 }
 
+/* the doors standing open, faint and dashed as the room's door, so they
+   read as room to keep clear rather than as part of the piece */
+.leaves path {
+  fill: none;
+  stroke: var(--ink-dark-pale);
+  stroke-width: 1px;
+  stroke-dasharray: 4 4;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
 .piece text {
   fill: var(--ink-dark);
   font: 500 110px / 1 var(--font);

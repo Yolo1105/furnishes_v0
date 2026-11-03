@@ -105,7 +105,7 @@ export const DESIGN = {
     finish: "Finish",
     arrives: "Arrives",
     together: "Together",
-    extras: "Add-ons and your own size are set on each piece's page.",
+    extras: "A size of your own is set on each piece's page.",
     toCart: "Add them to the cart",
     added: (n: number) => `${n === 1 ? "One piece" : `${n} pieces`} added to your cart.`,
     see: "See your cart",

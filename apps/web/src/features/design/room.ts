@@ -44,6 +44,7 @@ export type Placed = {
   /** For our pieces, the finish and how it arrives, as the cart takes them. */
   finish?: Finish["slug"];
   arrival?: Arrival | null;
+  addOns?: readonly string[];
   x: number;
   y: number;
   turn: Turn;
@@ -52,7 +53,7 @@ export type Placed = {
 export type Plan = { room: Room; pieces: readonly Placed[] };
 
 /** What the checks need to know of a piece, ours or not. */
-type Shape = {
+export type Shape = {
   name: string;
   w: number;
   d: number;
@@ -61,6 +62,8 @@ type Shape = {
   front: number;
   sides?: number | undefined;
   wall?: boolean;
+  /** Hinged doors across its front, each the same width; none if left out. */
+  leaves?: number;
 };
 
 /**
@@ -71,7 +74,7 @@ type Shape = {
 export const OWN = {
   "single-bed": { name: "Single bed", w: 1000, d: 2000, h: 500, use: "sleep", front: 0, sides: 600, wall: true },
   "queen-bed": { name: "Queen bed", w: 1600, d: 2000, h: 500, use: "sleep", front: 0, sides: 600, wall: true },
-  wardrobe: { name: "Wardrobe", w: 1200, d: 600, h: 2000, use: "store", front: 600, wall: true },
+  wardrobe: { name: "Wardrobe", w: 1200, d: 600, h: 2000, use: "store", front: 600, wall: true, leaves: 2 },
   "own-sofa": { name: "Your sofa", w: 2000, d: 900, h: 800, use: "sit", front: 500 },
 } as const satisfies Record<string, Shape>;
 
@@ -117,6 +120,8 @@ export function shapeOf(p: Placed): Shape | null {
   const size = piece?.sizes[p.size ?? 0];
   if (!piece || !size) return null;
   const kind = KINDS[piece.kind] ?? { front: WALKWAY };
+  // the doors add-on hangs a door on each bay of about LEAF mm across the front
+  const doors = p.addOns?.some((a) => DOOR_ADD_ONS.has(a)) ?? false;
   return {
     name: piece.name,
     w: size.w,
@@ -126,8 +131,18 @@ export function shapeOf(p: Placed): Shape | null {
     front: kind.front,
     sides: kind.back,
     wall: kind.wall ?? false,
+    leaves: doors ? Math.max(1, Math.round(size.w / LEAF)) : 0,
   };
 }
+
+/** A cabinet door's width, in mm: our panels' bay, so a door swings out as far. */
+export const LEAF = 600;
+
+/** The add-ons that hang doors on a piece's front. */
+const DOOR_ADD_ONS = new Set(["door", "doors"]);
+
+/** How far a piece's doors swing out, in mm: a leaf's width. */
+export const swingOf = (s: Shape) => (s.leaves ? s.w / s.leaves : 0);
 
 type Box = { x: number; y: number; w: number; h: number };
 
@@ -228,10 +243,14 @@ export function check(plan: Plan): Issue[] {
   const blocked = (self: string, zone: Box) =>
     !inside(zone, room) || placed.some((o) => o.p.id !== self && overlaps(zone, o.b));
   for (const { p, s, b } of placed) {
-    if (s.front > 0 && blocked(p.id, strip(b, FRONT[p.turn], s.front)))
+    const swing = swingOf(s);
+    const front = Math.max(s.front, swing);
+    if (front > 0 && blocked(p.id, strip(b, FRONT[p.turn], front)))
       issues.push({
         level: "note",
-        line: `The ${lower(s.name)} needs ${s.front} mm clear in front to use it.`,
+        line: swing
+          ? `The ${lower(s.name)}'s doors swing out ${Math.round(swing)} mm: leave ${front} mm clear in front.`
+          : `The ${lower(s.name)} needs ${front} mm clear in front to use it.`,
         ids: [p.id],
       });
     const sides = s.sides ?? 0;
