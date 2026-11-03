@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import account from "@/features/account/Account.module.css";
+import { answerAgain, finishOf, suited, told, useProfile } from "@/features/account/profile";
+import { WELCOME } from "@/features/account/welcomeList";
 import {
   addOnsOf,
   ARRIVALS,
@@ -156,7 +158,13 @@ function Swings({ s, w, h, turn }: { s: Shape; w: number; h: number; turn: Turn 
 export function Planner() {
   const [plan, setPlan] = useRoom();
   const [picked, setPicked] = useState<string | null>(null);
-  const [adding, setAdding] = useState(ADDABLE[0]?.key ?? "");
+  const profile = useProfile();
+  const lean = profile && finishOf(profile);
+  // the piece to add starts on the one the welcome's answers suit best, until another is chosen
+  const best = profile && suited(profile)[0];
+  const [chosenAdd, setAdding] = useState<string | null>(null);
+  const adding =
+    chosenAdd ?? ADDABLE.find((x) => best && "slug" in x && x.slug === best.slug)?.key ?? ADDABLE[0]?.key ?? "";
   const [added, setAdded] = useState(0);
   const cart = useCart();
   const svg = useRef<SVGSVGElement>(null);
@@ -251,12 +259,12 @@ export function Planner() {
   };
 
   // our pieces as cart lines: the finish and arrival chosen here, or the
-  // piece's first finish and, for a modular one, in parts, shown to change
+  // finish leaned to in the welcome, else the piece's first finish, and, for a modular one, in parts, shown to change
   const ours = plan.pieces.flatMap((p) => {
     const piece = PIECES.find((x) => x.slug === p.slug);
     const size = piece?.sizes[p.size ?? 0];
     if (!piece || !size) return [];
-    const finish = p.finish ?? piece.finishes[0] ?? "birch";
+    const finish = p.finish ?? (lean && piece.finishes.includes(lean) ? lean : piece.finishes[0]) ?? "birch";
     const arrival = p.arrival !== undefined ? p.arrival : piece.line === "modular" ? "parts" : null;
     const addOns = p.addOns ?? [];
     return [
@@ -421,6 +429,14 @@ export function Planner() {
       </div>
 
       <div className={styles.side}>
+        {/* what the welcome heard, so Eva's start is plain, and the way to change it */}
+        <div className={styles.block}>
+          <h2 className={styles.title}>{WELCOME.told.title}</h2>
+          <p className={styles.line}>{profile ? told(profile) : WELCOME.told.none}</p>
+          <Link className={`${account.link} ${styles.small}`} href={answerAgain(routes.designYourRoom)}>
+            {WELCOME.again}
+          </Link>
+        </div>
         <div className={styles.block}>
           <h2 className={styles.title}>{DESIGN.eva.title}</h2>
           <p className={styles.small}>{DESIGN.eva.rest}</p>

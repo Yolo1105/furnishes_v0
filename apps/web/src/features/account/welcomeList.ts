@@ -81,6 +81,19 @@ export function asks(who: Who): Ask[] {
   ];
 }
 
+/**
+ * What each "looking for" answer points to among our pieces: the rooms a
+ * piece is made for, its kind, or a separator wall. "Ideas first" and a
+ * whole home or office point to nothing narrower, so every piece stays in.
+ */
+export const LOOKS_FOR: Record<string, { rooms?: readonly string[]; kinds?: readonly string[]; wall?: boolean }> = {
+  room: { rooms: ["Bedroom", "Living room", "Study"] },
+  storage: { kinds: ["Storage"] },
+  piece: { kinds: ["Sofas", "Tables", "Desks", "Chairs"] },
+  desks: { kinds: ["Desks", "Chairs", "Work"] },
+  walls: { wall: true },
+};
+
 /** The welcome's words around the questions, laid out as the log-in page. */
 export const WELCOME = {
   photo: study,
@@ -97,6 +110,10 @@ export const WELCOME = {
     on: "Go on to the site",
     none: "Nothing picked",
   },
+  /** the way back to the questions, from a page that uses the answers */
+  again: "Answer again",
+  /** the welcome's words around its answers on other pages */
+  told: { title: "From your answers", none: "Answer a few questions and we show what suits you first." },
   /** where the answers are kept in this browser until accounts store them */
   key: "furnishes-profile",
 };

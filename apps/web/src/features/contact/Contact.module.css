@@ -369,7 +369,165 @@
   composes: button button-fill from global;
 }
 
+/* ---------- the ways to help ---------- */
+
+.ways {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.5vw, 20px);
+  margin: clamp(28px, 3vw, 44px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* a box as the topic cards: the bare mark, the name, the line, and its
+   button at the foot so the three buttons sit level */
+.way {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 8px;
+  padding: clamp(18px, 1.8vw, 24px);
+  border: var(--line) solid var(--rule-strong);
+}
+
+.way > svg {
+  margin-bottom: 12px;
+}
+
+.way > h3 {
+  margin: 0;
+}
+
+.way > p {
+  margin: 0;
+}
+
+.wayGo {
+  composes: button from global;
+  justify-self: start;
+  margin-top: 16px;
+  font-size: var(--text-md);
+}
+
+/* ---------- where we are ---------- */
+
+/* the map on the left, the words on the right, level at their middles */
+.where {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 72px);
+  align-items: center;
+}
+
+.map {
+  position: relative;
+  border: var(--line) solid var(--rule-strong);
+  background: var(--ink-wash);
+}
+
+.map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.island {
+  fill: var(--paper);
+  stroke: var(--ink-dark);
+  stroke-width: 1.25px;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.road {
+  fill: none;
+  stroke: var(--rule-strong);
+  stroke-width: 1.25px;
+  vector-effect: non-scaling-stroke;
+}
+
+.reach {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.25px;
+  stroke-dasharray: 3 5;
+  vector-effect: non-scaling-stroke;
+}
+
+.halo {
+  fill: var(--ink-tile);
+}
+
+.spot {
+  fill: var(--ink);
+}
+
+/* the card set over the map's top left, on the cream in the boxes' frame */
+.mapCard {
+  position: absolute;
+  top: clamp(14px, 2vw, 28px);
+  left: clamp(14px, 2vw, 28px);
+  display: grid;
+  gap: 2px;
+  padding: 14px 18px;
+  border: var(--line) solid var(--rule-strong);
+  background: var(--paper);
+}
+
+.mapCard p {
+  margin: 0;
+}
+
+.mapCard .mapPlace {
+  margin-bottom: 4px;
+  color: var(--ink);
+  font: 500 var(--text-md) / 1.4 var(--font);
+}
+
+.whereWords {
+  display: grid;
+  gap: 20px;
+}
+
+.whereRest {
+  max-width: 44ch;
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-rest) / 1.4 var(--font-wordmark);
+}
+
+/* each place: its bare mark beside its name and line */
+.places {
+  display: grid;
+  gap: 18px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.places li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.places p {
+  margin: 0;
+}
+
 @media (width <= 1023px) {
+  .ways,
+  .where {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* on a narrow map the card would hide the island, so it sits under it */
+  .mapCard {
+    position: static;
+    border-width: var(--line) 0 0;
+  }
+
   .cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

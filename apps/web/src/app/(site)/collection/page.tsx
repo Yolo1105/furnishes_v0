@@ -14,6 +14,7 @@ import { StartWith } from "@/features/collection/StartWith";
 import { Tiles } from "@/features/collection/Tiles";
 import { DesignOwn } from "@/features/collection/DesignOwn";
 import { Details } from "@/features/collection/Details";
+import { ForYou } from "@/features/collection/ForYou";
 import { Visit } from "@/features/collection/Visit";
 import styles from "@/features/collection/Collection.module.css";
 import { SiteHeader } from "@/shell/SiteHeader";
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 
 /**
  * Collection: what we sell over a room; right under it a statement of who
- * we are, a mosaic of the three things we make and how they compare, then the ready-made line's quickest ways in, who it's for and its looks, as four tiles, then
+ * we are, the pieces a logged-in visitor's answers suit, a mosaic of the three things we make and how they compare, then the ready-made line's quickest ways in, who it's for and its looks, as four tiles, then
  * titled sections: the two things we sell, what goes into each piece, a few pieces to start with,
  * quick ways in, questions, then what every order comes with and the home visit.
  */
@@ -36,6 +37,7 @@ export default function CollectionPage() {
       <main id="main" className={styles.page}>
         <CollectionBanner banner={BANNER} bare />
         <Intro />
+        <ForYou />
         <Mosaic />
         <Compare />
         <ReadyMade />

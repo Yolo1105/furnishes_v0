@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Contact } from "@/features/contact/Contact";
+import { HelpWays, Where } from "@/features/contact/Reach";
 import { CONTACT_CLOSING, CONTACT_QUESTIONS } from "@/features/contact/contactList";
 import { Closing } from "@/features/collection/Closing";
 import { Questions } from "@/features/collection/Questions";
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   description: "Email Furnishes about a piece, a room, a home visit or an office quote. We reply by email.",
 };
 
-/** Contact: how to reach us and the enquiry, what to write about, the questions asked before writing, and a closing band for seeing it first. */
+/** Contact: how to reach us and the enquiry, what to write about, the questions asked before writing, the ways to help, where we are, and a closing band for seeing it first. */
 export default function ContactPage() {
   return (
     <>
@@ -19,6 +20,8 @@ export default function ContactPage() {
       <main id="main" className={styles.page}>
         <Contact />
         <Questions questions={CONTACT_QUESTIONS} rest="Asked before writing" split />
+        <HelpWays />
+        <Where />
         <Closing band={CONTACT_CLOSING} />
       </main>
     </>

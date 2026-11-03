@@ -29,6 +29,59 @@ export const DETAILS = [
  * What people write about, each opening an email with its subject filled
  * in; `go` says what the box does.
  */
+/**
+ * Where we are, after the owner's map reference. There is no showroom or
+ * address, so the map is Singapore itself, the area we visit, and the card
+ * on it says so rather than giving a street.
+ */
+export const WHERE = {
+  id: "where-title",
+  label: "Where we are",
+  title: "We come to you",
+  rest: "There's no showroom yet. We visit homes and offices across Singapore, and our partner factory makes each piece after you order.",
+  card: { name: "Furnishes", place: "Singapore", lines: ["No showroom yet", "We come to your home or office"] },
+  map: "A map of Singapore, the whole island marked as where we visit",
+  places: [
+    {
+      icon: "pin" as const,
+      name: "Across Singapore",
+      line: `Home and office visits by appointment, ${HOURS.join(", ")}`,
+    },
+    { icon: "office" as const, name: "Made in China", line: "By our partner factory, then shipped to Singapore" },
+  ],
+};
+
+/**
+ * The ways to help, after the owner's reference: three boxes, each a mark,
+ * a name, a line and a button to where that help is.
+ */
+export const HELP_HEAD = {
+  label: "Contact",
+  title: "We're here to help",
+  rest: "Find an answer yourself, write to us about an order, or talk to us about an office",
+};
+
+export const HELP_WAYS = [
+  {
+    icon: "help" as const,
+    name: "Help centre",
+    line: "Quick answers on finishes, sizes, delivery and returns.",
+    go: { label: "Open the help centre", href: routes.help },
+  },
+  {
+    icon: "headset" as const,
+    name: "Support",
+    line: `Ask about a piece or an order you've placed. We answer within ${FACTS.replyTime}, and Eva answers once you log in.`,
+    go: { label: "Email support", href: mailAbout("Support") },
+  },
+  {
+    icon: "office" as const,
+    name: "Offices",
+    line: "Desks, storage and walls for a team, quoted together.",
+    go: { label: "See office furniture", href: routes.offices },
+  },
+];
+
 export const TOPICS_HEAD = {
   label: "Write to us",
   title: "What people write to us about",

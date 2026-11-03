@@ -43,6 +43,13 @@ const PATHS = {
       <circle cx="17" cy="17.5" r="1.5" />
     </>
   ),
+  headset: (
+    <>
+      <path d="M4 15v-3a8 8 0 0 1 16 0v3" />
+      <rect x="3" y="14" width="4" height="6" />
+      <rect x="17" y="14" width="4" height="6" />
+    </>
+  ),
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof PATHS;
