@@ -1,16 +1,16 @@
 import Link from "next/link";
 import collection from "@/features/collection/Collection.module.css";
 import { Icon } from "@/features/collection/Icon";
-import { Index, Section, Steps } from "@/features/collection/Sections";
-import { CONTACT, DETAILS, NEXT, TOPICS, TOPICS_HEAD, WAYS, WAYS_HEAD } from "./contactList";
+import { Section } from "@/features/collection/Sections";
+import { CONTACT, DETAILS, TOPICS, TOPICS_HEAD } from "./contactList";
 import { Enquiry } from "./Enquiry";
 import styles from "./Contact.module.css";
 
 /**
  * The contact page, after the owner's two references: the title and how
  * to reach us on the left, held in view while the enquiry on the right is
- * filled in, then the other ways we help, what people write about, each
- * its own email, and what happens next. Every way in, the enquiry too, is an email or the assistant.
+ * filled in, then what people write about, each in its own box and its
+ * own email. Every way in, the enquiry too, is an email or the assistant.
  */
 export function Contact() {
   return (
@@ -32,11 +32,11 @@ export function Contact() {
                 <dd>
                   {"href" in d ? (
                     d.href.startsWith("/") ? (
-                      <Link className={collection.qaMail} href={d.href}>
+                      <Link className={styles.link} href={d.href}>
                         {d.lines[0]}
                       </Link>
                     ) : (
-                      <a className={collection.qaMail} href={d.href}>
+                      <a className={styles.link} href={d.href}>
                         {d.lines[0]}
                       </a>
                     )
@@ -51,36 +51,20 @@ export function Contact() {
         </div>
         <Enquiry />
       </section>
-      <section className={styles.ways} aria-labelledby="ways-title">
-        <h2 id="ways-title" className={`${collection.heading} ${styles.centred}`}>
-          <span className={collection.headingLabel}>{WAYS_HEAD.label}</span>
-          {WAYS_HEAD.title} <span className={collection.headingRest}>{WAYS_HEAD.rest}</span>
-        </h2>
+      <Section id="topics-title" {...TOPICS_HEAD}>
         <ul className={styles.cards}>
-          {WAYS.map((w) => (
-            <li key={w.name} className={styles.card}>
-              <Icon name={w.icon} />
-              <h3 className={styles.cardName}>{w.name}</h3>
-              <p className={styles.cardLine}>{w.line}</p>
-              {w.go.href.startsWith("/") ? (
-                <Link className={collection.qaMail} href={w.go.href}>
-                  {w.go.label}
-                </Link>
-              ) : (
-                <a className={collection.qaMail} href={w.go.href}>
-                  {w.go.label}
-                </a>
-              )}
+          {TOPICS.map((t) => (
+            <li key={t.name} className={styles.card}>
+              <p className={styles.cardNote}>{t.get}</p>
+              <h3 className={styles.cardName}>{t.name}</h3>
+              <p className={styles.cardLine}>{t.line}</p>
+              <a className={styles.link} href={t.href}>
+                {t.go}
+              </a>
             </li>
           ))}
         </ul>
-      </section>
-      <Section id="topics-title" {...TOPICS_HEAD}>
-        <Index
-          entries={TOPICS.map((t) => ({ name: t.name, note: t.get, line: t.line, go: { label: t.go, href: t.href } }))}
-        />
       </Section>
-      <Steps label={NEXT.label} title={NEXT.title} rest={NEXT.rest} steps={NEXT.steps} />
     </>
   );
 }

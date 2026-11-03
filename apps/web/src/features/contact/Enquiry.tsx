@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import collection from "@/features/collection/Collection.module.css";
 import { mailAbout } from "@/lib/contact";
 import { routes } from "@/lib/routes";
 import { ENQUIRY } from "./contactList";
@@ -96,11 +97,12 @@ export function Enquiry() {
 
   return (
     <form className={styles.enquiry} onSubmit={send} aria-labelledby="enquiry-title">
-      <h2 id="enquiry-title" className={styles.panelTitle}>
+      {/* the enquiry's name in the small capitals of the page's own label across from it, so the title on the left stays the one big line */}
+      <h2 id="enquiry-title" className={collection.headingLabel}>
         {ENQUIRY.label}
       </h2>
       <fieldset className={styles.group}>
-        <legend className={styles.question}>{ENQUIRY.who.legend}</legend>
+        <legend className={styles.groupLegend}>{ENQUIRY.who.legend}</legend>
         <div className={styles.options}>
           {ENQUIRY.who.options.map((o) => (
             <Option
@@ -119,7 +121,7 @@ export function Enquiry() {
 
       {/* the rest follows the first answer; a home's questions show until a company is picked */}
       <fieldset className={styles.group} key={who}>
-        <legend className={styles.question}>{ENQUIRY.needs.legend}</legend>
+        <legend className={styles.groupLegend}>{ENQUIRY.needs.legend}</legend>
         <div className={styles.options}>
           {ENQUIRY.needs[who].map((o) => (
             <Option key={o.name} type="checkbox" name="needs" value={o.name} title={o.name} line={o.line} />
@@ -137,7 +139,7 @@ export function Enquiry() {
       )}
 
       <fieldset className={styles.group}>
-        <legend className={styles.question}>{ENQUIRY.reach.legend}</legend>
+        <legend className={styles.groupLegend}>{ENQUIRY.reach.legend}</legend>
         <p className={styles.sentence}>
           {ENQUIRY.hi}{" "}
           <label className={styles.blank}>
@@ -175,11 +177,11 @@ export function Enquiry() {
           <input type="checkbox" name="agree" required />
           <span>
             {ENQUIRY.agree}{" "}
-            <Link className={styles.agreeLink} href={routes.terms}>
+            <Link className={styles.link} href={routes.terms}>
               {ENQUIRY.terms}
             </Link>{" "}
             {ENQUIRY.and}{" "}
-            <Link className={styles.agreeLink} href={routes.privacy}>
+            <Link className={styles.link} href={routes.privacy}>
               {ENQUIRY.privacy}
             </Link>
           </span>

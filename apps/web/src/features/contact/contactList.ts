@@ -26,43 +26,6 @@ export const DETAILS = [
 ] as const;
 
 /**
- * The ways in, after the owner's reference: four framed cards in a row
- * under a centred title, each a mark, a name, a line and its link.
- */
-export const WAYS_HEAD = {
-  label: "Other ways we help",
-  title: "Not ready to write yet",
-  rest: "Read, ask, or have us come to you",
-};
-
-export const WAYS = [
-  {
-    name: "Email us",
-    icon: "mail",
-    line: "A question about a piece, an order or a room.",
-    go: { label: EMAIL, href: MAILTO },
-  },
-  {
-    name: "Ask the assistant",
-    icon: "spark",
-    line: "Log in and ask at any hour. It answers from what we sell.",
-    go: { label: "Meet the assistant", href: routes.planning },
-  },
-  {
-    name: "A home visit",
-    icon: "pin",
-    line: `${FACTS.visitMinutes} minutes in your room, ${sgd(FACTS.visitFee)} taken off your order.`,
-    go: { label: "Book a visit", href: mailAbout("Home visit") },
-  },
-  {
-    name: "Help centre",
-    icon: "help",
-    line: "Every question asked before and after ordering.",
-    go: { label: "Find an answer", href: routes.help },
-  },
-] as const;
-
-/**
  * What people write about, each opening an email with its subject filled
  * in; `get` is what comes back, said the same way on every tile.
  */
@@ -199,24 +162,6 @@ export const ENQUIRY = {
       .filter(([, v]) => v)
       .map(([k, v]) => (k ? `${k}: ${v}` : v))
       .join("\n\n"),
-};
-
-/** What happens once the email is sent. */
-export const NEXT = {
-  label: "After you write",
-  title: "Once it's sent",
-  rest: `We answer within ${FACTS.replyTime}`,
-  steps: [
-    {
-      name: "You send the email",
-      line: "Its subject is written in, so our first reply is already about what you need.",
-    },
-    { name: "We reply", line: "We answer your question, or send a quote if you asked for one." },
-    {
-      name: "If you asked for a visit",
-      line: `We agree a time to come to your room. ${sgd(FACTS.visitFee)}, taken off your order.`,
-    },
-  ],
 };
 
 /** Questions asked before writing; answers follow the rest of the site. */

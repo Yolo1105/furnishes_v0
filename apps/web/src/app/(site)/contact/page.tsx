@@ -11,14 +11,14 @@ export const metadata: Metadata = {
   description: "Email Furnishes about a piece, a room, a home visit or an office quote. We reply by email.",
 };
 
-/** Contact: how to reach us, what to write about, what happens next, the questions asked before writing, and a closing band for seeing it first. */
+/** Contact: how to reach us and the enquiry, what to write about, the questions asked before writing, and a closing band for seeing it first. */
 export default function ContactPage() {
   return (
     <>
       <SiteHeader />
       <main id="main" className={styles.page}>
         <Contact />
-        <Questions questions={CONTACT_QUESTIONS} rest="Asked before writing" centred />
+        <Questions questions={CONTACT_QUESTIONS} rest="Asked before writing" boxed />
         <Closing band={CONTACT_CLOSING} />
       </main>
     </>

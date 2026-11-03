@@ -51,24 +51,13 @@
   font: 400 var(--text-lg) / 1.4 var(--font);
 }
 
-/* ---------- the ways in ---------- */
+/* ---------- what people write about ---------- */
 
-.ways {
-  display: grid;
-  gap: clamp(28px, 3vw, 48px);
-  padding: clamp(64px, 8vw, 128px) var(--gutter) 0;
-}
-
-/* a title set in the middle, as the owner's reference */
-.centred {
-  align-items: center;
-  text-align: center;
-}
-
-/* four cards in a row, each in a thin frame, so each way reads as its own */
+/* the topics three across, each in a thin frame of its own, so each reads
+   apart; the link held at the box's foot */
 .cards {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(12px, 1.5vw, 24px);
   margin: 0;
   padding: 0;
@@ -77,18 +66,21 @@
 
 .card {
   display: grid;
-  grid-template-rows: 1fr auto auto auto;
-  gap: 10px;
-  align-content: start;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 8px;
   justify-items: start;
-  min-height: 240px;
   padding: clamp(20px, 2vw, 28px);
   border: var(--line) solid var(--rule-strong);
 }
 
-/* the mark at the top, the words held at the card's foot */
-.card > svg {
-  align-self: start;
+.cardNote {
+  composes: caps from global;
+  margin: 0;
+  color: var(--ink-dark-pale);
+}
+
+.card > .link {
+  margin-top: 12px;
 }
 
 .cardName {
@@ -115,22 +107,12 @@
   justify-items: start;
 }
 
-.panelTitle {
-  margin: 0;
-  color: var(--ink);
-  font: 400 var(--text-over) / 1.05 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
-}
-
-/* the sentence in the narrow cut, in the page's brown, the blanks set in
-   it and wrapping with its words */
+/* the sentence at the size and in the face of the details across from
+   it, in the page's brown, the blanks set in it */
 .sentence {
   margin: 0;
   color: var(--ink-dark);
-  font: 400 var(--text-head) / 1.6 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
+  font: 400 var(--text-line) / 1.9 var(--font);
 }
 
 /* a blank: the field as wide as an answer, a firm line under it as the
@@ -185,17 +167,6 @@
   padding: 16px 18px;
   font: 400 var(--text-line) / 1.5 var(--font);
   resize: vertical;
-}
-
-/* the big questions, those the rest follows from, in the section titles'
-   red at their size */
-.question {
-  margin: 0 0 18px;
-  padding: 0;
-  color: var(--ink);
-  font: 400 var(--text-head) / 1.15 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
 }
 
 /* the choices with a line each, two across, as the owner's reference */
@@ -338,7 +309,8 @@
   border-color: var(--ink);
 }
 
-.agreeLink {
+/* every link on the page in the red, underlined only when pointed at */
+.link {
   composes: underline-on-hover from global;
   color: var(--ink);
 }
@@ -374,11 +346,6 @@
 @media (width <= 639px) {
   .cards {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  /* one under the other, a card needs no height held for a row */
-  .card {
-    min-height: 0;
   }
 
   /* on a phone each box takes the panel's width, so none runs past it */
