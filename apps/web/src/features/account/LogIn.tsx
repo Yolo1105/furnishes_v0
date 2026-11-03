@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { routes } from "@/lib/routes";
-import { logIn, logInWithGoogle } from "./actions";
+import { logIn, logInWithGoogle, tryDemo } from "./actions";
 import { LOG_IN } from "./accountList";
 import styles from "./Account.module.css";
 
@@ -99,6 +99,12 @@ export function LogIn({ next, googleSoon }: { next?: string; googleSoon?: boolea
               {LOG_IN.help.label}
             </a>
           </p>
+          <form className={styles.help} action={tryDemo}>
+            {LOG_IN.demo.line}{" "}
+            <button className={`${styles.link} ${styles.logOut}`} type="submit">
+              {LOG_IN.demo.go}
+            </button>
+          </form>
           <p className={styles.help}>
             {LOG_IN.what.line}{" "}
             <Link className={styles.link} href={LOG_IN.what.href}>

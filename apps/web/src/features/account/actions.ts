@@ -12,6 +12,21 @@ import { safeNext, SESSION, SESSION_AGE } from "./session";
 export async function logIn(form: FormData) {
   const email = form.get("email");
   if (typeof email !== "string" || !email.includes("@")) redirect(routes.logIn);
+  await startSession();
+  redirect(safeNext(form.get("next")));
+}
+
+/**
+ * The demo: straight into the room planner with no email, so anyone can
+ * try it. The stand-in session is all a log-in is today; once real accounts
+ * exist, this becomes a guest session that saves nothing to an account.
+ */
+export async function tryDemo() {
+  await startSession();
+  redirect(routes.designYourRoom);
+}
+
+async function startSession() {
   (await cookies()).set(SESSION, "1", {
     httpOnly: true,
     sameSite: "lax",
@@ -19,7 +34,6 @@ export async function logIn(form: FormData) {
     path: "/",
     maxAge: SESSION_AGE,
   });
-  redirect(safeNext(form.get("next")));
 }
 
 export async function logOut() {

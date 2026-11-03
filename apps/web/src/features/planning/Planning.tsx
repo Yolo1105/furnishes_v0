@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { tryDemo } from "@/features/account/actions";
+import account from "@/features/account/Account.module.css";
 import collection from "@/features/collection/Collection.module.css";
 import { Opening } from "@/features/collection/Opening";
 import { Section, Steps } from "@/features/collection/Sections";
@@ -25,6 +27,12 @@ export function Planning() {
         <Link className={collection.outline} href={PLANNING.go.href}>
           {PLANNING.go.label}
         </Link>
+        <form className={account.logOutLine} action={tryDemo}>
+          {PLANNING.demo.line}{" "}
+          <button className={`${account.link} ${account.logOut}`} type="submit">
+            {PLANNING.demo.go}
+          </button>
+        </form>
       </Opening>
 
       <Section id={EVA.id} label={EVA.label} title={EVA.title} rest={EVA.rest}>

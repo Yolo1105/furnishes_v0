@@ -236,14 +236,14 @@ export const PROMISES = [
 
 /**
  * Design your own, as the owner's reference: a large photo, then the
- * title, one line and the way in. The 3D visualizer needs an account, so the
- * button leads to log in. The photo stands in until there is one of the
- * visualizer.
+ * title, one line and the way in. The room planner needs an account, so the
+ * button leads to how it works. The photo stands in until there is one of
+ * the planner.
  */
 export const DESIGN = {
   title: "Design your own",
   rest: "See it before you order",
-  line: "Plan your room in our 3D visualizer: place our pieces at real size, set each one's size and finish, and see it before you order. Opening soon, free with an account.",
+  line: "Draw your room at real size, place our pieces, and see what fits before you order. Free with an account; the 3D view comes later.",
   go: "How it works",
   href: routes.planning,
   photo: orangeRoom,

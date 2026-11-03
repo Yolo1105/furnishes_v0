@@ -22,6 +22,7 @@ export const LOG_IN = {
   go: "Log in",
   trouble: "Trouble logging in?",
   help: { label: "Email us", href: mailAbout("Logging in") },
+  demo: { line: "Just looking?", go: "Try the room planner as a demo" },
   what: { line: "New here?", label: "See what an account gives you", href: routes.planning },
   back: "Back to the site",
   agree: ["By logging in you agree to our", "and", "."],

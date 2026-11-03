@@ -1,0 +1,242 @@
+/* The room planner: the drawing on the left, held in view while the side
+   scrolls past it, and the side's blocks on the right; stacked on phones,
+   the drawing first. */
+.planner {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(24px, 3vw, 56px);
+  align-items: start;
+  padding: clamp(32px, 4vw, 64px) var(--gutter) 0;
+}
+
+.stage {
+  position: sticky;
+  top: calc(var(--nav-h) + 16px);
+  background: var(--ink-wash);
+}
+
+/* the drawing, in the room's own mm: lines keep their width on screen
+   however large it is drawn, and the words are sized in mm so they scale
+   with the room */
+.plan {
+  display: block;
+  width: 100%;
+  max-height: calc(100svh - var(--nav-h) - 32px);
+  touch-action: none;
+}
+
+.walls {
+  fill: none;
+  stroke: var(--ink-wall);
+}
+
+.gap {
+  fill: var(--ink-wash);
+}
+
+.door path,
+.window path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.4px;
+  vector-effect: non-scaling-stroke;
+}
+
+.window path {
+  stroke-width: 1px;
+}
+
+.door .swing {
+  stroke-width: 1px;
+  stroke-dasharray: 4 4;
+}
+
+.size {
+  fill: var(--ink-dark-pale);
+  font: 400 120px / 1 var(--font);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.piece {
+  cursor: grab;
+}
+
+.piece:active {
+  cursor: grabbing;
+}
+
+.piece rect {
+  fill: var(--paper);
+  stroke: var(--ink-dark);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+/* the front, thicker, so which way a piece faces reads at a glance */
+.piece .front {
+  stroke: var(--ink-dark);
+  stroke-width: 3px;
+  vector-effect: non-scaling-stroke;
+}
+
+.piece text {
+  fill: var(--ink-dark);
+  font: 500 110px / 1 var(--font);
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* a piece Eva has a note on, in the red; the one picked, on the red tint */
+.piece[data-flagged] rect,
+.piece[data-flagged] .front {
+  stroke: var(--ink);
+}
+
+.piece[data-flagged] text {
+  fill: var(--ink);
+}
+
+.piece[data-picked] rect {
+  fill: var(--ink-tile);
+  stroke-width: 2px;
+}
+
+.piece:focus-visible rect {
+  stroke-width: 3px;
+}
+
+/* ---------- the side ---------- */
+
+.side {
+  display: grid;
+  gap: clamp(32px, 3vw, 48px);
+}
+
+.block {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font: 400 var(--text-head) / 1.1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.line {
+  margin: 0;
+  color: var(--ink-dark);
+  font: 400 var(--text-md) / 1.5 var(--font);
+}
+
+.small {
+  margin: 0;
+  color: var(--ink-dark-pale);
+  font: 400 var(--text-sm) / 1.5 var(--font);
+}
+
+.notes {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.note {
+  display: grid;
+  gap: 2px;
+}
+
+.note[data-level="stop"] > .small {
+  color: var(--ink);
+}
+
+/* a note that names a piece picks it, so the line is a button that reads
+   as the line */
+.noteGo {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-dark);
+  font: 400 var(--text-md) / 1.5 var(--font);
+  text-align: left;
+  cursor: pointer;
+}
+
+.noteGo:hover {
+  color: var(--ink);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.addRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.fields {
+  display: grid;
+  gap: 16px;
+}
+
+.pair,
+.opening {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.opening {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.opening legend {
+  grid-column: 1 / -1;
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+.list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--ink-dark);
+  font: 400 var(--text-md) / 1.5 var(--font);
+}
+
+.total {
+  font-weight: 500;
+}
+
+@media (width <= 1023px) {
+  .planner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stage {
+    position: static;
+  }
+}

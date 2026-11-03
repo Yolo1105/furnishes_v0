@@ -236,7 +236,7 @@
   text-align: center;
 }
 
-/* the button set as the questions' email link, which the page adds to it */
+/* a button set as a link in a line: the log-out, and the demo's way in */
 .logOut {
   padding: 0;
   border: 0;

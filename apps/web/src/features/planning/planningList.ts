@@ -17,16 +17,17 @@ const DESIGN_NEXT = `${routes.logIn}?next=${encodeURIComponent(routes.designYour
 export const PLANNING = {
   label: "Planning help",
   title: "Plan a room with us",
-  rest: "Eva, our AI assistant, and a 3D room planner. Both are free with an account, and both are opening soon.",
+  rest: "A room planner, open now and free with an account, and Eva, who checks the room as you draw it. The 3D view comes later.",
   lines: [
-    "Today our team plans each room by hand, and the assistant helps. Eva and the planner make that help yours to use any time.",
-    "Until they open, a home visit or an email gets you the same answer from a person.",
+    "Draw one room from above at real size, place our pieces and what you own, and Eva says what won't fit and why.",
+    "Eva's chat, where you ask her questions, opens later. Until then, a home visit or an email gets you an answer from a person.",
   ],
   photos: [
     { src: home, alt: "Shelves and two reading chairs by a tall window" },
     { src: living, alt: "A living room with a long sofa and low shelves" },
   ],
   go: { label: "Log in to start", href: DESIGN_NEXT },
+  demo: { line: "No account yet?", go: "Try it as a demo" },
 };
 
 export const EVA = {
@@ -54,17 +55,17 @@ export const PLANNER = {
   id: "planner-title",
   label: "The room planner",
   title: "See it before you order",
-  rest: "In 3D, at real size",
+  rest: "From above, at real size",
   steps: [
     {
       name: "Draw your room",
-      line: "Start from a 3-, 4- or 5-room HDB layout, then set your own walls, doors and windows.",
+      line: "Set its width and depth, its door and its window. It starts as a common HDB bedroom.",
     },
     {
       name: "Place our pieces",
-      line: "At their real size, in the size and finish you choose, with walkways checked as you go.",
+      line: "At their real size, beside what you already own, with walkways, the door and the window checked as you go.",
     },
-    { name: "Send it to us", line: "We check it fits, then the pieces go into your cart with your choices kept." },
+    { name: "Send it to us", line: "The room goes to us by email, and we check it fits before you order." },
   ],
 };
 
@@ -94,8 +95,8 @@ export const WAYS = {
     {
       name: "With an account",
       facts: [
-        { label: "Costs", value: "Nothing; opening soon" },
-        { label: "You get", value: "Eva, the room planner and your saved rooms" },
+        { label: "Costs", value: "Nothing" },
+        { label: "You get", value: "The room planner, with Eva checking it, kept in this browser" },
         { label: "Not included", value: "Eva doesn't measure your room or judge if a piece is safe there" },
       ],
       go: { label: "Log in", href: DESIGN_NEXT },
