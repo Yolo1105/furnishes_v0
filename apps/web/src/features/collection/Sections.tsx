@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { PieceList } from "@/features/catalog/PieceList";
 import type { LineSlug } from "@/features/catalog/catalog";
 import styles from "./Collection.module.css";
@@ -69,17 +70,21 @@ export type Entry = {
 };
 
 /**
- * An index, the site's one way to set out a short list: full-width rows
- * parted by space, the name large on the left and the words beside it,
- * like a contents page rather than a row of cards. `numbered` puts the
- * row's number before the name, for steps.
+ * An index, the site's one way to set out a short list: columns of text
+ * side by side, each with its name over its words, parted by space alone
+ * rather than set on cards. `numbered` puts the
+ * row's number before the name, for steps, which light in turn on scroll.
  */
 export function Index({ entries, numbered = false }: { entries: readonly Entry[]; numbered?: boolean }) {
   const List = numbered ? "ol" : "ul";
   return (
-    <List className={styles.index}>
+    <List
+      className={styles.index}
+      data-numbered={numbered || undefined}
+      style={{ "--count": entries.length, "--cols": entries.length <= 5 ? entries.length : 3 } as CSSProperties}
+    >
       {entries.map((e, i) => (
-        <li key={e.name} className={styles.entry}>
+        <li key={e.name} className={styles.entry} style={{ "--i": i } as CSSProperties}>
           <div className={styles.entryHead}>
             {numbered && (
               <span className={styles.entryNumber} aria-hidden="true">

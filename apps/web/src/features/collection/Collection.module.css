@@ -424,6 +424,13 @@
   grid-column: 1 / -1;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(12px, 1.5vw, 24px);
+  align-items: start;
+}
+
+/* the second room set lower than the first, as the owner's earlier about
+   page, so the pair reads as two photographs laid down rather than a row */
+.openingPhoto + .openingPhoto {
+  margin-top: clamp(24px, 6vh, 72px);
 }
 
 .openingPhoto {
@@ -1335,13 +1342,15 @@
 
 /* ---------- an index ---------- */
 
-/* a short list as a contents page: each entry a full-width row, the name
-   on the left and its words beside it, parted by space alone, on the
-   owner's word: no rules and no fills, so a page reads as typeset text
-   rather than a grid of cards */
+/* a short list set as columns of text side by side, as a newspaper's:
+   each entry its number or note, its name and its words, stacked, with no
+   rules and no fills, so a page reads as typeset text rather than a grid
+   of cards. Three entries take three columns, steps one row; six, two rows
+   of three. */
 .index {
   display: grid;
-  gap: clamp(32px, 3.6vw, 56px);
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: clamp(32px, 3.4vw, 52px) clamp(20px, 2.4vw, 40px);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1349,31 +1358,20 @@
 
 .entry {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: 12px clamp(24px, 4vw, 72px);
+  gap: 12px;
+  align-content: start;
 }
 
-/* the number before the name, in the pale red at the name's size, so a
-   step reads as "01 You order" */
 .entryHead {
   display: grid;
-  gap: 6px 20px;
+  gap: 6px;
   align-content: start;
-  align-items: baseline;
 }
 
-.entryHead:has(> .entryNumber) {
-  grid-template-columns: auto 1fr;
-}
-
-.entryHead > :not(.entryNumber) {
-  grid-column: -2 / -1;
-}
-
+/* a step's number over its name, large in the pale red */
 .entryNumber {
-  grid-row: span 2;
   color: var(--ink-pale);
-  font: 400 var(--text-head) / 1.1 var(--font);
+  font: 400 var(--text-over) / 1 var(--font);
   font-variant-numeric: tabular-nums;
   font-variation-settings: "wdth" var(--width-display);
 }
@@ -1398,7 +1396,7 @@
   gap: 10px;
   align-content: start;
   justify-items: start;
-  max-width: 60ch;
+  max-width: 40ch;
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
 }
@@ -1407,18 +1405,17 @@
   margin: 0;
 }
 
-/* labelled facts: the label in the small capitals, its words after it */
+/* labelled facts: the label in the small capitals, its words under it */
 .entryFacts {
   display: grid;
   gap: 8px;
   margin: 0;
 }
 
+/* in a column, each label sits over its words */
 .entryFacts > div {
   display: grid;
-  grid-template-columns: 9em minmax(0, 1fr);
-  gap: 16px;
-  align-items: baseline;
+  gap: 2px;
 }
 
 .entryLabel {
@@ -1428,6 +1425,30 @@
 
 .entryFacts dd {
   margin: 0;
+}
+
+/* numbered steps light in turn as the list passes up the screen, each
+   from faint over its own share of the middle of the pass, as the owner's
+   earlier "making" row; CSS only, so where the browser can't, or motion is
+   reduced, every step simply stands in full */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .index[data-numbered] {
+      view-timeline: --steps block;
+    }
+
+    .index[data-numbered] > .entry {
+      animation: step-in linear both;
+      animation-range: cover calc(20% + var(--i) / var(--count) * 30%) cover calc(28% + var(--i) / var(--count) * 30%);
+      animation-timeline: --steps;
+    }
+  }
+}
+
+@keyframes step-in {
+  from {
+    opacity: 0.25;
+  }
 }
 
 /* the way on: red words in the reading face, underlined when pointed at */
@@ -1603,9 +1624,12 @@
     grid-column: auto;
   }
 
-  .visit,
-  .entry {
+  .visit {
     grid-template-columns: 1fr;
+  }
+
+  .index {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .promises {
@@ -1614,9 +1638,8 @@
 }
 
 @media (width <= 639px) {
-  .entryFacts > div {
+  .index {
     grid-template-columns: minmax(0, 1fr);
-    gap: 2px;
   }
 
   .roomCards {
