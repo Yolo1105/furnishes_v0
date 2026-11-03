@@ -1,3 +1,4 @@
+import chair from "@/assets/details/yellow-chair.jpg";
 import { ARRIVALS, CUSTOM, FINISHES, FURNITURE_WEEKS, inWeeks } from "@/features/catalog/catalog";
 import { sgd } from "@/lib/money";
 import { FACTS } from "@/lib/site";
@@ -14,6 +15,11 @@ export const HELP = {
   rest: "Choosing a piece, ordering it, and living with it once it's home.",
   lines: ["Not here? Email us and a person replies.", "Measuring first? The buying guide has the steps."],
   guide: "Read the buying guide",
+  photo: chair,
+  search: "Search the questions",
+  searchHint: "Finishes, sizes, returns",
+  /** said when nothing matches, before the email */
+  none: "Nothing matches that. Email us at",
 };
 
 const finishes = FINISHES.map((f) => f.name.toLowerCase()).join(", ");

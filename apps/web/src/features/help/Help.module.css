@@ -1,0 +1,178 @@
+/* ---------- the top ---------- */
+
+/* a room on the left, the words on the right, held in the middle of its
+   height, after the owner's reference */
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 96px);
+  align-items: center;
+  padding: calc(var(--nav-h) + clamp(24px, 3vw, 48px)) var(--gutter) 0;
+}
+
+.photo {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.photo img {
+  object-fit: cover;
+}
+
+.words {
+  display: grid;
+  gap: clamp(18px, 2vw, 28px);
+  justify-items: start;
+}
+
+.line {
+  max-width: 44ch;
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+/* the search: a framed field the width of the column, the glass at its end
+   laid over on purpose, red once the field has focus */
+.search {
+  position: relative;
+  width: min(100%, 520px);
+}
+
+.search input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 56px;
+  padding: 0 52px 0 18px;
+  border: var(--line) solid var(--rule-strong);
+  border-radius: 0;
+  background: none;
+  color: var(--ink);
+  font: 400 var(--text-lg) / 1 var(--font);
+  appearance: none;
+}
+
+.search input::placeholder {
+  color: var(--ink-dark-pale);
+}
+
+.search input:focus-visible {
+  border-color: var(--ink);
+  outline: none;
+}
+
+.search svg {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  width: 20px;
+  height: 20px;
+  translate: 0 -50%;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.6;
+  pointer-events: none;
+}
+
+/* ---------- the topics ---------- */
+
+/* two topics across, the questions under each; space parts them, no rules */
+.topics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(48px, 5vw, 80px) clamp(32px, 5vw, 96px);
+  align-items: start;
+  padding: clamp(64px, 8vw, 128px) var(--gutter) 0;
+}
+
+.topicTitle {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font: 400 var(--text-head) / 1.1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* a question's whole row is its button, the plus at its end turning to a
+   cross when open */
+.question {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 0;
+  border: 0;
+  background: none;
+  color: var(--ink-dark);
+  font: 400 var(--text-lg) / 1.35 var(--font);
+  text-align: left;
+  cursor: pointer;
+}
+
+.question:hover,
+[data-open] > .question {
+  color: var(--ink);
+}
+
+.mark {
+  flex: none;
+  color: var(--ink);
+  font: 300 clamp(20px, 1.5vw, 26px) / 1 var(--font);
+}
+
+[data-open] .mark {
+  rotate: 45deg;
+}
+
+/* the answer grows from no height to its own, the row's 0fr to 1fr */
+.answer {
+  display: grid;
+  grid-template-rows: 0fr;
+}
+
+[data-open] > .answer {
+  grid-template-rows: 1fr;
+}
+
+.answer > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.answer p {
+  max-width: 60ch;
+  margin: 0;
+  padding: 0 0 18px;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-md) / 1.55 var(--font-wordmark);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .answer {
+    transition: grid-template-rows var(--dur-roll) var(--ease-roll);
+  }
+
+  .mark {
+    transition: rotate var(--dur-roll) var(--ease-roll);
+  }
+}
+
+@media (width <= 1023px) {
+  .top,
+  .topics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .photo {
+    aspect-ratio: 4 / 3;
+  }
+}
