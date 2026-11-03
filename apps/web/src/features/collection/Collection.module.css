@@ -1336,7 +1336,7 @@
 /* numbered steps on one tile, as the promise row */
 .steps {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
   gap: 24px clamp(16px, 2vw, 32px);
   margin: 0;
   padding: clamp(24px, 2.8vw, 44px);

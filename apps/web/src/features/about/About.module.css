@@ -138,50 +138,6 @@
   background: var(--birch);
 }
 
-/* ---------- from order to your home ---------- */
-
-/* five steps in one row on a thin line that runs under their labels; it
-   draws across from the left as the row comes into view */
-.days {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 24px clamp(16px, 2vw, 32px);
-  margin: 0;
-  padding: 20px 0 0;
-  list-style: none;
-}
-
-/* the line, laid over the row's top edge on purpose */
-.days::before {
-  position: absolute;
-  inset: 0 0 auto;
-  height: var(--line);
-  background: var(--ink);
-  transform-origin: left;
-  content: "";
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .days::before {
-      animation: draw linear both;
-      animation-range: entry 20% cover 45%;
-      animation-timeline: view();
-    }
-  }
-}
-
-@keyframes draw {
-  from {
-    scale: 0 1;
-  }
-}
-
-/* ---------- our story ---------- */
-
-/* three parts side by side, as the steps but without their line */
-
 /* ---------- recognition ---------- */
 
 /* a row each: the year in pale capitals, the award in red, what it was for
@@ -239,12 +195,19 @@
   aspect-ratio: 4 / 5;
   background: var(--birch);
   color: var(--ink);
-  font: 400 var(--text-run) / 1 var(--font);
+  font: 400 var(--text-title) / 1 var(--font);
   font-variation-settings: "wdth" var(--width-display);
 }
 
+/* a role in the small capitals may run to two lines in a narrow column,
+   rather than into the next person's */
+.team li > p {
+  line-height: 1.3;
+  white-space: normal;
+}
+
+/* one still to be named: the same frame, paler, so the names stay in line */
 .team [data-pending] .portrait {
-  aspect-ratio: 4 / 3;
   background: var(--ink-tile);
   color: var(--ink-pale);
 }
@@ -277,25 +240,5 @@
 
   .figures {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  /* on phones the steps stack, the line running down their left instead */
-  .days {
-    grid-template-columns: 1fr;
-    padding: 0 0 0 20px;
-  }
-
-  .days::before {
-    inset: 0 auto 0 0;
-    width: var(--line);
-    height: auto;
-    transform-origin: top;
-    animation-name: draw-down;
-  }
-}
-
-@keyframes draw-down {
-  from {
-    scale: 1 0;
   }
 }

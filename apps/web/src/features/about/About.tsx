@@ -1,9 +1,9 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import { Opening } from "@/features/collection/Opening";
-import { Questions } from "@/features/collection/Questions";
-import { Section } from "@/features/collection/Sections";
+import { Section, Steps } from "@/features/collection/Sections";
 import collection from "@/features/collection/Collection.module.css";
+import contact from "@/features/contact/Contact.module.css";
 import { FIGURES, MAKING, MANIFESTO, RECOGNITION, STORY, TEAM, WHO, WORKSHOP } from "./aboutList";
 import styles from "./About.module.css";
 
@@ -78,27 +78,15 @@ export function Workshop() {
   );
 }
 
-/** From order to your home: five steps on one line, which draws across as it scrolls into view. */
+/** From order to your home: the five steps on one tile, as every page's steps. */
 export function MakingDays() {
-  return (
-    <Section id="making-title" label={MAKING.label} title={MAKING.title} rest={MAKING.rest}>
-      <ol className={styles.days}>
-        {MAKING.steps.map((s, i) => (
-          <li key={s.name} className={styles.day}>
-            <p className={collection.cardLabel}>Step {i + 1}</p>
-            <h3 className={collection.promiseName}>{s.name}</h3>
-            <p className={collection.promiseLine}>{s.line}</p>
-          </li>
-        ))}
-      </ol>
-    </Section>
-  );
+  return <Steps id="making-title" label={MAKING.label} title={MAKING.title} rest={MAKING.rest} steps={MAKING.steps} />;
 }
 
 /**
  * The people behind Furnishes: a portrait (its initial until there is a
- * photo), the name, the role and one line. A person still to be named has a
- * shorter, paler frame, so the empty cards don't outweigh the named one.
+ * photo), the name, the role and one line. Every frame is the same size so
+ * the names line up; one still to be named is paler.
  */
 export function Team() {
   return (
@@ -119,16 +107,22 @@ export function Team() {
   );
 }
 
-/** Our story: three numbered parts that open one at a time, as the questions do, so it doesn't read as a third row of columns. */
+/**
+ * Our story: three parts side by side on the tiles the site's other short
+ * lists use, so the page's one list that opens is its questions.
+ */
 export function Story() {
   return (
-    <Questions
-      questions={STORY.parts.map((p) => ({ q: p.name, a: p.line }))}
-      label={STORY.label}
-      title={STORY.title}
-      rest={STORY.rest}
-      ask={false}
-    />
+    <Section id="story-title" label={STORY.label} title={STORY.title} rest={STORY.rest}>
+      <ul className={contact.topics}>
+        {STORY.parts.map((p) => (
+          <li key={p.name} className={contact.topic}>
+            <h3 className={collection.promiseName}>{p.name}</h3>
+            <p className={collection.promiseLine}>{p.line}</p>
+          </li>
+        ))}
+      </ul>
+    </Section>
   );
 }
 

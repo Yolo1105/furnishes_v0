@@ -19,7 +19,6 @@
 }
 
 .details dd {
-  display: grid;
   margin: 0;
   color: var(--ink-dark);
   font: 400 var(--text-lg) / 1.4 var(--font);

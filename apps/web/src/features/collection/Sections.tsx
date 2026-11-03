@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { PieceList } from "@/features/catalog/PieceList";
 import type { LineSlug } from "@/features/catalog/catalog";
 import styles from "./Collection.module.css";
@@ -70,7 +71,11 @@ export function Steps({
 }) {
   return (
     <Section id={id} label={label} title={title} rest={rest}>
-      <ol className={styles.steps}>
+      {/* four or five steps sit on one row; three, or six, three to a row */}
+      <ol
+        className={styles.steps}
+        style={{ "--cols": steps.length % 3 && steps.length <= 5 ? steps.length : 3 } as CSSProperties}
+      >
         {steps.map((s, i) => (
           <li key={s.name}>
             <p className={styles.cardLabel}>Step {i + 1}</p>

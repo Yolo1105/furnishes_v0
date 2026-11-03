@@ -1,5 +1,3 @@
-import home from "@/assets/rooms/home.jpg";
-import yellowSofa from "@/assets/rooms/yellow-sofa.jpg";
 import { EMAIL, HOURS, mailAbout, MAILTO, PLACE } from "@/lib/contact";
 import { routes } from "@/lib/routes";
 import { sgd } from "@/lib/money";
@@ -14,10 +12,6 @@ export const CONTACT = {
   label: "Contact",
   title: "How can we help?",
   rest: "A question about a piece, advice on a room, or a visit. Write to us and we reply by email.",
-  photos: [
-    { src: yellowSofa, alt: "A yellow sofa and low tables in an office lounge" },
-    { src: home, alt: "Shelves and two chairs by a tall window at the foot of a stair" },
-  ],
 };
 
 /** How to reach us, a row each beside the opening's line. */
@@ -29,7 +23,10 @@ export const DETAILS = [
   { label: "Assistant", lines: ["What the AI assistant does"], href: routes.planning },
 ] as const;
 
-/** What people write about, each opening an email with its subject filled in, and what it leads to. */
+/**
+ * What people write about, each opening an email with its subject filled
+ * in; `get` is what comes back, said the same way on every tile.
+ */
 export const TOPICS_HEAD = {
   label: "Write to us",
   title: "What can we help with?",
@@ -40,42 +37,42 @@ export const TOPICS = [
   {
     name: "A piece or an order",
     line: "Sizes, finishes, an order you've placed, or a delivery.",
-    runs: "By email",
+    get: "An answer",
     go: "Ask about a piece",
     href: mailAbout("A piece or an order"),
   },
   {
     name: "Advice on a room",
     line: "Send a photo and the size of the room, and we suggest what fits.",
-    runs: "By email",
+    get: "Ideas for the room",
     go: "Ask about a room",
     href: mailAbout("Advice on a room"),
   },
   {
     name: "A home visit",
     line: `${FACTS.visitMinutes} minutes in your home or office: we measure and suggest pieces. ${sgd(FACTS.visitFee)}, taken off your order if you buy.`,
-    runs: `${FACTS.visitMinutes} minutes`,
+    get: `${FACTS.visitMinutes} minutes in your room`,
     go: "Ask for a visit",
     href: mailAbout("Home visit"),
   },
   {
     name: "An office or bulk order",
     line: "Desks, storage and separator walls for a team, priced together.",
-    runs: "A quote",
+    get: "A quote",
     go: "Ask for a quote",
     href: mailAbout("Office or bulk order"),
   },
   {
     name: "A custom size or design",
     line: "A modular piece in a size or shape the list doesn't have.",
-    runs: "A quote",
+    get: "A quote",
     go: "Ask for a quote",
     href: mailAbout("Custom size or design"),
   },
   {
     name: "Samples of the finishes",
     line: "Birch, walnut and red, to see against your walls before you order.",
-    runs: "By email",
+    get: "Swatches to hold",
     go: "Ask for samples",
     href: mailAbout("Samples"),
   },

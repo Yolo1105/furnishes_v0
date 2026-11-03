@@ -7,13 +7,14 @@ import styles from "./Contact.module.css";
 
 /**
  * The contact page, after the rebuild's: the opening with how to reach us
- * beside it, what people write about, each its own email, then what happens
+ * beside it, no photos so they come first, what people write about, each its own email, then what happens
  * next. No form: every way in is an email or the assistant.
  */
 export function Contact() {
   return (
     <>
-      <Opening label={CONTACT.label} title={CONTACT.title} photos={CONTACT.photos} rest={CONTACT.rest}>
+      {/* no photos, so how to reach us sits right under the title, not under the fold */}
+      <Opening label={CONTACT.label} title={CONTACT.title} photos={[]} rest={CONTACT.rest}>
         <dl className={styles.details}>
           {DETAILS.map((d) => (
             <div key={d.label}>
@@ -30,7 +31,8 @@ export function Contact() {
                     </a>
                   )
                 ) : (
-                  d.lines.map((l) => <span key={l}>{l}</span>)
+                  // one line each, so the column reads evenly: "Monday to Friday, 10am to 6pm"
+                  d.lines.map((l, i) => (i ? l.charAt(0).toLowerCase() + l.slice(1) : l)).join(", ")
                 )}
               </dd>
             </div>
@@ -41,7 +43,7 @@ export function Contact() {
         <ul className={styles.topics}>
           {TOPICS.map((t) => (
             <li key={t.name} className={styles.topic}>
-              <p className={collection.cardLabel}>{t.runs}</p>
+              <p className={collection.cardLabel}>{t.get}</p>
               <h3 className={collection.promiseName}>{t.name}</h3>
               <p className={collection.promiseLine}>{t.line}</p>
               <a className={collection.outline} href={t.href}>
