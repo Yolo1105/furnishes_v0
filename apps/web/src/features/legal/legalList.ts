@@ -1,5 +1,7 @@
 import { ARRIVALS, FURNITURE_WEEKS } from "@/features/catalog/catalog";
 import { EMAIL } from "@/lib/contact";
+import { sgd } from "@/lib/money";
+import { FACTS } from "@/lib/site";
 
 /**
  * The three legal pages' words: drafts written from what the rest of the
@@ -47,7 +49,7 @@ export const TERMS: LegalPage = {
     {
       name: "Home visits",
       lines: [
-        "A home visit is 60 minutes and costs S$120, taken off your order if you buy within [period]. [Rescheduling and cancelling a visit.]",
+        `A home visit is ${FACTS.visitMinutes} minutes and costs ${sgd(FACTS.visitFee)}, taken off your order if you buy within [period]. [Rescheduling and cancelling a visit.]`,
       ],
     },
     {
@@ -105,7 +107,9 @@ export const REFUND: LegalPage = {
   sections: [
     {
       name: "Ready-made furniture",
-      lines: ["You can return it within 14 days of delivery, unused and in its boxes. [Who pays to collect it.]"],
+      lines: [
+        `You can return it within ${FACTS.returnDays} days of delivery, unused and in its boxes. [Who pays to collect it.]`,
+      ],
     },
     {
       name: "Modular pieces",

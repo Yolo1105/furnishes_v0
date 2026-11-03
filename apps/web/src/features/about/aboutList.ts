@@ -4,6 +4,8 @@ import sewing from "@/assets/details/sewing.jpg";
 import yellowChair from "@/assets/details/yellow-chair.jpg";
 import redSofa from "@/assets/details/red-sofa.jpg";
 import { ARRIVALS, FURNITURE_WEEKS } from "@/features/catalog/catalog";
+import { sgd } from "@/lib/money";
+import { FACTS } from "@/lib/site";
 
 /**
  * The about page's words, after the rebuild's about page, cut down. Every
@@ -63,10 +65,10 @@ export const MANIFESTO = {
 
 /** Four figures in one row, each read from the facts the rest of the site states. */
 export const FIGURES = [
-  { value: "18 mm", line: "Birch plywood in every modular panel" },
+  { value: FACTS.board, line: "Birch plywood in every modular panel" },
   { value: ARRIVALS.parts.weeks, line: "For a modular piece, from order to your door" },
   { value: FURNITURE_WEEKS, line: "For a ready-made piece, made after you order" },
-  { value: "S$120", line: "For a home visit, taken off your order" },
+  { value: sgd(FACTS.visitFee), line: "For a home visit, taken off your order" },
 ] as const;
 
 /** Where it is made, as short label and value lines beside a photo. */
@@ -78,7 +80,7 @@ export const WORKSHOP = {
   facts: [
     { label: "Made in", value: "China" },
     { label: "Factory", value: "Our partner factory in China" },
-    { label: "Material", value: "18 mm birch plywood, white matte faces" },
+    { label: "Material", value: `${FACTS.board} birch plywood, in birch, walnut or red` },
     { label: "Arrives", value: "Flat-packed or already built" },
     { label: "Delivered to", value: "Singapore" },
   ],
@@ -115,7 +117,7 @@ export const ABOUT_QUESTIONS = [
   },
   {
     q: "Is there a showroom?",
-    a: "Not yet. We come to you instead: a home visit is S$120, taken off your order if you buy.",
+    a: `Not yet. We come to you instead: a home visit is ${sgd(FACTS.visitFee)}, taken off your order if you buy.`,
   },
   {
     q: "Can I see the finishes first?",
@@ -123,7 +125,7 @@ export const ABOUT_QUESTIONS = [
   },
   {
     q: "Can I return a piece?",
-    a: "Ready-made pieces can be returned within 14 days of delivery. Modular pieces are made to your size, so they can't.",
+    a: `Ready-made pieces can be returned within ${FACTS.returnDays} days of delivery. Modular pieces are made to your size, so they can't.`,
   },
 ] as const;
 

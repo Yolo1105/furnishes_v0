@@ -19,6 +19,7 @@ import { ARRIVALS, fromPrice, FURNITURE_WEEKS, type LineSlug, PIECES } from "@/f
 import { sgd } from "@/lib/money";
 import { shopHref } from "@/features/catalog/filters";
 import { lineOf, routes } from "@/lib/routes";
+import { FACTS } from "@/lib/site";
 
 /**
  * The collection overview's words, in one place. Prices and terms here are
@@ -224,7 +225,11 @@ export const PROMISES = [
     name: "Ready to go, or make it yourself",
     line: "Modular pieces arrive assembled, or in parts for less.",
   },
-  { icon: "return", name: "Returns within 14 days", line: "Standard pieces, unused and boxed [placeholder terms]." },
+  {
+    icon: "return",
+    name: `Returns within ${FACTS.returnDays} days`,
+    line: "Standard pieces, unused and boxed [placeholder terms].",
+  },
   { icon: "factory", name: "Made by our partner factory", line: "In China, to our sizes and finishes." },
 ] as const;
 
@@ -247,7 +252,7 @@ export const VISIT = {
   label: "Home visits",
   title: "Not sure what fits?",
   rest: "We come to your room",
-  line: "60 minutes in your home or office: we measure, answer your questions and suggest pieces. S$120, taken off your order if you buy.",
+  line: `${FACTS.visitMinutes} minutes in your home or office: we measure, answer your questions and suggest pieces. ${sgd(FACTS.visitFee)}, taken off your order if you buy.`,
   go: "Book a visit",
   photo: kitchen,
 };
@@ -332,7 +337,7 @@ export const COLLECTION_QUESTIONS = [
   },
   {
     q: "Can I return a piece?",
-    a: "Ready-made pieces can be returned within 14 days of delivery. Modular pieces are made to your size, so they can't.",
+    a: `Ready-made pieces can be returned within ${FACTS.returnDays} days of delivery. Modular pieces are made to your size, so they can't.`,
   },
 ] as const;
 

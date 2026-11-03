@@ -9,6 +9,7 @@ import home from "@/assets/rooms/home.jpg";
 import kitchen from "@/assets/rooms/kitchen.jpg";
 import living from "@/assets/rooms/living.jpg";
 import study from "@/assets/rooms/study.jpg";
+import { FACTS } from "@/lib/site";
 
 /**
  * Everything the shop sells, in one place: the collection, the lists and
@@ -265,8 +266,7 @@ export const SHARED = {
     "Modular pieces: birch plywood, edges sanded and oiled; walnut and red are veneers over the same core. Furniture: as listed by the factory.",
   care: "Wipe with a damp cloth. Re-oil birch once a year, and keep it out of hours of direct sun.",
   delivery: "Delivered anywhere in Singapore, at a time you choose. Ready to go pieces are carried in and placed.",
-  returns:
-    "Standard pieces within 14 days, unused and in their boxes. Pieces changed to your size: only if faulty or damaged [placeholder terms].",
+  returns: `Standard pieces within ${FACTS.returnDays} days, unused and in their boxes. Pieces changed to your size: only if faulty or damaged [placeholder terms].`,
 } as const;
 
 /** The kinds in a line, in the catalogue's order, for a line page's chips. */

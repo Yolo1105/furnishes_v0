@@ -8,6 +8,7 @@ import yellowSofa from "@/assets/rooms/yellow-sofa.jpg";
 import { FURNITURE_WEEKS } from "@/features/catalog/catalog";
 import { shopHref } from "@/features/catalog/filters";
 import { pieceOf, routes } from "@/lib/routes";
+import { FACTS } from "@/lib/site";
 
 /**
  * The Furniture page's words, in one place. Furniture is ready-made by the
@@ -40,7 +41,7 @@ export const FURNITURE_STEPS = [
 export const FURNITURE_PROMISES = [
   { icon: "truck", name: "Delivered in Singapore", line: "At a time you choose, carried in and placed." },
   { icon: "parts", name: "Arrives assembled", line: "Ready to use, with nothing to put together." },
-  { icon: "return", name: "Returns within 14 days", line: "Unused and boxed [placeholder terms]." },
+  { icon: "return", name: `Returns within ${FACTS.returnDays} days`, line: "Unused and boxed [placeholder terms]." },
   { icon: "factory", name: "Made by our partner factory", line: "In China, to our sizes and finishes." },
 ] as const;
 

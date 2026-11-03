@@ -1,6 +1,8 @@
 import kitchen from "@/assets/rooms/kitchen.jpg";
 import { HOURS, mailAbout, MAILTO, PLACE } from "@/lib/contact";
 import { routes } from "@/lib/routes";
+import { sgd } from "@/lib/money";
+import { FACTS } from "@/lib/site";
 
 /**
  * The contact page's words. We answer by email and, once you log in, by the
@@ -22,7 +24,7 @@ export const WAYS = [
   },
   {
     name: "Book a home visit",
-    line: "60 minutes in your home or office: we measure and suggest pieces. S$120, taken off your order if you buy.",
+    line: `${FACTS.visitMinutes} minutes in your home or office: we measure and suggest pieces. ${sgd(FACTS.visitFee)}, taken off your order if you buy.`,
     go: { label: "Ask for a visit", href: mailAbout("Home visit") },
   },
   {

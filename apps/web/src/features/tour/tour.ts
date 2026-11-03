@@ -1,3 +1,5 @@
+import { FACTS } from "@/lib/site";
+
 /**
  * The flat's tour, a step at a time: each step's headline (its lead, then
  * the softer rest, a line each), and its name and line. The first step has
@@ -23,7 +25,7 @@ export const TOUR: readonly Step[] = [
     lead: "A piece for that wall,",
     soft: ["within clear limits."],
     name: "The Furnishes bookcase",
-    line: "Built from 18 mm birch panels, in set heights and widths. Choose what suits the wall, the corner and the things you already own. Anything outside the limits goes to our team for a quote.",
+    line: `Built from ${FACTS.board} birch panels, in set heights and widths. Choose what suits the wall, the corner and the things you already own. Anything outside the limits goes to our team for a quote.`,
   },
   {
     lead: "Then choose",
