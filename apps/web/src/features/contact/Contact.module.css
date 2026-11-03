@@ -8,6 +8,26 @@
   padding: calc(var(--nav-h) + clamp(32px, 4vw, 64px)) var(--gutter) 0;
 }
 
+/* the title at the section titles' size rather than a full page
+   opening's, as it shares the width with the enquiry; the line under it
+   at the body's */
+.title {
+  margin: 0;
+  color: var(--ink);
+  font: 400 var(--text-over) / 1.05 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+/* the line under the title in the site's subtitle face, as each section's
+   line under its title below */
+.rest {
+  max-width: 40ch;
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-rest) / 1.3 var(--font-wordmark);
+}
+
 /* held in view while the longer enquiry beside it scrolls */
 .topSide {
   position: sticky;
@@ -26,13 +46,16 @@
 
 .details > div {
   display: grid;
-  grid-template-columns: 11em minmax(0, 1fr);
+  grid-template-columns: 9.5em minmax(0, 1fr);
   gap: 16px;
   align-items: center;
 }
 
+/* every small capital label on the page at the one size, the section
+   labels' */
 .detailLabel {
   composes: caps from global;
+  font-size: var(--text-sm);
   display: flex;
   gap: 12px;
   align-items: center;
@@ -48,7 +71,7 @@
 .details dd {
   margin: 0;
   color: var(--ink-dark);
-  font: 400 var(--text-lg) / 1.4 var(--font);
+  font: 400 var(--text-md) / 1.5 var(--font);
 }
 
 /* ---------- what people write about ---------- */
@@ -75,12 +98,14 @@
 
 .cardNote {
   composes: caps from global;
+  font-size: var(--text-sm);
   margin: 0;
   color: var(--ink-dark-pale);
 }
 
 .card > .link {
   margin-top: 12px;
+  font: 400 var(--text-md) / 1.4 var(--font);
 }
 
 .cardName {
@@ -103,7 +128,7 @@
    only its choices and fields are boxed */
 .enquiry {
   display: grid;
-  gap: clamp(28px, 3vw, 44px);
+  gap: clamp(24px, 2.4vw, 36px);
   justify-items: start;
 }
 
@@ -112,7 +137,7 @@
 .sentence {
   margin: 0;
   color: var(--ink-dark);
-  font: 400 var(--text-line) / 1.9 var(--font);
+  font: 400 var(--text-lg) / 1.9 var(--font);
 }
 
 /* a blank: the field as wide as an answer, a firm line under it as the
@@ -165,7 +190,7 @@
 .more {
   min-height: clamp(200px, 28vh, 320px);
   padding: 16px 18px;
-  font: 400 var(--text-line) / 1.5 var(--font);
+  font: 400 var(--text-lg) / 1.5 var(--font);
   resize: vertical;
 }
 
@@ -173,15 +198,16 @@
 .options {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8px;
 }
 
-/* a choice in a thin frame: picked, the frame turns red; its focus shown
-   on the frame */
+/* a choice in a thin frame, its name in the brown and its line pale
+   under it, so the boxes stay quiet; picked, the frame turns red on a
+   faint red ground; its focus shown on the frame */
 .option {
   display: grid;
-  gap: 4px;
-  padding: 16px 18px;
+  gap: 2px;
+  padding: 12px 16px;
   border: var(--line) solid var(--rule-strong);
   cursor: pointer;
 }
@@ -192,7 +218,11 @@
 
 .option:has(input:checked) {
   border-color: var(--ink);
-  box-shadow: inset 0 0 0 var(--line) var(--ink);
+  background: var(--ink-wash);
+}
+
+.option:has(input:checked) .optionName {
+  color: var(--ink);
 }
 
 .option:has(input:focus-visible) {
@@ -204,19 +234,19 @@
 }
 
 .optionName {
-  color: var(--ink);
-  font: 400 var(--text-lg) / 1.25 var(--font);
+  color: var(--ink-dark);
+  font: 500 var(--text-md) / 1.4 var(--font);
 }
 
 .optionLine {
-  color: var(--ink-dark);
-  font: 400 var(--text-md) / 1.4 var(--font);
+  color: var(--ink-dark-pale);
+  font: 400 var(--text-sm) / 1.45 var(--font);
 }
 
 /* a question: its name in small capitals over its buttons */
 .group {
   display: grid;
-  gap: 14px;
+  gap: 12px;
   width: 100%;
   min-width: 0;
   margin: 0;
@@ -224,9 +254,12 @@
   border: 0;
 }
 
+/* a fieldset's legend sits outside its grid, so its space under it is its
+   own margin */
 .groupLegend {
   composes: caps from global;
-  margin: 0;
+  font-size: var(--text-sm);
+  margin: 0 0 12px;
   padding: 0;
   color: var(--ink-dark-pale);
 }
@@ -237,13 +270,14 @@
   gap: 8px;
 }
 
-/* a choice: the square outline every button has, filled in the red orange
-   once picked; the box itself hidden, its focus shown on the outline */
+/* a choice: a small square outline, picked as the larger choices are, red
+   on a faint red ground; the box itself hidden, its focus shown on the
+   outline */
 .chip span {
   display: inline-flex;
   align-items: center;
-  min-height: var(--tap);
-  padding-inline: 18px;
+  min-height: 38px;
+  padding-inline: 14px;
   border: var(--line) solid var(--rule-strong);
   color: var(--ink-dark);
   font: 400 var(--text-md) / 1.2 var(--font);
@@ -256,9 +290,9 @@
 }
 
 .chip input:checked + span {
-  border-color: var(--ink-warm);
-  background: var(--ink-warm);
-  color: var(--paper);
+  border-color: var(--ink);
+  background: var(--ink-wash);
+  color: var(--ink);
 }
 
 .chip input:focus-visible + span {

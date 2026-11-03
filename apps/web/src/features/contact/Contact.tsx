@@ -17,11 +17,11 @@ export function Contact() {
     <>
       <section className={styles.top} aria-labelledby="contact-title">
         <div className={styles.topSide}>
-          <h1 id="contact-title" className={collection.openingTitle}>
+          <h1 id="contact-title" className={styles.title}>
             <span className={collection.headingLabel}>{CONTACT.label}</span>
             {CONTACT.title}
           </h1>
-          <p className={collection.openingRest}>{CONTACT.rest}</p>
+          <p className={styles.rest}>{CONTACT.rest}</p>
           <dl className={styles.details}>
             {DETAILS.map((d) => (
               <div key={d.label}>
