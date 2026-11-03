@@ -80,6 +80,89 @@ export const TOPICS = [
   },
 ] as const;
 
+/**
+ * The enquiry, after the owner's three references. It asks first whether
+ * it is for a home or a company, and the questions after follow that: what
+ * they need, picked from a list with a line each, then where the home is,
+ * or what kind of company and how large. It ends on one sentence with the
+ * name and email to fill. Sending writes it into an email that opens in the
+ * visitor's mail app, its subject the first need picked. No budget is asked
+ * until there are prices to set one against, and no phone, as we answer by
+ * email.
+ */
+export const ENQUIRY = {
+  label: "Tell us about it",
+  who: {
+    legend: "Is it for your home or for a company",
+    options: [
+      { value: "home" as const, name: "My home", line: "A room, a flat or a house" },
+      { value: "company" as const, name: "A company", line: "An office, a studio or a shop" },
+    ],
+  },
+  needs: {
+    legend: "What do you need help with",
+    home: [
+      { name: "A piece or an order", line: "I have a question about a piece, or an order I've placed" },
+      { name: "Advice on a room", line: "I want to know what fits my room" },
+      { name: "A home visit", line: `I'd like you to measure and suggest, ${FACTS.visitMinutes} minutes` },
+      { name: "A custom size or design", line: "I need a piece the list doesn't have" },
+      { name: "Samples of the finishes", line: "I want to hold the birch, walnut and red" },
+      { name: "Something else", line: "Ask us anything" },
+    ],
+    company: [
+      { name: "An office or bulk order", line: "We need desks, storage or walls for a team" },
+      { name: "Advice on a space", line: "We want to know what fits our office" },
+      { name: "A visit to the office", line: "We'd like you to measure and suggest" },
+      { name: "A custom size or design", line: "We need a piece the list doesn't have" },
+      { name: "Samples of the finishes", line: "We want to hold the birch, walnut and red" },
+      { name: "Something else", line: "Ask us anything" },
+    ],
+  },
+  space: {
+    legend: "Where is it",
+    options: ["An HDB flat", "A condo", "A landed house", "Somewhere else"],
+  },
+  kind: {
+    legend: "What kind of company are you",
+    options: [
+      "A startup",
+      "A design studio or agency",
+      "A consultancy",
+      "A clinic",
+      "A school",
+      "A shop or café",
+      "Something else",
+    ],
+  },
+  size: {
+    legend: "How large is the team",
+    steps: ["1 to 10 people", "11 to 30 people", "31 to 100 people", "More than 100 people"],
+  },
+  found: {
+    legend: "How did you find us",
+    options: ["Instagram", "Google", "A friend", "Xiaohongshu", "Somewhere else"],
+  },
+  reach: { legend: "How do we reach you" },
+  hi: "Hi, my name is",
+  from: "from",
+  write: "Write back to me at",
+  name: "your name",
+  company: "your company",
+  email: "your email",
+  more: { legend: "Anything else", hint: "The room, its size, what you have in mind" },
+  agree: "I agree to the",
+  terms: "terms",
+  and: "and the",
+  privacy: "privacy policy",
+  send: "Send enquiry",
+  /** the email written for the visitor, a line for each answer given */
+  body: (lines: readonly (readonly [string, string])[]) =>
+    lines
+      .filter(([, v]) => v)
+      .map(([k, v]) => (k ? `${k}: ${v}` : v))
+      .join("\n\n"),
+};
+
 /** What happens once the email is sent. */
 export const NEXT = {
   label: "After you write",

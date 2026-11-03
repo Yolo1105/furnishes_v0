@@ -1,3 +1,21 @@
+/* the page's top in two columns, after the owner's reference: the title
+   and how to reach us on the left, the enquiry on the right */
+.top {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(32px, 5vw, 96px);
+  align-items: start;
+  padding: calc(var(--nav-h) + clamp(32px, 4vw, 64px)) var(--gutter) 0;
+}
+
+/* held in view while the longer enquiry beside it scrolls */
+.topSide {
+  position: sticky;
+  top: calc(var(--nav-h) + 24px);
+  display: grid;
+  gap: clamp(20px, 2.4vw, 36px);
+}
+
 /* how to reach us, a row each: the label in pale capitals, its value after
    it in brown; space alone parts them */
 .details {
@@ -22,6 +40,229 @@
   margin: 0;
   color: var(--ink-dark);
   font: 400 var(--text-lg) / 1.4 var(--font);
+}
+
+/* ---------- the enquiry ---------- */
+
+.enquiry {
+  display: grid;
+  gap: clamp(28px, 3vw, 44px);
+  justify-items: start;
+}
+
+/* the sentence in the narrow cut, in the page's brown, the blanks set in
+   it and wrapping with its words */
+.sentence {
+  margin: 0;
+  color: var(--ink-dark);
+  font: 400 var(--text-head) / 1.7 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+/* a blank: the field as wide as an answer, a firm line under it as the
+   only mark that it is a field, the answer in red */
+.blank {
+  display: inline-block;
+  width: 8em;
+  max-width: 100%;
+  vertical-align: baseline;
+}
+
+.blankWide {
+  width: 11em;
+}
+
+.blank input,
+.more {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 0 4px;
+  border: 0;
+  border-bottom: var(--line) solid var(--rule-strong);
+  border-radius: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.blank input::placeholder,
+.more::placeholder {
+  color: var(--ink-dark-pale);
+}
+
+.blank input:focus-visible,
+.more:focus-visible {
+  border-bottom-color: var(--ink);
+  outline: none;
+}
+
+/* the long answer: the line's size, growing down as it is written */
+.more {
+  font: 400 var(--text-line) / 1.5 var(--font);
+  resize: vertical;
+}
+
+/* the big questions, those the rest follows from, in the section titles'
+   red at their size */
+.question {
+  margin: 0 0 18px;
+  padding: 0;
+  color: var(--ink);
+  font: 400 var(--text-head) / 1.15 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+/* the choices with a line each, two across, as the owner's reference */
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* a choice in a thin frame: picked, the frame turns red and takes a tick
+   in its corner, laid over on purpose; its focus shown on the frame */
+.option {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  padding: 16px 40px 16px 18px;
+  border: var(--line) solid var(--rule-strong);
+  cursor: pointer;
+}
+
+.option:hover {
+  border-color: var(--ink-pale);
+}
+
+.option:has(input:checked) {
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 var(--line) var(--ink);
+}
+
+.option:has(input:checked)::after {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  color: var(--ink);
+  content: "\2713";
+}
+
+.option:has(input:focus-visible) {
+  border-color: var(--ink);
+}
+
+.option:has(input:focus-visible) .optionName {
+  text-decoration: underline;
+}
+
+.optionName {
+  color: var(--ink);
+  font: 400 var(--text-lg) / 1.25 var(--font);
+}
+
+.optionLine {
+  color: var(--ink-dark);
+  font: 400 var(--text-md) / 1.4 var(--font);
+}
+
+/* the team's size, said large over the slider that sets it */
+.sizeValue {
+  color: var(--ink);
+  font: 400 var(--text-head) / 1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+}
+
+.size {
+  width: min(100%, 420px);
+  margin: 0;
+  accent-color: var(--ink);
+}
+
+/* a question: its name in small capitals over its buttons */
+.group {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.groupLegend {
+  composes: caps from global;
+  margin: 0;
+  padding: 0;
+  color: var(--ink-dark-pale);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* a choice: the square outline every button has, filled in the red orange
+   once picked; the box itself hidden, its focus shown on the outline */
+.chip span {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding-inline: 18px;
+  border: var(--line) solid var(--rule-strong);
+  color: var(--ink-dark);
+  font: 400 var(--text-md) / 1.2 var(--font);
+  cursor: pointer;
+}
+
+.chip:hover span {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.chip input:checked + span {
+  border-color: var(--ink-warm);
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+.chip input:focus-visible + span {
+  border-color: var(--ink);
+  text-decoration: underline;
+}
+
+.agree {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--ink-dark);
+  font: 400 var(--text-md) / 1.5 var(--font);
+}
+
+.agree input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+
+@media (width <= 1023px) {
+  .top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .topSide {
+    position: static;
+  }
+}
+
+@media (width <= 639px) {
+  .options {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 @media (width <= 639px) {
