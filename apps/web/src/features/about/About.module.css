@@ -1,0 +1,324 @@
+/* ---------- who we are ---------- */
+
+/* the title and its paragraph on the left, two rooms side by side on the
+   right; under the bar, as the inspiration page's opening */
+.who {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(24px, 4vw, 72px);
+  align-items: end;
+  padding: calc(var(--nav-h) + clamp(32px, 4vw, 64px)) var(--gutter) 0;
+}
+
+.whoText {
+  display: grid;
+  gap: 24px;
+}
+
+/* the paragraph in the collection's lighter Jost, in the page's brown */
+.lead {
+  max-width: 44ch;
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+.whoPhotos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.5vw, 24px);
+}
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--birch);
+}
+
+.photo img,
+.inline img,
+.workshopPhoto img {
+  object-fit: cover;
+}
+
+/* ---------- the statement and its figures ---------- */
+
+.manifesto {
+  display: grid;
+  gap: 24px;
+  padding: clamp(64px, 8vw, 128px) var(--gutter) 0;
+}
+
+/* two lines across the page in the narrow cut at the section titles'
+   size and half again; each word is red once lit */
+.statement {
+  max-width: 34ch;
+  margin: 0;
+  color: var(--ink);
+  font: 400 calc(var(--text-over) * 1.2) / 1.15 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+  view-timeline: --statement block;
+}
+
+/* a small photo standing in the line, a word's height and a bit, nudged
+   down so it sits on the line's foot */
+.inline {
+  position: relative;
+  display: inline-block;
+  width: 1.8em;
+  height: 0.9em;
+  margin-right: 0.25em;
+  overflow: hidden;
+  vertical-align: -0.08em;
+  background: var(--birch);
+}
+
+/* each word lights in turn across the statement's pass up the screen:
+   word i of n over its own slice of the middle 40% of the pass */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .word {
+      animation: light linear both;
+      animation-range: cover calc(25% + var(--i) / var(--n) * 30%) cover calc(30% + var(--i) / var(--n) * 30%);
+      animation-timeline: --statement;
+    }
+  }
+}
+
+@keyframes light {
+  from {
+    color: var(--ink-dark-pale);
+  }
+}
+
+/* the four figures in one row, spaced rather than ruled: the number large
+   in red, its line under it in the page's brown */
+.figures {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px clamp(16px, 2vw, 32px);
+  margin: clamp(24px, 3vw, 48px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.value {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font: 400 var(--text-over) / 1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.figureLine {
+  max-width: 24ch;
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-md) / 1.4 var(--font-wordmark);
+}
+
+/* ---------- the workshop ---------- */
+
+/* the words and facts on the left, a photo on the right of the same height */
+.workshop {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 72px);
+}
+
+.workshopText {
+  display: grid;
+  gap: 24px;
+  align-content: start;
+}
+
+/* each fact on its own line: the label in pale capitals, its value after
+   it in brown; no rules, the space alone parts them */
+.facts {
+  display: grid;
+  gap: 12px;
+  margin: 8px 0 0;
+}
+
+.facts > div {
+  display: grid;
+  grid-template-columns: 9em 1fr;
+  gap: 16px;
+  align-items: baseline;
+}
+
+.factLabel {
+  composes: caps from global;
+  color: var(--ink-dark-pale);
+}
+
+.facts dd {
+  margin: 0;
+  color: var(--ink-dark);
+  font: 400 var(--text-lg) / 1.3 var(--font);
+}
+
+.workshopPhoto {
+  position: relative;
+  min-height: clamp(320px, 36vw, 600px);
+  overflow: hidden;
+  background: var(--birch);
+}
+
+/* ---------- from order to your home ---------- */
+
+/* five steps in one row on a thin line that runs under their labels; it
+   draws across from the left as the row comes into view */
+.days {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 24px clamp(16px, 2vw, 32px);
+  margin: 0;
+  padding: 20px 0 0;
+  list-style: none;
+}
+
+/* the line, laid over the row's top edge on purpose */
+.days::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--line);
+  background: var(--ink);
+  transform-origin: left;
+  content: "";
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .days::before {
+      animation: draw linear both;
+      animation-range: entry 20% cover 45%;
+      animation-timeline: view();
+    }
+  }
+}
+
+@keyframes draw {
+  from {
+    scale: 0 1;
+  }
+}
+
+/* ---------- our story ---------- */
+
+/* three parts side by side, as the steps but without their line */
+.story {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px clamp(16px, 2vw, 32px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- recognition ---------- */
+
+/* a row each: the year in pale capitals, the award in red, what it was for
+   in the page's brown; parted by space, no rules */
+.recognition {
+  display: grid;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recognition li {
+  display: grid;
+  grid-template-columns: 8em minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px clamp(16px, 2vw, 32px);
+  align-items: baseline;
+}
+
+.recognition li > :first-child {
+  margin: 0;
+}
+
+.award {
+  color: var(--ink);
+  font: 400 var(--text-head) / 1.1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.project {
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+/* ---------- the team ---------- */
+
+/* people four to a row, so a portrait stays a portrait's size rather than
+   a screen's, and a fourth person has a place; spaced rather than boxed */
+.team {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px clamp(16px, 2vw, 32px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* the portrait's frame, in the birch the photos load on; the initial in
+   the narrow red until a photo replaces it */
+.portrait {
+  display: grid;
+  place-items: center;
+  margin-bottom: 20px;
+  aspect-ratio: 4 / 5;
+  background: var(--birch);
+  color: var(--ink);
+  font: 400 var(--text-run) / 1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+}
+
+@media (width <= 1023px) {
+  .story {
+    grid-template-columns: 1fr;
+  }
+
+  .recognition li {
+    grid-template-columns: 1fr;
+  }
+
+  .team {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .who,
+  .workshop {
+    grid-template-columns: 1fr;
+  }
+
+  .figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* on phones the steps stack, the line running down their left instead */
+  .days {
+    grid-template-columns: 1fr;
+    padding: 0 0 0 20px;
+  }
+
+  .days::before {
+    inset: 0 auto 0 0;
+    width: var(--line);
+    height: auto;
+    transform-origin: top;
+    animation-name: draw-down;
+  }
+}
+
+@keyframes draw-down {
+  from {
+    scale: 1 0;
+  }
+}
