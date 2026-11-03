@@ -59,7 +59,7 @@ export const PLANNER = {
   steps: [
     {
       name: "Draw your room",
-      line: "Set its width and depth, its door and its window. It starts as a common HDB bedroom.",
+      line: "Start from a bedroom or living room of a 3-, 4- or 5-room HDB flat, or your own size, then move the door and window.",
     },
     {
       name: "Place our pieces",

@@ -9,7 +9,7 @@ import collection from "@/features/collection/Collection.module.css";
 import { MAILTO } from "@/lib/contact";
 import { sgd } from "@/lib/money";
 import { pieceOf, routes } from "@/lib/routes";
-import { ADDABLE, DESIGN, KINDS, START, WALLS } from "./designList";
+import { ADDABLE, DESIGN, HDB_ROOMS, KINDS, START, WALLS } from "./designList";
 import { boxOf, check, fix, shapeOf, wallLength, type Opening, type Placed, type Plan, type Room } from "./room";
 import { useRoom } from "./store";
 import styles from "./Design.module.css";
@@ -422,6 +422,24 @@ export function Planner() {
         <div className={styles.block}>
           <h2 className={styles.title}>{DESIGN.room.title}</h2>
           <div className={styles.fields}>
+            <label className={account.field}>
+              <span className={styles.small}>{DESIGN.room.from}</span>
+              <select
+                value={HDB_ROOMS.find((h) => JSON.stringify(h.room) === JSON.stringify(room))?.key ?? ""}
+                onChange={(e) => {
+                  const h = HDB_ROOMS.find((x) => x.key === e.target.value);
+                  if (h) setRoom(h.room);
+                }}
+              >
+                <option value="">{DESIGN.room.own}</option>
+                {HDB_ROOMS.map((h) => (
+                  <option key={h.key} value={h.key}>
+                    {h.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <p className={styles.small}>{DESIGN.room.fromNote}</p>
             <label className={account.field}>
               <span className={styles.small}>{DESIGN.room.kind}</span>
               <select value={room.kind} onChange={(e) => setRoom({ kind: e.target.value as Room["kind"] })}>
