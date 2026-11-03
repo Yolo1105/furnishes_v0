@@ -1,0 +1,378 @@
+.flat {
+  /* the scale's width, its numbers in it; it starts on the page's left
+     border, as the plan ends on the right one; one step to the next */
+  --ruler-w: 72px;
+  --ruler-x: var(--gutter);
+  --ruler-gap: clamp(90px, 15vh, 150px);
+
+  /* the scroll each step holds for; FlatTour's HOLD */
+  --hold: 80svh;
+
+  height: calc(100svh + (var(--steps) - 1) * var(--hold));
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-columns: var(--split) 1fr;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100svh;
+  padding: var(--nav-h) var(--gutter) 0;
+  overflow: hidden;
+}
+
+/* the words, just clear of the scale */
+.text {
+  display: grid;
+  gap: clamp(20px, 4svh, 48px);
+  align-content: start;
+  align-self: start;
+  justify-items: start;
+  padding-top: clamp(32px, 8svh, 96px);
+  padding-left: calc(var(--ruler-w) + 16px);
+}
+
+/* small labels in the pale brown, as the labels over the site's titles */
+.label {
+  composes: caps from global;
+  color: var(--ink-dark-pale);
+}
+
+.primary {
+  composes: caps underline-on-hover boxed from global;
+}
+
+/* The scale down the section's left: a tick every fifth of a step, a long
+   bold mark and its number for each step (00 the door), fading out above
+   and below. It slides so the step in view's mark (--along) is level with
+   its big number (--point-y); that mark is darkest, its number the big one. */
+.ruler {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--ruler-x);
+  width: var(--ruler-w);
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(transparent, currentcolor 18%, currentcolor 82%, transparent);
+}
+
+.tick,
+.mark {
+  position: absolute;
+  top: calc(var(--point-y, 50%) + (var(--t) - var(--along, -1)) * var(--ruler-gap));
+  left: 0;
+  height: 1px;
+  background: currentcolor;
+  opacity: 0.45;
+}
+
+.tick {
+  width: 8px;
+}
+
+/* a mark past the rooms: long but light */
+.mark {
+  width: 24px;
+}
+
+/* a room's mark: long and bold; the chosen room's darkest */
+.mark[data-room] {
+  width: 32px;
+  height: 2px;
+  translate: 0 -0.5px;
+  opacity: 0.6;
+}
+
+.mark[data-on] {
+  opacity: 1;
+}
+
+.mark[data-on] .number {
+  visibility: hidden;
+}
+
+/* a room's number, beside its mark, centred on it */
+.number {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 8px);
+  translate: 0 -50%;
+  font: 500 var(--text-sm) / 1 var(--font);
+  letter-spacing: var(--track-caps);
+}
+
+/* the step's headline: its lead larger, the rest softer, each on lines of
+   its own, with room for the longest so a shorter never moves the number */
+.head {
+  min-height: 3.6em;
+  font: 400 var(--text-head) / 1.15 var(--font);
+  letter-spacing: var(--track-tight);
+}
+
+.lead {
+  display: block;
+  margin-bottom: 0.2em;
+  font-size: 1.2em;
+  font-variation-settings: "wdth" var(--width-display);
+  line-height: 1;
+}
+
+/* the rest as every title's second line: Jost, a little under regular, in
+   the page's brown */
+.soft {
+  display: block;
+  color: var(--ink-dark);
+  font-weight: var(--weight-title-rest);
+  font-family: var(--font-wordmark);
+  letter-spacing: 0;
+}
+
+/* the step's number, in the big words' face, over its name and line */
+.step {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-height: 13em;
+}
+
+.numeral {
+  composes: display from global;
+  font-size: calc(var(--text-display) * 0.9);
+  font-variant-numeric: tabular-nums;
+}
+
+/* the room's name in the titles' narrow regular red, its line in the
+   brown Jost of the lines under the site's names */
+.name {
+  font: 400 var(--text-line) / 1.3 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+}
+
+.line {
+  max-width: 30em;
+  margin-top: 4px;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-md) / 1.5 var(--font-wordmark);
+}
+
+/* the plan moves inside its own column, never over the words */
+.slot {
+  position: relative;
+  margin-left: -3.65vw;
+  color: var(--ink);
+  overflow: clip;
+  overflow-clip-margin: 4vw;
+}
+
+/* the living room's north wall, where the bookcase goes, so the plan zooms in on it */
+.move {
+  transform-origin: 86% 5%;
+}
+
+.flat[data-step="2"] .move {
+  transform: scale(1.5);
+}
+
+.flat:is([data-step="3"], [data-step="4"], [data-step="5"]) .move {
+  transform: scale(2);
+}
+
+/* the bookcase, on the living room's north wall */
+.piece {
+  opacity: 0;
+  transform-box: view-box;
+}
+
+.piece rect {
+  fill: var(--paper);
+  stroke: currentcolor;
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+}
+
+.piece path {
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.size {
+  opacity: 0;
+  fill: currentcolor;
+  font: 500 200px var(--font);
+  letter-spacing: var(--track-caps);
+  text-anchor: middle;
+}
+
+.flat[data-step]:not([data-step="0"], [data-step="1"], [data-step="2"]) .piece {
+  opacity: 1;
+}
+
+.flat[data-step="5"] .piece {
+  transform: translate(-3500px, 0);
+}
+
+.flat:is([data-step="6"], [data-step="7"]) .size {
+  opacity: 1;
+}
+
+/* its finishes in turn: white matte, birch, a red one */
+.flat:is([data-step="4"], [data-step="7"]) .piece rect {
+  animation: finishes 3s steps(1) infinite;
+}
+
+.flat:is([data-step="8"], [data-step="9"], [data-step="10"]) .piece rect {
+  fill: var(--birch);
+}
+
+@keyframes finishes {
+  33% {
+    fill: var(--birch);
+  }
+
+  66% {
+    fill: var(--finish-red);
+  }
+}
+
+/* the order's card, over the plan's foot */
+.order {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  gap: 6px;
+  box-sizing: border-box;
+  width: min(300px, 70%);
+  padding: 20px;
+  border: var(--line) solid currentcolor;
+  background: var(--paper);
+  font: 400 var(--text-sm) / 1.4 var(--font);
+  opacity: 0;
+  translate: 0 16px;
+  pointer-events: none;
+}
+
+.orderLabel {
+  composes: caps from global;
+  color: var(--ink-dark-pale);
+  line-height: 1.5;
+}
+
+.orderName {
+  font: 400 var(--text-md) / 1.3 var(--font);
+}
+
+.order ol {
+  display: grid;
+  gap: 4px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* a stage not reached yet is pale; its dot fills once it is */
+.order li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  opacity: 0.35;
+}
+
+.order li::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border: var(--line) solid currentcolor;
+  border-radius: 50%;
+}
+
+.order li[data-done] {
+  opacity: 1;
+}
+
+.order li[data-done]::before {
+  background: currentcolor;
+}
+
+.flat:is([data-step="8"], [data-step="9"], [data-step="10"]) .order {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tick,
+  .mark {
+    transition:
+      top var(--dur-roll) var(--ease-out),
+      opacity 0.3s;
+  }
+
+  /* new words rise in */
+  .head,
+  .step {
+    animation: rise var(--dur-rise) var(--ease-out) both;
+  }
+
+  .move {
+    transition: transform var(--dur-move) var(--ease-out);
+  }
+
+  .piece,
+  .piece rect,
+  .size {
+    transition:
+      opacity 0.5s,
+      transform var(--dur-move) var(--ease-out),
+      fill 0.5s;
+  }
+
+  .order,
+  .order li {
+    transition:
+      opacity 0.4s,
+      translate 0.4s;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+
+@media (width <= 1023px) {
+  .ruler {
+    display: none;
+  }
+
+  .flat {
+    height: auto;
+  }
+
+  .stage {
+    position: static;
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+    height: auto;
+    padding: 64px var(--gutter);
+  }
+
+  .text {
+    gap: 16px;
+    padding: 0;
+  }
+
+  .step {
+    min-height: 0;
+  }
+
+  .slot {
+    margin-left: 0;
+  }
+}

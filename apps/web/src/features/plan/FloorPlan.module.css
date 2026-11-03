@@ -1,0 +1,208 @@
+/* The plan scales to its box; every line keeps its own width on screen
+   however large the plan is drawn. Only the rooms' hover areas take the
+   pointer; the drawing over them lets it through. */
+.plan {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16390 / 9780;
+}
+
+.plan[data-intro="wait"] {
+  visibility: hidden;
+}
+
+.lines path {
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* the drafting grid behind the flat, in a fine line of its colour */
+.grid {
+  pointer-events: none;
+}
+
+.grid[data-gone] {
+  opacity: 0;
+}
+
+.grid path {
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+/* heaviest to lightest: door leaves and glass, fittings, furniture, the faint marks */
+.lines .heavy {
+  stroke-width: 1.4px;
+}
+
+.lines .fittings {
+  stroke-width: 1px;
+}
+
+.lines .furniture {
+  stroke-width: 0.8px;
+  opacity: 0.85;
+}
+
+.lines .light {
+  stroke-width: 0.6px;
+  opacity: 0.55;
+}
+
+/* the rooms' names in the bar's small spaced capitals */
+.names text {
+  fill: currentcolor;
+  font-family: var(--font);
+  font-weight: 500;
+  letter-spacing: var(--track-caps);
+  text-anchor: middle;
+  dominant-baseline: central;
+  text-transform: uppercase;
+}
+
+.walls,
+.lines,
+.names {
+  pointer-events: none;
+}
+
+/* the walls in a deeper, quieter red than the lines, so their thick fills
+   don't glare */
+.walls {
+  color: var(--ink-wall);
+}
+
+/* a room with a word on the banner: washed in red, faintly on hover or
+   focus, clearly while its word is chosen */
+.rooms rect {
+  fill: var(--ink);
+  fill-opacity: 0;
+  cursor: pointer;
+  outline: none;
+  transition: fill-opacity var(--dur-fast) ease;
+}
+
+.rooms rect:hover {
+  fill-opacity: 0.08;
+}
+
+/* the keyboard's place, outlined as well as washed, so it shows clearly */
+.rooms rect:focus-visible {
+  fill-opacity: 0.08;
+  stroke: currentcolor;
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+}
+
+.rooms rect[data-active],
+.plan[data-washed] .rooms rect {
+  fill-opacity: 0.16;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .grid {
+    transition: opacity 0.5s;
+  }
+}
+
+/* Arrival: while `intro` is "play", the plan draws itself, each piece from a
+   scattered moment and at its own pace (--at, --pace, FloorPlan's DRAW):
+   each room's walls traced, then filled, every other line drawn along its
+   length, the faint marks fading in, the names typed a letter at a time
+   (--chars). Off the arrival, all of it is simply there, and the traced
+   walls hidden. */
+.outline path {
+  stroke-width: 1px;
+  opacity: 0;
+}
+
+.plan[data-intro="play"] .lines path {
+  animation: draw calc(0.35s * var(--pace, 1)) var(--ease-draw) calc(0.3s + var(--at)) backwards;
+}
+
+.plan[data-intro="play"] .outline path {
+  animation: trace calc(0.35s * 2.6 * var(--pace, 1)) var(--ease-draw) calc(0.3s + var(--at)) both;
+}
+
+.plan[data-intro="play"] .lines .light {
+  animation-name: faint;
+}
+
+.plan[data-intro="play"] .walls {
+  animation: appear 0.35s ease-in-out 0.9s backwards;
+}
+
+.plan[data-intro="play"] .names text {
+  animation: type calc(var(--chars) * 20ms) steps(var(--chars), end) calc(0.3s + var(--at)) backwards;
+}
+
+@keyframes draw {
+  from {
+    opacity: 0;
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: 1;
+  }
+
+  2% {
+    opacity: 1;
+  }
+
+  to {
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* drawn over the first two fifths, held, then gone once the walls are filled */
+@keyframes trace {
+  from {
+    opacity: 0;
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: 1;
+  }
+
+  1% {
+    opacity: 1;
+  }
+
+  40% {
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: 0;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes faint {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes type {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0);
+  }
+}

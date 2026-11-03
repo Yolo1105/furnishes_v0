@@ -1,0 +1,233 @@
+/* The page is one screen: the line across the top, then the row of rooms
+   filling the rest, standing on the page's foot. */
+.page {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: clamp(8px, 1.5svh, 20px);
+  box-sizing: border-box;
+  height: 100svh;
+  padding: calc(var(--nav-h) + 6px) var(--gutter) 0;
+}
+
+/* The reference's sentence on one line, in the banner's narrow cut at the
+   collection's regular weight: the title in full red, its way on in the
+   softer red, on the owner's word, so the halves part by colour without a second loud one. At
+   the section titles' size, so the rooms keep most of the screen. */
+.title {
+  margin: 0;
+  font: 400 var(--text-over) / 1.1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.more {
+  color: var(--ink-pale);
+}
+
+.more:hover {
+  color: var(--ink);
+}
+
+/* the title and, over it on the owner's word, a short line as the collection's titles' last
+   line: Jost, a little under regular, in the page's brown, so the red title
+   doesn't run straight into the red names below, on the owner's word */
+.head {
+  display: grid;
+  gap: 8px;
+}
+
+.sub {
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-rest) / 1.3 var(--font-wordmark);
+}
+
+/* The cards share the page's width and stand on its foot. The open one is
+   half as wide again as the rest and nearly the row's full height; the
+   rest stand at 76%, on the owner's word. Its name and line sit over it;
+   the others keep theirs hidden but in place. */
+.row {
+  display: flex;
+  gap: 12px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.item[data-open] {
+  flex-grow: 1.5;
+}
+
+.caption {
+  display: grid;
+  gap: 6px;
+  visibility: hidden;
+}
+
+.item[data-open] .caption {
+  visibility: visible;
+}
+
+/* the card's name in the same narrow cut and regular weight as the title,
+   in the page's near-black brown on the owner's word;
+   its line below in the softer red, so they part by colour */
+.name {
+  color: var(--ink-dark);
+  font: 400 var(--text-head) / 1.1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+/* a short arrow at the end of the card's second line, on the owner's word,
+   in that line's colour */
+.arrow {
+  width: 0.72em;
+  height: 0.72em;
+  margin-left: 0.2em;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* its line in the softer red, on the owner's word, in the collection's
+   lighter Jost */
+.line {
+  color: var(--ink-pale);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+.card {
+  position: relative;
+  display: block;
+  flex: none;
+  height: 76%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--birch);
+  cursor: pointer;
+}
+
+.item[data-open] .card {
+  height: 86%;
+}
+
+.card img {
+  object-fit: cover;
+}
+
+/* switching rooms: the open card widens and rises as the last one settles */
+@media (prefers-reduced-motion: no-preference) {
+  .item {
+    transition: flex-grow var(--dur-move) var(--ease-out);
+  }
+
+  .card {
+    transition: height var(--dur-move) var(--ease-out);
+  }
+}
+
+/* below the desktop the row scrolls sideways, a card a time */
+@media (width <= 1023px) {
+  .page {
+    height: auto;
+    padding-bottom: var(--gutter);
+  }
+
+  .row {
+    align-items: flex-end;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .item {
+    flex: none;
+    width: 45vw;
+    scroll-snap-align: start;
+  }
+
+  .item[data-open] {
+    width: 70vw;
+  }
+
+  .card,
+  .item[data-open] .card {
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* ---------- the looks at the page's foot ---------- */
+
+/* on the journal's gutters, straight after it */
+.looks {
+  padding: 0 var(--gutter);
+}
+
+/* four rooms in a row, after the owner's reference: a tall photo, its name
+   in the cards' near-black brown, then "Shop the look" as the cards' line */
+.lookRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 32px);
+
+  /* the page's last section, so it keeps the space before the footer */
+  margin: 0 0 clamp(64px, 8vw, 128px);
+  padding: 0;
+  list-style: none;
+}
+
+.look {
+  display: grid;
+  gap: 8px;
+}
+
+.lookPhoto {
+  position: relative;
+  margin-bottom: 8px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--birch);
+}
+
+.lookPhoto img {
+  object-fit: cover;
+}
+
+.lookName {
+  color: var(--ink-dark);
+  font: 400 var(--text-lg) / 1.2 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.look:hover .line {
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lookPhoto img {
+    transition: scale var(--dur-move) var(--ease-out);
+  }
+
+  .look:hover .lookPhoto img {
+    scale: 1.04;
+  }
+}
+
+@media (width <= 1023px) {
+  .lookRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

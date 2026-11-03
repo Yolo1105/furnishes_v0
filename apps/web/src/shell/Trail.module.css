@@ -1,0 +1,25 @@
+.trail ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  font: 400 var(--text-md) / 1.3 var(--font);
+  list-style: none;
+}
+
+/* a slash between steps */
+.trail li + li::before {
+  content: "/";
+  margin-right: 8px;
+  color: var(--ink-pale);
+}
+
+.step {
+  composes: underline-on-hover from global;
+  color: var(--ink-pale);
+}
+
+.step:hover {
+  color: var(--ink);
+}

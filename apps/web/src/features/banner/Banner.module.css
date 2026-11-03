@@ -1,0 +1,333 @@
+/* The big words from the top left, the line from just left of the middle,
+   and how to reach us in three narrow columns along the foot. Sizes run on
+   the viewport's width so the proportions hold at any screen. */
+.banner {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--split) 1fr;
+  grid-template-rows: 1fr auto;
+  box-sizing: border-box;
+
+  /* exactly one screen with the bar over its top, so the foot is always in view */
+  height: 100svh;
+  padding: calc(var(--nav-h) + 0.2vw) var(--gutter) 1.6vw;
+
+  /* how far the photos slide with the mouse at the banner's edge */
+  --glide-x: 2vw;
+  --glide-y: 2svh;
+}
+
+/* Six small photos round the page: two at the top, one in the gap between
+   the words and the line, one under it, one by the right edge beside the
+   square and one by the left edge under HALLWAY. No two share a top or
+   bottom line with the square or each other. The type sits over them. */
+.photos {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+}
+
+.sheet {
+  position: absolute;
+  inset: 0;
+}
+
+/* Each photo's place is its frame; the whole photo (--ratio, its width
+   over its height) is shown, centred on the frame at the smallest size that
+   covers it, so none is ever cut back. The two by the right edge run from
+   their frame's left edge toward the screen's, clear of the room's photo. */
+.photo {
+  position: absolute;
+  container-type: size;
+}
+
+.whole {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100cqw, 100cqh * var(--ratio));
+  height: max(100cqh, 100cqw / var(--ratio));
+  translate: -50% -50%;
+}
+
+:is(.corner, .right) .whole {
+  translate: calc(-50% + (100% - 100cqw) / 2) -50%;
+}
+
+.top {
+  top: 21%;
+  left: 26%;
+  width: 10.5vw;
+  height: 28%;
+}
+
+/* by the right edge, just under the bar so the links stay clear */
+.corner {
+  top: calc(var(--nav-h) + 8px);
+  right: var(--gutter);
+  width: 6vw;
+  height: 28%;
+}
+
+/* a strip at the top, in the gap of the bar between ABOUT and CONTACT, on
+   the line's left edge and a step above it */
+.strip {
+  top: 16px;
+  left: calc(var(--gutter) + (100% - 2 * var(--gutter)) * 0.465);
+  width: 15vw;
+  height: 10%;
+}
+
+/* under the upper one, a step right, filling the gap above the foot */
+.mid {
+  top: 60%;
+  left: 31%;
+  width: 13vw;
+  height: 24%;
+}
+
+.right {
+  top: 46%;
+  right: var(--gutter);
+  width: 12vw;
+  height: 34%;
+}
+
+/* past the screen's left edge a little */
+.left {
+  top: 66%;
+  left: -1.5vw;
+  width: 20vw;
+  height: 22%;
+}
+
+.words,
+.about,
+.foot {
+  position: relative;
+  z-index: 1;
+}
+
+.words {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.title {
+  font: inherit;
+}
+
+.word {
+  composes: display from global;
+
+  /* pulls the letters' own side space back so their ink starts on the border */
+  margin: 0 0 0 -0.06em;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-pale);
+  font-size: var(--text-display);
+  text-align: left;
+  cursor: default;
+  perspective: 5em;
+  transform-origin: left center;
+  transition: transform var(--dur-word);
+}
+
+/* the chosen word grows a touch from the border, its left edge staying put */
+.word[data-on] {
+  transform: scale(1.05);
+}
+
+/* At rest nothing is moved: the room word is flat on the page, so it sits
+   exactly on the border. The drum turns about an axis half a line behind
+   it, and the second word waits on the drum's underside. Choosing it rolls
+   the drum up, so the room tips back over the top in perspective and the
+   second word, in ink, rolls up into place. */
+.drum {
+  display: inline-grid;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50% -0.46em;
+  transition: transform var(--dur-roll) var(--ease-roll);
+}
+
+.word[data-on] .drum {
+  transform: rotateX(90deg);
+}
+
+.front,
+.under {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+}
+
+.under {
+  color: var(--ink);
+  transform: translateY(0.46em) translateZ(-0.46em) rotateX(-90deg);
+}
+
+/* the first word rests in ink, as the page's title; only one word is ever
+   in ink, so it fades back while another is chosen */
+.title .front {
+  color: var(--ink);
+  transition: color var(--dur-word);
+}
+
+.words:has([data-on]) .title .front {
+  color: var(--ink-pale);
+}
+
+/* The right-hand column: the line starts just left of the middle, a little
+   under the second word's top, on the owner's word, so it clears the photo
+   floating above it; one square photo hangs under it on the same left edge,
+   about half the screen tall. */
+.about {
+  display: grid;
+  gap: 3vw;
+  align-content: start;
+  justify-items: start;
+  min-height: 0;
+  padding-top: calc(var(--text-display) * var(--leading-display) + clamp(12px, 2.4svh, 32px));
+}
+
+.line {
+  display: grid;
+  max-width: 40vw;
+
+  /* the room's line as every line read under a title on the site: Jost,
+     a little under regular, in the page's brown (9:1 on the cream) */
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+  clip-path: inset(0 -1em -0.3em 0);
+}
+
+.lineText {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.lineText[data-shown] {
+  visibility: visible;
+}
+
+/* the chosen room's photo, a step right of the line's edge */
+.shot {
+  position: relative;
+  width: min(36vw, 56svh);
+  margin-left: 3.5vw;
+  aspect-ratio: 1;
+}
+
+.shot img {
+  object-fit: cover;
+  visibility: hidden;
+}
+
+.shot img[data-shown] {
+  visibility: visible;
+}
+
+.foot {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 16.3vw) 1fr;
+  align-items: end;
+  font: 400 var(--text-md) / 1.3 var(--font);
+}
+
+/* the banner's way on: the same face as the bar, but lowercase and a step larger */
+.more {
+  composes: underline-on-hover from global;
+  justify-self: end;
+  font: 500 var(--text-md) / 1 var(--font);
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+/* a down chevron, just the arrowhead */
+.more::after {
+  content: "";
+  display: inline-block;
+  width: 0.38em;
+  height: 0.38em;
+  margin-left: 0.45em;
+  border-right: var(--line) solid currentcolor;
+  border-bottom: var(--line) solid currentcolor;
+  transform: translateY(-0.28em) rotate(45deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lineText[data-rolling] {
+    animation: roll-up var(--dur-rise) var(--ease-out);
+  }
+
+  /* the photos, the room's among them, slide a little against the mouse,
+     all together, so none ever moves onto another */
+  .sheet,
+  .shot {
+    transform: translate(calc(var(--mx, 0) * var(--glide-x) * -1), calc(var(--my, 0) * var(--glide-y) * -1));
+    transition: transform 1.6s var(--ease-out);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drum {
+    transition: none;
+  }
+}
+
+@keyframes roll-up {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+@media (width <= 1023px) {
+  .photos {
+    display: none;
+  }
+
+  .banner {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+    height: auto;
+    min-height: 100svh;
+    padding-top: calc(var(--nav-h) + 16px);
+    padding-bottom: 24px;
+  }
+
+  .about {
+    gap: 24px;
+    padding-top: 0;
+  }
+
+  .shot {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .line {
+    max-width: 40ch;
+  }
+
+  .foot {
+    grid-template-columns: repeat(3, 1fr) auto;
+    column-gap: 16px;
+  }
+}
+
+@media (width <= 639px) {
+  .foot {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+
+  .more {
+    justify-self: start;
+    margin-top: 8px;
+  }
+}

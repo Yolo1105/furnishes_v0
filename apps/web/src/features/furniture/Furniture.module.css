@@ -1,0 +1,200 @@
+/* The furniture page's own sections, after the owner's references, kept
+   square as the rest of the site. */
+
+.section {
+  padding: clamp(48px, 6vw, 96px) var(--gutter) 0;
+}
+
+/* ---------- the dark half and the photo ---------- */
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: clamp(360px, 32vw, 500px);
+}
+
+.dark {
+  display: grid;
+  gap: 20px;
+  align-content: center;
+  justify-items: start;
+  padding: clamp(32px, 4vw, 72px);
+  background: var(--ink-dark);
+  color: var(--paper);
+}
+
+.splitTitle {
+  display: flex;
+  flex-direction: column;
+  max-width: 16ch;
+  margin: 0;
+  font: 400 var(--text-over) / 1.15 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+  text-wrap: balance;
+}
+
+/* the title's second line is every title's (the collection's headingRest);
+   on the dark half it turns a dimmer cream, where brown would not show */
+.dark .splitRest {
+  color: var(--paper-dim);
+}
+
+/* the label over the title, in the same dimmer cream on the dark half */
+.dark .splitLabel {
+  color: var(--paper-dim);
+}
+
+.splitLine {
+  max-width: 44ch;
+  margin: 0 0 8px;
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+.dark .splitLine {
+  color: var(--paper-dim);
+}
+
+/* the cream button on the dark half; the page's filled button turned round */
+.light,
+.solid {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding-inline: 28px;
+  font: 500 var(--text-lg) / 1 var(--font);
+}
+
+.light {
+  background: var(--paper);
+  color: var(--ink-dark);
+}
+
+.light:hover {
+  background: var(--birch);
+}
+
+.solid {
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+.solid:hover {
+  background: var(--ink-warm-deep);
+}
+
+.splitPhoto,
+.storyPhoto {
+  position: relative;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.splitPhoto img,
+.storyPhoto img {
+  object-fit: cover;
+}
+
+/* ---------- who makes it ---------- */
+
+/* the photo wider than the words' tile beside it */
+.story {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: clamp(16px, 2vw, 24px);
+  min-height: clamp(400px, 36vw, 560px);
+}
+
+.storyWords {
+  display: grid;
+  gap: 20px;
+  align-content: center;
+  justify-items: start;
+  padding: clamp(28px, 3.4vw, 56px);
+  background: var(--ink-wash);
+}
+
+.storyWords .splitTitle {
+  color: var(--ink);
+}
+
+/* ---------- one piece over a photo ---------- */
+
+/* edge to edge, as tall as the screen allows and no taller, the words
+   centred on it; photo and words share one grid cell to stack */
+.spotlight {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  height: min(calc(100svh - var(--nav-h)), max(480px, 46vw));
+  margin-top: clamp(48px, 6vw, 96px);
+  color: var(--photo-text-white);
+}
+
+.spotlightPhoto,
+.spotlightWords {
+  grid-area: 1 / 1;
+}
+
+.spotlightPhoto {
+  position: relative;
+  background: var(--birch);
+}
+
+.spotlightPhoto img {
+  object-fit: cover;
+}
+
+/* a light black over the whole photo, a layer stacked on it on purpose, so
+   the centred words read on the room */
+.spotlightPhoto::after {
+  position: absolute;
+  inset: 0;
+  background: var(--photo-dim);
+  content: "";
+}
+
+.spotlightWords {
+  z-index: 1;
+  display: grid;
+  gap: 16px;
+  place-self: center;
+  justify-items: center;
+  max-width: 1100px;
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+
+.spotlightLabel {
+  composes: caps from global;
+  font-size: var(--text-md);
+  letter-spacing: 0.18em;
+}
+
+/* a third over the section titles, so the short headline holds one line
+   on a desktop, as the owner's reference */
+.spotlightTitle {
+  font: 400 calc(var(--text-over) * 1.35) / 1.05 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+  text-wrap: balance;
+}
+
+.spotlightLine {
+  max-width: 40ch;
+  margin-bottom: 12px;
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+/* ---------- below the desktop ---------- */
+
+@media (width <= 1023px) {
+  .split,
+  .story {
+    grid-template-columns: 1fr;
+  }
+
+  .splitPhoto,
+  .storyPhoto {
+    aspect-ratio: 4 / 3;
+  }
+}

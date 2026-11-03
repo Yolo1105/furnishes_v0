@@ -1,0 +1,87 @@
+.partners {
+  overflow: hidden;
+  padding-top: 5vw;
+  color: var(--ink);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+}
+
+.track ul {
+  display: flex;
+  gap: 6vw;
+  margin: 0;
+  padding: 0 3vw;
+  font: 500 var(--text-logo) / 1 var(--font);
+  letter-spacing: var(--track-tight);
+  white-space: nowrap;
+  list-style: none;
+}
+
+.logo {
+  display: flex;
+  gap: 0.4em;
+  align-items: center;
+}
+
+.logo svg {
+  width: 1.1em;
+  height: 1.1em;
+  fill: currentcolor;
+}
+
+.cut {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 2.5;
+}
+
+.wave {
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 3;
+}
+
+.tide {
+  font-weight: 400;
+}
+
+.caps {
+  font-size: 0.62em;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.caps svg {
+  width: 1.7em;
+  height: 1.7em;
+}
+
+.serif {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.bold {
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .track {
+    animation: run-right 40s linear infinite;
+  }
+
+  .partners:hover .track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes run-right {
+  from {
+    transform: translateX(-50%);
+  }
+}

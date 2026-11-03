@@ -1,0 +1,319 @@
+/*
+ * The tokens: every colour, size, space and timing the site uses, each named
+ * once here. Modules use these names and never a raw value.
+ */
+:root {
+  /* ---------- colour ---------- */
+  --paper: #f8ebcb;
+  --ink: #d31b00;
+
+  /* the footer's ground: a red orange, between the red and orange, on the
+     owner's word. The cream on it reads at 3.9:1, enough for the big
+     line but under the 4.5:1 the small text needs. */
+  --ink-warm: #d9380c;
+
+  /* every red-orange ground, buttons and panels alike, is this one, on the
+     owner's word: the red stays for words. A shade deeper for a filled
+     button's hover. */
+  --ink-warm-deep: color-mix(in srgb, var(--ink-warm) 82%, #000);
+
+  /* the bookcase's birch, in the flat's tour */
+  --birch: #e7c58f;
+
+  /* the walnut finish's swatch (a fill, not text) */
+  --walnut: #6b4428;
+
+  /* The words not chosen, and the softer half of a headline: a tint of the
+     red, the palest that still reads as large text on the cream (3.2:1 at
+     70%). Anything set at body size stays in full red, which reads at 4.5:1. */
+  --ink-pale: color-mix(in srgb, var(--ink) 70%, var(--paper));
+
+  /* a deep brown red for words read as sentences, where the bright red
+     tires the eye; the red stays for titles and links. Brown enough not to
+     read as black, on the owner's word, and still 9:1 on the cream. The pale
+     one is for what comes second, such as a price beside a name. */
+  --ink-dark: #5e2a15;
+  --ink-dark-pale: color-mix(in srgb, var(--ink-dark) 72%, var(--paper));
+
+  /* the floor plan's solid walls: the red taken halfway to the brown, so
+     the thick fills sit back instead of glaring, on the owner's word */
+  --ink-wall: color-mix(in srgb, var(--ink) 55%, var(--ink-dark));
+
+  /* thin lines that part things on the cream, where the owner asks for
+     them: a faint one between parts, a firmer one round a field */
+  --rule: color-mix(in srgb, var(--ink-dark) 18%, transparent);
+  --rule-strong: color-mix(in srgb, var(--ink-dark) 40%, transparent);
+
+  /* a dimmer cream for the second line on the dark band */
+  --paper-dim: color-mix(in srgb, var(--paper) 82%, transparent);
+
+  /* words set on a photo: halfway between the page's cream and white, so
+     they read as light on any room, with a dimmer one for small labels. The
+     shade is black across the photo's foot, under the words. */
+  --photo-text: color-mix(in srgb, var(--paper) 50%, #fff);
+  --photo-text-dim: color-mix(in srgb, var(--photo-text) 82%, transparent);
+
+  /* a step whiter, for the mosaic's words over its light black */
+  --photo-text-white: color-mix(in srgb, var(--paper) 42%, #fff);
+  --photo-shade: linear-gradient(
+    to top,
+    color-mix(in srgb, #000 66%, transparent) 0%,
+    color-mix(in srgb, #000 26%, transparent) 30%,
+    transparent 52%
+  );
+
+  /* the same black a little deeper and higher, for the two lines' bands */
+  --photo-shade-deep: linear-gradient(
+    to top,
+    color-mix(in srgb, #000 74%, transparent) 0%,
+    color-mix(in srgb, #000 36%, transparent) 34%,
+    transparent 62%
+  );
+
+  /* soft shadows that lift things off a photo: a card that floats over it,
+     and a small dot that must read on light and dark rooms alike */
+  --shadow-float: 0 8px 28px color-mix(in srgb, #000 22%, transparent);
+  --shadow-dot: 0 2px 10px color-mix(in srgb, #000 55%, transparent);
+
+  /* a see-through white halo round a dot on a photo, so it stands out from
+     a warm, bright room as well as a dark one */
+  --photo-halo: color-mix(in srgb, #fff 45%, transparent);
+
+  /* the dot itself: pure white, the brightest thing on any room */
+  --photo-dot: #fff;
+
+  /* a light black over a whole photo, for words set anywhere on it */
+  --photo-dim: color-mix(in srgb, #000 30%, transparent);
+
+  /* the same black, reaching higher, for a tile whose words fill more of it */
+  --photo-shade-tall: linear-gradient(
+    to top,
+    color-mix(in srgb, #000 72%, transparent) 0%,
+    color-mix(in srgb, #000 45%, transparent) 40%,
+    transparent 78%
+  );
+
+  /* a faint red ground for bands and boxes that hold lists */
+  --ink-wash: color-mix(in srgb, var(--ink) 7%, var(--paper));
+
+  /* the same red tint a little deeper, for tiles on the cream page, so
+     they read as tiles at a glance */
+  --ink-tile: color-mix(in srgb, var(--ink) 9%, var(--paper));
+
+  /* the red finish on the bookcase (a fill, not text) */
+  --finish-red: color-mix(in srgb, var(--ink) 35%, var(--paper));
+
+  /* ---------- type ---------- */
+
+  /* Instrument Sans throughout, in three roles: display for the big words,
+     text for anything read as a sentence, and the bar's small spaced
+     capitals. The wordmark is the logo, in Jost. */
+  --font: var(--font-instrument), "Helvetica Neue", helvetica, arial, sans-serif;
+  --font-wordmark: var(--font-jost), system-ui, sans-serif;
+  --text-sm: clamp(12px, 0.78vw, 14px);
+  --text-nav: clamp(11.5px, 0.75vw, 13px);
+  --text-md: clamp(13px, 0.95vw, 15px);
+  --text-lg: clamp(16px, 1.25vw, 20px);
+  --text-line: clamp(16px, 1.3vw, 22px);
+
+  /* never under 24px, so its pale second half still counts as large text */
+  --text-head: clamp(24px, 1.9vw, 34px);
+
+  /* a title's brown second line: a step under the head size, on the owner's
+     word; the brown reads at 9:1, so it needn't stay large text */
+  --text-rest: clamp(18px, 1.42vw, 25px);
+  --text-logo: clamp(20px, 2vw, 36px);
+
+  /* a section's two-line title on the collection pages, between the head
+     and the over sizes, so its smaller second line still reads */
+  --text-section: clamp(30px, 2.7vw, 48px);
+
+  /* the weight of a title's second line and of the lines read under a
+     name: a little under regular, in Jost, as the statement under the banner */
+  --weight-title-rest: 350;
+
+  /* a page's one-line title, in sentence case */
+  --text-title: clamp(36px, 6.3vw, 116px);
+
+  /* a title that runs to two lines: over a photo, or atop a page's list */
+  --text-over: clamp(28px, 3.1vw, 58px);
+
+  /* the words that run across the quiz page's band: a tenth of the width,
+     as the owner's reference */
+  --text-run: clamp(64px, 10vw, 200px);
+
+  /* the big words: a fifth of what height is left, at most 6.5% of the width */
+  --text-display: clamp(45px, min(6.5vw, (100svh - var(--nav-h) - 240px) / 5.3), 120px);
+  --width-display: 85;
+  --track-display: -0.04em;
+  --track-caps: 0.06em;
+  --track-tight: -0.02em;
+  --leading-display: 0.92;
+  --leading-line: 1.38;
+
+  /* ---------- space and layout ---------- */
+
+  /* the page's one border, left and right: the wordmark, the big words and
+     the foot start on it, the button and the link end on it */
+  --gutter: clamp(20px, 2.4vw, 48px);
+
+  /* where the second column starts, on the banner, the flat and the footer */
+  --split: 46.5%;
+  --nav-h: 56px;
+
+  /* the region sheet's width, against the right edge, and its inner margin */
+  --sheet-w: 540px;
+  --sheet-pad: clamp(20px, 3vw, 40px);
+
+  /* the bar's search field, opened */
+  --search-w: clamp(200px, 18vw, 300px);
+  --line: 1.25px;
+  --tap: 44px;
+  --z-header: 5;
+  --z-loader: 10;
+
+  /* ---------- motion ---------- */
+  --dur-fast: 0.2s;
+  --dur-word: 0.3s;
+  --dur-rise: 0.45s;
+  --dur-roll: 0.6s;
+  --dur-move: 0.9s;
+
+  /* a slow fade, for the banner's cards coming and going */
+  --dur-fade: 1.2s;
+
+  /* one pass of the quiz band's running words, slow enough to read */
+  --dur-run: 40s;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-roll: cubic-bezier(0.3, 0.7, 0.15, 1);
+  --ease-draw: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-sheet: cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+/* the page stays put at its edges, on the owner's word: no rubber-band
+   drag past the top, foot or sides, and nothing wider than the window can
+   pull it sideways. Rows that scroll sideways keep scrolling inside. */
+html,
+body {
+  overscroll-behavior: none;
+  overflow-x: clip;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+}
+
+/* no scroll bars anywhere, on the owner's word: the page and the rows that
+   scroll sideways still scroll by wheel, touch, trackpad and keyboard */
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+/* no box round what has focus, anywhere, on the owner's word: what the
+   keyboard reaches is underlined instead, so it can still be found. Clicks
+   with the mouse show nothing. */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+
+/* ---------- shared faces, composed by modules ---------- */
+
+/* the bar's small spaced capitals */
+.caps {
+  font: 500 var(--text-nav) / 1 var(--font);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* the big words' face: narrow, tight, in capitals */
+.display {
+  font-weight: 500;
+  font-family: var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-display);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+}
+
+.wordmark {
+  font: 420 var(--text-lg) / 1 var(--font-wordmark);
+  text-transform: lowercase;
+}
+
+/* a link that underlines when pointed at */
+.underline-on-hover {
+  text-underline-offset: 0.45em;
+  text-decoration-thickness: 1px;
+}
+
+.underline-on-hover:hover {
+  text-decoration: underline;
+}
+
+/* the one boxed button: an outline that fills on hover */
+.boxed {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding-inline: 8px;
+  border: var(--line) solid currentcolor;
+}
+
+.boxed:hover {
+  text-decoration: none;
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: var(--gutter);
+  z-index: var(--z-loader);
+  padding: 8px 12px;
+  background: var(--ink-warm);
+  color: var(--paper);
+  translate: 0 -200%;
+}
+
+.skip-link:focus-visible {
+  translate: 0 0;
+}

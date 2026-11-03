@@ -1,0 +1,240 @@
+/* The journal under the rooms: sections stacked on the page's gutters,
+   each parted from the next by a hairline. */
+.journal {
+  display: grid;
+  gap: clamp(48px, 6vw, 96px);
+  padding: clamp(64px, 8vw, 128px) var(--gutter) clamp(48px, 6vw, 96px);
+}
+
+.journal ul,
+.journal ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* each section's title at the collection's section-title size, on the
+   owner's word */
+.heading {
+  margin: 0 0 16px;
+  font: 400 var(--text-over) / 1.08 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+/* the band under a heading: what the section holds, and a way to all of it */
+.band {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 0 0 24px;
+  padding: 10px 14px;
+  background: var(--ink-wash);
+  font: 400 var(--text-md) / 1.3 var(--font);
+}
+
+/* the label in red, its note in the page's brown, as the collection parts
+   its lines from the red */
+.label {
+  font-weight: 400;
+}
+
+.note {
+  color: var(--ink-dark);
+}
+
+/* a dot between the label and its note */
+.note::before {
+  content: "·";
+  margin-right: 12px;
+}
+
+.all {
+  composes: underline-on-hover from global;
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  margin-left: auto;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.out {
+  width: 0.9em;
+  height: 0.9em;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- a story's words ---------- */
+
+.words {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  min-width: 0;
+}
+
+.sm,
+.lg {
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: var(--track-tight);
+}
+
+.sm {
+  font-size: var(--text-lg);
+  line-height: 1.2;
+}
+
+.lg {
+  font-size: var(--text-head);
+  line-height: 1.1;
+}
+
+/* the title's second part in the page's brown and the collection's
+   lighter Jost, as its titles' second lines */
+.rest {
+  color: var(--ink-dark);
+  font-weight: var(--weight-title-rest);
+  font-family: var(--font-wordmark);
+  letter-spacing: 0;
+}
+
+/* a small outlined pill before the title */
+.tag {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 2px 8px;
+  border: var(--line) solid currentcolor;
+  border-radius: 999px;
+  font: 400 var(--text-sm) / 1.2 var(--font);
+  letter-spacing: 0;
+  vertical-align: 0.25em;
+}
+
+/* the byline in the pale brown, so it sits back from the title */
+.meta {
+  margin: 0;
+  color: var(--ink-dark-pale);
+  font: 400 var(--text-sm) / 1.3 var(--font);
+}
+
+/* ---------- photos ---------- */
+
+.thumb,
+.wide {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.thumb {
+  aspect-ratio: 1;
+}
+
+.wide {
+  aspect-ratio: 16 / 10;
+}
+
+.thumb img,
+.wide img {
+  object-fit: cover;
+}
+
+/* ---------- lists ---------- */
+
+/* a small square photo with the words beside it */
+.small {
+  display: grid;
+  grid-template-columns: clamp(72px, 7vw, 112px) 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.grid3,
+.grid2 {
+  display: grid;
+  gap: 28px 32px;
+}
+
+.grid3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.list {
+  display: grid;
+  gap: 20px;
+}
+
+/* the newest on the left, the most read in a column on the right */
+.split {
+  display: grid;
+  grid-template-columns: 2.4fr 1fr;
+  gap: clamp(24px, 3vw, 48px);
+  align-items: start;
+}
+
+.latest {
+  display: grid;
+  gap: 32px;
+}
+
+/* a wide photo with the words beside it, the byline at its foot */
+.big {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 28px;
+}
+
+.big .words {
+  grid-template-rows: 1fr auto;
+}
+
+/* a faint red box round a list */
+.box {
+  padding: 20px;
+  background: var(--ink-wash);
+}
+
+/* one story again on the left, the readers' picks on the right */
+.again {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(24px, 3vw, 48px);
+  align-items: start;
+}
+
+.look {
+  display: grid;
+  gap: 20px;
+}
+
+/* ---------- below the desktop, one column ---------- */
+
+@media (width <= 1023px) {
+  .split,
+  .again,
+  .grid3 {
+    grid-template-columns: 1fr;
+  }
+
+  .note {
+    display: none;
+  }
+}
+
+@media (width <= 639px) {
+  .big,
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+}

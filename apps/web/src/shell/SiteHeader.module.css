@@ -1,0 +1,133 @@
+/* Everything in the bar sits on one text baseline, so the big lowercase
+   wordmark and the small capitals read as one line; the line itself is
+   centred in the bar. */
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-header);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 24px;
+  align-items: baseline;
+  align-content: center;
+  box-sizing: border-box;
+  height: var(--nav-h);
+  padding-inline: var(--gutter);
+  line-height: 1;
+  transition: background-color var(--dur-fast);
+}
+
+/* the cream behind the bar once the page moves, and while the search field
+   is open, so the field never sits on a banner's photo */
+.header[data-stuck],
+.header:has([data-searching]) {
+  background: var(--paper);
+}
+
+.wordmark {
+  composes: wordmark from global;
+}
+
+.start,
+.end {
+  display: flex;
+  gap: 32px;
+  align-items: baseline;
+}
+
+.start {
+  margin-left: 24px;
+}
+
+.end {
+  justify-self: end;
+}
+
+.link {
+  composes: caps underline-on-hover from global;
+}
+
+.primary {
+  composes: boxed from global;
+}
+
+@media (width <= 1023px) {
+  .start {
+    display: none;
+  }
+}
+
+/* ---------- the menu, on narrower screens ---------- */
+
+.menuButton {
+  display: none;
+  min-height: var(--tap);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* open, the bar takes the paper so the menu under it reads as one sheet */
+.header[data-open] {
+  background: var(--paper);
+}
+
+/* a sheet under the bar, one link to a row, each row a full tap high */
+.menu {
+  position: absolute;
+  inset: 100% 0 auto;
+  display: grid;
+  padding: 8px var(--gutter) 24px;
+  border-bottom: var(--line) solid currentcolor;
+  background: var(--paper);
+}
+
+.menu[hidden] {
+  display: none;
+}
+
+.menuLink {
+  composes: caps underline-on-hover from global;
+  display: flex;
+  align-items: center;
+  min-height: var(--tap);
+  border-top: 1px solid currentcolor;
+}
+
+.menuLogIn,
+.menuRegion {
+  display: none;
+}
+
+@media (width <= 1023px) {
+  .menuButton {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+@media (width >= 1024px) {
+  .menu {
+    display: none;
+  }
+}
+
+/* on a phone, the region and log in move into the menu so the bar fits on
+   one line */
+@media (width <= 639px) {
+  .end {
+    gap: 16px;
+  }
+
+  .logIn,
+  .barRegion {
+    display: none;
+  }
+
+  .menuLogIn,
+  .menuRegion {
+    display: flex;
+  }
+}

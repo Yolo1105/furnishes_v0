@@ -1,0 +1,458 @@
+/* A kind's page and a piece's: on the page's gutters under the bar. */
+.page {
+  display: grid;
+  gap: 24px;
+  align-content: start;
+  min-height: 70svh;
+  padding: calc(var(--nav-h) + 24px) var(--gutter) clamp(48px, 6vw, 96px);
+}
+
+/* the kind's name and its line, told apart by colour alone, as the
+   inspiration page's title */
+.title {
+  max-width: 24ch;
+  margin: 8px 0 16px;
+  font: 500 var(--text-over) / 1.05 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+  text-wrap: balance;
+}
+
+.titleRest {
+  color: var(--ink-pale);
+}
+
+/* ---------- the bar to narrow and sort ---------- */
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  padding: 12px 14px;
+  background: var(--ink-wash);
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* a choice that fills in red when on, square like the site's one boxed button */
+.chip {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 32px;
+  padding-inline: 10px;
+  border: var(--line) solid currentcolor;
+  background: none;
+  color: var(--ink);
+  font: 500 var(--text-md) / 1 var(--font);
+  cursor: pointer;
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+/* a small square of the finish's colour, ringed so birch shows on cream */
+.swatch {
+  width: 12px;
+  height: 12px;
+  border: var(--line) solid currentcolor;
+}
+
+.swatch[data-finish="birch"] {
+  background: var(--birch);
+}
+
+.swatch[data-finish="walnut"] {
+  background: var(--walnut);
+}
+
+.swatch[data-finish="red"] {
+  background: var(--finish-red);
+}
+
+.sort {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+  font: 400 var(--text-md) / 1 var(--font);
+}
+
+.sort select {
+  min-height: 32px;
+  padding-inline: 8px;
+  border: var(--line) solid currentcolor;
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+
+.count,
+.none {
+  margin: 0;
+  font: 400 var(--text-md) / 1.3 var(--font);
+}
+
+/* ---------- the cards ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px clamp(16px, 2vw, 32px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* the photo, its finishes, the name and price, its line, then its size and
+   how it arrives; positioned so its hidden words for screen readers stay
+   inside it, and inside a row that scrolls */
+.card {
+  position: relative;
+  display: grid;
+  gap: 6px;
+}
+
+.photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  margin-bottom: 8px;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.photo img {
+  object-fit: cover;
+}
+
+/* the name on the left and what it starts at on the right, as in the
+   owner's reference */
+.nameRow {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+/* the name as the journal's titles: red in the narrow regular cut; what
+   it starts at and its line in the brown, lighter Jost, so the two faces
+   tell name from description, on the owner's word */
+.name {
+  color: var(--ink);
+  font: 400 var(--text-lg) / 1.2 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.from {
+  flex: none;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-md) / 1.2 var(--font-wordmark);
+}
+
+.line {
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-lg) / 1.3 var(--font-wordmark);
+}
+
+/* its size, then how it arrives, small and in the pale brown, as the
+   journal's bylines */
+.meta {
+  color: var(--ink-dark-pale);
+  font: 400 var(--text-md) / 1.3 var(--font);
+}
+
+/* its kind in small capitals over the name, as the owner's bestsellers
+   reference, kept off the photo */
+.kind {
+  composes: caps from global;
+  color: var(--ink-dark-pale);
+  font-size: var(--text-md);
+}
+
+/* ---------- stacked: the ready-made row ---------- */
+
+/* a square photo, then the kind, the name and the price each on its own
+   line, as the owner's "Design Edit" reference */
+.stack {
+  gap: 8px;
+}
+
+.stack .photo {
+  aspect-ratio: 1;
+  margin-bottom: 12px;
+}
+
+.stack .kind {
+  font: 400 var(--text-sm) / 1.2 var(--font);
+  letter-spacing: 0.12em;
+}
+
+.stack .nameRow {
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.stack .name,
+.stack .from {
+  font-size: var(--text-lg);
+  line-height: 1.25;
+}
+
+/* ---------- featured: one large piece, four beside it ---------- */
+
+/* the first piece takes two columns and both rows, its photo filling the
+   height the two rows beside it make */
+.featured {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px clamp(16px, 2vw, 32px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.featured > li:first-child {
+  grid-row: span 2;
+}
+
+.featured > li:first-child .card {
+  height: 100%;
+  grid-template-rows: 1fr auto;
+}
+
+.featured > li:first-child .photo {
+  aspect-ratio: auto;
+  min-height: 360px;
+}
+
+.featured .photo {
+  aspect-ratio: 1;
+}
+
+/* the finishes it comes in, as the reference's row of colours */
+.swatches {
+  display: flex;
+  gap: 4px;
+}
+
+/* ---------- the shop: every piece, with filters ---------- */
+
+/* the line on the left, the sort pushed right; the filters button shows on
+   phones only */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+}
+
+.filtersButton {
+  display: none;
+}
+
+/* what is chosen, each removed on a tap */
+.active {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.clear {
+  composes: underline-on-hover from global;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: 500 var(--text-md) / 1.3 var(--font);
+  cursor: pointer;
+}
+
+/* the groups to narrow by in a column on the left, the pieces beside them */
+.shop {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: clamp(24px, 3vw, 48px);
+  align-items: start;
+}
+
+/* three pieces a row beside the filters, rather than the four of a full width */
+.shop .grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.side {
+  position: sticky;
+  top: calc(var(--nav-h) + 16px);
+  display: grid;
+  gap: 8px;
+}
+
+/* each group its own tile, so no rules are needed between them */
+.facet {
+  padding: 14px 16px;
+  background: var(--ink-wash);
+}
+
+.facet summary {
+  font: 500 var(--text-md) / 1.3 var(--font);
+  cursor: pointer;
+}
+
+.facetOn {
+  font-weight: 400;
+}
+
+.checks {
+  display: grid;
+  gap: 2px;
+  margin-top: 10px;
+}
+
+/* a real checkbox in the red, its name, then how many it would show */
+.check {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 32px;
+  font: 400 var(--text-md) / 1.2 var(--font);
+  cursor: pointer;
+}
+
+.check input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+
+.check:has(:disabled) {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.checkCount {
+  margin-left: auto;
+  color: color-mix(in srgb, currentcolor 70%, var(--paper));
+}
+
+/* on phones the same groups in a sheet over the page, its buttons kept at
+   the foot */
+.sheet {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.sheet[open] {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.sheetHead,
+.sheetFoot {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px var(--gutter);
+}
+
+.sheetTitle {
+  margin: 0;
+  font: 500 var(--text-head) / 1.1 var(--font);
+  letter-spacing: var(--track-tight);
+}
+
+.sheetBody {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding: 0 var(--gutter);
+  overflow-y: auto;
+}
+
+/* the sheet's one filled button, as Add to cart */
+.show {
+  flex: 1;
+  min-height: 52px;
+  border: 0;
+  background: var(--ink-warm);
+  color: var(--paper);
+  font: 500 var(--text-lg) / 1 var(--font);
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .photo img {
+    transition: scale var(--dur-move) var(--ease-out);
+  }
+
+  .card:hover .photo img {
+    scale: 1.04;
+  }
+}
+
+@media (width <= 1023px) {
+  .grid,
+  .shop .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sort {
+    margin-left: 0;
+  }
+
+  /* the column of filters moves into the sheet, opened from the top row */
+  .shop {
+    grid-template-columns: 1fr;
+  }
+
+  .side {
+    display: none;
+  }
+
+  .filtersButton {
+    display: inline-flex;
+  }
+}
+
+@media (width <= 1023px) {
+  .featured {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .featured > li:first-child {
+    grid-column: span 2;
+    grid-row: auto;
+  }
+
+  .featured > li:first-child .photo {
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+  }
+}
+
+@media (width <= 639px) {
+  .grid,
+  .shop .grid {
+    grid-template-columns: 1fr;
+  }
+}

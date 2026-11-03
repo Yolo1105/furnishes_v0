@@ -1,0 +1,55 @@
+/* The Modular page's own sections; titles, tiles, steps and links come from
+   the collection's module. */
+
+/* ---------- why modular ---------- */
+
+/* on the cream, with larger names, so they don't read as a second set of steps */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px clamp(16px, 2vw, 32px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.featureName {
+  color: var(--ink);
+  margin: 0 0 12px;
+  font: 500 var(--text-head) / 1.1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+/* ---------- separator walls ---------- */
+
+/* the wall's promise on the left, what it is and can't do on the right */
+.walls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px clamp(24px, 4vw, 72px);
+  align-items: start;
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+
+.wallsSide {
+  display: grid;
+  justify-items: start;
+  max-width: 52ch;
+}
+
+.limits {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 28px;
+  padding-left: 1.2em;
+  font: 400 var(--text-md) / 1.4 var(--font);
+  color: var(--ink-dark-pale);
+}
+
+@media (width <= 1023px) {
+  .features,
+  .walls {
+    grid-template-columns: 1fr;
+  }
+}

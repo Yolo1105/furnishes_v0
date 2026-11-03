@@ -1,0 +1,1450 @@
+/* The page reads in the deep brown red; titles and links set the bright
+   red on themselves. */
+.page {
+  /* the space over and under the statement below the overview's banner */
+  --intro-space: clamp(24px, 2.6vw, 40px);
+
+  padding-bottom: clamp(64px, 8vw, 128px);
+  color: var(--ink-dark);
+}
+
+/* ---------- the banner ---------- */
+
+/* The banner fills the screen under the bar with the photo, edge to edge;
+   the title sits on it at the bottom left. Photo and words share one grid
+   cell, so they stack without absolute positioning. */
+.banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  box-sizing: border-box;
+  height: calc(100svh - var(--nav-h));
+  min-height: 560px;
+  margin-top: var(--nav-h);
+}
+
+.bannerPhoto,
+.bannerWords,
+.heroWords {
+  grid-area: 1 / 1;
+}
+
+.bannerPhoto {
+  position: relative;
+  background: var(--birch);
+}
+
+/* the shade over the photo's foot, a layer stacked on the photo on purpose
+   so the title reads on it */
+.bannerPhoto::after,
+.lineBandPhoto::after {
+  position: absolute;
+  inset: 0;
+  background: var(--photo-shade-deep);
+  content: "";
+}
+
+/* lifted a little in its frame so more of the room's seats show, on the
+   owner's word */
+.bannerPhoto img {
+  object-fit: cover;
+  object-position: 50% 70%;
+}
+
+/* the overview's room drawn a little low in its frame, on the owner's word */
+.bare .bannerPhoto img {
+  object-position: 50% 62%;
+}
+
+/* ---------- the pieces marked on the banner ---------- */
+
+/* a frame the size of the photo as it is cropped to cover the banner (the
+   photo's own shape, at least the banner's width and height), held 62% down
+   as the photo is; a layer stacked on the photo on purpose, so the circles,
+   placed as shares of it, stay on their pieces at any screen size */
+.bare .bannerPhoto {
+  overflow: hidden;
+  container-type: size;
+}
+
+.spotFrame {
+  position: absolute;
+  top: calc((100cqh - max(100cqh, 100cqw / var(--photo-ratio))) * 0.62);
+  left: calc((100cqw - max(100cqw, 100cqh * var(--photo-ratio))) / 2);
+  width: max(100cqw, 100cqh * var(--photo-ratio));
+  height: max(100cqh, 100cqw / var(--photo-ratio));
+}
+
+/* each circle centred on its point, its card stacked over it */
+.spot {
+  position: absolute;
+  translate: -50% -50%;
+}
+
+/* one solid white dot in a see-through white halo, lifted by a shadow so
+   it reads on light and dark rooms, with a white ring that swells out of it and fades,
+   at each circle's own pace and offset, set on the spot, so they pulse out
+   of step. The button is the tap's full size; the dot and ring are drawn
+   in it. The open circle's dot grows a little. */
+.spotDot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--tap);
+  height: var(--tap);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.spotDot::before,
+.spotDot::after {
+  grid-area: 1 / 1;
+  border-radius: 50%;
+  content: "";
+}
+
+.spotDot::before {
+  width: 18px;
+  height: 18px;
+  background: var(--photo-dot);
+  box-shadow:
+    0 0 0 6px var(--photo-halo),
+    var(--shadow-dot);
+  transition: scale var(--dur-fast) var(--ease-out);
+}
+
+.spotDot::after {
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--photo-dot);
+  opacity: 0;
+}
+
+.spotDot[aria-expanded="true"]::before {
+  scale: 1.3;
+}
+
+@keyframes ripple {
+  0% {
+    scale: 1;
+    opacity: 0.9;
+  }
+
+  100% {
+    scale: 1.9;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .spotDot::after {
+    animation: ripple var(--breathe, 3s) ease-out var(--breathe-delay, 0s) infinite;
+  }
+}
+
+/* the card above its circle: a small label in the page's cream, lifted off
+   the photo by a soft shadow, with the name over the price and a small
+   arrow, the whole card the link, and a point down to its circle. Centred
+   on the circle, or held to its right near the photo's right side. */
+.spotCard {
+  position: absolute;
+  bottom: calc(100% + 18px);
+  left: 50%;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  width: max-content;
+  max-width: 240px;
+  padding: 9px 12px 10px 14px;
+  background: var(--paper);
+  color: var(--ink-dark);
+  box-shadow: var(--shadow-float);
+  translate: -50% 6px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.spotCard::after {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 16px;
+  height: 8px;
+  background: var(--paper);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  content: "";
+  translate: -50% 0;
+}
+
+.spot[data-edge] .spotCard {
+  right: 0;
+  left: auto;
+  translate: 0 6px;
+}
+
+/* near the right side, the point sits over the circle: half the tap in from
+   the card's edge */
+.spot[data-edge] .spotCard::after {
+  right: calc(var(--tap) / 2 - 8px);
+  left: auto;
+  translate: 0 0;
+}
+
+/* the open card, risen into place; a closed one is hidden, so it can't be
+   tabbed to or clicked while faded out */
+.spot[data-open] .spotCard {
+  translate: -50% 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+.spot[data-edge][data-open] .spotCard {
+  translate: 0 0;
+}
+
+.spot[data-open] {
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .spotCard {
+    transition:
+      opacity var(--dur-fade) var(--ease-out),
+      translate var(--dur-fade) var(--ease-out),
+      visibility var(--dur-fade);
+  }
+}
+
+/* the piece close up: the banner's own photo, enlarged by the spot's zoom
+   and moved so the spot's point sits in the square's middle. The photo's
+   width is the square's times the zoom, its height that over the photo's
+   shape, set on the frame. */
+.spotThumb {
+  --thumb: 56px;
+
+  flex: none;
+  width: var(--thumb);
+  height: var(--thumb);
+  margin: -3px 0 -4px -6px;
+  background-color: var(--birch);
+  background-repeat: no-repeat;
+  background-size: calc(var(--thumb) * var(--zoom)) auto;
+  background-position: calc(var(--thumb) / 2 - var(--x) * var(--thumb) * var(--zoom) / 100)
+    calc(var(--thumb) / 2 - var(--y) * var(--thumb) * var(--zoom) / var(--photo-ratio) / 100);
+}
+
+/* the name over its price, the arrow beside them, all a size down so the
+   card reads as a label, not a panel */
+.spotWords {
+  display: grid;
+  gap: 1px;
+}
+
+.spotName {
+  font: 400 var(--text-md) / 1.25 var(--font);
+}
+
+.spotPrice {
+  color: var(--ink);
+  font: var(--weight-title-rest) var(--text-md) / 1.25 var(--font-wordmark);
+}
+
+.spotArrow {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.6;
+}
+
+.spotCard:hover {
+  color: var(--ink);
+}
+
+/* the piece's line, size and way in, shown only on a pinned card, which
+   grows to hold them, its picture larger and the words on its top line */
+.spotMore {
+  display: none;
+}
+
+.spot[data-pinned] .spotCard {
+  align-items: flex-start;
+  max-width: 320px;
+}
+
+.spot[data-pinned] .spotThumb {
+  --thumb: 96px;
+}
+
+.spot[data-pinned] .spotMore {
+  display: grid;
+  gap: 4px;
+  max-width: 24ch;
+  margin-top: 8px;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-sm) / 1.4 var(--font-wordmark);
+}
+
+.spotSize {
+  color: var(--ink-dark-pale);
+}
+
+.spotSee {
+  margin-top: 4px;
+  color: var(--ink);
+  font: 400 var(--text-sm) / 1.3 var(--font);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+
+/* the arrow gives way to the words "See the piece" on a pinned card */
+.spot[data-pinned] .spotArrow {
+  display: none;
+}
+
+/* the title on the photo at its bottom left, in the page's cream over
+   the shade, with no box behind it */
+.bannerWords {
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+  place-self: end start;
+  max-width: 760px;
+  margin: 0 var(--gutter) clamp(28px, 4vw, 64px);
+}
+
+/* on the photo the title is one cream, at the type's normal width and a
+   little looser than the page's titles, so it reads on a busy room */
+.bannerTitle {
+  max-width: 22ch;
+  margin: 0;
+  color: var(--photo-text);
+  font: 400 var(--text-over) / 1.08 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+  text-wrap: balance;
+}
+
+/* the photo's room, a small label over the title */
+.room {
+  composes: caps from global;
+  margin: 0;
+  font-size: var(--text-md);
+  color: var(--photo-text-dim);
+}
+
+/* the overview's words at the photo's bottom left, as the owner's
+   reference: a small spaced label, the large title, and two underlined ways
+   in, set thin in Jost on the owner's word, in the whiter cream over the
+   shade */
+.heroWords {
+  z-index: 2;
+  display: grid;
+  gap: clamp(10px, 1.1vw, 18px);
+  place-self: end start;
+  margin: 0 var(--gutter) clamp(20px, 2.4vw, 40px);
+  color: var(--photo-text-white);
+}
+
+.heroLabel {
+  font: 500 var(--text-sm) / 1.2 var(--font);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  margin: 0;
+  font: 400 clamp(38px, 4.2vw, 76px) / 1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.heroLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px clamp(24px, 2.4vw, 40px);
+  margin-top: 2px;
+}
+
+.heroLink {
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentcolor;
+  font: 300 var(--text-lg) / 1.2 var(--font-wordmark);
+}
+
+.heroLink:hover {
+  border-bottom-width: 1.5px;
+}
+
+/* ---------- the statement under the banner ---------- */
+
+/* a few large lines on the page's gutter, the second part told apart by
+   colour, as the banner's title */
+.intro {
+  padding: var(--intro-space) var(--gutter);
+}
+
+/* the same space under the statement as over it, on the owner's word, so
+   the section after it starts without its own */
+.introTitle {
+  max-width: 30ch;
+}
+
+.intro + .section {
+  padding-top: 0;
+}
+
+/* ---------- the sections under the banner ---------- */
+
+.section {
+  padding: clamp(48px, 6vw, 96px) var(--gutter) 0;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+/* every section's title as the home visit's once was, on the owner's word:
+   the title in the narrow regular red, and its second line under it as the
+   statement's second line: Jost, lighter and a size smaller, in the page's
+   brown, on the owner's word */
+.heading {
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  margin: 0;
+  font: 400 var(--text-over) / 1.08 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.headingRest {
+  display: block;
+  margin-top: 8px;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-rest) / 1.3 var(--font-wordmark);
+  font-variation-settings: normal;
+  letter-spacing: 0;
+}
+
+/* the small label over every title, as the home visit's: spaced capitals in
+   the pale brown, on its own line above */
+.headingLabel {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--ink-dark-pale);
+  font: 500 var(--text-sm) / 1.2 var(--font);
+  font-variation-settings: normal;
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+}
+
+/* on the red-orange panel, the label in the panel's cream */
+.orderPanel .headingLabel {
+  color: var(--paper);
+}
+
+/* ---------- what we sell ---------- */
+
+/* the two lines one under the other, each a photo band then its pieces;
+   columns held to the page's width, so a row that scrolls doesn't widen it */
+.lines {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(56px, 7vw, 112px);
+}
+
+.lineBlock {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+}
+
+/* the block's gap already spaces its heading from the photo */
+.lineBlock > .head {
+  margin-bottom: 0;
+}
+
+/* the photo across the page's width, the line's words on it at its bottom
+   left, as the banner; both share one grid cell to stack */
+.lineBand {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: clamp(420px, 42vw, 640px);
+}
+
+.lineBandPhoto,
+.lineBandWords {
+  grid-area: 1 / 1;
+}
+
+.lineBandPhoto {
+  position: relative;
+  background: var(--birch);
+}
+
+.lineBandPhoto img {
+  object-fit: cover;
+}
+
+/* the line's words on the photo, in the light cream over the shade, as
+   the banner */
+.lineBandWords {
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+  place-self: end start;
+  max-width: 600px;
+  margin: 0 clamp(20px, 3vw, 48px) clamp(24px, 3vw, 48px);
+  color: var(--photo-text);
+}
+
+.lineBandLabel {
+  composes: caps from global;
+  margin: 0;
+  font-size: var(--text-md);
+  color: var(--photo-text-dim);
+}
+
+.lineBandName {
+  margin: 0;
+  font: 400 var(--text-over) / 1.08 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.lineBandIntro {
+  margin: 0 0 8px;
+  color: var(--photo-text-dim);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+/* the line's pieces in one row that scrolls sideways, each card a set width
+   so a part of the next one shows, telling there are more */
+.row {
+  display: flex;
+  gap: clamp(16px, 2vw, 24px);
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  list-style: none;
+  scroll-snap-type: x mandatory;
+}
+
+.row > li {
+  flex: none;
+  width: clamp(240px, 22vw, 320px);
+  scroll-snap-align: start;
+}
+
+/* a small label in capitals over a title, as a step's number */
+.cardLabel {
+  color: var(--ink-dark-pale);
+  composes: caps from global;
+  margin: 0 0 10px;
+  font-size: var(--text-md);
+}
+
+.cardLine {
+  margin: 0 0 28px;
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+  letter-spacing: -0.01em;
+}
+
+/* the way in, underlined at rest as in the owner's reference, so it reads
+   as a link without an arrow */
+.explore {
+  color: var(--ink);
+  align-self: flex-start;
+  font: 500 var(--text-md) / 1.3 var(--font);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+}
+
+.explore:hover {
+  color: var(--ink-pale);
+}
+
+/* ---------- what every order comes with ---------- */
+
+/* four promises in a row on the page's cream, each read top to bottom in
+   falling size: a large drawing, its number as a small label, the name as
+   a heading, then its line */
+.promises {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 56px clamp(24px, 3vw, 48px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.promise {
+  display: grid;
+  align-content: start;
+}
+
+.promiseIcon {
+  width: clamp(48px, 4vw, 64px);
+  height: clamp(48px, 4vw, 64px);
+  margin-bottom: 28px;
+  color: var(--ink);
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.25;
+}
+
+/* the number as the site's small capitals label, over the name */
+.promiseNumber {
+  composes: caps from global;
+  margin-bottom: 10px;
+  color: var(--ink-pale);
+  font-size: var(--text-md);
+  font-variant-numeric: tabular-nums;
+}
+
+.promiseName {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font: 400 var(--text-head) / 1.1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+  text-wrap: balance;
+}
+
+/* paler than the page's text, whatever that is: the deep brown on the
+   collection's pages, the red on a piece's */
+.promiseLine {
+  max-width: 32ch;
+  margin: 0;
+  color: color-mix(in srgb, currentcolor 72%, var(--paper));
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+/* ---------- with every order ---------- */
+
+/* the photo across about two thirds, the red panel beside it, as the
+   owner's "Atelier" reference */
+.order {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  min-height: clamp(480px, 46vw, 760px);
+}
+
+.orderPhoto {
+  position: relative;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.orderPhoto img {
+  object-fit: cover;
+}
+
+.orderPanel {
+  display: grid;
+  gap: clamp(20px, 2.4vw, 32px);
+  align-content: start;
+  justify-items: start;
+  padding: clamp(32px, 4vw, 72px) clamp(28px, 3.4vw, 56px);
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+.orderTitle {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 clamp(8px, 2vw, 32px);
+  font: 400 var(--text-over) / 1.05 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.orderLine {
+  margin: 0;
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+.orderList {
+  display: grid;
+  gap: 18px;
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* each promise's drawing in the panel's cream beside its name */
+.orderItem {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font: var(--weight-title-rest) var(--text-lg) / 1.3 var(--font-wordmark);
+}
+
+.orderIcon {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.25;
+}
+
+/* the way in, underlined at rest, as the reference */
+.orderGo {
+  margin-top: auto;
+  font: 400 var(--text-lg) / 1.3 var(--font);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.4em;
+}
+
+.orderGo:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ---------- quick links ---------- */
+
+/* a full-width band on the faint red, its title and links centred */
+.quick {
+  display: grid;
+  gap: clamp(28px, 3vw, 44px);
+  justify-items: center;
+  margin-top: clamp(48px, 6vw, 96px);
+  padding: clamp(64px, 8vw, 128px) var(--gutter);
+  background: var(--ink-wash);
+  text-align: center;
+}
+
+/* the reference's quieter title, centred over the links */
+.quickTitle {
+  align-items: center;
+  text-align: center;
+}
+
+.quickLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  max-width: 1100px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* a square link on the page's cream, filled red on hover */
+.quickLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 56px;
+  padding-inline: 28px;
+  background: var(--paper);
+  color: var(--ink-dark);
+  font: 400 var(--text-line) / 1 var(--font);
+}
+
+.quickLink:hover {
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+/* ---------- ready-made ---------- */
+
+/* the kinds as words under the title, the one shown underlined, as the
+   owner's "Design Edit" reference */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px clamp(20px, 2vw, 34px);
+  margin: 0 0 clamp(8px, 0.9vw, 16px);
+}
+
+.tab {
+  padding: 0 0 6px;
+  border: 0;
+  border-bottom: 1.5px solid transparent;
+  background: none;
+  color: var(--ink-dark);
+  font: 400 var(--text-lg) / 1.3 var(--font);
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: var(--ink);
+}
+
+.tab[aria-pressed="true"] {
+  border-bottom-color: currentcolor;
+  color: var(--ink);
+}
+
+/* the row runs to the page's right edge, so the fifth piece shows in part
+   and tells there is more; it moves by touch, trackpad, or tabbing through */
+.editRow {
+  gap: 12px;
+  margin-right: calc(-1 * var(--gutter));
+}
+
+/* four pieces across a desktop and a part of the fifth */
+.editRow > li {
+  width: clamp(240px, calc((100vw - var(--gutter) - 4 * 12px) / 4.15), 520px);
+}
+
+/* ---------- the mosaic over ready-made ---------- */
+
+/* the section's own space: the statement over it already keeps its gap */
+.mosaicSection {
+  padding: 0 var(--gutter);
+}
+
+/* the large photo across two thirds and both rows, the two others stacked
+   in the last third, as the owner's reference */
+.mosaic {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  height: clamp(480px, 48vw, 820px);
+}
+
+.mosaicMain {
+  grid-row: span 2;
+}
+
+/* the photo fills the tile under a light black, a layer stacked on purpose
+   so the words read anywhere on it; photo and words share one grid cell */
+.mosaicTile {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.mosaicTile img {
+  object-fit: cover;
+}
+
+.mosaicTile::after {
+  position: absolute;
+  inset: 0;
+  background: var(--photo-dim);
+  content: "";
+}
+
+/* the small tiles' words in the middle; the large one's at its top left */
+.mosaicWords {
+  z-index: 1;
+  display: grid;
+  gap: 16px;
+  place-self: center;
+  justify-items: center;
+  padding: clamp(20px, 3vw, 48px);
+  color: var(--photo-text-white);
+  text-align: center;
+}
+
+.mosaicMain .mosaicWords {
+  place-self: start;
+  justify-items: start;
+  text-align: left;
+}
+
+/* held to about twelve letters a line, so the title breaks onto a few lines */
+.mosaicTitle {
+  max-width: 12ch;
+  margin: 0;
+  font: 400 clamp(34px, 3.1vw, 56px) / 1.08 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.mosaicName {
+  max-width: 12ch;
+  margin: 0;
+  font: 400 clamp(34px, 3.1vw, 56px) / 1.08 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+/* the way in, underlined at rest, as the reference */
+.mosaicGo {
+  font: 400 var(--text-lg) / 1.3 var(--font);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.4em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mosaicTile img {
+    transition: scale var(--dur-move) var(--ease-out);
+  }
+
+  .mosaicTile:hover img {
+    scale: 1.04;
+  }
+}
+
+/* ---------- in every piece ---------- */
+
+/* three cards side by side, a close photo over a coloured panel, as the
+   owner's reference */
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.detail {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
+
+.detailPhoto {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.detailPhoto img {
+  object-fit: cover;
+}
+
+/* each panel in one of our finishes: walnut with cream words, the red
+   finish and birch with the page's brown */
+.detailWords {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  justify-items: start;
+  padding: clamp(24px, 2.4vw, 40px);
+  color: var(--ink-dark);
+}
+
+.detail[data-tone="walnut"] .detailWords {
+  background: var(--walnut);
+  color: var(--paper);
+}
+
+.detail[data-tone="red"] .detailWords {
+  background: var(--finish-red);
+}
+
+.detail[data-tone="birch"] .detailWords {
+  background: var(--birch);
+}
+
+.detailName {
+  font: 400 var(--text-head) / 1.15 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.detailLine {
+  margin-bottom: 8px;
+  font: var(--weight-title-rest) var(--text-lg) / 1.4 var(--font-wordmark);
+}
+
+/* the way in, a square of the page's cream, red orange on hover */
+.detailGo {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding-inline: 24px;
+  background: var(--paper);
+  color: var(--ink-dark);
+  font: 400 var(--text-lg) / 1 var(--font);
+}
+
+.detail:hover .detailGo {
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .detailPhoto img {
+    transition: scale var(--dur-move) var(--ease-out);
+  }
+
+  .detail:hover .detailPhoto img {
+    scale: 1.04;
+  }
+}
+
+/* ---------- room by room ---------- */
+
+/* four tall rooms across the page */
+.roomCards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(12px, 1.4vw, 20px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* the room's photo, then its name, line and way in under it on the cream */
+.roomCard {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+
+.roomPhoto {
+  position: relative;
+  justify-self: stretch;
+  aspect-ratio: 4 / 5;
+  margin-bottom: 8px;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.roomPhoto img {
+  object-fit: cover;
+}
+
+/* the name and line in the faces of the statement under the banner, on the
+   owner's word, a size down for a card: the narrow red, then Jost in brown */
+.roomName {
+  color: var(--ink);
+  font: 400 var(--text-head) / 1.15 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.roomLine {
+  margin-bottom: 8px;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-lg) / 1.3 var(--font-wordmark);
+}
+
+/* the way in, an outlined square button, filled on hover */
+.roomGo {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding-inline: 24px;
+  border: var(--line) solid var(--ink);
+  color: var(--ink);
+  font: 400 var(--text-lg) / 1 var(--font);
+}
+
+.roomCard:hover .roomGo {
+  background: var(--ink-warm);
+  border-color: var(--ink-warm);
+  color: var(--paper);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .roomCard img {
+    transition: scale var(--dur-move) var(--ease-out);
+  }
+
+  .roomCard:hover img {
+    scale: 1.04;
+  }
+}
+
+/* ---------- uneven tiles ---------- */
+
+/* Four ways in, two a row, a wide tile beside a narrow one and the other
+   way round on the next row, as the owner's reference; furniture's kinds,
+   and who it's for and its look on the overview. */
+
+/* five columns, so a wide tile takes three and a narrow one two; the rows
+   swap which side is wide */
+.kinds {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wide {
+  grid-column: span 3;
+}
+
+.narrow {
+  grid-column: span 2;
+}
+
+/* the room fills the whole tile, on the owner's word; the words sit on it
+   at the bottom left in the light cream over the black shade, as the
+   banner's. Photo and words share one grid cell, so they stack. */
+.kindTile {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: clamp(300px, 26vw, 400px);
+}
+
+.kindPhoto,
+.kindWords {
+  grid-area: 1 / 1;
+}
+
+.kindWords {
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+  align-content: end;
+  justify-items: start;
+  padding: clamp(24px, 2.6vw, 40px);
+  color: var(--photo-text);
+}
+
+.kindName {
+  font: 400 var(--text-section) / 1.1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.kindLine {
+  max-width: 32ch;
+  margin-bottom: 12px;
+  color: var(--photo-text-dim);
+  font: var(--weight-title-rest) var(--text-line) / 1.35 var(--font-wordmark);
+}
+
+/* the way in, underlined at rest, as the collection's links */
+.kindGo {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font: 500 var(--text-md) / 1.3 var(--font);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+}
+
+.arrow {
+  width: 0.9em;
+  height: 0.9em;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.6;
+}
+
+.kindPhoto {
+  position: relative;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+/* the shade over the photo's foot, a layer stacked on the photo on purpose
+   so the words read on it */
+.kindPhoto::after {
+  position: absolute;
+  inset: 0;
+  background: var(--photo-shade-tall);
+  content: "";
+}
+
+.kindPhoto img {
+  object-fit: cover;
+}
+
+/* ---------- design your own ---------- */
+
+/* the photo across two thirds of the page, the words beside it, their top
+   a little below the photo's, as the owner's reference */
+.design {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: clamp(24px, 4vw, 72px);
+  align-items: start;
+}
+
+.designPhoto {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.designPhoto img {
+  object-fit: cover;
+}
+
+.designWords {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+  padding-top: clamp(0px, 4vw, 72px);
+}
+
+.designTitle {
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  margin: 0;
+  font: 400 var(--text-over) / 1.15 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.designLine {
+  max-width: 44ch;
+  margin: 0;
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+/* the reference's outlined button, square as the site's others; it fills
+   in red on hover */
+.outline {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding-inline: 36px;
+  border: var(--line) solid var(--ink);
+  color: var(--ink);
+  font: 500 var(--text-lg) / 1 var(--font);
+}
+
+.outline:hover {
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+/* ---------- the visit ---------- */
+
+/* a band as "With every order", turned round: the title, what the visit
+   is and the button stacked in one column on the faint red ground, so the
+   offer reads as one thing, and a room on the right, so the page ends on a
+   picture. It mirrors "With every order" above it, the same split and
+   height turned round, so the two zigzag as a pair; its ground stays
+   faint, not the red orange, so they don't repeat each other. */
+.visit {
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  min-height: clamp(480px, 46vw, 760px);
+}
+
+.visitSide {
+  display: grid;
+  gap: 24px;
+  align-content: center;
+  justify-items: start;
+  padding: clamp(32px, 4vw, 72px) clamp(28px, 3.4vw, 56px);
+  background: var(--ink-wash);
+}
+
+.visitPhoto {
+  position: relative;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.visitPhoto img {
+  object-fit: cover;
+}
+
+/* the page's filled button, as on a piece's page */
+.book {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding-inline: 28px;
+  background: var(--ink-warm);
+  color: var(--paper);
+  font: 500 var(--text-lg) / 1 var(--font);
+}
+
+.book:hover {
+  background: var(--ink-warm-deep);
+}
+
+/* ---------- how it works ---------- */
+
+/* numbered steps on one tile, as the promise row */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px clamp(16px, 2vw, 32px);
+  margin: 0;
+  padding: clamp(24px, 2.8vw, 44px);
+  list-style: none;
+  background: var(--ink-tile);
+}
+
+/* ---------- questions ---------- */
+
+/* the title and a way to ask on the left, the questions in the wider right
+   column, as the owner's other site */
+.qa {
+  display: grid;
+  grid-template-columns: 1fr 1.7fr;
+  gap: clamp(24px, 3vw, 48px);
+  align-items: start;
+}
+
+.qaSide {
+  display: grid;
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.qaAsk {
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-lg) / 1.4 var(--font-wordmark);
+}
+
+.qaMail {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+
+.qaList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* a question's whole row is its button, the question in the page's brown
+   and the plus in red; the plus turns to a cross when open */
+.qaQuestion {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 18px 0;
+  border: 0;
+  background: none;
+  color: var(--ink-dark);
+  font: 400 var(--text-line) / 1.3 var(--font);
+  text-align: left;
+  cursor: pointer;
+}
+
+.qaMark {
+  flex: none;
+  color: var(--ink);
+  font: 300 clamp(22px, 1.6vw, 28px) / 1 var(--font);
+}
+
+/* the answer grows from no height to its own, the row's 0fr to 1fr */
+.qaAnswer {
+  display: grid;
+  grid-template-rows: 0fr;
+}
+
+.qaItem[data-open] .qaAnswer {
+  grid-template-rows: 1fr;
+}
+
+.qaItem[data-open] .qaMark {
+  rotate: 45deg;
+}
+
+.qaAnswer > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.qaAnswer p {
+  max-width: 60ch;
+  padding-bottom: 20px;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-lg) / 1.5 var(--font-wordmark);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .qaAnswer {
+    transition: grid-template-rows var(--dur-roll) var(--ease-roll);
+  }
+
+  .qaMark {
+    transition: rotate var(--dur-rise) var(--ease-roll);
+  }
+}
+
+/* ---------- below the desktop, one card a row ---------- */
+
+@media (width <= 1023px) {
+  .details {
+    grid-template-columns: 1fr;
+  }
+
+  .qa {
+    grid-template-columns: 1fr;
+  }
+
+  .order,
+  .visit {
+    grid-template-columns: 1fr;
+  }
+
+  .orderPhoto,
+  .visitPhoto {
+    aspect-ratio: 4 / 3;
+  }
+
+  .roomCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mosaic {
+    grid-template-rows: none;
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .mosaicMain {
+    grid-row: auto;
+  }
+
+  .mosaicTile {
+    aspect-ratio: 4 / 3;
+  }
+
+  .kinds {
+    grid-template-columns: 1fr;
+  }
+
+  .wide,
+  .narrow {
+    grid-column: auto;
+  }
+
+  .design,
+  .visit,
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .promises {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width <= 639px) {
+  .roomCards {
+    grid-template-columns: 1fr;
+  }
+
+  .promises {
+    grid-template-columns: 1fr;
+  }
+}

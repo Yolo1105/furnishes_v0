@@ -1,0 +1,148 @@
+/* The bar's search: the field and the magnifier side by side, the field
+   folded to nothing until opened, then growing leftwards along the bar,
+   since the group sits at the bar's right end. The list under it is a
+   layer stacked on the page on purpose, held to the field's right edge. */
+.search {
+  position: relative;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  align-self: center;
+}
+
+.field {
+  display: flex;
+  overflow: hidden;
+  width: 0;
+  border-bottom: var(--line) solid transparent;
+  visibility: hidden;
+}
+
+.search[data-open] .field {
+  width: var(--search-w);
+  border-bottom-color: currentcolor;
+  visibility: visible;
+}
+
+.field input {
+  flex: 1;
+  min-width: 0;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: var(--ink-dark);
+  font: 400 var(--text-md) / 1.2 var(--font);
+  outline: none;
+}
+
+.field input::placeholder {
+  color: var(--ink-dark-pale);
+}
+
+.open {
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.open:hover {
+  color: var(--ink-pale);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.5;
+}
+
+/* the short list of matches, under the field once something is typed, on
+   the paper with a soft shadow */
+.drop {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  box-sizing: border-box;
+  width: calc(var(--search-w) + 24px);
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: var(--paper);
+  box-shadow: var(--shadow-float);
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 2px 16px;
+  color: var(--ink-dark);
+  font: 400 var(--text-md) / 1.3 var(--font);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.row:hover {
+  background: var(--ink-wash);
+  color: var(--ink);
+}
+
+/* a piece's name with its kind small and pale under it */
+.rowName {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+}
+
+.kind {
+  color: var(--ink-dark-pale);
+  font-size: var(--text-sm);
+}
+
+/* a row's count or price in the softer red */
+.rowSide {
+  color: var(--ink-pale);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .field {
+    transition:
+      width var(--dur-rise) var(--ease-out),
+      visibility 0s var(--dur-rise);
+  }
+
+  .search[data-open] .field {
+    transition: width var(--dur-rise) var(--ease-out);
+  }
+}
+
+/* ---------- in the phone's menu ---------- */
+
+/* the field stands open across the menu, the list under it in the flow */
+.inMenu {
+  display: grid;
+  gap: 8px;
+  padding-block: 12px;
+}
+
+.inMenu .field {
+  width: auto;
+}
+
+.inMenu .drop {
+  position: static;
+  width: auto;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.inMenu .row {
+  padding-inline: 0;
+}
