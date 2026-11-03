@@ -76,12 +76,13 @@
 
 /* ---------- what people write about ---------- */
 
-/* the topics three across, each in a thin frame of its own, so each reads
-   apart; the link held at the box's foot */
+/* the topics three across, each box one link: its name in the brown,
+   its line pale, and what it does at the foot in the red, which the box
+   points to when pointed at */
 .cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 1.5vw, 24px);
+  gap: clamp(12px, 1.5vw, 20px);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -89,37 +90,50 @@
 
 .card {
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
-  gap: 8px;
-  justify-items: start;
-  padding: clamp(20px, 2vw, 28px);
+  grid-template-rows: auto 1fr auto;
+  gap: 6px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: clamp(18px, 1.8vw, 24px);
   border: var(--line) solid var(--rule-strong);
-}
-
-.cardNote {
-  composes: caps from global;
-  font-size: var(--text-sm);
-  margin: 0;
-  color: var(--ink-dark-pale);
-}
-
-.card > .link {
-  margin-top: 12px;
-  font: 400 var(--text-md) / 1.4 var(--font);
+  color: var(--ink-dark);
+  text-decoration: none;
 }
 
 .cardName {
-  margin: 0;
-  color: var(--ink);
-  font: 400 var(--text-head) / 1.1 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
+  font: 500 var(--text-lg) / 1.3 var(--font);
 }
 
 .cardLine {
-  margin: 0;
-  color: var(--ink-dark);
+  color: var(--ink-dark-pale);
   font: 400 var(--text-md) / 1.5 var(--font);
+}
+
+.cardGo {
+  margin-top: 14px;
+  color: var(--ink);
+  font: 500 var(--text-md) / 1.4 var(--font);
+}
+
+/* pointed at or reached by keyboard, the box turns red on the faint red
+   ground the picked choices have, and its action underlines */
+.card:hover,
+.card:focus-visible {
+  border-color: var(--ink);
+  background: var(--ink-wash);
+  text-decoration: none;
+}
+
+.card:hover .cardName,
+.card:focus-visible .cardName {
+  color: var(--ink);
+}
+
+.card:hover .cardGo,
+.card:focus-visible .cardGo {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
 }
 
 /* ---------- the enquiry ---------- */

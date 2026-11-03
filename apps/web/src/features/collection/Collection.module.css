@@ -1668,20 +1668,17 @@
   font: var(--weight-title-rest) var(--text-lg) / 1.5 var(--font-wordmark);
 }
 
-/* boxed, after the owner's reference: each question in a thin frame of
-   its own, so each reads apart, the open one framed in red */
-.qa[data-boxed] .qaList {
+/* split, after the owner's reference: the title over the questions, and
+   the questions in two columns of rows, parted by space alone */
+.qa[data-split] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.qa[data-split] .qaColumns {
   display: grid;
-  gap: 12px;
-}
-
-.qa[data-boxed] .qaItem {
-  padding-inline: clamp(16px, 2vw, 24px);
-  border: var(--line) solid var(--rule-strong);
-}
-
-.qa[data-boxed] .qaItem[data-open] {
-  border-color: var(--ink);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(24px, 4vw, 72px);
+  align-items: start;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1705,7 +1702,8 @@
     grid-template-columns: 1fr;
   }
 
-  .qa {
+  .qa,
+  .qa[data-split] .qaColumns {
     grid-template-columns: 1fr;
   }
 

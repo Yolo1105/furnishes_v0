@@ -27,7 +27,7 @@ export const DETAILS = [
 
 /**
  * What people write about, each opening an email with its subject filled
- * in; `get` is what comes back, said the same way on every tile.
+ * in; `go` says what the box does.
  */
 export const TOPICS_HEAD = {
   label: "Write to us",
@@ -39,42 +39,36 @@ export const TOPICS = [
   {
     name: "A piece or an order",
     line: "Sizes, finishes, an order you've placed, or a delivery.",
-    get: "An answer",
     go: "Ask about a piece",
     href: mailAbout("A piece or an order"),
   },
   {
     name: "Advice on a room",
     line: "Send a photo and the size of the room, and we suggest what fits.",
-    get: "Ideas for the room",
     go: "Ask about a room",
     href: mailAbout("Advice on a room"),
   },
   {
     name: "A home visit",
     line: `${FACTS.visitMinutes} minutes in your home or office: we measure and suggest pieces. ${sgd(FACTS.visitFee)}, taken off your order if you buy.`,
-    get: `${FACTS.visitMinutes} minutes in your room`,
     go: "Ask for a visit",
     href: mailAbout("Home visit"),
   },
   {
     name: "An office or bulk order",
     line: "Desks, storage and separator walls for a team, priced together.",
-    get: "A quote",
     go: "Ask for a quote",
     href: mailAbout("Office or bulk order"),
   },
   {
     name: "A custom size or design",
     line: "A modular piece in a size or shape the list doesn't have.",
-    get: "A quote",
     go: "Ask for a quote",
     href: mailAbout("Custom size or design"),
   },
   {
     name: "Samples of the finishes",
     line: "Birch, walnut and red, to see against your walls before you order.",
-    get: "Swatches to hold",
     go: "Ask for samples",
     href: mailAbout("Samples"),
   },

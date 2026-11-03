@@ -18,7 +18,7 @@ export default function ContactPage() {
       <SiteHeader />
       <main id="main" className={styles.page}>
         <Contact />
-        <Questions questions={CONTACT_QUESTIONS} rest="Asked before writing" boxed />
+        <Questions questions={CONTACT_QUESTIONS} rest="Asked before writing" split />
         <Closing band={CONTACT_CLOSING} />
       </main>
     </>

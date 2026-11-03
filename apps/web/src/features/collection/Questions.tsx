@@ -11,8 +11,9 @@ type Question = { q: string; a: string; icon?: IconName };
  * Questions before ordering, as the owner's other site: the title and a way
  * to ask something else on the left, the questions on the right, one open at
  * a time, the first open on arrival, its answer sliding open under it.
- * A question may carry a small mark in place of its number. `boxed` sets
- * each question in a thin frame of its own, as Contact has it. Other
+ * A question may carry a small mark in place of its number. `split` puts
+ * the title over the questions and the questions in two columns of rows,
+ * the first half on the left, as Contact has it. Other
  * numbered lists that open, such as the story, set their own title and leave
  * out the way to ask.
  */
@@ -22,23 +23,25 @@ export function Questions({
   title = "Questions",
   rest = "Asked before ordering",
   ask = true,
-  boxed = false,
+  split = false,
 }: {
   questions: readonly Question[];
   label?: string;
   title?: string;
   rest?: string;
   ask?: boolean;
-  boxed?: boolean;
+  split?: boolean;
 }) {
   // the first question opens on arrival, on the owner's word, so the list shows how it works
   const [open, setOpen] = useState<string | null>(questions[0]?.q ?? null);
   const id = useId();
+  // the left column takes the odd one, so it is never the shorter
+  const half = Math.ceil(questions.length / 2);
 
   return (
     <section
       className={`${styles.section} ${styles.qa}`}
-      data-boxed={boxed || undefined}
+      data-split={split || undefined}
       aria-labelledby={`${id}-title`}
     >
       <div className={styles.qaSide}>
@@ -56,38 +59,44 @@ export function Questions({
           </p>
         )}
       </div>
-      <ul className={styles.qaList}>
-        {questions.map((x, n) => {
-          const on = open === x.q;
-          const answer = `${id}-answer-${n}`;
-          return (
-            <li key={x.q} className={styles.qaItem} data-open={on || undefined}>
-              <button
-                type="button"
-                className={styles.qaQuestion}
-                aria-expanded={on}
-                aria-controls={answer}
-                onClick={() => setOpen(on ? null : x.q)}
-              >
-                {x.icon ? (
-                  <Icon name={x.icon} />
-                ) : (
-                  <span className={styles.qaNumber}>{String(n + 1).padStart(2, "0")}</span>
-                )}
-                <span className={styles.qaText}>{x.q}</span>
-                <span className={styles.qaMark} aria-hidden="true">
-                  +
-                </span>
-              </button>
-              <div id={answer} className={styles.qaAnswer}>
-                <div>
-                  <p>{x.a}</p>
-                </div>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+      {/* split, each column is its own list, so opening a question on one side never moves the other */}
+      <div className={styles.qaColumns}>
+        {(split ? [questions.slice(0, half), questions.slice(half)] : [questions]).map((column, c) => (
+          <ul key={c} className={styles.qaList}>
+            {column.map((x) => {
+              const n = questions.indexOf(x);
+              const on = open === x.q;
+              const answer = `${id}-answer-${n}`;
+              return (
+                <li key={x.q} className={styles.qaItem} data-open={on || undefined}>
+                  <button
+                    type="button"
+                    className={styles.qaQuestion}
+                    aria-expanded={on}
+                    aria-controls={answer}
+                    onClick={() => setOpen(on ? null : x.q)}
+                  >
+                    {x.icon ? (
+                      <Icon name={x.icon} />
+                    ) : (
+                      <span className={styles.qaNumber}>{String(n + 1).padStart(2, "0")}</span>
+                    )}
+                    <span className={styles.qaText}>{x.q}</span>
+                    <span className={styles.qaMark} aria-hidden="true">
+                      +
+                    </span>
+                  </button>
+                  <div id={answer} className={styles.qaAnswer}>
+                    <div>
+                      <p>{x.a}</p>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        ))}
+      </div>
     </section>
   );
 }
