@@ -186,7 +186,7 @@ export const FOR_AND_LOOKS = {
   tiles: [
     {
       name: "For homes",
-      line: "Pieces sized for HDB flats, room by room",
+      line: "Pieces sized for HDB flats and rented rooms, room by room",
       photo: living,
       wide: true,
       href: lineOf("homes"),

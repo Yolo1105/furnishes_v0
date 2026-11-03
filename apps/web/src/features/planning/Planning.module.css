@@ -1,0 +1,17 @@
+/* each way's facts, a small label over its words, one under another */
+.facts {
+  display: grid;
+  gap: 14px;
+  margin: 8px 0 0;
+}
+
+.facts > div {
+  display: grid;
+  gap: 2px;
+}
+
+.facts dd {
+  margin: 0;
+  color: var(--ink-dark);
+  font: 400 var(--text-md) / 1.45 var(--font);
+}

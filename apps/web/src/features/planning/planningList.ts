@@ -68,27 +68,71 @@ export const PLANNER = {
   ],
 };
 
-/** What each way in gives, so no one logs in to find what they could have had without it. */
+/**
+ * The ways to get help side by side, after the rebuild's comparison: what
+ * each costs, what it gives and what it doesn't, so no one logs in to find
+ * what they could have had without it.
+ */
 export const WAYS = {
   id: "ways-title",
   label: "Ways in",
-  title: "What needs an account",
-  rest: "And what doesn't",
+  title: "Three ways to get help",
+  rest: "What each costs, and what it doesn't do",
   tiles: [
     {
-      name: "Without logging in",
-      line: "Every piece and price, the quiz, the buying guide, and email answers from a person.",
+      name: "On your own",
+      facts: [
+        { label: "Costs", value: "Nothing, no account" },
+        {
+          label: "You get",
+          value: "Every piece and price, the quiz, the buying guide and email answers from a person",
+        },
+        { label: "Not included", value: "Anything saved between visits" },
+      ],
       go: { label: "Find your piece", href: routes.quiz },
     },
     {
       name: "With an account",
-      line: "Eva, the room planner and your saved rooms, once they open. Free.",
+      facts: [
+        { label: "Costs", value: "Nothing; opening soon" },
+        { label: "You get", value: "Eva, the room planner and your saved rooms" },
+        { label: "Not included", value: "Eva doesn't measure your room or judge if a piece is safe there" },
+      ],
       go: { label: "Log in", href: DESIGN_NEXT },
     },
     {
       name: "In person",
-      line: `A ${FACTS.visitMinutes}-minute visit: we measure and suggest. ${sgd(FACTS.visitFee)}, taken off your order if you buy.`,
+      facts: [
+        { label: "Costs", value: `${sgd(FACTS.visitFee)}, taken off your order if you buy` },
+        { label: "You get", value: `${FACTS.visitMinutes} minutes in your room: we measure and suggest pieces` },
+        { label: "Not included", value: "Renovation or building work" },
+      ],
       go: { label: "Book a visit", href: mailAbout("Home visit") },
     },
   ],
+};
+
+/**
+ * Tell us about a room, after the landing site's plan form: what it is,
+ * what should happen there, its rough size and what stays. Sending writes
+ * it all into an email, so a person can answer it.
+ */
+export const BRIEF = {
+  id: "brief-title",
+  label: "Tell us about a room",
+  title: "We plan it with you",
+  rest: "By email, while the planner opens",
+  rooms: ["Living room", "Bedroom", "Study", "Office", "Kitchen", "Entryway", "Somewhere else"],
+  fields: {
+    room: "Which room",
+    size: "Rough size, if you know it",
+    happen: "What should happen there",
+    stays: "What stays",
+  },
+  sizeHint: "3.2 × 2.8 m",
+  happenHint: "Two children share it and both need a desk",
+  staysHint: "The bed, the wardrobe on the left wall",
+  line: "Photos and two measurements of the wall help. Attach them to the email that opens.",
+  send: "Write the email",
+  subject: "A room to plan",
 };

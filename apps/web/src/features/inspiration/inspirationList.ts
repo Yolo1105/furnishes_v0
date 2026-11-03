@@ -76,8 +76,9 @@ export const LOOKS_HEAD = {
 };
 
 /**
- * Small things people stop seeing, after the rebuild's "not noticed": each
- * the problem as its title, one line, and the piece that answers it.
+ * Small things people stop seeing, after the rebuild's "not noticed" and
+ * its everyday cases: each the problem as its title, one line, and the
+ * piece that answers it, four to a row.
  */
 export const NOTICED_HEAD = {
   title: "You may have got used to these",
@@ -109,5 +110,29 @@ export const NOTICED = [
     line: "Prep space on casters, wherever you cook.",
     piece: "kitchen-cart",
     photo: kitchen,
+  },
+  {
+    name: "The camera sees the laundry on every call",
+    line: "A wall behind the desk: private from view, not from sound.",
+    piece: "room-divider",
+    photo: home,
+  },
+  {
+    name: "The long wall stays empty",
+    line: "Three bays of storage, the length of the wall.",
+    piece: "low-cabinet",
+    photo: living,
+  },
+  {
+    name: "The sofa floats in the middle of the room",
+    line: "Behind it, a wall that stores and gives the room an edge.",
+    piece: "sofa-back-divider",
+    photo: yellowSofa,
+  },
+  {
+    name: "Two people, one room",
+    line: "One room as two, with storage on both sides.",
+    piece: "room-divider",
+    photo: shelfWall,
   },
 ] as const;
