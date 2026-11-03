@@ -1,9 +1,8 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import { Opening } from "@/features/collection/Opening";
-import { Section, Steps } from "@/features/collection/Sections";
+import { Index, Section, Steps } from "@/features/collection/Sections";
 import collection from "@/features/collection/Collection.module.css";
-import contact from "@/features/contact/Contact.module.css";
 import { FIGURES, MAKING, MANIFESTO, RECOGNITION, STORY, TEAM, WHO, WORKSHOP } from "./aboutList";
 import styles from "./About.module.css";
 
@@ -108,20 +107,13 @@ export function Team() {
 }
 
 /**
- * Our story: three parts side by side on the tiles the site's other short
- * lists use, so the page's one list that opens is its questions.
+ * Our story: three parts as the site's index, so the page's one list that
+ * opens is its questions.
  */
 export function Story() {
   return (
     <Section id="story-title" label={STORY.label} title={STORY.title} rest={STORY.rest}>
-      <ul className={contact.topics}>
-        {STORY.parts.map((p) => (
-          <li key={p.name} className={contact.topic}>
-            <h3 className={collection.promiseName}>{p.name}</h3>
-            <p className={collection.promiseLine}>{p.line}</p>
-          </li>
-        ))}
-      </ul>
+      <Index entries={STORY.parts} />
     </Section>
   );
 }

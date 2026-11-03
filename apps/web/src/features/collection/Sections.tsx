@@ -1,5 +1,4 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
 import { PieceList } from "@/features/catalog/PieceList";
 import type { LineSlug } from "@/features/catalog/catalog";
 import styles from "./Collection.module.css";
@@ -55,7 +54,74 @@ export function LinePieces({ line, aside }: { line: LineSlug; aside?: Aside }) {
 
 type Step = { name: string; line: string };
 
-/** Numbered steps on one tile; `id` names its title, where a page has more than one. */
+/**
+ * One entry of an index: a name, and to its right what it is, as a line,
+ * a few short lines, or labelled facts; `note` sits over the name, and
+ * `go` is the way on, a link at the foot of the words.
+ */
+export type Entry = {
+  name: string;
+  note?: string;
+  line?: string;
+  lines?: readonly string[];
+  facts?: readonly { label: string; value: string }[];
+  go?: { label: string; href: string };
+};
+
+/**
+ * An index, the site's one way to set out a short list: full-width rows
+ * parted by space, the name large on the left and the words beside it,
+ * like a contents page rather than a row of cards. `numbered` puts the
+ * row's number before the name, for steps.
+ */
+export function Index({ entries, numbered = false }: { entries: readonly Entry[]; numbered?: boolean }) {
+  const List = numbered ? "ol" : "ul";
+  return (
+    <List className={styles.index}>
+      {entries.map((e, i) => (
+        <li key={e.name} className={styles.entry}>
+          <div className={styles.entryHead}>
+            {numbered && (
+              <span className={styles.entryNumber} aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            )}
+            {e.note && <p className={styles.entryNote}>{e.note}</p>}
+            <h3 className={styles.entryName}>{e.name}</h3>
+          </div>
+          <div className={styles.entryBody}>
+            {e.line && <p>{e.line}</p>}
+            {e.lines?.map((l) => (
+              <p key={l}>{l}</p>
+            ))}
+            {e.facts && (
+              <dl className={styles.entryFacts}>
+                {e.facts.map((f) => (
+                  <div key={f.label}>
+                    <dt className={styles.entryLabel}>{f.label}</dt>
+                    <dd>{f.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+            {e.go &&
+              (e.go.href.startsWith("/") ? (
+                <Link className={styles.entryGo} href={e.go.href}>
+                  {e.go.label}
+                </Link>
+              ) : (
+                <a className={styles.entryGo} href={e.go.href}>
+                  {e.go.label}
+                </a>
+              ))}
+          </div>
+        </li>
+      ))}
+    </List>
+  );
+}
+
+/** Numbered steps, as an index; `id` names its title, where a page has more than one. */
 export function Steps({
   id = "steps-title",
   label,
@@ -71,19 +137,7 @@ export function Steps({
 }) {
   return (
     <Section id={id} label={label} title={title} rest={rest}>
-      {/* four or five steps sit on one row; three, or six, three to a row */}
-      <ol
-        className={styles.steps}
-        style={{ "--cols": steps.length % 3 && steps.length <= 5 ? steps.length : 3 } as CSSProperties}
-      >
-        {steps.map((s, i) => (
-          <li key={s.name}>
-            <p className={styles.cardLabel}>Step {i + 1}</p>
-            <h3 className={styles.promiseName}>{s.name}</h3>
-            <p className={styles.promiseLine}>{s.line}</p>
-          </li>
-        ))}
-      </ol>
+      <Index entries={steps} numbered />
     </Section>
   );
 }

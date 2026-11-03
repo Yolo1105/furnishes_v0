@@ -1,20 +1,4 @@
-/* The buying guide's own pieces; its tiles are the contact page's. */
-
-/* a tile's lines, one under another in the brown at the reading size */
-.lines {
-  display: grid;
-  gap: 10px;
-  margin: 8px 0 0;
-  padding: 0;
-  color: var(--ink-dark);
-  font: 400 var(--text-md) / 1.45 var(--font);
-  list-style: none;
-}
-
-/* what an order holds and what it doesn't, two halves side by side */
-.pair {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
+/* The buying guide's own pieces; its lists are the site's index. */
 
 /* the line under the flats, at the reading width */
 .note {
@@ -22,10 +6,4 @@
   margin: clamp(16px, 2vw, 24px) 0 0;
   color: var(--ink-dark);
   font: 400 var(--text-md) / 1.5 var(--font);
-}
-
-@media (width <= 639px) {
-  .pair {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }

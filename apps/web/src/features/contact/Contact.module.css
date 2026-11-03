@@ -24,41 +24,7 @@
   font: 400 var(--text-lg) / 1.4 var(--font);
 }
 
-/* what people write about, three to a row on the tile's faint red, each
-   its button at the foot so the buttons line up */
-.topics {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 1.5vw, 24px);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.topic {
-  display: grid;
-  grid-template-rows: auto auto 1fr auto;
-  gap: 4px;
-  justify-items: start;
-  padding: clamp(24px, 2.6vw, 40px);
-  background: var(--ink-tile);
-}
-
-.topic > a {
-  margin-top: 24px;
-}
-
-@media (width <= 1023px) {
-  .topics {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 @media (width <= 639px) {
-  .topics {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .details > div {
     grid-template-columns: minmax(0, 1fr);
     gap: 2px;

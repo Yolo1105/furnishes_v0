@@ -1333,15 +1333,109 @@
 
 /* ---------- how it works ---------- */
 
-/* numbered steps on one tile, as the promise row */
-.steps {
+/* ---------- an index ---------- */
+
+/* a short list as a contents page: each entry a full-width row, the name
+   on the left and its words beside it, parted by space alone, on the
+   owner's word: no rules and no fills, so a page reads as typeset text
+   rather than a grid of cards */
+.index {
   display: grid;
-  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
-  gap: 24px clamp(16px, 2vw, 32px);
+  gap: clamp(32px, 3.6vw, 56px);
   margin: 0;
-  padding: clamp(24px, 2.8vw, 44px);
+  padding: 0;
   list-style: none;
-  background: var(--ink-tile);
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 12px clamp(24px, 4vw, 72px);
+}
+
+/* the number before the name, in the pale red at the name's size, so a
+   step reads as "01 You order" */
+.entryHead {
+  display: grid;
+  gap: 6px 20px;
+  align-content: start;
+  align-items: baseline;
+}
+
+.entryHead:has(> .entryNumber) {
+  grid-template-columns: auto 1fr;
+}
+
+.entryHead > :not(.entryNumber) {
+  grid-column: -2 / -1;
+}
+
+.entryNumber {
+  grid-row: span 2;
+  color: var(--ink-pale);
+  font: 400 var(--text-head) / 1.1 var(--font);
+  font-variant-numeric: tabular-nums;
+  font-variation-settings: "wdth" var(--width-display);
+}
+
+.entryNote {
+  composes: caps from global;
+  color: var(--ink-dark-pale);
+}
+
+.entryName {
+  margin: 0;
+  color: var(--ink);
+  font: 400 var(--text-head) / 1.1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+  text-wrap: balance;
+}
+
+/* the words in the statement's lighter Jost, as an opening's paragraphs */
+.entryBody {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  justify-items: start;
+  max-width: 60ch;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+.entryBody > p {
+  margin: 0;
+}
+
+/* labelled facts: the label in the small capitals, its words after it */
+.entryFacts {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.entryFacts > div {
+  display: grid;
+  grid-template-columns: 9em minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+}
+
+.entryLabel {
+  composes: caps from global;
+  color: var(--ink-dark-pale);
+}
+
+.entryFacts dd {
+  margin: 0;
+}
+
+/* the way on: red words in the reading face, underlined when pointed at */
+.entryGo {
+  composes: underline-on-hover from global;
+  margin-top: 6px;
+  color: var(--ink);
+  font: 400 var(--text-lg) / 1.4 var(--font);
 }
 
 /* ---------- questions ---------- */
@@ -1510,7 +1604,7 @@
   }
 
   .visit,
-  .steps {
+  .entry {
     grid-template-columns: 1fr;
   }
 
@@ -1520,6 +1614,11 @@
 }
 
 @media (width <= 639px) {
+  .entryFacts > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+
   .roomCards {
     grid-template-columns: 1fr;
   }

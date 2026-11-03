@@ -29,8 +29,8 @@ export const DETAILS = [
  */
 export const TOPICS_HEAD = {
   label: "Write to us",
-  title: "What can we help with?",
-  rest: "Pick the closest; the email opens with its subject written in",
+  title: "What people write to us about",
+  rest: "Pick the closest and your email opens with its subject written in",
 };
 
 export const TOPICS = [
@@ -81,7 +81,7 @@ export const TOPICS = [
 /** What happens once the email is sent. */
 export const NEXT = {
   label: "After you write",
-  title: "What happens next",
+  title: "Once it's sent",
   rest: `We answer within ${FACTS.replyTime}`,
   steps: [
     {

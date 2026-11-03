@@ -1,7 +1,7 @@
 import Link from "next/link";
 import collection from "@/features/collection/Collection.module.css";
 import { Opening } from "@/features/collection/Opening";
-import { Section, Steps } from "@/features/collection/Sections";
+import { Index, Section, Steps } from "@/features/collection/Sections";
 import { CONTACT, DETAILS, NEXT, TOPICS, TOPICS_HEAD } from "./contactList";
 import styles from "./Contact.module.css";
 
@@ -40,18 +40,9 @@ export function Contact() {
         </dl>
       </Opening>
       <Section id="topics-title" {...TOPICS_HEAD}>
-        <ul className={styles.topics}>
-          {TOPICS.map((t) => (
-            <li key={t.name} className={styles.topic}>
-              <p className={collection.cardLabel}>{t.get}</p>
-              <h3 className={collection.promiseName}>{t.name}</h3>
-              <p className={collection.promiseLine}>{t.line}</p>
-              <a className={collection.outline} href={t.href}>
-                {t.go}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <Index
+          entries={TOPICS.map((t) => ({ name: t.name, note: t.get, line: t.line, go: { label: t.go, href: t.href } }))}
+        />
       </Section>
       <Steps label={NEXT.label} title={NEXT.title} rest={NEXT.rest} steps={NEXT.steps} />
     </>
