@@ -190,7 +190,7 @@ export function Enquiry() {
 
           <label className={styles.group}>
             <span className={styles.groupLegend}>{ENQUIRY.more.legend}</span>
-            <textarea className={styles.more} name="more" rows={3} placeholder={ENQUIRY.more.hint} />
+            <textarea className={styles.more} name="more" rows={8} placeholder={ENQUIRY.more.hint} />
           </label>
           <label className={styles.agree}>
             <input type="checkbox" name="agree" required />

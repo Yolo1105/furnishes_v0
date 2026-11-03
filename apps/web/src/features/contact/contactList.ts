@@ -149,7 +149,10 @@ export const ENQUIRY = {
   name: "your name",
   company: "your company",
   email: "your email",
-  more: { legend: "Anything else", hint: "The room, its size, what you have in mind" },
+  more: {
+    legend: "Anything else",
+    hint: "Tell us about the room or the space, its size, who uses it, what you have now and what you have in mind",
+  },
   agree: "I agree to the",
   terms: "terms",
   and: "and the",

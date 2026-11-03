@@ -98,10 +98,19 @@
   outline: none;
 }
 
-/* the long answer: the line's size, growing down as it is written */
+/* the long answer: a large box in the choices' thin frame, so it reads as
+   room to tell the whole room rather than a short note, growing down as
+   it is written */
 .more {
+  min-height: clamp(200px, 28vh, 320px);
+  padding: 16px 18px;
+  border: var(--line) solid var(--rule-strong);
   font: 400 var(--text-line) / 1.5 var(--font);
   resize: vertical;
+}
+
+.more:focus-visible {
+  border-color: var(--ink);
 }
 
 /* the big questions, those the rest follows from, in the section titles'
