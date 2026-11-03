@@ -87,7 +87,11 @@ export function RoomByRoom() {
   );
 }
 
-/** Two short guides side by side: how to measure, and what to check in an HDB flat, then a visit. */
+/**
+ * Two short guides before ordering, beside a room: the heading over both
+ * halves, the photo on the left, and on the right each guide's name over its
+ * numbered steps, then the way to book a visit.
+ */
 export function Guides() {
   return (
     <section className={styles.guides} aria-labelledby="guides-title">
@@ -96,20 +100,28 @@ export function Guides() {
         {GUIDES_HEAD.title}
       </h2>
       <div className={styles.guideRow}>
-        {GUIDES.map((g) => (
-          <div key={g.name} className={styles.guide}>
-            <h3 className={styles.guideName}>{g.name}</h3>
-            <ol className={styles.guidePoints}>
-              {g.points.map((p) => (
-                <li key={p}>{p}</li>
-              ))}
-            </ol>
-          </div>
-        ))}
+        <span className={styles.guidePhoto}>
+          <Image src={GUIDES_HEAD.photo} alt="" fill sizes="(max-width: 1023px) 100vw, 40vw" />
+        </span>
+        <div className={styles.guideSide}>
+          {GUIDES.map((g) => (
+            <div key={g.name} className={styles.guide}>
+              <h3 className={styles.guideName}>{g.name}</h3>
+              <ol className={styles.guidePoints}>
+                {g.points.map((p, n) => (
+                  <li key={p}>
+                    <span className={styles.problemNumber}>{String(n + 1).padStart(2, "0")}</span>
+                    {p}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))}
+          <Link className={styles.guideCall} href={GUIDES_CALL.href}>
+            {GUIDES_CALL.label}
+          </Link>
+        </div>
       </div>
-      <Link className={styles.guideCall} href={GUIDES_CALL.href}>
-        {GUIDES_CALL.label}
-      </Link>
     </section>
   );
 }

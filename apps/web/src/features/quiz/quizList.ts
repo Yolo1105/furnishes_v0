@@ -4,6 +4,7 @@ import hallway from "@/assets/rooms/hallway.jpg";
 import home from "@/assets/rooms/home.jpg";
 import kitchen from "@/assets/rooms/kitchen.jpg";
 import living from "@/assets/rooms/living.jpg";
+import study from "@/assets/rooms/study.jpg";
 import { PIECES } from "@/features/catalog/catalog";
 import { shopHref, slug } from "@/features/catalog/filters";
 import { routes } from "@/lib/routes";
@@ -62,7 +63,7 @@ export const BANNER = {
  * Two short guides at the page's foot, from the rebuild's help and HDB
  * pages, set here on the page rather than as links to pages not built yet.
  */
-export const GUIDES_HEAD = { label: "Before you order", title: "Measure first, then choose" };
+export const GUIDES_HEAD = { label: "Before you order", title: "Measure first, then choose", photo: study };
 
 export const GUIDES = [
   {
@@ -88,6 +89,8 @@ export const GUIDES_CALL = { label: "Book a visit", href: routes.contact };
 /**
  * What's bothering you: a room, then three problems in it, each answered by
  * one piece from the catalogue (by its slug), after the rebuild's picker.
+ * Each room shows its own photo, so the picture follows the room chosen;
+ * they are rooms, not the pieces themselves.
  */
 export const PROBLEMS_HEAD = {
   label: "Start from the problem",
@@ -99,6 +102,7 @@ export const PROBLEMS_HEAD = {
 export const PROBLEMS = [
   {
     room: "Entryway",
+    photo: hallway,
     items: [
       { line: "Coats pile up on the chair by the door", piece: "coat-stand" },
       { line: "Keys and bags end up on the floor", piece: "entry-pack" },
@@ -107,6 +111,7 @@ export const PROBLEMS = [
   },
   {
     room: "Bedroom",
+    photo: bunk,
     items: [
       { line: "Phone and book on the floor by the bed", piece: "bedside-block" },
       { line: "Two people share one room", piece: "room-divider" },
@@ -115,6 +120,7 @@ export const PROBLEMS = [
   },
   {
     room: "Work",
+    photo: home,
     items: [
       { line: "The printer lives on the floor", piece: "desk-side-pack" },
       { line: "My back aches after a day at the desk", piece: "office-chair" },
@@ -123,6 +129,7 @@ export const PROBLEMS = [
   },
   {
     room: "Kitchen",
+    photo: kitchen,
     items: [
       { line: "The counter is too short when I cook", piece: "kitchen-cart" },
       { line: "Homework and dinner share one table", piece: "dining-table" },
@@ -131,6 +138,7 @@ export const PROBLEMS = [
   },
   {
     room: "Living room",
+    photo: living,
     items: [
       { line: "The sofa floats in the middle of the room", piece: "sofa-back-divider" },
       { line: "There's no seat for guests", piece: "sofa" },
