@@ -37,7 +37,7 @@ function Pick({
   );
 }
 
-/** A choice with a line under its name, in a thin frame that darkens and takes a tick once picked. */
+/** A choice with a line under its name, in a thin frame that turns red once picked. */
 function Option({
   type,
   name,
@@ -45,6 +45,7 @@ function Option({
   title,
   line,
   onChange,
+  checked,
 }: {
   type: "radio" | "checkbox";
   name: string;
@@ -52,17 +53,11 @@ function Option({
   title: string;
   line: string;
   onChange?: () => void;
+  checked?: boolean;
 }) {
   return (
     <label className={styles.option}>
-      <input
-        className="visually-hidden"
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        required={type === "radio"}
-      />
+      <input className="visually-hidden" type={type} name={name} value={value} onChange={onChange} checked={checked} />
       <span className={styles.optionName}>{title}</span>
       <span className={styles.optionLine}>{line}</span>
     </label>
@@ -76,7 +71,8 @@ function Option({
  * visitor's mail app, as the planning brief does: there is no form inbox.
  */
 export function Enquiry() {
-  const [who, setWho] = useState<Who | null>(null);
+  // a home to start, as most who write are families, so the whole form shows at once
+  const [who, setWho] = useState<Who>("home");
   const [size, setSize] = useState(0);
 
   const send = (e: FormEvent<HTMLFormElement>) => {
@@ -117,99 +113,96 @@ export function Enquiry() {
               value={o.value}
               title={o.name}
               line={o.line}
+              checked={who === o.value}
               onChange={() => setWho(o.value)}
             />
           ))}
         </div>
       </fieldset>
 
-      {/* the rest follows the first answer, so it waits for it */}
-      {who && (
-        <>
-          <fieldset className={styles.group} key={who}>
-            <legend className={styles.question}>{ENQUIRY.needs.legend}</legend>
-            <div className={styles.options}>
-              {ENQUIRY.needs[who].map((o) => (
-                <Option key={o.name} type="checkbox" name="needs" value={o.name} title={o.name} line={o.line} />
-              ))}
-            </div>
-          </fieldset>
+      {/* the rest follows the first answer; a home's questions show until a company is picked */}
+      <fieldset className={styles.group} key={who}>
+        <legend className={styles.question}>{ENQUIRY.needs.legend}</legend>
+        <div className={styles.options}>
+          {ENQUIRY.needs[who].map((o) => (
+            <Option key={o.name} type="checkbox" name="needs" value={o.name} title={o.name} line={o.line} />
+          ))}
+        </div>
+      </fieldset>
 
-          {who === "home" ? (
-            <Pick name="space" {...ENQUIRY.space} />
-          ) : (
+      {who === "home" ? (
+        <Pick name="space" {...ENQUIRY.space} />
+      ) : (
+        <>
+          <Pick name="kind" {...ENQUIRY.kind} />
+          <label className={styles.group}>
+            <span className={styles.groupLegend}>{ENQUIRY.size.legend}</span>
+            <span className={styles.sizeValue} aria-hidden="true">
+              {ENQUIRY.size.steps[size]}
+            </span>
+            <input
+              className={styles.size}
+              type="range"
+              min={0}
+              max={ENQUIRY.size.steps.length - 1}
+              step={1}
+              value={size}
+              aria-valuetext={ENQUIRY.size.steps[size]}
+              onChange={(e) => setSize(Number(e.target.value))}
+            />
+          </label>
+        </>
+      )}
+
+      <Pick name="found" {...ENQUIRY.found} />
+
+      <fieldset className={styles.group}>
+        <legend className={styles.question}>{ENQUIRY.reach.legend}</legend>
+        <p className={styles.sentence}>
+          {ENQUIRY.hi}{" "}
+          <label className={styles.blank}>
+            <span className="visually-hidden">{ENQUIRY.name}</span>
+            <input name="name" placeholder={ENQUIRY.name} autoComplete="name" required />
+          </label>
+          {who === "company" && (
             <>
-              <Pick name="kind" {...ENQUIRY.kind} />
-              <label className={styles.group}>
-                <span className={styles.groupLegend}>{ENQUIRY.size.legend}</span>
-                <span className={styles.sizeValue} aria-hidden="true">
-                  {ENQUIRY.size.steps[size]}
-                </span>
-                <input
-                  className={styles.size}
-                  type="range"
-                  min={0}
-                  max={ENQUIRY.size.steps.length - 1}
-                  step={1}
-                  value={size}
-                  aria-valuetext={ENQUIRY.size.steps[size]}
-                  onChange={(e) => setSize(Number(e.target.value))}
-                />
+              {" "}
+              {ENQUIRY.from}{" "}
+              <label className={styles.blank}>
+                <span className="visually-hidden">{ENQUIRY.company}</span>
+                <input name="company" placeholder={ENQUIRY.company} autoComplete="organization" />
               </label>
             </>
           )}
-
-          <Pick name="found" {...ENQUIRY.found} />
-
-          <fieldset className={styles.group}>
-            <legend className={styles.question}>{ENQUIRY.reach.legend}</legend>
-            <p className={styles.sentence}>
-              {ENQUIRY.hi}{" "}
-              <label className={styles.blank}>
-                <span className="visually-hidden">{ENQUIRY.name}</span>
-                <input name="name" placeholder={ENQUIRY.name} autoComplete="name" required />
-              </label>
-              {who === "company" && (
-                <>
-                  {" "}
-                  {ENQUIRY.from}{" "}
-                  <label className={styles.blank}>
-                    <span className="visually-hidden">{ENQUIRY.company}</span>
-                    <input name="company" placeholder={ENQUIRY.company} autoComplete="organization" />
-                  </label>
-                </>
-              )}
-              <span className={styles.stop}>.</span> {ENQUIRY.write}{" "}
-              <label className={`${styles.blank} ${styles.blankWide}`}>
-                <span className="visually-hidden">{ENQUIRY.email}</span>
-                <input name="email" type="email" placeholder={ENQUIRY.email} autoComplete="email" required />
-              </label>
-              <span className={styles.stop}>.</span>
-            </p>
-          </fieldset>
-
-          <label className={styles.group}>
-            <span className={styles.groupLegend}>{ENQUIRY.more.legend}</span>
-            <textarea className={styles.more} name="more" rows={8} placeholder={ENQUIRY.more.hint} />
+          <span className={styles.stop}>.</span> {ENQUIRY.write}{" "}
+          <label className={`${styles.blank} ${styles.blankWide}`}>
+            <span className="visually-hidden">{ENQUIRY.email}</span>
+            <input name="email" type="email" placeholder={ENQUIRY.email} autoComplete="email" required />
           </label>
-          <label className={styles.agree}>
-            <input type="checkbox" name="agree" required />
-            <span>
-              {ENQUIRY.agree}{" "}
-              <Link className={collection.qaMail} href={routes.terms}>
-                {ENQUIRY.terms}
-              </Link>{" "}
-              {ENQUIRY.and}{" "}
-              <Link className={collection.qaMail} href={routes.privacy}>
-                {ENQUIRY.privacy}
-              </Link>
-            </span>
-          </label>
-          <button type="submit" className={collection.outline}>
-            {ENQUIRY.send}
-          </button>
-        </>
-      )}
+          <span className={styles.stop}>.</span>
+        </p>
+      </fieldset>
+
+      <label className={styles.group}>
+        <span className={styles.groupLegend}>{ENQUIRY.more.legend}</span>
+        <textarea className={styles.more} name="more" rows={8} placeholder={ENQUIRY.more.hint} />
+      </label>
+      <label className={styles.agree}>
+        <input type="checkbox" name="agree" required />
+        <span>
+          {ENQUIRY.agree}{" "}
+          <Link className={collection.qaMail} href={routes.terms}>
+            {ENQUIRY.terms}
+          </Link>{" "}
+          {ENQUIRY.and}{" "}
+          <Link className={collection.qaMail} href={routes.privacy}>
+            {ENQUIRY.privacy}
+          </Link>
+        </span>
+      </label>
+      <button type="submit" className={collection.outline}>
+        {ENQUIRY.send}
+      </button>
     </form>
   );
 }
