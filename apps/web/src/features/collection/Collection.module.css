@@ -1274,6 +1274,64 @@
   background: var(--ink-warm-deep);
 }
 
+/* ---------- three kinds compared ---------- */
+
+/* three columns, parted by space alone: each kind's name in red, then its
+   rows as a pale capital label over a brown value, and its way in */
+.compare {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px clamp(24px, 3vw, 56px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.compareKind {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 20px;
+  justify-items: start;
+}
+
+.compareKind .promiseName {
+  margin: 0;
+}
+
+.compareRows {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  margin: 0;
+}
+
+.compareLabel {
+  composes: caps from global;
+  margin-bottom: 4px;
+  color: var(--ink-dark-pale);
+}
+
+.compareValue {
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+.compareGo {
+  composes: caps underline-on-hover from global;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--ink);
+  font-size: var(--text-md);
+}
+
+@media (width <= 1023px) {
+  .compare {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---------- how it works ---------- */
 
 /* numbered steps on one tile, as the promise row */

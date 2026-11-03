@@ -1,5 +1,7 @@
 import aFrame from "@/assets/banner/a-frame.jpg";
-import { ARRIVALS } from "@/features/catalog/catalog";
+import bookwallAfter from "@/assets/before-after/bookwall-after.webp";
+import bookwallBefore from "@/assets/before-after/bookwall-before.webp";
+import { ARRIVALS, FURNITURE_LEAD, FURNITURE_WEEKS } from "@/features/catalog/catalog";
 
 /**
  * The Modular page's words, in one place. Sizes, limits and answers marked
@@ -64,4 +66,52 @@ export const QUESTIONS = [
     q: "Can I change a piece after I order?",
     a: "Until it goes into production, usually within a week of ordering.",
   },
+] as const;
+
+/** What modular can't do, said once under the reasons. */
+export const FEATURES_LIMIT =
+  "What it isn't: built-in carpentry. Pieces stand on the floor, and taller ones may need fixing to the wall.";
+
+/**
+ * How long each way takes, as measuring lines on one week scale: the
+ * catalogue's own lead times, so they change in one place.
+ */
+export const LEAD_HEAD = {
+  label: "Lead times",
+  title: "How long it takes",
+  rest: "From your order to your door, in weeks",
+};
+
+export const LEADS = [
+  { name: "In parts", lead: ARRIVALS.parts.lead, weeks: ARRIVALS.parts.weeks },
+  { name: "Built", lead: ARRIVALS.built.lead, weeks: ARRIVALS.built.weeks },
+  { name: "Ready-made furniture", lead: FURNITURE_LEAD, weeks: FURNITURE_WEEKS },
+] as const;
+
+/** One room, before and after one piece; a render of the room, not a photograph. */
+export const BEFORE_AFTER = {
+  label: "Before and after",
+  title: "One piece, one room",
+  rest: "Drag across to see the sofa-back divider in place",
+  before: { photo: bookwallBefore, alt: "A render of an open living room, books piled on the floor by the sofa" },
+  after: { photo: bookwallAfter, alt: "The same room with a sofa-back divider of shelves behind the sofa" },
+  piece: "sofa-back-divider",
+};
+
+/** The finishes we are looking at next; none is on sale yet. */
+export const SWATCHES_HEAD = {
+  label: "Finishes",
+  title: "What comes next",
+  rest: "Birch, walnut and red today; these are on the way",
+  line: "Ask for samples of today's finishes by email, or see them on a home visit.",
+  soon: "Coming",
+};
+
+export const SWATCHES = [
+  { name: "Oiled oak", fill: "oiled-oak" },
+  { name: "Smoked oak", fill: "smoked-oak" },
+  { name: "Woven cane", fill: "cane" },
+  { name: "Natural linen", fill: "linen" },
+  { name: "Oat bouclé", fill: "boucle" },
+  { name: "Pepper wool", fill: "wool" },
 ] as const;

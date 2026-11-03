@@ -15,7 +15,8 @@ import home from "@/assets/rooms/home.jpg";
 import kitchen from "@/assets/rooms/kitchen.jpg";
 import living from "@/assets/rooms/living.jpg";
 import study from "@/assets/rooms/study.jpg";
-import { ARRIVALS, FURNITURE_WEEKS } from "@/features/catalog/catalog";
+import { ARRIVALS, fromPrice, FURNITURE_WEEKS, type LineSlug, PIECES } from "@/features/catalog/catalog";
+import { sgd } from "@/lib/money";
 import { shopHref } from "@/features/catalog/filters";
 import { lineOf, routes } from "@/lib/routes";
 
@@ -122,6 +123,44 @@ export const MOSAIC = {
   side: [
     { title: "Sized to your wall", go: "Shop modular", href: routes.modular, photo: aFrame },
     { title: "One room, made into two", go: "Shop separator walls", href: lineOf("walls"), photo: hallway },
+  ],
+};
+
+/** The lowest price in a line, read from the catalogue so it follows the prices. */
+const lowest = (line: LineSlug) => sgd(Math.min(...PIECES.filter((p) => p.line === line).map(fromPrice)));
+
+/**
+ * The three ways to buy, side by side, after the rebuild's comparison cut
+ * to four rows. Designing your own is priced with the design, so its price
+ * and time are words rather than figures until the owner sets them.
+ */
+export const COMPARE = {
+  label: "Which kind",
+  title: "Three kinds of furniture, and why",
+  rest: "Ready-made, modular, or your own design",
+  rows: { is: "What it is", takes: "How long it takes", price: "Price" } as const,
+  kinds: [
+    {
+      name: "Ready-made",
+      is: "Sofas, desks, chairs and tables in the sizes listed",
+      takes: FURNITURE_WEEKS,
+      price: `From ${lowest("furniture")}`,
+      go: { label: "Shop ready-made", href: routes.furniture },
+    },
+    {
+      name: "Modular",
+      is: "Birch pieces sized to your wall, built or in parts",
+      takes: `${ARRIVALS.parts.weeks} in parts, ${ARRIVALS.built.weeks} built`,
+      price: `From ${lowest("modular")}`,
+      go: { label: "Shop modular", href: routes.modular },
+    },
+    {
+      name: "Design your own",
+      is: "Your room drawn in 3D, with pieces set to fit it",
+      takes: "Quoted with your design",
+      price: "Priced on your design",
+      go: { label: "Design your room", href: routes.designYourRoom },
+    },
   ],
 };
 

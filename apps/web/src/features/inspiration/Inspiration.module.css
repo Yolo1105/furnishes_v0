@@ -212,6 +212,22 @@
   letter-spacing: var(--track-tight);
 }
 
+/* a problem's one line, under its name, in the page's brown Jost */
+.lookLine {
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-md) / 1.4 var(--font-wordmark);
+}
+
+/* between the rooms and the journal, the row keeps a section's space above
+   it, and the journal brings its own below */
+.noticed {
+  padding-top: clamp(64px, 8vw, 128px);
+}
+
+.noticed .lookRow {
+  margin-bottom: 0;
+}
+
 .look:hover .line {
   color: var(--ink);
 }

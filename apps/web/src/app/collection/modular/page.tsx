@@ -6,7 +6,8 @@ import styles from "@/features/collection/Collection.module.css";
 import { Questions } from "@/features/collection/Questions";
 import { LinePieces, Steps } from "@/features/collection/Sections";
 import { MODULAR_BANNER, QUESTIONS, STEPS } from "@/features/modular/modularList";
-import { Features, Walls } from "@/features/modular/ModularSections";
+import { BeforeAfter } from "@/features/modular/BeforeAfter";
+import { Features, LeadTimes, Swatches, Walls } from "@/features/modular/ModularSections";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 export const metadata: Metadata = {
@@ -15,8 +16,8 @@ export const metadata: Metadata = {
 };
 
 /**
- * Modular: the line's banner, its pieces by kind, how it works, why it is
- * modular, the separator walls with their limits, questions, and designing your own and
+ * Modular: the line's banner, its pieces by kind, how it works, how long it
+ * takes, one room before and after, why it is modular, the finishes coming, the separator walls with their limits, questions, and designing your own and
  * the home visit.
  */
 export default function ModularPage() {
@@ -27,7 +28,10 @@ export default function ModularPage() {
         <CollectionBanner banner={MODULAR_BANNER} />
         <LinePieces line="modular" />
         <Steps label="Step by step" title="How it works" rest="From your wall to your room" steps={STEPS} />
+        <LeadTimes />
+        <BeforeAfter />
         <Features />
+        <Swatches />
         <Walls />
         <Questions questions={QUESTIONS} />
         <DesignOwn />

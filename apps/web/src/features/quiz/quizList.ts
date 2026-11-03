@@ -84,3 +84,57 @@ export const GUIDES = [
 ];
 
 export const GUIDES_CALL = { label: "Book a visit", href: routes.contact };
+
+/**
+ * What's bothering you: a room, then three problems in it, each answered by
+ * one piece from the catalogue (by its slug), after the rebuild's picker.
+ */
+export const PROBLEMS_HEAD = {
+  label: "Start from the problem",
+  title: "What's bothering you?",
+  line: "Pick a room, then the problem that sounds most like yours.",
+  call: "See this piece",
+};
+
+export const PROBLEMS = [
+  {
+    room: "Entryway",
+    items: [
+      { line: "Coats pile up on the chair by the door", piece: "coat-stand" },
+      { line: "Keys and bags end up on the floor", piece: "entry-pack" },
+      { line: "Shoes spread along the wall", piece: "low-cabinet" },
+    ],
+  },
+  {
+    room: "Bedroom",
+    items: [
+      { line: "Phone and book on the floor by the bed", piece: "bedside-block" },
+      { line: "Two people share one room", piece: "room-divider" },
+      { line: "Books stacked wherever there's space", piece: "bookcase" },
+    ],
+  },
+  {
+    room: "Work",
+    items: [
+      { line: "The printer lives on the floor", piece: "desk-side-pack" },
+      { line: "My back aches after a day at the desk", piece: "office-chair" },
+      { line: "The desk is too small for the work", piece: "executive-desk" },
+    ],
+  },
+  {
+    room: "Kitchen",
+    items: [
+      { line: "The counter is too short when I cook", piece: "kitchen-cart" },
+      { line: "Homework and dinner share one table", piece: "dining-table" },
+      { line: "Pots and pans have nowhere to go", piece: "low-cabinet" },
+    ],
+  },
+  {
+    room: "Living room",
+    items: [
+      { line: "The sofa floats in the middle of the room", piece: "sofa-back-divider" },
+      { line: "There's no seat for guests", piece: "sofa" },
+      { line: "One room has to be living and study", piece: "room-divider" },
+    ],
+  },
+] as const;

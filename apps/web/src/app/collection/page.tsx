@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Compare } from "@/features/collection/Compare";
 import { CollectionBanner } from "@/features/collection/CollectionBanner";
 import { BANNER, COLLECTION_QUESTIONS, FOR_AND_LOOKS } from "@/features/collection/collectionList";
 import { ReadyMade } from "@/features/collection/ReadyMade";
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 
 /**
  * Collection: what we sell over a room; right under it a statement of who
- * we are, a mosaic of the three things we make, then the ready-made line's quickest ways in, who it's for and its looks, as four tiles, then
+ * we are, a mosaic of the three things we make and how they compare, then the ready-made line's quickest ways in, who it's for and its looks, as four tiles, then
  * titled sections: the two things we sell, what goes into each piece, a few pieces to start with,
  * quick ways in, questions, then what every order comes with and the home visit.
  */
@@ -36,6 +37,7 @@ export default function CollectionPage() {
         <CollectionBanner banner={BANNER} bare />
         <Intro />
         <Mosaic />
+        <Compare />
         <ReadyMade />
         <UnevenTiles
           id="for-title"

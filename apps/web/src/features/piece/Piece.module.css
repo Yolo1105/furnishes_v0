@@ -197,6 +197,43 @@
   letter-spacing: var(--track-tight);
 }
 
+/* what you can change: four lines, each its name, what it means and its
+   cost at the right; parted by space, as the facts below */
+.changes {
+  display: grid;
+  gap: 12px;
+  max-width: 960px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: 400 var(--text-line) / var(--leading-line) var(--font);
+}
+
+.changes li {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) 2fr 1fr;
+  gap: 4px 32px;
+}
+
+.changeName {
+  font-weight: 500;
+}
+
+.changeCost {
+  text-align: right;
+}
+
+@media (width <= 639px) {
+  .changes li {
+    grid-template-columns: 1fr auto;
+  }
+
+  .changes li > :nth-child(2) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
 /* each fact's name in a narrow column, its words beside it */
 .facts {
   display: grid;

@@ -21,6 +21,164 @@
   letter-spacing: var(--track-tight);
 }
 
+/* what modular can't do, one line under the reasons, in the pale brown */
+.featuresLimit {
+  max-width: 60ch;
+  margin: 28px 0 0;
+  color: var(--ink-dark-pale);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+/* ---------- lead times ---------- */
+
+/* a row each: the way it arrives, its measuring line, and the weeks */
+.leads {
+  display: grid;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lead {
+  display: grid;
+  grid-template-columns: 14em minmax(0, 1fr) 8em;
+  gap: 8px clamp(16px, 2vw, 32px);
+  align-items: center;
+}
+
+.leadName {
+  color: var(--ink-dark);
+  font: 400 var(--text-lg) / 1.3 var(--font);
+}
+
+/* a thin line the scale's length, and over it a heavy red one across the
+   weeks it may arrive in, from --from to --to of the scale */
+.leadLine {
+  height: 8px;
+  background:
+    linear-gradient(var(--ink), var(--ink)) var(--from) 50% / calc(var(--to) - var(--from)) 100% no-repeat,
+    linear-gradient(var(--rule-strong), var(--rule-strong)) 0 50% / 100% var(--line) no-repeat;
+}
+
+.leadWeeks {
+  color: var(--ink);
+  font: 400 var(--text-lg) / 1.3 var(--font);
+  text-align: right;
+}
+
+/* ---------- before and after ---------- */
+
+/* the two renders stacked on purpose, the after one cut back to the handle;
+   no taller than most of a screen, so the whole room shows while dragging */
+.compare {
+  position: relative;
+  height: min(70svh, 62vw);
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.compare img {
+  object-fit: cover;
+}
+
+.after {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 0 var(--at));
+}
+
+/* the handle, a thin cream line where the two meet */
+.handle {
+  position: absolute;
+  inset: 0 auto 0 var(--at);
+  width: 2px;
+  background: var(--paper);
+  translate: -50% 0;
+  box-shadow: var(--shadow-dot);
+}
+
+/* the range input over the whole picture, unseen, so dragging anywhere moves it */
+.range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+/* keyboard focus shows on the handle, as the input itself can't be seen */
+.compare:has(.range:focus-visible) .handle {
+  width: 4px;
+  background: var(--ink);
+}
+
+.compareFoot {
+  composes: caps from global;
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0 0;
+  color: var(--ink-dark-pale);
+}
+
+/* ---------- swatches ---------- */
+
+/* six flat samples in a row, each its name and "Coming" under it */
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 24px clamp(12px, 1.5vw, 24px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.swatches li {
+  display: grid;
+  gap: 4px;
+}
+
+.sample {
+  margin-bottom: 8px;
+  aspect-ratio: 4 / 3;
+}
+
+.sample[data-fill="oiled-oak"] {
+  background: var(--finish-oiled-oak);
+}
+
+.sample[data-fill="smoked-oak"] {
+  background: var(--finish-smoked-oak);
+}
+
+.sample[data-fill="cane"] {
+  background: var(--finish-cane);
+}
+
+.sample[data-fill="linen"] {
+  background: var(--finish-linen);
+}
+
+.sample[data-fill="boucle"] {
+  background: var(--finish-boucle);
+}
+
+.sample[data-fill="wool"] {
+  background: var(--finish-wool);
+}
+
+.swatchName {
+  color: var(--ink-dark);
+  font: 400 var(--text-lg) / 1.2 var(--font);
+}
+
+.soon {
+  composes: caps from global;
+  color: var(--ink-pale);
+}
+
 /* ---------- separator walls ---------- */
 
 /* the wall's promise on the left, what it is and can't do on the right */
@@ -51,5 +209,19 @@
   .features,
   .walls {
     grid-template-columns: 1fr;
+  }
+
+  .swatches {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* on phones the name sits over the line, the weeks beside the name */
+  .lead {
+    grid-template-columns: 1fr auto;
+  }
+
+  .leadLine {
+    grid-column: 1 / -1;
+    grid-row: 2;
   }
 }

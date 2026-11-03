@@ -103,6 +103,15 @@
   /* the red finish on the bookcase (a fill, not text) */
   --finish-red: color-mix(in srgb, var(--ink) 35%, var(--paper));
 
+  /* the finishes coming next, as flat samples until they are photographed
+     (fills, not text) */
+  --finish-oiled-oak: #c79a62;
+  --finish-smoked-oak: #6e5640;
+  --finish-cane: #d9b77e;
+  --finish-linen: #e2d6bf;
+  --finish-boucle: #e9e0cf;
+  --finish-wool: #5b5650;
+
   /* ---------- type ---------- */
 
   /* Instrument Sans throughout, in three roles: display for the big words,

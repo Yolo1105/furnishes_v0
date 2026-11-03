@@ -77,3 +77,40 @@ export const LOOKS_HEAD = {
   label: "Rooms to take home",
   note: "The pieces in each, ready to order",
 };
+
+/**
+ * Small things people stop seeing, after the rebuild's "not noticed": each
+ * the problem as its title, one line, and the piece that answers it.
+ */
+export const NOTICED_HEAD = {
+  title: "You may have got used to these",
+  label: "Small fixes",
+  note: "Everyday problems, and the piece for each",
+};
+
+export const NOTICED = [
+  {
+    name: "The chair by the door holds every coat",
+    line: "Coats and bags on a stand of their own.",
+    piece: "coat-stand",
+    photo: hallway,
+  },
+  {
+    name: "The phone sleeps on the floor",
+    line: "The phone, the book and the lamp at hand's height.",
+    piece: "bedside-block",
+    photo: cabinSofa,
+  },
+  {
+    name: "The printer lives under the desk",
+    line: "What you use at the desk, within reach.",
+    piece: "desk-side-pack",
+    photo: study,
+  },
+  {
+    name: "Chopping on the edge of the sink",
+    line: "Prep space on casters, wherever you cook.",
+    piece: "kitchen-cart",
+    photo: kitchen,
+  },
+] as const;

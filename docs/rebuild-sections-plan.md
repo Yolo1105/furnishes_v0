@@ -1,8 +1,15 @@
 # What to take from the rebuild
 
 A plan for bringing sections of the rebuild (the site at localhost:3101, its
-`/studio` and `/about` pages) into furnishes v0. Nothing here is built yet.
-Written 2 Nov 2026.
+`/studio` and `/about` pages) into furnishes v0. Written 2 Nov 2026.
+
+**Status, 2 Nov 2026: all six are built** on the `rebuild-sections` branch.
+Two changes from the plan:
+
+- The About page also has the story, the team, and awards and press, with
+  placeholders, on the owner's word.
+- "Why modular" already existed on the modular page. It gained its one line
+  on limits rather than becoming a second section.
 
 Scope: the rebuild only. The other old repos are left for later.
 

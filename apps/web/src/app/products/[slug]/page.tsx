@@ -7,6 +7,7 @@ import { PromiseRow } from "@/features/collection/Promises";
 import { FURNITURE_PROMISES } from "@/features/furniture/furnitureList";
 import catalog from "@/features/catalog/Catalog.module.css";
 import styles from "@/features/piece/Piece.module.css";
+import { changesOf } from "@/features/piece/changes";
 import { PieceView } from "@/features/piece/PieceView";
 import { sgd } from "@/lib/money";
 import { lineOf, routes } from "@/lib/routes";
@@ -25,7 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /**
- * A piece: the way back, its photos and choices, what every order of its
+ * A piece: the way back, its photos and choices, what a modular one lets
+ * you change and what it costs, what every order of its
  * line comes with, then every size, what it's made of, how it reaches you
  * and how to return it, then others in its line.
  */
@@ -49,6 +51,23 @@ export default async function PiecePage({ params }: Props) {
         />
 
         <PieceView piece={piece} />
+
+        {modular && (
+          <section className={styles.details} aria-labelledby="changes">
+            <h2 id="changes" className={styles.heading}>
+              What you can change
+            </h2>
+            <ul className={styles.changes}>
+              {changesOf(piece).map((c) => (
+                <li key={c.name}>
+                  <span className={styles.changeName}>{c.name}</span>
+                  <span>{c.line}</span>
+                  <span className={styles.changeCost}>{c.cost}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <section className={styles.promised} aria-labelledby="promised">
           <h2 id="promised" className={styles.heading}>
@@ -79,12 +98,6 @@ export default async function PiecePage({ params }: Props) {
             </dd>
             <dt>Rooms</dt>
             <dd>{piece.rooms.join(", ")}</dd>
-            {modular && (
-              <>
-                <dt>Changes</dt>
-                <dd>Size, colour, texture and add-ons can be changed to fit your room. Ask us, or design your room.</dd>
-              </>
-            )}
             <dt>Materials</dt>
             <dd>{SHARED.materials}</dd>
             <dt>Care</dt>

@@ -251,6 +251,137 @@
   text-underline-offset: 0.35em;
 }
 
+/* ---------- start from the problem ---------- */
+
+/* the guides' colours: titles in red, the rest in the page's brown */
+.problems {
+  padding: clamp(64px, 8vw, 128px) var(--gutter) 0;
+  color: var(--ink-dark);
+}
+
+.problems .label {
+  color: var(--ink-dark-pale);
+}
+
+.problems .roomsTitle {
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.problemsLine {
+  margin: 0 0 clamp(20px, 2.4vw, 32px);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+/* the rooms as a row of words in capitals: pale until chosen, then red;
+   no boxes, the colour alone says which */
+.problemRooms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 28px;
+  margin: 0 0 clamp(24px, 3vw, 40px);
+  padding: 0;
+  list-style: none;
+}
+
+.problemRoom {
+  composes: caps from global;
+  min-height: var(--tap);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-dark-pale);
+  font-size: var(--text-md);
+  cursor: pointer;
+}
+
+.problemRoom:hover,
+.problemRoom[aria-pressed="true"] {
+  color: var(--ink);
+}
+
+/* the problems down the left, the answer beside them */
+.problemPick {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(24px, 4vw, 72px);
+  align-items: start;
+}
+
+.problemList {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* each problem in the narrow cut, a title's size: brown at rest, red once
+   chosen */
+.problem {
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  color: var(--ink-dark-pale);
+  font: 400 var(--text-head) / 1.15 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+  text-align: left;
+  cursor: pointer;
+}
+
+.problem:hover {
+  color: var(--ink-dark);
+}
+
+.problem[aria-pressed="true"] {
+  color: var(--ink);
+}
+
+/* the piece: its photo, then its name and price, its line and the way in */
+.answer {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: clamp(16px, 2vw, 32px);
+  align-items: end;
+}
+
+/* wider than tall, so the card stays within a screen beside the problems */
+.answerPhoto {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--birch);
+}
+
+.answerPhoto img {
+  object-fit: cover;
+}
+
+.answerWords {
+  display: grid;
+  gap: 6px;
+}
+
+.answerName {
+  color: var(--ink);
+  font: 400 var(--text-head) / 1.1 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.answerFrom {
+  font: 400 var(--text-lg) / 1.3 var(--font);
+}
+
+.answerLine {
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+.answer .shop {
+  color: var(--ink);
+}
+
 /* ---------- before you order ---------- */
 
 /* the two guides side by side on the cream, no boxes or rules, each a name
@@ -322,6 +453,11 @@
 }
 
 @media (width <= 1023px) {
+  .problemPick,
+  .answer {
+    grid-template-columns: 1fr;
+  }
+
   .cards {
     grid-template-columns: repeat(2, 1fr);
   }

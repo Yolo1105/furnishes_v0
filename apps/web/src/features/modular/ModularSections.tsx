@@ -1,11 +1,13 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { PIECES } from "@/features/catalog/catalog";
 import { PieceCard } from "@/features/catalog/PieceCard";
 import catalog from "@/features/catalog/Catalog.module.css";
 import shared from "@/features/collection/Collection.module.css";
 import { Section } from "@/features/collection/Sections";
 import { lineOf } from "@/lib/routes";
-import { FEATURES, WALLS } from "./modularList";
+import { FEATURES, FEATURES_LIMIT, LEAD_HEAD, LEADS, SWATCHES, SWATCHES_HEAD, WALLS } from "./modularList";
+import { MAILTO } from "@/lib/contact";
 import styles from "./Modular.module.css";
 
 /** What makes a piece modular, three short panels on the cream. */
@@ -20,6 +22,59 @@ export function Features() {
           </li>
         ))}
       </ul>
+      <p className={styles.featuresLimit}>{FEATURES_LIMIT}</p>
+    </Section>
+  );
+}
+
+/** The week scale runs to the longest lead time, so every line is measured on the same ruler. */
+const SPAN = Math.max(...LEADS.map((l) => l.lead[1]));
+
+/**
+ * How long each way takes, drawn as measuring lines: a thin line from the
+ * order to the scale's end, and over it a thicker one across the weeks the
+ * piece may arrive in. The weeks are said in words too.
+ */
+export function LeadTimes() {
+  return (
+    <Section id="lead-title" {...LEAD_HEAD}>
+      <ul className={styles.leads}>
+        {LEADS.map((l) => (
+          <li key={l.name} className={styles.lead}>
+            <span className={styles.leadName}>{l.name}</span>
+            <span
+              className={styles.leadLine}
+              style={
+                { "--from": `${(l.lead[0] / SPAN) * 100}%`, "--to": `${(l.lead[1] / SPAN) * 100}%` } as CSSProperties
+              }
+              aria-hidden="true"
+            />
+            <span className={styles.leadWeeks}>{l.weeks}</span>
+          </li>
+        ))}
+      </ul>
+    </Section>
+  );
+}
+
+/** The finishes coming next, as flat samples with their names, each marked as coming. */
+export function Swatches() {
+  return (
+    <Section id="swatches-title" label={SWATCHES_HEAD.label} title={SWATCHES_HEAD.title} rest={SWATCHES_HEAD.rest}>
+      <ul className={styles.swatches}>
+        {SWATCHES.map((s) => (
+          <li key={s.name}>
+            <span className={styles.sample} data-fill={s.fill} aria-hidden="true" />
+            <span className={styles.swatchName}>{s.name}</span>
+            <span className={styles.soon}>{SWATCHES_HEAD.soon}</span>
+          </li>
+        ))}
+      </ul>
+      <p className={styles.featuresLimit}>
+        <a className={shared.qaMail} href={MAILTO}>
+          {SWATCHES_HEAD.line}
+        </a>
+      </p>
     </Section>
   );
 }
