@@ -17,8 +17,9 @@ export const metadata: Metadata = {
 };
 
 /**
- * Modular: the line's banner, a piece put together as the page scrolls,
- * sets for a room, its pieces by kind, how it works, how long it takes, one
+ * Modular: the line's banner, then its pieces by kind first, on the
+ * owner's word, so the pieces are what a visitor meets; then a piece put
+ * together as the page scrolls, sets for a room, how it works, how long it takes, one
  * room before and after, why it is modular, the finishes coming, the
  * separator walls with their limits, questions, and designing your own and
  * the home visit.
@@ -29,9 +30,9 @@ export default function ModularPage() {
       <SiteHeader />
       <main id="main" className={styles.page}>
         <CollectionBanner banner={MODULAR_BANNER} />
+        <LinePieces line="modular" />
         <Assembly />
         <Sets />
-        <LinePieces line="modular" />
         <Steps label="Step by step" title="How it works" rest="From your wall to your room" steps={STEPS} />
         <LeadTimes />
         <BeforeAfter />
