@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { dims, lineBySlug, PIECES, pieceBySlug, SHARED, sizeName } from "@/features/catalog/catalog";
+import { buildOf, dims, lineBySlug, PIECES, pieceBySlug, SHARED, sizeName } from "@/features/catalog/catalog";
 import { PieceCard } from "@/features/catalog/PieceCard";
 import { PROMISES } from "@/features/collection/collectionList";
 import { PromiseRow } from "@/features/collection/Promises";
@@ -37,6 +37,7 @@ export default async function PiecePage({ params }: Props) {
   if (!piece || !line) notFound();
   const others = PIECES.filter((p) => p.line === piece.line && p.slug !== piece.slug).slice(0, 4);
   const modular = piece.line === "modular";
+  const build = modular ? buildOf(piece.slug) : null;
 
   return (
     <>
@@ -96,6 +97,16 @@ export default async function PiecePage({ params }: Props) {
                 ))}
               </ul>
             </dd>
+            <dt>In the box</dt>
+            <dd>{build ? build.box : modular ? SHARED.boxParts : SHARED.boxReady}</dd>
+            {build && (
+              <>
+                <dt>Putting it together</dt>
+                <dd>{build.put}</dd>
+              </>
+            )}
+            <dt>In the photos</dt>
+            <dd>{SHARED.photos}</dd>
             <dt>Rooms</dt>
             <dd>{piece.rooms.join(", ")}</dd>
             <dt>Materials</dt>

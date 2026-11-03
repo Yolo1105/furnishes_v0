@@ -159,6 +159,26 @@
   gap: 12px;
 }
 
+.spaceThree {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* the size check, folded under the size until asked for */
+.fit {
+  display: grid;
+  gap: 12px;
+}
+
+.fit summary {
+  width: fit-content;
+  cursor: pointer;
+  list-style: none;
+}
+
+.fit summary::-webkit-details-marker {
+  display: none;
+}
+
 .spaceField {
   display: grid;
   gap: 6px;

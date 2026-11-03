@@ -262,6 +262,9 @@ export const PIECES: readonly Piece[] = [
 
 /** What every piece shares, shown under its choices; placeholders. */
 export const SHARED = {
+  photos: "The photos show rooms, not this piece. Lamps, books, plants and anything else around it aren't included.",
+  boxReady: "The piece, ready to use, carried in and placed.",
+  boxParts: "In parts, with their fixings and steps; or built, carried in and placed.",
   materials:
     "Modular pieces: birch plywood, edges sanded and oiled; walnut and red are veneers over the same core. Furniture: as listed by the factory.",
   care: "Wipe with a damp cloth. Re-oil birch once a year, and keep it out of hours of direct sun.",
@@ -313,6 +316,33 @@ export const ADD_ONS: Record<string, readonly AddOn[]> = {
   "room-divider": [{ id: "doors", name: "Doors on one side", price: 90 }, DRAWER],
   "sofa-back-divider": [{ id: "doors", name: "Doors on one side", price: 90 }, DRAWER],
 };
+
+/**
+ * Putting a modular piece together, as counted from its parts in the
+ * earlier house site's designs of the same pieces: parts, boxes, people
+ * and minutes. Working estimates until the factory confirms the parts.
+ */
+export type Build = { parts: number; boxes: number; people: 1 | 2; minutes: number };
+
+export const BUILDS: Record<string, Build> = {
+  "entry-pack": { parts: 14, boxes: 3, people: 1, minutes: 22 },
+  "desk-side-pack": { parts: 11, boxes: 3, people: 1, minutes: 22 },
+  "bedside-block": { parts: 6, boxes: 3, people: 1, minutes: 15 },
+  "kitchen-cart": { parts: 11, boxes: 3, people: 1, minutes: 22 },
+  "coat-stand": { parts: 11, boxes: 3, people: 2, minutes: 24 },
+  "low-cabinet": { parts: 30, boxes: 5, people: 2, minutes: 27 },
+  "room-divider": { parts: 43, boxes: 4, people: 2, minutes: 27 },
+};
+
+/** A piece's build in words, or nothing where it hasn't been counted. */
+export function buildOf(slug: string) {
+  const b = BUILDS[slug];
+  if (!b) return null;
+  return {
+    box: `About ${b.parts} parts in ${b.boxes} boxes, with their fixings and steps.`,
+    put: `${b.people === 1 ? "One person" : "Two people"}, about ${b.minutes} minutes. Estimates until the factory confirms the parts.`,
+  };
+}
 
 export const addOnsOf = (slug: string) => ADD_ONS[slug] ?? [];
 

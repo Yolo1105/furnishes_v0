@@ -14,6 +14,7 @@ export const routes = {
   buyingGuide: "/buying-guide",
   offices: "/offices",
   planning: "/planning",
+  help: "/help",
   designYourRoom: "/design",
   logIn: "/log-in",
   cart: "/cart",
@@ -39,12 +40,13 @@ export const BROWSE = [
   { href: routes.about, label: "About" },
 ] as const;
 
-/** The footer's pages: the bar's, then the offices, planning help and the guide, which the bar leaves out. */
+/** The footer's pages: the bar's, then the offices, planning help, the guide and help, which the bar leaves out. */
 export const FOOT_PAGES = [
   ...BROWSE,
   { href: routes.offices, label: "For offices" },
   { href: routes.planning, label: "Planning help" },
   { href: routes.buyingGuide, label: "Buying guide" },
+  { href: routes.help, label: "Help" },
 ] as const;
 
 export const LEGAL = [
