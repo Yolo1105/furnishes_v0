@@ -1099,43 +1099,6 @@
 
 /* ---------- design your own ---------- */
 
-/* the photo across two thirds of the page, the words beside it, their top
-   a little below the photo's, as the owner's reference */
-.design {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: clamp(24px, 4vw, 72px);
-  align-items: start;
-}
-
-.designPhoto {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: var(--birch);
-}
-
-.designPhoto img {
-  object-fit: cover;
-}
-
-.designWords {
-  display: grid;
-  gap: 20px;
-  justify-items: start;
-  padding-top: clamp(0px, 4vw, 72px);
-}
-
-.designTitle {
-  display: flex;
-  flex-direction: column;
-  color: var(--ink);
-  margin: 0;
-  font: 400 var(--text-over) / 1.15 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
-}
-
 .designLine {
   max-width: 44ch;
   margin: 0;
@@ -1160,6 +1123,12 @@
   display: grid;
   grid-template-columns: 3fr 7fr;
   min-height: clamp(480px, 46vw, 760px);
+}
+
+/* the same band with the room on the left, for Design your own, so the
+   two bands on the page don't repeat each other */
+.visitFlip {
+  grid-template-columns: 7fr 3fr;
 }
 
 .visitSide {
@@ -1422,6 +1391,11 @@
     aspect-ratio: 4 / 3;
   }
 
+  /* stacked, the room comes first in both bands */
+  .visitPhoto {
+    order: -1;
+  }
+
   .roomCards {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1449,7 +1423,6 @@
     grid-column: auto;
   }
 
-  .design,
   .visit,
   .steps {
     grid-template-columns: 1fr;
