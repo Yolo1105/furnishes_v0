@@ -10,9 +10,6 @@ import yellowSofa from "@/assets/rooms/yellow-sofa.jpg";
 import { shopHref, slug } from "@/features/catalog/filters";
 import { routes } from "@/lib/routes";
 
-/** The short line under the page's title, in brown, so the red title has a different colour beside it. */
-export const SUB = "Pick a room to see what goes in it";
-
 /** A room to start from: its name, a line about what is in it, and its photo. */
 export type Idea = { key: string; name: string; line: string; photo: StaticImageData };
 

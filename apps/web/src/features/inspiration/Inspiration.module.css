@@ -28,17 +28,10 @@
   color: var(--ink);
 }
 
-/* the title and, over it on the owner's word, a short line as the collection's titles' last
-   line: Jost, a little under regular, in the page's brown, so the red title
-   doesn't run straight into the red names below, on the owner's word */
+/* the title alone over the rooms; the short line above it was taken off
+   on the owner's word */
 .head {
   display: grid;
-  gap: 8px;
-}
-
-.sub {
-  color: var(--ink-dark);
-  font: var(--weight-title-rest) var(--text-rest) / 1.3 var(--font-wordmark);
 }
 
 /* The cards share the page's width and stand on its foot. The open one is

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { type PointerEvent, useEffect, useRef, useState } from "react";
 import { routes } from "@/lib/routes";
 import { Arrow } from "@/shell/Arrow";
-import { ALL_ROOMS, IDEAS, SUB } from "./inspirationList";
+import { ALL_ROOMS, IDEAS } from "./inspirationList";
 import styles from "./Inspiration.module.css";
 
 /** The "all rooms" card's place in the row, after the rooms. */
@@ -59,7 +59,6 @@ export function Inspiration() {
   return (
     <section className={styles.page} aria-labelledby="inspiration-title">
       <div className={styles.head}>
-        <p className={styles.sub}>{SUB}</p>
         <h1 id="inspiration-title" className={styles.title}>
           Real rooms in HDB flats and offices, each furnished to fit…{" "}
           <Link className={styles.more} href={routes.collection}>
