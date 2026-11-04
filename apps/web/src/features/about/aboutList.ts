@@ -3,12 +3,10 @@ import shelfWall from "@/assets/rooms/shelf-wall.jpg";
 import sewing from "@/assets/details/sewing.jpg";
 import yellowChair from "@/assets/details/yellow-chair.jpg";
 import redSofa from "@/assets/details/red-sofa.jpg";
-import aFrame from "@/assets/banner/a-frame.jpg";
 import { ARRIVALS, FURNITURE_WEEKS } from "@/features/catalog/catalog";
 import { sgd } from "@/lib/money";
 import { FACTS } from "@/lib/site";
-import type { ClosingBand } from "@/features/collection/Closing";
-import { routes } from "@/lib/routes";
+import type { Step } from "@/features/collection/Sections";
 
 /**
  * The about page's words, after the rebuild's about page, cut down. Every
@@ -24,11 +22,12 @@ import { routes } from "@/lib/routes";
 export const WHO = {
   label: "About Furnishes",
   title: "Furniture that fits how you live and work",
+  sub: "What we make, and who it is for",
   rest: "Ready-made pieces, modular designs, and modular pieces you make your own, for Singapore homes and small offices.",
   lines: [
-    "Some of our pieces are ready-made. Others are modular, built from birch panels to your wall's size and colour. All are made by our partner factory in China and carried into your room in Singapore.",
+    "We started because rooms in Singapore are small, and standard furniture doesn't always fit them. Some of our pieces are ready-made. Others are modular, built from birch panels to your wall's size and colour. All are made by our partner factory in China and carried into your room in Singapore.",
     "A change at home can start small: a place for the bag by the door, or a bedside that keeps the book within reach. It can be bigger: a tall cabinet that divides a rented room, or a work area that grows with a team.",
-    "Each piece should be good on its own today; adding to it later is a bonus. If you need help choosing, we come to your room, and the AI assistant can help once you log in.",
+    "Each piece should be good on its own today; adding to it later is a bonus. If you need help choosing, we come to your room, and the AI assistant can help once you log in. We start with HDB families and startup offices.",
   ],
   photos: [
     { src: living, alt: "A living room with a long sofa and low shelves" },
@@ -103,15 +102,16 @@ export const MAKING = {
   title: "From order to your home",
   rest: `Made after you order: modular pieces take ${ARRIVALS.parts.weeks} flat-packed, ${ARRIVALS.built.weeks} built`,
   steps: [
-    { name: "You order", line: "You choose the piece, its size and finish, and how it arrives." },
-    { name: "It is made", line: "Our partner factory in China makes the version you chose." },
-    { name: "It is packed", line: "Packed with its parts and, if flat-packed, its steps." },
-    { name: "It ships", line: "From China to Singapore. We email you when it moves." },
+    { name: "You order", icon: "basket", line: "You choose the piece, its size and finish, and how it arrives." },
+    { name: "It is made", icon: "make", line: "Our partner factory in China makes the version you chose." },
+    { name: "It is packed", icon: "box", line: "Packed with its parts and, if flat-packed, its steps." },
+    { name: "It ships", icon: "ship", line: "From China to Singapore. We email you when it moves." },
     {
       name: "It arrives",
+      icon: "home",
       line: "Carried into your room at a time you choose: built pieces ready to use, flat-packed ones ready to put together.",
     },
-  ],
+  ] satisfies Step[],
 };
 
 /** The questions asked before buying from a new name; answers follow the rest of the site. */
@@ -155,31 +155,6 @@ export const TEAM = {
 };
 
 /**
- * Our story, in three parts after the rebuild's, as a numbered list that
- * opens. How it started is a draft line until the owner writes it from
- * fact; the other two follow what the rest of the site says.
- */
-export const STORY = {
-  label: "Our story",
-  title: "How Furnishes came about",
-  rest: "Where we started, and where we are going",
-  parts: [
-    {
-      name: "How we started",
-      line: "Rooms in Singapore are small, and standard furniture doesn't always fit them. The full story is to come.",
-    },
-    {
-      name: "What we do today",
-      line: "Ready-made and modular furniture, made by our partner factory in China, for homes and small offices in Singapore.",
-    },
-    {
-      name: "Where we are going",
-      line: "HDB families and startup offices first, then further once that works well.",
-    },
-  ],
-};
-
-/**
  * Awards and press, as the rebuild's recognition rows; every row a
  * placeholder, so the page leaves it out until there is one to show.
  */
@@ -192,16 +167,4 @@ export const RECOGNITION = {
     name: `Award or article ${n}, to come`,
     project: "The piece or project it was for",
   })),
-};
-
-/** The closing band: the next step after reading who we are. */
-export const ABOUT_CLOSING: ClosingBand = {
-  label: "Your room next",
-  title: "Start with the room you have",
-  line: "Draw it at real size in the room planner, place our pieces, and see what fits before you order.",
-  photo: aFrame,
-  calls: [
-    { label: "Design your room", href: routes.designYourRoom },
-    { label: "See the furniture", href: routes.collection },
-  ],
 };

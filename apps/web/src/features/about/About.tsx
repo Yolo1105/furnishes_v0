@@ -1,9 +1,9 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import { Opening } from "@/features/collection/Opening";
-import { Index, Section, Steps } from "@/features/collection/Sections";
+import { Section, Steps } from "@/features/collection/Sections";
 import collection from "@/features/collection/Collection.module.css";
-import { FIGURES, MAKING, MANIFESTO, RECOGNITION, STORY, TEAM, WHO, WORKSHOP } from "./aboutList";
+import { FIGURES, MAKING, MANIFESTO, RECOGNITION, TEAM, WHO, WORKSHOP } from "./aboutList";
 import styles from "./About.module.css";
 
 /**
@@ -18,6 +18,7 @@ export function WhoWeAre() {
       section
       label={WHO.label}
       title={WHO.title}
+      sub={WHO.sub}
       photos={WHO.photos}
       rest={WHO.rest}
       lines={WHO.lines}
@@ -38,7 +39,7 @@ export function Manifesto() {
       <h2 id="manifesto-title" className={collection.headingLabel}>
         {MANIFESTO.label}
       </h2>
-      <p className={styles.statement} style={{ "--n": count } as CSSProperties}>
+      <p className={styles.statement} style={{ "--n": count } as CSSProperties} data-type-keep>
         {MANIFESTO.words.map((w, i) =>
           typeof w === "string" ? (
             <span key={i} className={styles.word} style={{ "--i": n++ } as CSSProperties}>
@@ -116,18 +117,6 @@ export function Team() {
           </li>
         ))}
       </ul>
-    </Section>
-  );
-}
-
-/**
- * Our story: three parts as the site's index, so the page's one list that
- * opens is its questions.
- */
-export function Story() {
-  return (
-    <Section id="story-title" label={STORY.label} title={STORY.title} rest={STORY.rest}>
-      <Index entries={STORY.parts} />
     </Section>
   );
 }

@@ -13,6 +13,10 @@ import { FACTS } from "@/lib/site";
  */
 const QUOTE = mailAbout("Office or bulk order");
 
+/** the example offices' title, over the stacked cards */
+export const EXAMPLES_TITLE = "What a fit-out looks like";
+export const EXAMPLES_REST = "Three offices, from a studio to a shared floor";
+
 export const OFFICES = {
   label: "For offices",
   title: "An office that changes with your team",

@@ -1,6 +1,9 @@
 import aFrame from "@/assets/banner/a-frame.jpg";
 import bookwallAfter from "@/assets/before-after/bookwall-after.webp";
 import bookwallBefore from "@/assets/before-after/bookwall-before.webp";
+import redSofa from "@/assets/details/red-sofa.jpg";
+import sewing from "@/assets/details/sewing.jpg";
+import yellowChair from "@/assets/details/yellow-chair.jpg";
 import hallway from "@/assets/rooms/hallway.jpg";
 import shelfWall from "@/assets/rooms/shelf-wall.jpg";
 import study from "@/assets/rooms/study.jpg";
@@ -101,22 +104,40 @@ export const BEFORE_AFTER = {
   piece: "sofa-back-divider",
 };
 
-/** The finishes we are looking at next; none is on sale yet. */
+/** The finishes: today's three and the ones on the way, beside a collage of close-ups. */
 export const SWATCHES_HEAD = {
   label: "Finishes",
-  title: "What comes next",
-  rest: "Birch, walnut and red today; these are on the way",
+  title: "Finishes and fabrics",
+  lines: [
+    "A piece stays in your room for years, so how it feels matters as much as how it looks.",
+    "Our modular pieces come in birch, walnut and red today. Oak, cane and three fabrics are on the way, so a piece can match the room it is in.",
+  ],
   line: "Ask for samples of today's finishes by email, or see them on a home visit.",
+  now: "Today",
   soon: "Coming",
 };
 
 export const SWATCHES = [
-  { name: "Oiled oak", fill: "oiled-oak" },
-  { name: "Smoked oak", fill: "smoked-oak" },
-  { name: "Woven cane", fill: "cane" },
-  { name: "Natural linen", fill: "linen" },
-  { name: "Oat bouclé", fill: "boucle" },
-  { name: "Pepper wool", fill: "wool" },
+  { name: "Birch", fill: "birch", now: true },
+  { name: "Walnut", fill: "walnut", now: true },
+  { name: "Red", fill: "red", now: true },
+  { name: "Oiled oak", fill: "oiled-oak", now: false },
+  { name: "Smoked oak", fill: "smoked-oak", now: false },
+  { name: "Woven cane", fill: "cane", now: false },
+  { name: "Natural linen", fill: "linen", now: false },
+  { name: "Oat bouclé", fill: "boucle", now: false },
+  { name: "Pepper wool", fill: "wool", now: false },
+] as const;
+
+/**
+ * The collage: four close-ups laid over each other, as samples on a table.
+ * `focus` is the part of each photo the crop keeps, as an object-position.
+ */
+export const COLLAGE = [
+  { photo: redSofa, focus: "40% 60%", spot: "main" },
+  { photo: yellowChair, focus: "55% 30%", spot: "top" },
+  { photo: sewing, focus: "30% 95%", spot: "low" },
+  { photo: yellowChair, focus: "70% 62%", spot: "side" },
 ] as const;
 
 /**

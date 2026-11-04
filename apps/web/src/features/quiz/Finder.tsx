@@ -17,9 +17,18 @@ const DONE = FINDER.length;
  * the answers stand as a list, each opening its question again. The answers
  * ride in the address, so a result can be shared or come back to.
  */
-export function Finder({ initial }: { initial: Answers }) {
+export function Finder({
+  initial,
+  titled = true,
+  done = false,
+}: {
+  initial: Answers;
+  titled?: boolean;
+  /** start on the answers, even none, as after the quiz page's first screen */
+  done?: boolean;
+}) {
   const [answers, setAnswers] = useState<Answers>(initial);
-  const [step, setStep] = useState(Object.keys(initial).length > 0 ? DONE : 0);
+  const [step, setStep] = useState(done || Object.keys(initial).length > 0 ? DONE : 0);
   const heading = useRef<HTMLHeadingElement>(null);
   const moved = useRef(false);
   const picks = match(answers);
@@ -44,13 +53,18 @@ export function Finder({ initial }: { initial: Answers }) {
   };
 
   return (
-    <section className={styles.problems} aria-labelledby="finder-title">
+    <section className={styles.problems} aria-labelledby={titled ? "finder-title" : "opening-title"}>
       <div className={styles.problemSide}>
-        <p className={styles.label}>{FINDER_HEAD.label}</p>
-        <h2 id="finder-title" className={styles.roomsTitle}>
-          {FINDER_HEAD.title}
-        </h2>
-        <p className={styles.problemsLine}>{FINDER_HEAD.line}</p>
+        {/* on the quiz page the page's opening carries the title and line instead */}
+        {titled && (
+          <>
+            <p className={styles.label}>{FINDER_HEAD.label}</p>
+            <h2 id="finder-title" className={styles.roomsTitle}>
+              {FINDER_HEAD.title}
+            </h2>
+            <p className={styles.problemsLine}>{FINDER_HEAD.line}</p>
+          </>
+        )}
 
         {question ? (
           <>

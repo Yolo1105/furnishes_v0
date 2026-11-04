@@ -43,6 +43,19 @@ const PATHS = {
       <circle cx="17" cy="17.5" r="1.5" />
     </>
   ),
+  arrow: <path d="M7 17L17 7M9 7h8v8" />,
+  // the order's steps: a basket, a saw blade, a box, a ship, a house
+  basket: <path d="M3 9h18l-2 11H5zM8 9l4-6 4 6M9 13v4M15 13v4" />,
+  make: (
+    <>
+      <circle cx="12" cy="12" r="8" />
+      <circle cx="12" cy="12" r="2.5" />
+      <path d="M12 4v3M12 17v3M4 12h3M17 12h3" />
+    </>
+  ),
+  box: <path d="M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10" />,
+  ship: <path d="M3 15h18l-3 5H6zM6 15V9h12v6M12 9V4M9 4h6" />,
+  home: <path d="M3 11l9-7 9 7M5 9.5V20h14V9.5M10 20v-6h4v6" />,
   headset: (
     <>
       <path d="M4 15v-3a8 8 0 0 1 16 0v3" />

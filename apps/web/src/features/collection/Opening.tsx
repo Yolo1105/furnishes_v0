@@ -13,6 +13,7 @@ import styles from "./Collection.module.css";
 export function Opening({
   label,
   title,
+  sub,
   photos,
   rest,
   lines = [],
@@ -22,6 +23,8 @@ export function Opening({
 }: {
   label: string;
   title: string;
+  /** a line under the title, as every home section's subtitle */
+  sub?: string;
   photos: readonly { src: StaticImageData; alt: string }[];
   rest: string;
   lines?: readonly string[];
@@ -32,9 +35,13 @@ export function Opening({
   const Title = section ? "h2" : "h1";
   return (
     <section id={section ? id : undefined} className={styles.opening} aria-labelledby={`${id}-title`}>
-      <Title id={`${id}-title`} className={styles.openingTitle}>
+      <Title
+        id={`${id}-title`}
+        className={section ? `${styles.openingTitle} ${styles.openingTitleSection}` : styles.openingTitle}
+      >
         <span className={styles.headingLabel}>{label}</span>
         {title}
+        {sub && <span className={styles.headingRest}> {sub}</span>}
       </Title>
       {photos.length > 0 && (
         <div className={styles.openingPhotos}>

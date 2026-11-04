@@ -15,6 +15,7 @@ import {
   LEADS,
   SETS,
   SETS_HEAD,
+  COLLAGE,
   SWATCHES,
   SWATCHES_HEAD,
   WALLS,
@@ -69,25 +70,55 @@ export function LeadTimes() {
   );
 }
 
-/** The finishes coming next, as flat samples with their names, each marked as coming. */
+/**
+ * The finishes: close-ups laid over each other on the left; on the right the
+ * title, why it matters, every finish as a labelled sample (today's and the
+ * ones coming), and how to see them.
+ */
 export function Swatches() {
   return (
-    <Section id="swatches-title" label={SWATCHES_HEAD.label} title={SWATCHES_HEAD.title} rest={SWATCHES_HEAD.rest}>
-      <ul className={styles.swatches}>
-        {SWATCHES.map((s) => (
-          <li key={s.name}>
-            <span className={styles.sample} data-fill={s.fill} aria-hidden="true" />
-            <span className={styles.swatchName}>{s.name}</span>
-            <span className={styles.soon}>{SWATCHES_HEAD.soon}</span>
-          </li>
+    <section className={`${shared.section} ${styles.finishes}`} aria-labelledby="swatches-title">
+      <div className={styles.collage} aria-hidden="true">
+        {COLLAGE.map((c) => (
+          <div key={c.spot} className={styles.tile} data-spot={c.spot}>
+            <Image
+              src={c.photo}
+              alt=""
+              fill
+              sizes="(max-width: 1023px) 70vw, 36vw"
+              style={{ objectPosition: c.focus }}
+            />
+          </div>
         ))}
-      </ul>
-      <p className={styles.featuresLimit}>
-        <a className={shared.qaMail} href={MAILTO}>
-          {SWATCHES_HEAD.line}
-        </a>
-      </p>
-    </Section>
+      </div>
+      <div className={styles.finishWords}>
+        <h2 id="swatches-title" className={styles.finishTitle}>
+          <span className={shared.headingLabel}>{SWATCHES_HEAD.label}</span>
+          {SWATCHES_HEAD.title}
+        </h2>
+        {SWATCHES_HEAD.lines.map((l) => (
+          <p key={l} className={styles.finishLine}>
+            {l}
+          </p>
+        ))}
+        <ul className={styles.swatches}>
+          {SWATCHES.map((s) => (
+            <li key={s.name}>
+              <span className={styles.sample} data-fill={s.fill} aria-hidden="true" />
+              <span className={styles.swatchName}>{s.name}</span>
+              <span className={styles.soon} data-now={s.now || undefined}>
+                {s.now ? SWATCHES_HEAD.now : SWATCHES_HEAD.soon}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p className={styles.finishNote}>
+          <a className={shared.qaMail} href={MAILTO}>
+            {SWATCHES_HEAD.line}
+          </a>
+        </p>
+      </div>
+    </section>
   );
 }
 

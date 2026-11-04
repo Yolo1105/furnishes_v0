@@ -301,7 +301,7 @@ export function FloorPlan<K extends string>({
       />
 
       <g className={styles.lines}>
-        {pieces("glass", WINDOWS.map(glass), styles.heavy)}
+        {pieces("glass", WINDOWS.map(glass), `${styles.heavy} ${styles.glass}`)}
         <g>
           {/* each room's walls, traced on arrival and gone once they are filled */}
           <g className={styles.outline} mask="url(#plan-openings)">
@@ -310,12 +310,12 @@ export function FloorPlan<K extends string>({
           {pieces(
             "glass",
             BAYS.map((b) => `M${b.x0} ${top}V${top - b.depth}H${b.x1}V${top}`),
-            styles.heavy,
+            `${styles.heavy} ${styles.glass}`,
           )}
           {pieces(
             "light",
             BAYS.map((b) => `M${b.x0} ${top - b.depth + 50}H${b.x1}`),
-            styles.light,
+            `${styles.light} ${styles.glass}`,
           )}
           {pieces("doors", symbols.doors, styles.heavy)}
           {pieces("swings", symbols.swings, styles.light)}

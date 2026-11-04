@@ -125,24 +125,117 @@
 
 /* ---------- swatches ---------- */
 
-/* six flat samples in a row, each its name and "Coming" under it */
+/* the collage on the left, the words and samples on the right */
+.finishes {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 96px);
+  align-items: center;
+}
+
+/* four close-ups laid over each other on purpose, as samples on a table;
+   each tile's place is in % of the collage, so it scales as one */
+.collage {
+  position: relative;
+  aspect-ratio: 1 / 1.05;
+}
+
+.tile {
+  position: absolute;
+  overflow: hidden;
+}
+
+.tile img {
+  object-fit: cover;
+}
+
+.tile[data-spot="main"] {
+  top: 14%;
+  left: 0;
+  width: 92%;
+  height: 48%;
+}
+
+.tile[data-spot="top"] {
+  top: 0;
+  left: 8%;
+  z-index: 1;
+  width: 36%;
+  height: 19%;
+}
+
+.tile[data-spot="side"] {
+  top: 50%;
+  left: 63%;
+  z-index: 1;
+  width: 37%;
+  height: 34%;
+}
+
+.tile[data-spot="low"] {
+  top: 65%;
+  left: 32%;
+  width: 29%;
+  height: 35%;
+}
+
+.finishWords {
+  display: grid;
+  gap: 16px;
+  align-content: center;
+}
+
+.finishTitle {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font: 400 var(--text-over) / 1.08 var(--font);
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+.finishLine {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+}
+
+.finishNote {
+  margin: 8px 0 0;
+  font: 400 var(--text-md) / 1.4 var(--font);
+}
+
+/* every finish as a small square sample, its name and when, six to a row */
 .swatches {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 24px clamp(12px, 1.5vw, 24px);
-  margin: 0;
+  gap: 20px clamp(10px, 1vw, 16px);
+  margin: 24px 0 0;
   padding: 0;
   list-style: none;
 }
 
 .swatches li {
   display: grid;
-  gap: 4px;
+  gap: 2px;
+  align-content: start;
 }
 
 .sample {
-  margin-bottom: 8px;
-  aspect-ratio: 4 / 3;
+  margin-bottom: 6px;
+  aspect-ratio: 1;
+}
+
+.sample[data-fill="birch"] {
+  background: var(--birch);
+}
+
+.sample[data-fill="walnut"] {
+  background: var(--walnut);
+}
+
+.sample[data-fill="red"] {
+  background: var(--finish-red);
 }
 
 .sample[data-fill="oiled-oak"] {
@@ -171,12 +264,18 @@
 
 .swatchName {
   color: var(--ink-dark);
-  font: 400 var(--text-lg) / 1.2 var(--font);
+  font: 400 var(--text-sm) / 1.3 var(--font);
 }
 
 .soon {
   composes: caps from global;
-  color: var(--ink-pale);
+  color: var(--ink-dark-pale);
+  font-size: var(--text-sm);
+}
+
+/* a finish on sale today, in the red orange */
+.soon[data-now] {
+  color: var(--ink-warm);
 }
 
 /* ---------- separator walls ---------- */
@@ -207,7 +306,8 @@
 
 @media (width <= 1023px) {
   .features,
-  .walls {
+  .walls,
+  .finishes {
     grid-template-columns: 1fr;
   }
 

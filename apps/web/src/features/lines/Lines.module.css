@@ -1,0 +1,171 @@
+/* ---------- the title and its note ---------- */
+
+/* the title takes the wider left part; the note sits on the right, its
+   first line level with the title's (not the small label's) top: it is
+   pushed down by the label's own line and gap, 1.2 lines of --text-sm and
+   10px, as .headingLabel sets them */
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 32px clamp(32px, 6vw, 112px);
+  align-items: start;
+}
+
+.note {
+  display: grid;
+  gap: 24px;
+  justify-items: start;
+  padding-top: calc(var(--text-sm) * 1.2 + 10px);
+}
+
+/* the note a step lighter than the title, so the title leads */
+.note p {
+  max-width: 34ch;
+  margin: 0;
+  font: var(--weight-title-rest) var(--text-lg) / 1.45 var(--font-wordmark);
+  font-weight: var(--weight-line-soft, var(--weight-title-rest));
+}
+
+/* a way in: small spaced capitals and an arrow in the site's one boxed
+   button, as the flat tour's, so no link here is underlined */
+.go {
+  composes: caps boxed from global;
+  gap: 8px;
+  color: inherit;
+}
+
+.go svg {
+  width: 1.1em;
+  height: 1.1em;
+  stroke: currentcolor;
+}
+
+.go:hover svg {
+  translate: 2px -2px;
+}
+
+/* ---------- the two panels ---------- */
+
+/* side by side, inside the page's gutters as every other section */
+.panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: clamp(32px, 3.5vw, 56px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* a panel, after the owner's journal reference: small words across the
+   head and the foot, the print and its title centred between them */
+.panel {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: clamp(20px, 2.2vw, 40px);
+  justify-items: center;
+
+  /* capped so the title and both panels, buttons included, fit one laptop
+     screen (744px under the bar at 1440 by 800) */
+  min-height: clamp(440px, 36vw, 560px);
+  box-sizing: border-box;
+  padding: clamp(14px, 1.2vw, 20px);
+}
+
+/* the ready-made on the red orange in cream; the modular on the pale
+   orange of the factory panel, on the owner's pick, its title in red and
+   its small words in brown (6.9:1), as cream would not read on it */
+.panel[data-tone="warm"] {
+  background: var(--ink-warm);
+  color: var(--paper);
+}
+
+.panel[data-tone="pale"] {
+  background: var(--panel-orange);
+  color: var(--ink-dark);
+}
+
+/* on the red-orange panel the box fills cream when pointed at, since the
+   shared red fill would vanish into the panel */
+.panel[data-tone="warm"] .go:hover {
+  background: var(--paper);
+  color: var(--ink-warm);
+}
+
+.panel[data-tone="pale"] .panelTitle {
+  color: var(--ink);
+}
+
+/* the head's three small words: one at each edge and one in the middle */
+.head {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  font: 400 var(--text-md) / 1.2 var(--font);
+}
+
+/* the photo on the panel itself, with no border, on the owner's word */
+.frame {
+  align-self: end;
+  width: min(42%, 300px);
+}
+
+.print {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3.4;
+  background: var(--birch);
+}
+
+.print img {
+  object-fit: cover;
+}
+
+/* the title large in the narrow capitals, centred under the print */
+.panelTitle {
+  composes: display from global;
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(34px, 3.6vw, 68px);
+  line-height: 0.95;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* the line's name on the left, its way in on the right */
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: end;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+}
+
+.name {
+  font: 400 var(--text-md) / 1.2 var(--font);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .go svg {
+    transition: translate 0.2s;
+  }
+}
+
+@media (width <= 1023px) {
+  .top,
+  .panels {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .frame {
+    width: min(64%, 300px);
+  }
+
+  /* stacked, the note's rule runs along its top instead */
+  .note {
+    padding: 24px 0 0;
+    border-top: var(--line) solid var(--rule-strong);
+    border-left: 0;
+  }
+}

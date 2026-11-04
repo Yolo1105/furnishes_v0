@@ -155,6 +155,9 @@ export const PROBLEMS = [
  * that do the job, `fits` the reason each gives. Widths are in mm and
  * budgets in SGD, read against a piece's narrowest size and lowest price.
  */
+/** The page's opening, as every page without a banner opens: its label, then the finder's title and line. */
+export const OPENING_LABEL = "Find your piece";
+
 export const FINDER_HEAD = {
   label: "Four short questions",
   title: "Not sure what you need?",
@@ -169,9 +172,23 @@ export const FINDER_HEAD = {
   of: "of",
 };
 
+/**
+ * The quiz page's first screen: the questions one at a time, each asked in
+ * its two longer "lines" over its "big" word, then the answers below as the
+ * finder's summary.
+ */
+export const STAGE = {
+  question: "Question",
+  next: "Next",
+  last: "See what fits",
+  back: "Back",
+};
+
 export const FINDER = [
   {
     id: "room",
+    lines: ["Which room in your home", "is the new piece going in?"],
+    big: "room",
     short: "Room",
     title: "Which room is it for?",
     options: [
@@ -185,6 +202,8 @@ export const FINDER = [
   },
   {
     id: "want",
+    lines: ["What would you like", "the new piece to do for you?"],
+    big: "use",
     short: "To do",
     title: "What should it do?",
     options: [
@@ -228,6 +247,8 @@ export const FINDER = [
   },
   {
     id: "width",
+    lines: ["How wide is the spot", "where the piece will stand?"],
+    big: "width",
     short: "Width",
     title: "How wide is the spot?",
     options: [
@@ -238,6 +259,8 @@ export const FINDER = [
   },
   {
     id: "budget",
+    lines: ["How much would you like", "to spend on one piece?"],
+    big: "budget",
     short: "Budget",
     title: "What would you spend on one piece?",
     options: [

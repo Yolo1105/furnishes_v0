@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import collection from "@/features/collection/Collection.module.css";
 import { mailAbout } from "@/lib/contact";
 import { routes } from "@/lib/routes";
-import { ENQUIRY } from "./contactList";
+import { ASK, ENQUIRY } from "./contactList";
 import styles from "./Contact.module.css";
 
 type Who = (typeof ENQUIRY.who.options)[number]["value"];
@@ -46,6 +46,7 @@ function Option({
   line,
   onChange,
   checked,
+  defaultChecked,
 }: {
   type: "radio" | "checkbox";
   name: string;
@@ -54,10 +55,19 @@ function Option({
   line: string;
   onChange?: () => void;
   checked?: boolean;
+  defaultChecked?: boolean;
 }) {
   return (
     <label className={styles.option}>
-      <input className="visually-hidden" type={type} name={name} value={value} onChange={onChange} checked={checked} />
+      <input
+        className="visually-hidden"
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        checked={checked}
+        defaultChecked={defaultChecked}
+      />
       <span className={styles.optionName}>{title}</span>
       <span className={styles.optionLine}>{line}</span>
     </label>
@@ -69,10 +79,29 @@ function Option({
  * then what they need and the questions that follow from it, then the
  * sentence with the name and email. Sending opens an email in the
  * visitor's mail app, as the planning brief does: there is no form inbox.
+ * A tag below it (a link to `#ask=home:Need`) picks home or company and
+ * that need, and brings the enquiry into view.
  */
 export function Enquiry() {
   // a home to start, as most who write are families, so the whole form shows at once
   const [who, setWho] = useState<Who>("home");
+  // the need a tag picked, ticked when the needs are drawn
+  const [picked, setPicked] = useState<string | null>(null);
+  const form = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    const ask = () => {
+      const m = ASK.exec(window.location.hash);
+      if (!m) return;
+      setWho(m[1] as Who);
+      setPicked(decodeURIComponent(m[2] ?? ""));
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      form.current?.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" });
+    };
+    ask();
+    window.addEventListener("hashchange", ask);
+    return () => window.removeEventListener("hashchange", ask);
+  }, []);
 
   const send = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -96,7 +125,7 @@ export function Enquiry() {
   };
 
   return (
-    <form className={styles.enquiry} onSubmit={send} aria-labelledby="enquiry-title">
+    <form ref={form} id="enquiry" className={styles.enquiry} onSubmit={send} aria-labelledby="enquiry-title">
       {/* the enquiry's name in the small capitals of the page's own label across from it, so the title on the left stays the one big line */}
       <h2 id="enquiry-title" className={collection.headingLabel}>
         {ENQUIRY.label}
@@ -113,18 +142,29 @@ export function Enquiry() {
               title={o.name}
               line={o.line}
               checked={who === o.value}
-              onChange={() => setWho(o.value)}
+              onChange={() => {
+                setWho(o.value);
+                setPicked(null);
+              }}
             />
           ))}
         </div>
       </fieldset>
 
       {/* the rest follows the first answer; a home's questions show until a company is picked */}
-      <fieldset className={styles.group} key={who}>
+      <fieldset className={styles.group} key={`${who}-${picked}`}>
         <legend className={styles.groupLegend}>{ENQUIRY.needs.legend}</legend>
         <div className={styles.options}>
           {ENQUIRY.needs[who].map((o) => (
-            <Option key={o.name} type="checkbox" name="needs" value={o.name} title={o.name} line={o.line} />
+            <Option
+              key={o.name}
+              type="checkbox"
+              name="needs"
+              value={o.name}
+              title={o.name}
+              line={o.line}
+              defaultChecked={picked === o.name}
+            />
           ))}
         </div>
       </fieldset>

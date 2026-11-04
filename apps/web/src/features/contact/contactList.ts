@@ -1,4 +1,6 @@
 import showroom from "@/assets/banner/showroom.jpg";
+import orangeRoom from "@/assets/banner/orange-room.jpg";
+import yellowChair from "@/assets/details/yellow-chair.jpg";
 import { EMAIL, HOURS, mailAbout, MAILTO, PLACE } from "@/lib/contact";
 import type { ClosingBand } from "@/features/collection/Closing";
 import { routes } from "@/lib/routes";
@@ -85,47 +87,34 @@ export const HELP_WAYS = [
 export const TOPICS_HEAD = {
   label: "Write to us",
   title: "What people write to us about",
-  rest: "Pick the closest and your email opens with its subject written in",
+  note: `Pick the closest and the enquiry above fills itself in. We reply by email within ${FACTS.replyTime}.`,
+  go: "Write to us",
 };
 
+/**
+ * Who writes, as two cards, after the owner's reference: a blurred room
+ * behind each (warm ones, so the blur keeps colour), its name and line, and the needs the enquiry lists for it as
+ * tags. Each tag opens the enquiry with that one picked, so the needs are
+ * written once, in ENQUIRY below.
+ */
 export const TOPICS = [
   {
-    name: "A piece or an order",
-    line: "Sizes, finishes, an order you've placed, or a delivery.",
-    go: "Ask about a piece",
-    href: mailAbout("A piece or an order"),
+    who: "home",
+    title: "For your home",
+    line: "A room, a flat or a house. Tell us what it needs and we suggest what fits.",
+    photo: orangeRoom,
   },
   {
-    name: "Advice on a room",
-    line: "Send a photo and the size of the room, and we suggest what fits.",
-    go: "Ask about a room",
-    href: mailAbout("Advice on a room"),
-  },
-  {
-    name: "A home visit",
-    line: `${FACTS.visitMinutes} minutes in your home or office: we measure and suggest pieces. ${sgd(FACTS.visitFee)}, taken off your order if you buy.`,
-    go: "Ask for a visit",
-    href: mailAbout("Home visit"),
-  },
-  {
-    name: "An office or bulk order",
-    line: "Desks, storage and separator walls for a team, priced together.",
-    go: "Ask for a quote",
-    href: mailAbout("Office or bulk order"),
-  },
-  {
-    name: "A custom size or design",
-    line: "A modular piece in a size or shape the list doesn't have.",
-    go: "Ask for a quote",
-    href: mailAbout("Custom size or design"),
-  },
-  {
-    name: "Samples of the finishes",
-    line: "Birch, walnut and red, to see against your walls before you order.",
-    go: "Ask for samples",
-    href: mailAbout("Samples"),
+    who: "company",
+    title: "For a company",
+    line: "An office, a studio or a shop. Desks, storage and walls for a team, quoted together.",
+    photo: yellowChair,
   },
 ] as const;
+
+/** the link that opens the enquiry with a need picked, read back by the enquiry */
+export const askHref = (who: string, need: string) => `#ask=${who}:${encodeURIComponent(need)}`;
+export const ASK = /^#ask=(home|company):(.+)$/;
 
 /**
  * The enquiry, after the owner's three references. It asks first whether

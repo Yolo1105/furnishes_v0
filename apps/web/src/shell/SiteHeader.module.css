@@ -47,8 +47,11 @@
   composes: caps underline-on-hover from global;
 }
 
+/* the boxed way in, a little tighter than the shared box, on the owner's word */
 .primary {
   composes: boxed from global;
+  min-height: 24px;
+  padding-inline: 6px;
 }
 
 @media (width <= 1023px) {

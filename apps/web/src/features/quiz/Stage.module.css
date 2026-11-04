@@ -1,0 +1,161 @@
+/*
+ * The quiz's first screen: a screen tall under the bar, the count, question
+ * and options at the top, Back and Next at the foot, and the question's word
+ * in giant red-orange letters rising from the bottom edge behind them.
+ */
+.stage {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  box-sizing: border-box;
+  min-height: 100svh;
+  padding: calc(var(--nav-h) + clamp(32px, 9svh, 110px)) var(--gutter) clamp(24px, 5svh, 56px);
+  overflow: hidden;
+}
+
+/* The giant word, a layer behind the rest on purpose: set from a little in
+   from the left, running off the right edge as the reference's does, its
+   foot sunk under the bottom edge so only the letters' bodies show */
+.big {
+  position: absolute;
+  bottom: -0.2em;
+  left: 8%;
+  color: var(--ink-warm);
+  font: 500 min(88svh, 62vw) / 1 var(--font);
+  letter-spacing: var(--track-display);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.top,
+.bar {
+  position: relative;
+}
+
+.top {
+  display: grid;
+  gap: clamp(16px, 3svh, 32px);
+  align-content: start;
+  justify-items: start;
+}
+
+.count {
+  margin: 0;
+  color: var(--ink-dark);
+  font: 400 var(--text-lg) / 1 var(--font);
+  font-variant-numeric: tabular-nums;
+}
+
+/* the question in two lines, each kept whole, a size under the page titles */
+.title {
+  margin: 0;
+  color: var(--ink);
+  font: 400 clamp(20px, 4.6vw, 84px) / 1.08 var(--font);
+  letter-spacing: var(--track-tight);
+}
+
+.line {
+  display: block;
+  white-space: nowrap;
+}
+
+/* the second line in brown, a little under regular in Jost, as the rest of
+   every two-part title on the site */
+.line + .line {
+  color: var(--ink-dark);
+  font-weight: var(--weight-title-rest);
+  font-family: var(--font-wordmark);
+  letter-spacing: 0;
+}
+
+/* the question takes focus on each move only so a screen reader reads it;
+   it is not something to press, so it never shows the focus underline */
+.title:focus,
+.title:focus-visible {
+  outline: none;
+  text-decoration: none;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* each option a red outline on the cream, so it reads over the letters;
+   picked, it fills red with cream words, as the reference's black one */
+.option {
+  min-height: var(--tap);
+  padding-inline: 18px;
+  border: var(--line) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 var(--text-lg) / 1 var(--font);
+  cursor: pointer;
+}
+
+.option:hover {
+  background: var(--ink-wash);
+}
+
+.option[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.bar {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+/* Back sits over the letters, so it is boxed on the cream too */
+.back {
+  composes: boxed from global;
+  min-height: var(--tap);
+  padding-inline: 18px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 var(--text-lg) / 1 var(--font);
+  cursor: pointer;
+}
+
+/* Next keeps to the right even when Back is not there */
+.next {
+  gap: 10px;
+  margin-left: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* each new word rises in from below */
+  .big {
+    animation: big-rise var(--dur-roll) var(--ease-out) both;
+  }
+}
+
+@keyframes big-rise {
+  from {
+    translate: 0 30%;
+  }
+}
+
+@media (width <= 639px) {
+  /* each line kept whole across a phone's width */
+  .title {
+    font-size: 7vw;
+  }
+
+  .big {
+    font-size: 58vw;
+  }
+
+  .option {
+    padding-inline: 14px;
+  }
+}

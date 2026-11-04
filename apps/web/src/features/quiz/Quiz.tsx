@@ -5,7 +5,7 @@ import { BANNER, FIND, GUIDES, GUIDES_CALL, GUIDES_HEAD, KINDS, ROOMS, ROOMS_HEA
 import styles from "./Quiz.module.css";
 
 /**
- * The band over the page: the showroom, its words running across it, and
+ * The showroom band, after the questions: its words running across it, and
  * at its foot the title, a line and the way to draw a room. The words are
  * laid twice, so the row can slide half its width and start again unseen.
  */
@@ -28,9 +28,9 @@ export function QuizBanner() {
         </div>
       </div>
       <div className={styles.bannerFoot}>
-        <h1 id="banner-title" className={styles.bannerTitle}>
+        <h2 id="banner-title" className={styles.bannerTitle}>
           {BANNER.title}
-        </h1>
+        </h2>
         <p className={styles.bannerLine}>{BANNER.line}</p>
         <Link className={styles.bannerCall} href={routes.designYourRoom}>
           {BANNER.call}

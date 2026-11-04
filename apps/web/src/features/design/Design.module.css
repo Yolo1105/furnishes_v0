@@ -27,7 +27,7 @@
 
 .walls {
   fill: none;
-  stroke: var(--ink-wall);
+  stroke: var(--ink-dark);
 }
 
 .gap {

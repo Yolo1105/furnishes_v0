@@ -33,9 +33,15 @@ import { FACTS } from "@/lib/site";
  * share of the photo's width and height, with the nearest piece we sell; the
  * photo stands in, so they are the closest match, not the piece itself. The
  * lamp is not in our list yet, so its name and price are written here.
+ * `floats` are the smaller rooms that rise past it as it shrinks on scroll.
  */
 export const BANNER = {
   photo: lounge,
+  floats: [
+    { photo: shelfWall, spot: "top-left" as const },
+    { photo: study, spot: "top-right" as const },
+    { photo: yellowSofa, spot: "low-right" as const },
+  ],
   hero: {
     label: "Furniture for Singapore homes",
     title: "Made to fit your room",
@@ -128,6 +134,25 @@ export const MOSAIC = {
   ],
 };
 
+/**
+ * The catalogue at a glance, after the owner's reference: a title, then a
+ * tile for each kind of piece with how many we have, each opening the list
+ * on those kinds. The ten kinds are grouped into seven tiles; `spot` is the
+ * tile's place in the grid. Rooms stand in for photos of the pieces.
+ */
+export const CATALOGUE = {
+  title: "Catalogue",
+  tiles: [
+    { name: "Sofas", kinds: ["Sofas"], photo: redSofa, spot: "a" },
+    { name: "Chairs", kinds: ["Chairs"], photo: yellowChair, spot: "b" },
+    { name: "Tables", kinds: ["Tables"], photo: kitchen, spot: "c" },
+    { name: "Storage", kinds: ["Storage"], photo: shelfWall, spot: "d" },
+    { name: "Desks", kinds: ["Desks", "Work"], photo: study, spot: "e" },
+    { name: "Small pieces", kinds: ["Entryway", "Bedroom", "Kitchen"], photo: hallway, spot: "f" },
+    { name: "Walls", kinds: ["Separator walls"], photo: render, spot: "g" },
+  ],
+} as const;
+
 /** The lowest price in a line, read from the catalogue so it follows the prices. */
 const lowest = (line: LineSlug) => sgd(Math.min(...PIECES.filter((p) => p.line === line).map(fromPrice)));
 
@@ -217,6 +242,20 @@ export const FOR_AND_LOOKS = {
 
 /** The pieces to start with, two from each line, by slug. */
 export const START = ["office-desk", "low-cabinet", "room-divider", "dining-table"] as const;
+
+/**
+ * One piece to start a room with, after the owner's reference: a centred
+ * title over three cards, two small stacked on the left and a tall one on
+ * the right, by slug; the tall one suits a tall piece. Different pieces
+ * from "Start with these", so the two never repeat each other.
+ */
+export const FIRST_PIECE = {
+  label: "One to start",
+  title: "Every room starts with one piece",
+  all: "See every piece",
+  small: ["sofa", "entry-pack"],
+  tall: "bookcase",
+} as const;
 
 /** What every order comes with; returns are placeholder terms. */
 export const PROMISES = [

@@ -4,6 +4,7 @@
   margin: 0;
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+  font-size: var(--text-body, var(--text-line));
 }
 
 .inline img,
@@ -15,14 +16,27 @@
 
 .manifesto {
   display: grid;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: 24px clamp(24px, 4vw, 64px);
+  align-items: start;
   padding: clamp(64px, 8vw, 128px) var(--gutter) 0;
 }
 
-/* two lines across the page in the narrow cut at the section titles'
-   size and half again; each word is red once lit */
+/* the label alone on the left, level with the statement's first line;
+   the statement and the figures share the wide column on the right */
+.manifesto > h2 {
+  padding-top: 0.9em;
+}
+
+.statement,
+.figures {
+  grid-column: 2;
+}
+
+/* four lines in the wide column in the narrow cut at the section titles'
+   size and a fifth again; each word is red once lit */
 .statement {
-  max-width: 34ch;
+  max-width: 30ch;
   margin: 0;
   color: var(--ink);
   font: 400 calc(var(--text-over) * 1.2) / 1.15 var(--font);
@@ -129,6 +143,8 @@
   margin: 0;
   color: var(--ink-dark);
   font: 400 var(--text-lg) / 1.3 var(--font);
+  font-size: var(--text-body, var(--text-lg));
+  font-weight: var(--weight-title-rest);
 }
 
 .workshopPhoto {
@@ -187,12 +203,13 @@
 }
 
 /* the portrait's frame, in the birch the photos load on; the initial in
-   the narrow red until a photo replaces it */
+   the narrow red until a photo replaces it; square, so a person's name,
+   role and line sit inside a laptop screen */
 .portrait {
   display: grid;
   place-items: center;
   margin-bottom: 20px;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1;
   background: var(--birch);
   color: var(--ink);
   font: 400 var(--text-title) / 1 var(--font);
@@ -240,5 +257,19 @@
 
   .figures {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* on a phone the label sits over the statement */
+  .manifesto {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .manifesto > h2 {
+    padding-top: 0;
+  }
+
+  .statement,
+  .figures {
+    grid-column: 1;
   }
 }

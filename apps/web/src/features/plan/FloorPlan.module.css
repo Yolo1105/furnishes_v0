@@ -55,6 +55,12 @@
   opacity: 0.55;
 }
 
+/* the windows and bays belong to the walls, so they are drawn in the walls'
+   brown, not the lines' red orange */
+.lines .glass {
+  color: var(--ink-dark);
+}
+
 /* the rooms' names in the bar's small spaced capitals */
 .names text {
   fill: currentcolor;
@@ -72,16 +78,16 @@
   pointer-events: none;
 }
 
-/* the walls in a deeper, quieter red than the lines, so their thick fills
-   don't glare */
+/* the walls in the page's brown, the lines in the red orange: the plan
+   keeps to those two, on the owner's word */
 .walls {
-  color: var(--ink-wall);
+  color: var(--ink-dark);
 }
 
-/* a room with a word on the banner: washed in red, faintly on hover or
+/* a room with a word on the banner: washed in the red orange, faintly on hover or
    focus, clearly while its word is chosen */
 .rooms rect {
-  fill: var(--ink);
+  fill: var(--ink-warm);
   fill-opacity: 0;
   cursor: pointer;
   outline: none;

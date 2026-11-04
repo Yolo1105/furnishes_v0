@@ -1,0 +1,134 @@
+/* "Every room starts with one piece": the title centred over the cards, as the reference */
+.title {
+  align-items: center;
+  max-width: 18ch;
+  margin-inline: auto;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* two small cards stacked on the left, the tall one on the right */
+.picks {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-auto-rows: clamp(280px, 24vw, 400px);
+  gap: clamp(12px, 1.4vw, 20px);
+  max-width: 1200px;
+  margin: clamp(32px, 4vw, 56px) auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pick[data-tall] {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+/* a card: the name and price across its top, the photo in the middle, the
+   line and the round arrow at its foot, on the faint red tile ground */
+.card {
+  display: grid;
+  grid-template:
+    "name price" auto
+    "photo photo" 1fr
+    "line go" auto
+    / 1fr auto;
+  gap: 14px 20px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: clamp(16px, 1.6vw, 24px);
+  background: var(--ink-tile);
+  color: var(--ink-dark);
+  text-decoration: none;
+}
+
+.name {
+  composes: caps from global;
+  grid-area: name;
+  font-size: var(--text-md);
+}
+
+.price {
+  grid-area: price;
+  color: var(--ink-dark-pale);
+  font: 400 var(--text-md) / 1 var(--font);
+}
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  grid-area: photo;
+}
+
+.photo img {
+  object-fit: cover;
+}
+
+.line {
+  grid-area: line;
+  align-self: end;
+  max-width: 34ch;
+  font: var(--weight-title-rest) var(--text-md) / 1.4 var(--font-wordmark);
+}
+
+/* the round arrow in the red orange, as the reference's yellow one */
+.go {
+  display: grid;
+  grid-area: go;
+  place-items: center;
+  align-self: end;
+  width: var(--tap);
+  height: var(--tap);
+  border-radius: 50%;
+  background: var(--ink-warm);
+}
+
+.go svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--paper);
+}
+
+/* pointed at, the name turns red and the arrow deepens to the red */
+.card:hover .name,
+.card:focus-visible .name {
+  color: var(--ink);
+}
+
+.card:hover .go,
+.card:focus-visible .go {
+  background: var(--ink);
+}
+
+.all {
+  margin: clamp(24px, 3vw, 40px) 0 0;
+  text-align: center;
+}
+
+/* the way to every piece: small capitals over a thin line */
+.allLink {
+  composes: caps from global;
+  padding-bottom: 6px;
+  border-bottom: var(--line) solid currentcolor;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .go {
+    transition: background 0.2s;
+  }
+}
+
+/* on a phone the three follow one another, the tall one no taller */
+@media (width <= 767px) {
+  .picks {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: clamp(300px, 90vw, 400px);
+  }
+
+  .pick[data-tall] {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}

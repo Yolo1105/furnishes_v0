@@ -1,5 +1,6 @@
-/* Eva's band: the title and its two ways in on the left, what Eva does on
-   the right at the title's height, and the three cards across under both */
+/* Eva's band: the title, what Eva does under it as every section's
+   subtitle, and the two ways in, all down the left as the other sections'
+   heads; the three cards across under them */
 .assistant {
   display: grid;
   gap: clamp(32px, 4vw, 56px);
@@ -7,23 +8,23 @@
 
 .top {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 28px clamp(24px, 4vw, 72px);
-  align-items: end;
+  gap: 20px;
+  justify-items: start;
 }
 
 .top > h2 {
   max-width: 14ch;
 }
 
-/* the line in the subtitle face, beside the title's foot */
+/* the line in the subtitle face and size every section's subtitle takes */
 .line {
-  grid-row: 1;
-  grid-column: 2;
-  max-width: 44ch;
-  margin: 0;
+  max-width: 48ch;
+  margin: 0 0 8px;
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-rest) / 1.4 var(--font-wordmark);
+  font-size: var(--text-deck, var(--text-rest));
+  font-weight: var(--weight-deck, var(--weight-title-rest));
+  font-family: var(--font-sub, var(--font-wordmark));
 }
 
 .calls {
@@ -131,16 +132,6 @@
 }
 
 @media (width <= 1023px) {
-  .top {
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
-  }
-
-  .line {
-    grid-row: auto;
-    grid-column: auto;
-  }
-
   .cards {
     grid-template-columns: minmax(0, 1fr);
   }

@@ -19,18 +19,149 @@
    the title sits on it at the bottom left. Photo and words share one grid
    cell, so they stack without absolute positioning. */
 .banner {
+  box-sizing: border-box;
+  margin-top: var(--nav-h);
+}
+
+.bannerStage {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  box-sizing: border-box;
   height: calc(100svh - var(--nav-h));
   min-height: 560px;
-  margin-top: var(--nav-h);
+  overflow: hidden;
 }
 
 .bannerPhoto,
 .bannerWords,
 .heroWords {
   grid-area: 1 / 1;
+}
+
+/* the smaller rooms that rise past the banner's photo as it shrinks: layers
+   stacked on the stage on purpose, each in its corner; shown only where the
+   page can tie their rise to the scroll, so hidden until then */
+.bannerFloat {
+  position: absolute;
+  z-index: 1;
+  display: none;
+  width: 16vw;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.bannerFloat img {
+  object-fit: cover;
+}
+
+.bannerFloat[data-spot="top-left"] {
+  top: 6%;
+  left: 5%;
+  width: 12vw;
+}
+
+.bannerFloat[data-spot="top-right"] {
+  top: 10%;
+  right: 4%;
+}
+
+.bannerFloat[data-spot="low-right"] {
+  right: 14%;
+  bottom: 4%;
+  width: 13vw;
+}
+
+/* Scrolled, after the owner's reference: the banner stays on screen for one
+   more screen's scroll while its photo shrinks into a square-cornered
+   card, held a little high so the words below it land on the page; the
+   shade fades, the words turn from cream to the page's red, and the smaller
+   rooms rise from below at their own pace. Only where the browser ties
+   animation to scroll, only on screens wider than a tablet, and never for
+   anyone who asks for less motion; everywhere else the banner is as it was. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) and (width >= 1024px) {
+    .banner[data-floats] {
+      --banner-run: calc(100svh - var(--nav-h));
+
+      height: calc(2 * var(--banner-run));
+    }
+
+    .banner[data-floats] .bannerStage {
+      position: sticky;
+      top: var(--nav-h);
+    }
+
+    .banner[data-floats] .bannerPhoto {
+      transform-origin: 50% 30%;
+      animation: banner-shrink linear both;
+      animation-range: 0 var(--banner-run);
+      animation-timeline: scroll(root);
+    }
+
+    .banner[data-floats] .bannerPhoto::after {
+      animation: banner-unshade linear both;
+      animation-range: 0 calc(0.6 * var(--banner-run));
+      animation-timeline: scroll(root);
+    }
+
+    .banner[data-floats] .heroWords {
+      animation: banner-words linear both;
+      animation-range: calc(0.3 * var(--banner-run)) calc(0.7 * var(--banner-run));
+      animation-timeline: scroll(root);
+    }
+
+    .banner[data-floats] .bannerFloat {
+      display: block;
+      animation: banner-rise linear both;
+      animation-range: calc(var(--from) * var(--banner-run)) var(--banner-run);
+      animation-timeline: scroll(root);
+    }
+
+    .bannerFloat[data-spot="top-left"] {
+      --rise: 70svh;
+      --from: 0.2;
+    }
+
+    .bannerFloat[data-spot="top-right"] {
+      --rise: 90svh;
+      --from: 0.1;
+    }
+
+    .bannerFloat[data-spot="low-right"] {
+      --rise: 50svh;
+      --from: 0.35;
+    }
+  }
+}
+
+@keyframes banner-shrink {
+  to {
+    scale: 0.56;
+  }
+}
+
+@keyframes banner-unshade {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes banner-words {
+  to {
+    color: var(--ink);
+  }
+}
+
+@keyframes banner-rise {
+  from {
+    opacity: 0;
+    translate: 0 var(--rise);
+  }
+
+  30% {
+    opacity: 1;
+  }
 }
 
 .bannerPhoto {
@@ -408,9 +539,11 @@
    large across the page, two rooms wide under it, then a line on the left
    and the paragraphs (or the details) on the right; under the bar */
 .opening {
+  --opening-row-gap: clamp(24px, 3vw, 56px);
+
   display: grid;
   grid-template-columns: 5fr 7fr;
-  gap: clamp(24px, 3vw, 56px) clamp(24px, 4vw, 72px);
+  gap: var(--opening-row-gap) clamp(24px, 4vw, 72px);
   padding: calc(var(--nav-h) + clamp(32px, 4vw, 64px)) var(--gutter) 0;
 }
 
@@ -422,6 +555,22 @@
   font: 400 var(--text-title) / 0.98 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-display);
+}
+
+/* as a section of the home page, the title at the size of every other
+   section's title there, not a page's; a column like .heading, with the
+   same space under it as a section's head (the grid's row gap plus the
+   rest, never below 0px) */
+.openingTitleSection {
+  display: flex;
+  flex-direction: column;
+  max-width: none;
+  margin-bottom: max(0px, calc(var(--space-head, 24px) - var(--opening-row-gap)));
+  font: 400 var(--text-over) / 1.08 var(--font);
+  font-size: var(--text-heading, var(--text-over));
+  font-family: var(--font-heading, var(--font));
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
 }
 
 .openingPhotos {
@@ -502,7 +651,10 @@
   gap: 8px 24px;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 24px;
+
+  /* more air under the title while the home page tries Sora, so the title
+     block and the columns read as two levels */
+  margin-bottom: var(--space-head, 24px);
 }
 
 /* every section's title as the home visit's once was, on the owner's word:
@@ -515,6 +667,8 @@
   color: var(--ink);
   margin: 0;
   font: 400 var(--text-over) / 1.08 var(--font);
+  font-size: var(--text-heading, var(--text-over));
+  font-family: var(--font-heading, var(--font));
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
 }
@@ -524,6 +678,9 @@
   margin-top: 8px;
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-rest) / 1.3 var(--font-wordmark);
+  font-size: var(--text-deck, var(--text-rest));
+  font-weight: var(--weight-deck, var(--weight-sub, var(--weight-title-rest)));
+  font-family: var(--font-sub, var(--font-wordmark));
   font-variation-settings: normal;
   letter-spacing: 0;
 }
@@ -795,6 +952,8 @@
   margin: 0 0 12px;
   color: var(--ink);
   font: 400 var(--text-head) / 1.1 var(--font);
+  font-size: var(--text-entry, var(--text-head));
+  font-weight: var(--weight-entry, 400);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
   text-wrap: balance;
@@ -807,6 +966,7 @@
   margin: 0;
   color: color-mix(in srgb, currentcolor 72%, var(--paper));
   font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+  font-size: var(--text-body, var(--text-line));
 }
 
 /* ---------- with every order ---------- */
@@ -1474,6 +1634,65 @@
   align-content: start;
 }
 
+/* Steps on a line: each mark sits in a square on the cream, and a thin
+   line runs behind the squares from the first to the last, drawn left to
+   right as the steps pass up the screen (below). The line ends at the
+   centres of the first and last squares: half a square in from the left,
+   and a column's width less half a square in from the right. Five across
+   only, so it is left off where the steps wrap. */
+.index[data-track] {
+  --stop: clamp(40px, 3vw, 48px);
+  --track-in: calc(var(--stop) / 2);
+  --track-out: calc((100% - (var(--cols) - 1) * clamp(20px, 2.4vw, 40px)) / var(--cols) - var(--stop) / 2);
+
+  position: relative;
+}
+
+/* the faint track under it all, and the red line drawn over it, both
+   layers stacked behind the squares on purpose */
+.index[data-track]::before,
+.index[data-track]::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--stop) / 2);
+  right: var(--track-out);
+  left: var(--track-in);
+  height: var(--line);
+  background: var(--rule);
+}
+
+.index[data-track]::after {
+  background: var(--ink);
+  transform-origin: left;
+}
+
+/* each stop a small square in the site's thin red outline on the cream,
+   as its boxed buttons and options, its mark in red inside */
+.entryStop {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--stop);
+  height: var(--stop);
+  margin-bottom: 14px;
+  border: var(--line) solid var(--ink);
+  background: var(--paper);
+}
+
+.entryStop > .icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* on the line the marks carry the order, so the number steps back to a
+   small label over the name instead of a second large figure */
+.index[data-track] .entryNumber {
+  color: var(--ink-dark-pale);
+  font: 500 var(--text-sm) / 1.2 var(--font);
+  letter-spacing: var(--track-caps);
+}
+
 /* a step's number over its name, large in the pale red */
 .entryNumber {
   color: var(--ink-pale);
@@ -1491,6 +1710,8 @@
   margin: 0;
   color: var(--ink);
   font: 400 var(--text-head) / 1.1 var(--font);
+  font-size: var(--text-entry, var(--text-head));
+  font-weight: var(--weight-entry, 400);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
   text-wrap: balance;
@@ -1505,6 +1726,7 @@
   max-width: 40ch;
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+  font-size: var(--text-body, var(--text-line));
 }
 
 .entryBody > p {
@@ -1543,11 +1765,25 @@
       view-timeline: --steps block;
     }
 
-    .index[data-numbered] > .entry {
+    .index[data-numbered]:not([data-track]) > .entry {
       animation: step-in linear both;
       animation-range: cover calc(20% + var(--i) / var(--count) * 30%) cover calc(28% + var(--i) / var(--count) * 30%);
       animation-timeline: --steps;
     }
+
+    /* on a line, the steps stand in full and the line itself, drawn over
+       20% to 50% of the pass, carries the order */
+    .index[data-track]::after {
+      animation: track-draw linear both;
+      animation-range: cover 20% cover 50%;
+      animation-timeline: --steps;
+    }
+  }
+}
+
+@keyframes track-draw {
+  from {
+    scale: 0 1;
   }
 }
 
@@ -1604,7 +1840,7 @@
 
 /* a question's whole row is its button: its number in small red capitals,
    the question in the page's brown, and the plus in red, which turns to a
-   cross when open; space alone parts the rows */
+   cross when open */
 .qaQuestion {
   display: grid;
   grid-template-columns: var(--qa-number) 1fr auto;
@@ -1618,6 +1854,12 @@
   font: 400 var(--text-line) / 1.3 var(--font);
   text-align: left;
   cursor: pointer;
+}
+
+/* a dim brown line between questions, after the owner's reference, so the
+   rows read apart; none under the last, on the owner's word */
+.qaItem:not(:last-child) {
+  border-bottom: var(--line) solid var(--rule);
 }
 
 /* a question with a mark in place of its number sits level with the mark */
@@ -1669,7 +1911,7 @@
 }
 
 /* split, after the owner's reference: the title over the questions, and
-   the questions in two columns of rows, parted by space alone */
+   the questions in two columns of rows */
 .qa[data-split] {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -1755,6 +1997,11 @@
 
   .index {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .index[data-track]::before,
+  .index[data-track]::after {
+    display: none;
   }
 
   .promises {

@@ -1,0 +1,5 @@
+/* the wrapper draws no box of its own, so the sections lay out as before;
+   it only carries the trial's tokens down to them */
+.scope {
+  display: contents;
+}

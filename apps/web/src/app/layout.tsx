@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Sans, Jost } from "next/font/google";
+import { Instrument_Sans, Jost, Sora } from "next/font/google";
 import type { ReactNode } from "react";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
 const instrument = Instrument_Sans({ subsets: ["latin"], axes: ["wdth"], variable: "--font-instrument" });
 const jost = Jost({ subsets: ["latin"], weight: "variable", variable: "--font-jost" });
+// on trial across the home page; see TypeTrial and the trial block in globals.css
+const sora = Sora({ subsets: ["latin"], weight: "variable", variable: "--font-sora" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -20,7 +22,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${instrument.variable} ${jost.variable}`}>
+    <html lang="en" className={`${instrument.variable} ${jost.variable} ${sora.variable}`}>
       <body>
         <a className="skip-link" href="#main">
           Skip to content

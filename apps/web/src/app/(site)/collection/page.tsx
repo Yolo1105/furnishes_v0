@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Catalogue } from "@/features/collection/Catalogue";
 import { Compare } from "@/features/collection/Compare";
 import { CollectionBanner } from "@/features/collection/CollectionBanner";
 import { BANNER, COLLECTION_QUESTIONS, FOR_AND_LOOKS } from "@/features/collection/collectionList";
@@ -13,6 +14,7 @@ import { QuickLinks } from "@/features/collection/QuickLinks";
 import { StartWith } from "@/features/collection/StartWith";
 import { Tiles } from "@/features/collection/Tiles";
 import { DesignOwn } from "@/features/collection/DesignOwn";
+import { FirstPiece } from "@/features/collection/FirstPiece";
 import { Details } from "@/features/collection/Details";
 import { ForYou } from "@/features/collection/ForYou";
 import { Visit } from "@/features/collection/Visit";
@@ -26,8 +28,8 @@ export const metadata: Metadata = {
 
 /**
  * Collection: what we sell over a room; right under it a statement of who
- * we are, the pieces a logged-in visitor's answers suit, a mosaic of the three things we make and how they compare, then the ready-made line's quickest ways in, who it's for and its looks, as four tiles, then
- * titled sections: the two things we sell, what goes into each piece, a few pieces to start with,
+ * we are, the pieces a logged-in visitor's answers suit, a mosaic of the three things we make, the catalogue by kind with its counts, and how they compare, then the ready-made line's quickest ways in, who it's for and its looks, as four tiles, then
+ * one piece to start a room with as three cards, then titled sections: the two things we sell, what goes into each piece, a few pieces to start with,
  * quick ways in, questions, then what every order comes with and the home visit.
  */
 export default function CollectionPage() {
@@ -39,6 +41,7 @@ export default function CollectionPage() {
         <Intro />
         <ForYou />
         <Mosaic />
+        <Catalogue />
         <Compare />
         <ReadyMade />
         <UnevenTiles
@@ -49,6 +52,7 @@ export default function CollectionPage() {
           tiles={FOR_AND_LOOKS.tiles}
         />
         <RoomCards />
+        <FirstPiece />
         <Tiles />
         <Details />
         <DesignOwn />

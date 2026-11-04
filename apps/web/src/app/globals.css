@@ -32,10 +32,6 @@
   --ink-dark: #5e2a15;
   --ink-dark-pale: color-mix(in srgb, var(--ink-dark) 72%, var(--paper));
 
-  /* the floor plan's solid walls: the red taken halfway to the brown, so
-     the thick fills sit back instead of glaring, on the owner's word */
-  --ink-wall: color-mix(in srgb, var(--ink) 55%, var(--ink-dark));
-
   /* thin lines that part things on the cream, where the owner asks for
      them: a faint one between parts, a firmer one round a field */
   --rule: color-mix(in srgb, var(--ink-dark) 18%, transparent);
@@ -49,6 +45,17 @@
      shade is black across the photo's foot, under the words. */
   --photo-text: color-mix(in srgb, var(--paper) 50%, #fff);
   --photo-text-dim: color-mix(in srgb, var(--photo-text) 82%, transparent);
+
+  /* a warm brown rising over a whole blurred photo, deepest at its foot
+     under the words, and the see-through cream
+     pills set on it, for the contact page's two cards */
+  --photo-warm: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--ink-dark) 82%, transparent) 0%,
+    color-mix(in srgb, var(--ink-dark) 40%, transparent) 45%,
+    color-mix(in srgb, var(--ink-dark) 8%, transparent) 100%
+  );
+  --photo-chip: color-mix(in srgb, var(--paper) 20%, transparent);
 
   /* a step whiter, for the mosaic's words over its light black */
   --photo-text-white: color-mix(in srgb, var(--paper) 42%, #fff);
@@ -71,6 +78,10 @@
      and a small dot that must read on light and dark rooms alike */
   --shadow-float: 0 8px 28px color-mix(in srgb, #000 22%, transparent);
   --shadow-dot: 0 2px 10px color-mix(in srgb, #000 55%, transparent);
+
+  /* a softer shadow that lifts a card off the cream page, for the stacked
+     example cards */
+  --shadow-card: 0 10px 40px color-mix(in srgb, var(--ink-dark) 14%, transparent);
 
   /* a see-through white halo round a dot on a photo, so it stands out from
      a warm, bright room as well as a dark one */
@@ -112,6 +123,10 @@
      red finish, so the cards beside it stay in the page's warm colours */
   --panel-orange: color-mix(in srgb, var(--ink-warm) 22%, var(--paper));
 
+  /* the cream lifted toward white, for cards that sit on the page's cream
+     (the office layouts) */
+  --paper-light: color-mix(in srgb, var(--paper) 55%, #fff);
+
   /* the finishes coming next, as flat samples until they are photographed
      (fills, not text) */
   --finish-oiled-oak: #c79a62;
@@ -126,8 +141,10 @@
   /* Instrument Sans throughout, in three roles: display for the big words,
      text for anything read as a sentence, and the bar's small spaced
      capitals. The wordmark is the logo, in Jost. */
-  --font: var(--font-instrument), "Helvetica Neue", helvetica, arial, sans-serif;
-  --font-wordmark: var(--font-jost), system-ui, sans-serif;
+  --font-site: var(--font-instrument), "Helvetica Neue", helvetica, arial, sans-serif;
+  --font: var(--font-site);
+  --font-wordmark-site: var(--font-jost), system-ui, sans-serif;
+  --font-wordmark: var(--font-wordmark-site);
   --text-sm: clamp(12px, 0.78vw, 14px);
   --text-nav: clamp(11.5px, 0.75vw, 13px);
   --text-md: clamp(13px, 0.95vw, 15px);
@@ -154,14 +171,16 @@
   --text-title: clamp(36px, 6.3vw, 116px);
 
   /* a title that runs to two lines: over a photo, or atop a page's list */
-  --text-over: clamp(28px, 3.1vw, 58px);
+  --text-over-site: clamp(28px, 3.1vw, 58px);
+  --text-over: var(--text-over-site);
 
   /* the words that run across the quiz page's band: a tenth of the width,
      as the owner's reference */
   --text-run: clamp(64px, 10vw, 200px);
 
   /* the big words: a fifth of what height is left, at most 6.5% of the width */
-  --text-display: clamp(45px, min(6.5vw, (100svh - var(--nav-h) - 240px) / 5.3), 120px);
+  --text-display-site: clamp(45px, min(6.5vw, (100svh - var(--nav-h) - 240px) / 5.3), 120px);
+  --text-display: var(--text-display-site);
   --width-display: 85;
   --track-display: -0.04em;
   --track-caps: 0.06em;
@@ -322,11 +341,11 @@ h3 {
   align-items: center;
   justify-content: center;
   min-height: var(--tap);
-  padding-inline: 24px;
+  padding-inline: 18px;
   border: var(--line) solid currentcolor;
   background: none;
   color: var(--ink);
-  font: 400 var(--text-lg) / 1 var(--font);
+  font: 400 var(--text-md) / 1 var(--font);
   cursor: pointer;
 }
 
@@ -391,4 +410,73 @@ h3 {
 
 .skip-link:focus-visible {
   translate: 0 0;
+}
+
+/* ---------- trial: Sora on the home page ----------
+   After the owner's type-scale demo: Sora, a wide geometric sans, in place
+   of both faces, its big words at a regular weight in sentence case and a
+   step smaller, since Sora runs wider than the narrowed capitals. Only the
+   home page's sections carry data-type-trial (TypeTrial.tsx), so the bar,
+   the footer and the other pages keep the site's faces. Delete this block,
+   TypeTrial and Sora in layout.tsx to go back. */
+[data-type-trial] {
+  --font: var(--font-sora), system-ui, sans-serif;
+  --font-wordmark: var(--font-sora), system-ui, sans-serif;
+
+  /* reading text a step under the titles' 400, so a section's sentences
+     sit back from its title and its one-line subtitle, which keeps 400 */
+  --weight-title-rest: 350;
+  --weight-sub: 400;
+
+  /* the headings of a section's columns, a clear step under its title */
+  --text-entry: clamp(19px, 1.5vw, 26px);
+
+  /* a card's lead sentence, never larger than a section's title above it */
+  --text-card-lead: var(--text-head);
+
+  /* four clear steps under a section's title, so no two levels look alike:
+     the subtitle light, the column and person headings medium, and the
+     reading text a size smaller than both */
+  --weight-deck: 300;
+
+  /* section titles and their subtitles in Sora too, on the owner's word,
+     at the sizes the trial first gave them */
+  --font-heading: var(--font);
+  --font-sub: var(--font-wordmark);
+  --text-heading: clamp(28px, 2.7vw, 50px);
+  --text-deck: clamp(16px, 1.3vw, 22px);
+  --space-head: clamp(32px, 3.6vw, 64px);
+  --weight-entry: 500;
+  --text-body: clamp(15px, 1.15vw, 17px);
+
+  /* a step lighter, for the lines the owner picks out (the flat tour's) */
+  --weight-line-light: 300;
+
+  /* half that step, for small lines that went too thin at 300 (the banner's foot) */
+  --weight-line-soft: 350;
+  --text-display: clamp(37px, min(5.3vw, (100svh - var(--nav-h) - 240px) / 6.5), 98px);
+  --text-title: clamp(30px, 5.2vw, 95px);
+  --text-over: clamp(24px, 2.5vw, 48px);
+
+  /* the body set its face before the swap, so text that only inherits it
+     takes the new one from here */
+  font-family: var(--font);
+}
+
+[data-type-trial] .display:not([data-type-keep] *) {
+  font-weight: 400;
+  font-variation-settings: normal;
+  letter-spacing: -0.03em;
+  text-transform: none;
+}
+
+/* a part kept in the site's own face and sizes, as the banner's big words
+   and the manifesto's statement are, on the owner's word; lines in Jost
+   inside it stay on trial */
+[data-type-trial] [data-type-keep] {
+  --font: var(--font-site);
+  --text-display: var(--text-display-site);
+  --text-over: var(--text-over-site);
+
+  font-family: var(--font);
 }

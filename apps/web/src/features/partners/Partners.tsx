@@ -25,8 +25,8 @@ function Row({ hidden }: { hidden?: boolean }) {
 }
 
 /**
- * Partners: a row of names running left to right without end, between the
- * banner and the flat. The row is written twice so the loop never shows a
+ * Partners: a row of names running left to right without end, right under
+ * the banner. The row is written twice so the loop never shows a
  * seam; it holds still for anyone who asks for less motion, and while
  * pointed at.
  */

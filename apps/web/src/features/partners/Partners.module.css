@@ -1,7 +1,7 @@
 .partners {
   overflow: hidden;
   padding-top: 5vw;
-  color: var(--ink);
+  color: var(--ink-dark);
 }
 
 .track {
@@ -26,10 +26,11 @@
   align-items: center;
 }
 
+/* the mark in the red orange, the name beside it in the page's brown */
 .logo svg {
   width: 1.1em;
   height: 1.1em;
-  fill: currentcolor;
+  fill: var(--ink-warm);
 }
 
 .cut {
@@ -40,7 +41,7 @@
 
 .wave {
   fill: none;
-  stroke: currentcolor;
+  stroke: var(--ink-warm);
   stroke-width: 3;
 }
 

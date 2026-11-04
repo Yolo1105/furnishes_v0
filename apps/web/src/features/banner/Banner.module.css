@@ -191,7 +191,7 @@
   align-content: start;
   justify-items: start;
   min-height: 0;
-  padding-top: calc(var(--text-display) * var(--leading-display) + clamp(12px, 2.4svh, 32px));
+  padding-top: calc(var(--text-display) * var(--leading-display) + clamp(24px, 4.8svh, 64px));
 }
 
 .line {
@@ -202,6 +202,8 @@
      a little under regular, in the page's brown (9:1 on the cream) */
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+  font-size: var(--text-body, var(--text-line));
+  font-weight: var(--weight-sub, var(--weight-title-rest));
   clip-path: inset(0 -1em -0.3em 0);
 }
 
@@ -237,13 +239,19 @@
   grid-template-columns: repeat(3, 16.3vw) 1fr;
   align-items: end;
   font: 400 var(--text-md) / 1.3 var(--font);
+
+  /* a step lighter while the home page tries Sora, on the owner's word */
+  font-weight: var(--weight-line-soft, 400);
 }
 
-/* the banner's way on: the same face as the bar, but lowercase and a step larger */
+/* the banner's way on: lowercase, in the red orange so it reads as the one
+   thing in the row to press */
 .more {
   composes: underline-on-hover from global;
   justify-self: end;
-  font: 500 var(--text-md) / 1 var(--font);
+  color: var(--ink);
+  font: 400 var(--text-md) / 1 var(--font);
+  font-weight: var(--weight-line-soft, 500);
   text-transform: lowercase;
   white-space: nowrap;
 }

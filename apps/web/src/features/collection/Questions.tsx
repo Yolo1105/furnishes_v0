@@ -10,7 +10,7 @@ type Question = { q: string; a: string; icon?: IconName };
 /**
  * Questions before ordering, as the owner's other site: the title and a way
  * to ask something else on the left, the questions on the right, one open at
- * a time, the first open on arrival, its answer sliding open under it.
+ * a time, all closed on arrival, each answer sliding open under it.
  * A question may carry a small mark in place of its number. `split` puts
  * the title over the questions and the questions in two columns of rows,
  * the first half on the left, as Contact has it. Other
@@ -32,8 +32,8 @@ export function Questions({
   ask?: boolean;
   split?: boolean;
 }) {
-  // the first question opens on arrival, on the owner's word, so the list shows how it works
-  const [open, setOpen] = useState<string | null>(questions[0]?.q ?? null);
+  // every question starts closed, on the owner's word
+  const [open, setOpen] = useState<string | null>(null);
   const id = useId();
   // the left column takes the odd one, so it is never the shorter
   const half = Math.ceil(questions.length / 2);

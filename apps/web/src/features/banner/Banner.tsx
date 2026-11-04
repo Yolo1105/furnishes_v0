@@ -82,6 +82,8 @@ export function Banner() {
 
       <ul
         className={styles.words}
+        // the big words stay in the site's own face while the home page tries Sora
+        data-type-keep
         onPointerEnter={() => hold(true)}
         onPointerLeave={() => {
           hold(false);

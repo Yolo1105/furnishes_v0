@@ -54,7 +54,7 @@ export function LinePieces({ line, aside }: { line: LineSlug; aside?: Aside }) {
   );
 }
 
-type Step = { name: string; line: string };
+export type Step = { name: string; line: string; icon?: IconName };
 
 /**
  * One entry of an index: a name, and to its right what it is, as a line,
@@ -84,12 +84,21 @@ export function Index({ entries, numbered = false }: { entries: readonly Entry[]
     <List
       className={styles.index}
       data-numbered={numbered || undefined}
+      // numbered steps that carry marks stand on a line drawn across them
+      data-track={(numbered && entries.some((e) => e.icon)) || undefined}
       style={{ "--count": entries.length, "--cols": entries.length <= 5 ? entries.length : 3 } as CSSProperties}
     >
       {entries.map((e, i) => (
         <li key={e.name} className={styles.entry} style={{ "--i": i } as CSSProperties}>
           <div className={styles.entryHead}>
-            {e.icon && <Icon name={e.icon} />}
+            {e.icon &&
+              (numbered ? (
+                <span className={styles.entryStop}>
+                  <Icon name={e.icon} />
+                </span>
+              ) : (
+                <Icon name={e.icon} />
+              ))}
             {numbered && (
               <span className={styles.entryNumber} aria-hidden="true">
                 {String(i + 1).padStart(2, "0")}
