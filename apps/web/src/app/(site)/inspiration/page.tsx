@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inspiration } from "@/features/inspiration/Inspiration";
 import { Looks, NotNoticed } from "@/features/inspiration/Looks";
 import { Journal } from "@/features/journal/Journal";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 export const metadata: Metadata = {
@@ -15,10 +16,13 @@ export default function InspirationPage() {
     <>
       <SiteHeader />
       <main id="main">
-        <Inspiration />
-        <NotNoticed />
-        <Journal />
-        <Looks />
+        {/* Sora, as on the home and collection pages, on the owner's word */}
+        <TypeTrial page="inspiration">
+          <Inspiration />
+          <NotNoticed />
+          <Journal />
+          <Looks />
+        </TypeTrial>
       </main>
     </>
   );

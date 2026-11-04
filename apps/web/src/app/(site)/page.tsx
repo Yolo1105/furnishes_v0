@@ -29,7 +29,7 @@ export default function Home() {
       <RoomProvider>
         <main id="main" className={styles.page}>
           {/* Sora across the page, the owner's pick after the trial */}
-          <TypeTrial>
+          <TypeTrial page="home">
             <Banner />
             <Partners />
             <Manifesto />

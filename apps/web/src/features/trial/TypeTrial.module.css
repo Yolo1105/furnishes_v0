@@ -3,3 +3,20 @@
 .scope {
   display: contents;
 }
+
+/* the Before/After switch, pinned at the foot of the screen while
+   comparing, clear of the titles at the top; kept in the site's own face */
+.toggle {
+  composes: caps boxed from global;
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  z-index: 10;
+  min-height: var(--tap);
+  padding-inline: 16px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-site);
+  translate: -50% 0;
+  cursor: pointer;
+}

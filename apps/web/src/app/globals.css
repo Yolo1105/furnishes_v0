@@ -412,12 +412,13 @@ h3 {
   translate: 0 0;
 }
 
-/* ---------- trial: Sora on the home page ----------
+/* ---------- trial: Sora on the home, collection and inspiration pages ----------
    After the owner's type-scale demo: Sora, a wide geometric sans, in place
    of both faces, its big words at a regular weight in sentence case and a
    step smaller, since Sora runs wider than the narrowed capitals. Only the
-   home page's sections carry data-type-trial (TypeTrial.tsx), so the bar,
-   the footer and the other pages keep the site's faces. Delete this block,
+   home, collection and inspiration pages' sections carry data-type-trial
+   (TypeTrial.tsx), so the bar, the footer and the other pages keep the
+   site's faces. Delete this block,
    TypeTrial and Sora in layout.tsx to go back. */
 [data-type-trial] {
   --font: var(--font-sora), system-ui, sans-serif;
@@ -445,7 +446,7 @@ h3 {
   --font-sub: var(--font-wordmark);
   --text-heading: clamp(28px, 2.7vw, 50px);
   --text-deck: clamp(16px, 1.3vw, 22px);
-  --space-head: clamp(32px, 3.6vw, 64px);
+  --track-deck: var(--track-tight);
   --weight-entry: 500;
   --text-body: clamp(15px, 1.15vw, 17px);
 
@@ -459,8 +460,10 @@ h3 {
   --text-over: clamp(24px, 2.5vw, 48px);
 
   /* the body set its face before the swap, so text that only inherits it
-     takes the new one from here */
+     takes the new one from here; Sora runs wide, so its words sit a little
+     closer, as the subtitles do (capitals and titles set their own) */
   font-family: var(--font);
+  letter-spacing: var(--track-deck);
 }
 
 [data-type-trial] .display:not([data-type-keep] *) {
@@ -468,6 +471,20 @@ h3 {
   font-variation-settings: normal;
   letter-spacing: -0.03em;
   text-transform: none;
+}
+
+/* buttons and fields don't inherit spacing by default; under the trial
+   they take its tighter spacing, at no weight so any that set their own
+   (capitals) keep it */
+:where([data-type-trial]) :where(button, input, select, textarea) {
+  letter-spacing: inherit;
+}
+
+/* more air under a section's title on the home page only, so its title
+   block and the columns read as two levels; the collection page keeps the
+   site's 24px, which its photos sit closer to */
+[data-type-trial="home"] {
+  --space-head: clamp(32px, 3.6vw, 64px);
 }
 
 /* a part kept in the site's own face and sizes, as the banner's big words

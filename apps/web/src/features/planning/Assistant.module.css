@@ -25,6 +25,7 @@
   font-size: var(--text-deck, var(--text-rest));
   font-weight: var(--weight-deck, var(--weight-title-rest));
   font-family: var(--font-sub, var(--font-wordmark));
+  letter-spacing: var(--track-deck, 0);
 }
 
 .calls {

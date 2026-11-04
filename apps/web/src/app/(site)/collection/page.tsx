@@ -19,6 +19,7 @@ import { Details } from "@/features/collection/Details";
 import { ForYou } from "@/features/collection/ForYou";
 import { Visit } from "@/features/collection/Visit";
 import styles from "@/features/collection/Collection.module.css";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 export const metadata: Metadata = {
@@ -37,30 +38,34 @@ export default function CollectionPage() {
     <>
       <SiteHeader />
       <main id="main" className={styles.page}>
-        <CollectionBanner banner={BANNER} bare />
-        <Intro />
-        <ForYou />
-        <Mosaic />
-        <Catalogue />
-        <Compare />
-        <ReadyMade />
-        <UnevenTiles
-          id="for-title"
-          label="Made for"
-          title={FOR_AND_LOOKS.title}
-          rest={FOR_AND_LOOKS.rest}
-          tiles={FOR_AND_LOOKS.tiles}
-        />
-        <RoomCards />
-        <FirstPiece />
-        <Tiles />
-        <Details />
-        <DesignOwn />
-        <StartWith />
-        <QuickLinks />
-        <Questions questions={COLLECTION_QUESTIONS} />
+        {/* Sora, as on the home page, on the owner's word */}
+        <TypeTrial page="collection">
+          <CollectionBanner banner={BANNER} bare />
+          <Intro />
+          <ForYou />
+          <Mosaic />
+          <Catalogue />
+          <Compare />
+          <ReadyMade />
+          <UnevenTiles
+            id="for-title"
+            label="Made for"
+            title={FOR_AND_LOOKS.title}
+            rest={FOR_AND_LOOKS.rest}
+            tiles={FOR_AND_LOOKS.tiles}
+          />
+          <RoomCards />
+          <FirstPiece />
+          <Tiles />
+          <Details />
+          <DesignOwn />
+          <StartWith />
+          <QuickLinks />
+          <Questions questions={COLLECTION_QUESTIONS} />
+        </TypeTrial>
         {/* the two photo bands last, as a pair: the order's photo on the left,
-            the visit's on the right, so they zigzag to the page's end */}
+            the visit's on the right, so they zigzag to the page's end; both
+            keep the site's own faces, on the owner's word */}
         <Promises />
         <Visit />
       </main>

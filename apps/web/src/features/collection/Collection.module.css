@@ -682,7 +682,7 @@
   font-weight: var(--weight-deck, var(--weight-sub, var(--weight-title-rest)));
   font-family: var(--font-sub, var(--font-wordmark));
   font-variation-settings: normal;
-  letter-spacing: 0;
+  letter-spacing: var(--track-deck, 0);
 }
 
 /* the small label over every title, as the home visit's: spaced capitals in
