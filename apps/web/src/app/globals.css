@@ -180,6 +180,24 @@
   --leading-display: 0.92;
   --leading-line: 1.38;
 
+  /* the type and space scale from the owner's type-scale demo ("Furnishes ·
+     clean orange"): each size about 1.25 times the one below, and parts that
+     sit together never share a size. Each runs from a 390px phone to a
+     1280px screen, as the demo's two frames, and holds there */
+  --scale-body: 16px;
+  --scale-lead: clamp(18px, 16.25px + 0.449vw, 22px);
+  --scale-h3: clamp(22px, 19.37px + 0.674vw, 28px);
+  --scale-h2: clamp(30px, 23.87px + 1.573vw, 44px);
+  --leading-h2: 1.1;
+  --leading-h3: 1.2;
+  --leading-lead: 1.45;
+  --leading-body: 1.5;
+  --scale-space-section: clamp(80px, 55.46px + 6.292vw, 136px);
+  --scale-space-eyebrow: clamp(8px, 6.25px + 0.449vw, 12px);
+  --scale-space-title: clamp(14px, 11.37px + 0.674vw, 20px);
+  --scale-space-content: clamp(48px, 37.48px + 2.697vw, 72px);
+  --scale-space-grid: clamp(16px, 10.74px + 1.348vw, 28px);
+
   /* ---------- space and layout ---------- */
 
   /* the page's one border, left and right: the wordmark, the big words and
@@ -407,14 +425,14 @@ h3 {
   translate: 0 0;
 }
 
-/* ---------- trial: Sora on the home, collection, inspiration, quiz and contact pages ----------
+/* ---------- trial: Sora on the site's pages ----------
    After the owner's type-scale demo: Sora, a wide geometric sans, in place
    of both faces, its big words at a regular weight in sentence case and a
-   step smaller, since Sora runs wider than the narrowed capitals. Only the
-   home, collection, inspiration, quiz and contact pages' sections carry data-type-trial
+   step smaller, since Sora runs wider than the narrowed capitals. The
+   sections of each page switched so far carry data-type-trial
    (TypeTrial.tsx), as do the bar's search and the top of its region and
-   language sheet; the rest of the bar, the footer and the other pages keep the
-   site's faces. Delete this block, TypeTrial, those two attributes and
+   language sheet; the rest of the bar, the footer and the pages not yet
+   switched keep the site's faces. Delete this block, TypeTrial, those two attributes and
    Sora in layout.tsx to go back. */
 [data-type-trial] {
   --font: var(--font-sora), system-ui, sans-serif;
@@ -425,26 +443,26 @@ h3 {
   --weight-title-rest: 350;
   --weight-sub: 400;
 
-  /* the headings of a section's columns, a clear step under its title */
-  --text-entry: clamp(19px, 1.5vw, 26px);
-
-  /* a card's lead sentence, never larger than a section's title above it */
-  --text-card-lead: var(--text-head);
-
-  /* four clear steps under a section's title, so no two levels look alike:
-     the subtitle light, the column and person headings medium, and the
-     reading text a size smaller than both */
-  --weight-deck: 300;
-
-  /* section titles and their subtitles in Sora too, on the owner's word,
-     at the sizes the trial first gave them */
+  /* the demo's scale on these pages: section title, subtitle, column and
+     card headings, and reading text each on their own step, with the
+     demo's line heights and the space around a section's title */
   --font-heading: var(--font);
   --font-sub: var(--font-wordmark);
-  --text-heading: clamp(28px, 2.7vw, 50px);
-  --text-deck: clamp(16px, 1.3vw, 22px);
+  --text-heading: var(--scale-h2);
+  --leading-heading: var(--leading-h2);
+  --text-deck: var(--scale-lead);
+  --leading-deck: var(--leading-lead);
+  --weight-deck: 400;
   --track-deck: var(--track-tight);
-  --weight-entry: 500;
-  --text-body: clamp(15px, 1.15vw, 17px);
+  --text-entry: var(--scale-h3);
+  --weight-entry: 400;
+  --text-card-lead: var(--scale-h3);
+  --text-body: var(--scale-body);
+  --text-line: var(--scale-body);
+  --leading-line: var(--leading-body);
+  --space-section: var(--scale-space-section);
+  --space-eyebrow: var(--scale-space-eyebrow);
+  --space-title: var(--scale-space-title);
 
   /* a step lighter, for the lines the owner picks out (the flat tour's) */
   --weight-line-light: 300;

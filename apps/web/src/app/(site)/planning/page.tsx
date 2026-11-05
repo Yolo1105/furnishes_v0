@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import styles from "@/features/collection/Collection.module.css";
 import { Planning } from "@/features/planning/Planning";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 export const metadata: Metadata = {
@@ -14,7 +15,10 @@ export default function PlanningPage() {
     <>
       <SiteHeader />
       <main id="main" className={styles.page}>
-        <Planning />
+        {/* Sora, as on the other pages, on the owner's word */}
+        <TypeTrial page="planning">
+          <Planning />
+        </TypeTrial>
       </main>
     </>
   );

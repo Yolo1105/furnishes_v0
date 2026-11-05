@@ -9,6 +9,7 @@ import { MODULAR_BANNER, QUESTIONS, STEPS } from "@/features/modular/modularList
 import { BeforeAfter } from "@/features/modular/BeforeAfter";
 import { Assembly } from "@/features/modular/Assembly";
 import { Features, LeadTimes, Sets, Swatches, Walls } from "@/features/modular/ModularSections";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 export const metadata: Metadata = {
@@ -29,19 +30,22 @@ export default function ModularPage() {
     <>
       <SiteHeader />
       <main id="main" className={styles.page}>
-        <CollectionBanner banner={MODULAR_BANNER} />
-        <LinePieces line="modular" />
-        <Assembly />
-        <Sets />
-        <Steps label="Step by step" title="How it works" rest="From your wall to your room" steps={STEPS} />
-        <LeadTimes />
-        <BeforeAfter />
-        <Features />
-        <Swatches />
-        <Walls />
-        <Questions questions={QUESTIONS} />
-        <DesignOwn />
-        <Visit />
+        {/* Sora, as on the other pages, on the owner's word */}
+        <TypeTrial page="modular">
+          <CollectionBanner banner={MODULAR_BANNER} />
+          <LinePieces line="modular" />
+          <Assembly />
+          <Sets />
+          <Steps label="Step by step" title="How it works" rest="From your wall to your room" steps={STEPS} />
+          <LeadTimes />
+          <BeforeAfter />
+          <Features />
+          <Swatches />
+          <Walls />
+          <Questions questions={QUESTIONS} />
+          <DesignOwn />
+          <Visit />
+        </TypeTrial>
       </main>
     </>
   );

@@ -11,6 +11,7 @@ import { changesOf } from "@/features/piece/changes";
 import { PieceView } from "@/features/piece/PieceView";
 import { sgd } from "@/lib/money";
 import { lineOf, routes } from "@/lib/routes";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { SiteHeader } from "@/shell/SiteHeader";
 import { Trail } from "@/shell/Trail";
 
@@ -43,95 +44,98 @@ export default async function PiecePage({ params }: Props) {
     <>
       <SiteHeader />
       <main id="main" className={catalog.page}>
-        <Trail
-          steps={[
-            { href: routes.collection, label: "Collection" },
-            { href: lineOf(line.slug), label: line.name },
-          ]}
-          here={piece.name}
-        />
+        {/* Sora, as on the other pages, with Before/After while the owner decides */}
+        <TypeTrial page="piece" compare>
+          <Trail
+            steps={[
+              { href: routes.collection, label: "Collection" },
+              { href: lineOf(line.slug), label: line.name },
+            ]}
+            here={piece.name}
+          />
 
-        <PieceView piece={piece} />
+          <PieceView piece={piece} />
 
-        {modular && (
-          <section className={styles.details} aria-labelledby="changes">
-            <h2 id="changes" className={styles.heading}>
-              What you can change
-            </h2>
-            <ul className={styles.changes}>
-              {changesOf(piece).map((c) => (
-                <li key={c.name}>
-                  <span className={styles.changeName}>{c.name}</span>
-                  <span>{c.line}</span>
-                  <span className={styles.changeCost}>{c.cost}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        <section className={styles.promised} aria-labelledby="promised">
-          <h2 id="promised" className={styles.heading}>
-            With every order
-          </h2>
-          <PromiseRow promises={modular ? PROMISES : FURNITURE_PROMISES} />
-        </section>
-
-        <section className={styles.details} aria-labelledby="details">
-          <h2 id="details" className={styles.heading}>
-            Details
-          </h2>
-          <dl className={styles.facts}>
-            <dt>Sizes</dt>
-            <dd>
-              <ul className={styles.sizes}>
-                {piece.sizes.map((s) => (
-                  <li key={sizeName(s)}>
-                    <span>{sizeName(s)}</span>
-                    <span>{dims(s)}</span>
-                    <span>
-                      {sgd(s.price)}
-                      {s.built && ` · built ${sgd(s.built)}`}
-                    </span>
+          {modular && (
+            <section className={styles.details} aria-labelledby="changes">
+              <h2 id="changes" className={styles.heading}>
+                What you can change
+              </h2>
+              <ul className={styles.changes}>
+                {changesOf(piece).map((c) => (
+                  <li key={c.name}>
+                    <span className={styles.changeName}>{c.name}</span>
+                    <span>{c.line}</span>
+                    <span className={styles.changeCost}>{c.cost}</span>
                   </li>
                 ))}
               </ul>
-            </dd>
-            <dt>In the box</dt>
-            <dd>{build ? build.box : modular ? SHARED.boxParts : SHARED.boxReady}</dd>
-            {build && (
-              <>
-                <dt>Putting it together</dt>
-                <dd>{build.put}</dd>
-              </>
-            )}
-            <dt>In the photos</dt>
-            <dd>{SHARED.photos}</dd>
-            <dt>Rooms</dt>
-            <dd>{piece.rooms.join(", ")}</dd>
-            <dt>Materials</dt>
-            <dd>{SHARED.materials}</dd>
-            <dt>Care</dt>
-            <dd>{SHARED.care}</dd>
-            <dt>Delivery</dt>
-            <dd>{SHARED.delivery}</dd>
-            <dt>Returns</dt>
-            <dd>{SHARED.returns}</dd>
-          </dl>
-        </section>
+            </section>
+          )}
 
-        {others.length > 0 && (
-          <section className={styles.others} aria-labelledby="others">
-            <h2 id="others" className={styles.heading}>
-              More {line.name.toLowerCase()}
+          <section className={styles.promised} aria-labelledby="promised">
+            <h2 id="promised" className={styles.heading}>
+              With every order
             </h2>
-            <ul className={catalog.grid}>
-              {others.map((p) => (
-                <PieceCard key={p.slug} piece={p} />
-              ))}
-            </ul>
+            <PromiseRow promises={modular ? PROMISES : FURNITURE_PROMISES} />
           </section>
-        )}
+
+          <section className={styles.details} aria-labelledby="details">
+            <h2 id="details" className={styles.heading}>
+              Details
+            </h2>
+            <dl className={styles.facts}>
+              <dt>Sizes</dt>
+              <dd>
+                <ul className={styles.sizes}>
+                  {piece.sizes.map((s) => (
+                    <li key={sizeName(s)}>
+                      <span>{sizeName(s)}</span>
+                      <span>{dims(s)}</span>
+                      <span>
+                        {sgd(s.price)}
+                        {s.built && ` · built ${sgd(s.built)}`}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+              <dt>In the box</dt>
+              <dd>{build ? build.box : modular ? SHARED.boxParts : SHARED.boxReady}</dd>
+              {build && (
+                <>
+                  <dt>Putting it together</dt>
+                  <dd>{build.put}</dd>
+                </>
+              )}
+              <dt>In the photos</dt>
+              <dd>{SHARED.photos}</dd>
+              <dt>Rooms</dt>
+              <dd>{piece.rooms.join(", ")}</dd>
+              <dt>Materials</dt>
+              <dd>{SHARED.materials}</dd>
+              <dt>Care</dt>
+              <dd>{SHARED.care}</dd>
+              <dt>Delivery</dt>
+              <dd>{SHARED.delivery}</dd>
+              <dt>Returns</dt>
+              <dd>{SHARED.returns}</dd>
+            </dl>
+          </section>
+
+          {others.length > 0 && (
+            <section className={styles.others} aria-labelledby="others">
+              <h2 id="others" className={styles.heading}>
+                More {line.name.toLowerCase()}
+              </h2>
+              <ul className={catalog.grid}>
+                {others.map((p) => (
+                  <PieceCard key={p.slug} piece={p} />
+                ))}
+              </ul>
+            </section>
+          )}
+        </TypeTrial>
       </main>
     </>
   );

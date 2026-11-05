@@ -9,6 +9,7 @@ import { Opening } from "@/features/collection/Opening";
 import { DESIGN } from "@/features/design/designList";
 import { Planner } from "@/features/design/Planner";
 import { routes } from "@/lib/routes";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 export const metadata: Metadata = {
@@ -26,15 +27,18 @@ export default async function DesignPage() {
     <>
       <SiteHeader />
       <main id="main" className={styles.page}>
-        <Opening label={DESIGN.label} title={DESIGN.title} photos={[]} rest={DESIGN.rest} lines={[DESIGN.line]}>
-          <form className={account.logOutLine} action={logOut}>
-            {LOG_OUT.line}{" "}
-            <button className={`${styles.qaMail} ${account.logOut}`} type="submit">
-              {LOG_OUT.go}
-            </button>
-          </form>
-        </Opening>
-        <Planner />
+        {/* Sora, as on the other pages, on the owner's word */}
+        <TypeTrial page="design">
+          <Opening label={DESIGN.label} title={DESIGN.title} photos={[]} rest={DESIGN.rest} lines={[DESIGN.line]}>
+            <form className={account.logOutLine} action={logOut}>
+              {LOG_OUT.line}{" "}
+              <button className={`${styles.qaMail} ${account.logOut}`} type="submit">
+                {LOG_OUT.go}
+              </button>
+            </form>
+          </Opening>
+          <Planner />
+        </TypeTrial>
       </main>
     </>
   );

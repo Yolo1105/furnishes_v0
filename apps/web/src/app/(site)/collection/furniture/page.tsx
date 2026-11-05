@@ -14,6 +14,7 @@ import {
   TO_MODULAR,
 } from "@/features/furniture/furnitureList";
 import { Bestsellers, Featured, Kinds, MadeBy, OwnSize, Spotlight } from "@/features/furniture/FurnitureSections";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 export const metadata: Metadata = {
@@ -32,19 +33,22 @@ export default function FurniturePage() {
     <>
       <SiteHeader />
       <main id="main" className={styles.page}>
-        <CollectionBanner banner={FURNITURE_BANNER} />
-        <Kinds />
-        <Bestsellers />
-        <OwnSize />
-        <Featured />
-        <Spotlight />
-        <MadeBy />
-        <LinePieces line="furniture" aside={TO_MODULAR} />
-        <Steps label="Delivery" title="How it reaches you" rest="From order to your room" steps={FURNITURE_STEPS} />
-        <Promises promises={FURNITURE_PROMISES} />
-        <Questions questions={FURNITURE_QUESTIONS} />
-        <DesignOwn />
-        <Visit />
+        {/* Sora, as on the other pages, on the owner's word */}
+        <TypeTrial page="furniture">
+          <CollectionBanner banner={FURNITURE_BANNER} />
+          <Kinds />
+          <Bestsellers />
+          <OwnSize />
+          <Featured />
+          <Spotlight />
+          <MadeBy />
+          <LinePieces line="furniture" aside={TO_MODULAR} />
+          <Steps label="Delivery" title="How it reaches you" rest="From order to your room" steps={FURNITURE_STEPS} />
+          <Promises promises={FURNITURE_PROMISES} />
+          <Questions questions={FURNITURE_QUESTIONS} />
+          <DesignOwn />
+          <Visit />
+        </TypeTrial>
       </main>
     </>
   );

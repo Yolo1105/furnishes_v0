@@ -3,6 +3,7 @@ import styles from "@/features/collection/Collection.module.css";
 import { Questions } from "@/features/collection/Questions";
 import { Offices } from "@/features/offices/Offices";
 import { OFFICE_QUESTIONS } from "@/features/offices/officesList";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 export const metadata: Metadata = {
@@ -17,8 +18,11 @@ export default function OfficesPage() {
     <>
       <SiteHeader />
       <main id="main" className={styles.page}>
-        <Offices />
-        <Questions questions={OFFICE_QUESTIONS} rest="Asked by offices" />
+        {/* Sora, as on the other pages, on the owner's word */}
+        <TypeTrial page="offices">
+          <Offices />
+          <Questions questions={OFFICE_QUESTIONS} rest="Asked by offices" />
+        </TypeTrial>
       </main>
     </>
   );

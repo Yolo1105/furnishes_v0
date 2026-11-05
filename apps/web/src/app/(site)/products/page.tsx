@@ -3,6 +3,7 @@ import { readFilters } from "@/features/catalog/filters";
 import { Shop } from "@/features/catalog/Shop";
 import styles from "@/features/catalog/Catalog.module.css";
 import { routes } from "@/lib/routes";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { SiteHeader } from "@/shell/SiteHeader";
 import { Trail } from "@/shell/Trail";
 
@@ -21,8 +22,11 @@ export default async function ProductsPage({ searchParams }: Props) {
     <>
       <SiteHeader />
       <main id="main" className={styles.page}>
-        <Trail steps={[{ href: routes.collection, label: "Collection" }]} here="Every piece" />
-        <Shop initial={initial} />
+        {/* Sora, as on the other pages, with Before/After while the owner decides */}
+        <TypeTrial page="products" compare>
+          <Trail steps={[{ href: routes.collection, label: "Collection" }]} here="Every piece" />
+          <Shop initial={initial} />
+        </TypeTrial>
       </main>
     </>
   );

@@ -16,6 +16,7 @@
   color: var(--ink);
   font: 400 var(--text-over) / 1.05 var(--font);
   font-size: var(--text-heading, var(--text-over));
+  line-height: var(--leading-heading, 1.05);
   font-family: var(--font-heading, var(--font));
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
