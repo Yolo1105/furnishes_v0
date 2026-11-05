@@ -13,7 +13,7 @@
   left: 50%;
   z-index: var(--z-toggle);
   min-height: var(--tap);
-  padding-inline: var(--space-sm);
+  padding-inline: var(--space-4);
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-site);

@@ -9,7 +9,8 @@
   grid-template-rows: 1fr auto;
   box-sizing: border-box;
   min-height: 100svh;
-  padding: calc(var(--nav-h) + clamp(var(--space-lg), 9svh, 110px)) var(--gutter) clamp(var(--space-md), 5svh, 56px);
+  padding: calc(var(--nav-h) + clamp(var(--space-8), 9svh, var(--space-24))) var(--gutter)
+    clamp(var(--space-6), 5svh, var(--space-12));
   overflow: hidden;
 }
 
@@ -35,7 +36,7 @@
 
 .top {
   display: grid;
-  gap: clamp(var(--space-sm), 3svh, var(--space-lg));
+  gap: clamp(var(--space-4), 3svh, var(--space-8));
   align-content: start;
   justify-items: start;
 }
@@ -80,7 +81,7 @@
 .options {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xs);
+  gap: var(--space-3);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -90,7 +91,7 @@
    picked, it fills red with cream words, as the reference's black one */
 .option {
   min-height: var(--tap);
-  padding-inline: 18px;
+  padding-inline: var(--space-4);
   border: var(--line) solid var(--ink);
   background: var(--paper);
   color: var(--ink);
@@ -109,10 +110,10 @@
 
 .bar {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-4);
   align-items: center;
   justify-content: space-between;
-  margin-top: 40px;
+  margin-top: var(--space-10);
 }
 
 /* Back and Skip sit over the letters, so they are boxed on the cream too */
@@ -120,7 +121,7 @@
 .skip {
   composes: boxed from global;
   min-height: var(--tap);
-  padding-inline: 18px;
+  padding-inline: var(--space-4);
   background: var(--paper);
   color: var(--ink);
   font: 400 var(--text-lg) / 1 var(--font);
@@ -156,6 +157,6 @@
   }
 
   .option {
-    padding-inline: 14px;
+    padding-inline: var(--space-3);
   }
 }

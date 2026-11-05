@@ -17,9 +17,9 @@
 .manifesto {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
-  gap: var(--space-md) clamp(var(--space-md), 4vw, var(--space-2xl));
+  gap: var(--space-6) clamp(var(--space-6), 4vw, var(--space-16));
   align-items: start;
-  padding: clamp(var(--space-2xl), 8vw, var(--space-4xl)) var(--gutter) 0;
+  padding: clamp(var(--space-16), 8vw, var(--space-32)) var(--gutter) 0;
 }
 
 /* the label alone on the left, level with the statement's first line;
@@ -81,14 +81,14 @@
 .figures {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-md) clamp(var(--space-sm), 2vw, var(--space-lg));
-  margin: clamp(var(--space-md), 3vw, var(--space-xl)) 0 0;
+  gap: var(--space-6) clamp(var(--space-4), 2vw, var(--space-8));
+  margin: clamp(var(--space-6), 3vw, var(--space-12)) 0 0;
   padding: 0;
   list-style: none;
 }
 
 .value {
-  margin: 0 0 var(--space-2xs);
+  margin: 0 0 var(--space-2);
   color: var(--ink);
   font: 400 var(--text-over) / 1 var(--font);
   font-variation-settings: "wdth" var(--width-display);
@@ -113,9 +113,9 @@
 
 .workshopText {
   display: grid;
-  gap: var(--space-md);
+  gap: var(--space-6);
   align-content: center;
-  padding: clamp(var(--space-lg), 4vw, 72px) clamp(28px, 3.4vw, 56px);
+  padding: clamp(var(--space-8), 4vw, var(--space-16)) clamp(var(--space-6), 3.4vw, var(--space-12));
   background: var(--panel-orange);
 }
 
@@ -123,14 +123,14 @@
    it in brown; no rules, the space alone parts them */
 .facts {
   display: grid;
-  gap: var(--space-xs);
-  margin: var(--space-2xs) 0 0;
+  gap: var(--space-3);
+  margin: var(--space-2) 0 0;
 }
 
 .facts > div {
   display: grid;
   grid-template-columns: 9em 1fr;
-  gap: var(--space-sm);
+  gap: var(--space-4);
   align-items: baseline;
 }
 
@@ -160,7 +160,7 @@
    in the page's brown; parted by space, no rules */
 .recognition {
   display: grid;
-  gap: 20px;
+  gap: var(--space-5);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -169,7 +169,7 @@
 .recognition li {
   display: grid;
   grid-template-columns: 8em minmax(0, 1fr) minmax(0, 1fr);
-  gap: var(--space-2xs) clamp(var(--space-sm), 2vw, var(--space-lg));
+  gap: var(--space-2) clamp(var(--space-4), 2vw, var(--space-8));
   align-items: baseline;
 }
 
@@ -196,7 +196,7 @@
 .team {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-lg) clamp(var(--space-sm), 2vw, var(--space-lg));
+  gap: var(--space-8) clamp(var(--space-4), 2vw, var(--space-8));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -208,7 +208,7 @@
 .portrait {
   display: grid;
   place-items: center;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-5);
   aspect-ratio: 1;
   background: var(--birch);
   color: var(--ink);
@@ -245,7 +245,7 @@
   /* on a phone each fact's label sits over its value, so the value keeps the panel's width */
   .facts > div {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-3xs);
+    gap: var(--space-1);
   }
 
   /* stacked, the photo comes first, as the visit's */

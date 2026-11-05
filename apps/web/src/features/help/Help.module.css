@@ -5,9 +5,9 @@
 .top {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(var(--space-lg), 5vw, var(--space-3xl));
+  gap: clamp(var(--space-8), 5vw, var(--space-24));
   align-items: center;
-  padding: calc(var(--nav-h) + clamp(var(--space-md), 3vw, var(--space-xl))) var(--gutter) 0;
+  padding: calc(var(--nav-h) + clamp(var(--space-6), 3vw, var(--space-12))) var(--gutter) 0;
 }
 
 .photo {
@@ -23,7 +23,7 @@
 
 .words {
   display: grid;
-  gap: clamp(18px, 2vw, 28px);
+  gap: clamp(var(--space-4), 2vw, var(--space-6));
   justify-items: start;
 }
 
@@ -45,7 +45,7 @@
   box-sizing: border-box;
   width: 100%;
   min-height: 56px;
-  padding: 0 52px 0 18px;
+  padding: 0 var(--space-12) 0 var(--space-4);
   border: var(--line) solid var(--rule-strong);
   border-radius: 0;
   background: none;
@@ -82,13 +82,13 @@
 .topics {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(var(--space-xl), 5vw, 80px) clamp(var(--space-lg), 5vw, var(--space-3xl));
+  gap: clamp(var(--space-12), 5vw, var(--space-16)) clamp(var(--space-8), 5vw, var(--space-24));
   align-items: start;
-  padding: clamp(var(--space-2xl), 8vw, var(--space-4xl)) var(--gutter) 0;
+  padding: clamp(var(--space-16), 8vw, var(--space-32)) var(--gutter) 0;
 }
 
 .topicTitle {
-  margin: 0 0 var(--space-xs);
+  margin: 0 0 var(--space-3);
   color: var(--ink);
   font: 400 var(--text-head) / 1.1 var(--font);
   font-variation-settings: "wdth" var(--width-display);
@@ -105,11 +105,11 @@
    cross when open */
 .question {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-4);
   align-items: baseline;
   justify-content: space-between;
   width: 100%;
-  padding: 14px 0;
+  padding: var(--space-3) 0;
   border: 0;
   background: none;
   color: var(--ink-dark);
@@ -151,7 +151,7 @@
 .answer p {
   max-width: 60ch;
   margin: 0;
-  padding: 0 0 18px;
+  padding: 0 0 var(--space-4);
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-md) / 1.55 var(--font-wordmark);
 }

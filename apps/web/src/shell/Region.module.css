@@ -3,7 +3,7 @@
 .open {
   composes: caps from global;
   display: inline-flex;
-  gap: 6px;
+  gap: var(--space-1);
   align-items: baseline;
   padding: 0;
   border: 0;
@@ -66,7 +66,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-block: var(--space-xs);
+  padding-block: var(--space-3);
   border-bottom: var(--line) solid var(--rule);
 }
 
@@ -106,8 +106,8 @@
    own width */
 .tabs {
   display: flex;
-  gap: var(--space-md);
-  margin-top: 6px;
+  gap: var(--space-6);
+  margin-top: var(--space-1);
   border-bottom: var(--line) solid var(--rule);
 }
 
@@ -136,9 +136,9 @@
 .panel {
   display: grid;
   grid-template-rows: auto auto 1fr;
-  gap: var(--space-sm);
+  gap: var(--space-4);
   min-height: 0;
-  padding-top: 18px;
+  padding-top: var(--space-4);
 }
 
 .panelPlain {
@@ -147,13 +147,13 @@
 
 .now {
   display: grid;
-  gap: var(--space-3xs);
+  gap: var(--space-1);
 }
 
 /* the place, a short upright rule, then its currency */
 .nowName {
   display: flex;
-  gap: var(--space-xs);
+  gap: var(--space-3);
   align-items: center;
   color: var(--ink);
   font: 400 var(--text-md) / 1.3 var(--font);
@@ -180,10 +180,10 @@
 /* the search in a thin outline, square as the site */
 .search {
   display: flex;
-  gap: 10px;
+  gap: var(--space-2);
   align-items: center;
   min-height: 40px;
-  padding-inline: var(--space-xs);
+  padding-inline: var(--space-3);
   border: var(--line) solid var(--rule-strong);
 }
 
@@ -217,7 +217,7 @@
 
 .list {
   margin: 0 calc(var(--sheet-pad) * -1);
-  padding: 0 0 var(--space-md);
+  padding: 0 0 var(--space-6);
   overflow-y: auto;
   list-style: none;
   overscroll-behavior: contain;
@@ -227,7 +227,7 @@
    right; the one chosen in red */
 .row {
   display: flex;
-  gap: var(--space-xs);
+  gap: var(--space-3);
   align-items: center;
   width: 100%;
   min-height: 40px;
@@ -267,7 +267,7 @@
 }
 
 .none {
-  padding: var(--space-2xs) var(--sheet-pad);
+  padding: var(--space-2) var(--sheet-pad);
   font: 400 var(--text-md) / 1.3 var(--font);
 }
 

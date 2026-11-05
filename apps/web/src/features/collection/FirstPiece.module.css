@@ -12,9 +12,9 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-auto-rows: clamp(280px, 24vw, 400px);
-  gap: clamp(var(--space-xs), 1.4vw, 20px);
+  gap: clamp(var(--space-3), 1.4vw, var(--space-5));
   max-width: 1200px;
-  margin: clamp(var(--space-lg), 4vw, 56px) auto 0;
+  margin: clamp(var(--space-8), 4vw, var(--space-12)) auto 0;
   padding: 0;
   list-style: none;
 }
@@ -33,10 +33,10 @@
     "photo photo" 1fr
     "line go" auto
     / 1fr auto;
-  gap: 14px 20px;
+  gap: var(--space-3) var(--space-5);
   height: 100%;
   box-sizing: border-box;
-  padding: clamp(var(--space-sm), 1.6vw, var(--space-md));
+  padding: clamp(var(--space-4), 1.6vw, var(--space-6));
   background: var(--ink-tile);
   color: var(--ink-dark);
   text-decoration: none;
@@ -101,7 +101,7 @@
 }
 
 .all {
-  margin: clamp(var(--space-md), 3vw, 40px) 0 0;
+  margin: clamp(var(--space-6), 3vw, var(--space-10)) 0 0;
   text-align: center;
 }
 

@@ -7,15 +7,15 @@
 .top {
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-  gap: var(--space-lg) clamp(var(--space-lg), 6vw, 112px);
+  gap: var(--space-8) clamp(var(--space-8), 6vw, var(--space-24));
   align-items: start;
 }
 
 .note {
   display: grid;
-  gap: var(--space-md);
+  gap: var(--space-6);
   justify-items: start;
-  padding-top: calc(var(--text-sm) * 1.2 + 10px);
+  padding-top: calc(var(--text-sm) * 1.2 + var(--space-2));
 }
 
 /* the note a step lighter than the title, so the title leads */
@@ -30,7 +30,7 @@
    button, as the flat tour's, so no link here is underlined */
 .go {
   composes: caps boxed from global;
-  gap: var(--space-2xs);
+  gap: var(--space-2);
   color: inherit;
 }
 
@@ -50,7 +50,7 @@
 .panels {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: clamp(var(--space-lg), 3.5vw, 56px) 0 0;
+  margin: clamp(var(--space-8), 3.5vw, var(--space-12)) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -60,14 +60,14 @@
 .panel {
   display: grid;
   grid-template-rows: auto 1fr auto auto;
-  gap: clamp(20px, 2.2vw, 40px);
+  gap: clamp(var(--space-5), 2.2vw, var(--space-10));
   justify-items: center;
 
   /* capped so the title and both panels, buttons included, fit one laptop
      screen (744px under the bar at 1440 by 800) */
   min-height: clamp(440px, 36vw, 560px);
   box-sizing: border-box;
-  padding: clamp(14px, 1.2vw, 20px);
+  padding: clamp(var(--space-3), 1.2vw, var(--space-5));
 }
 
 /* the ready-made on the red orange in cream; the modular on the pale
@@ -135,7 +135,7 @@
 .foot {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xs) var(--space-md);
+  gap: var(--space-3) var(--space-6);
   align-items: end;
   justify-content: space-between;
   width: 100%;
@@ -164,7 +164,7 @@
 
   /* stacked, the note's rule runs along its top instead */
   .note {
-    padding: var(--space-md) 0 0;
+    padding: var(--space-6) 0 0;
     border-top: var(--line) solid var(--rule-strong);
     border-left: 0;
   }

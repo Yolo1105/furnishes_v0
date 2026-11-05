@@ -2,7 +2,7 @@
    square as the rest of the site. */
 
 .section {
-  padding: clamp(var(--space-xl), 6vw, var(--space-3xl)) var(--gutter) 0;
+  padding: clamp(var(--space-12), 6vw, var(--space-24)) var(--gutter) 0;
 }
 
 /* ---------- the dark half and the photo ---------- */
@@ -15,10 +15,10 @@
 
 .dark {
   display: grid;
-  gap: 20px;
+  gap: var(--space-5);
   align-content: center;
   justify-items: start;
-  padding: clamp(var(--space-lg), 4vw, 72px);
+  padding: clamp(var(--space-8), 4vw, var(--space-16));
   background: var(--ink-dark);
   color: var(--paper);
 }
@@ -45,7 +45,7 @@
 
 .splitLine {
   max-width: 44ch;
-  margin: 0 0 var(--space-2xs);
+  margin: 0 0 var(--space-2);
   font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
 }
 
@@ -81,16 +81,16 @@
 .story {
   display: grid;
   grid-template-columns: 1.6fr 1fr;
-  gap: clamp(var(--space-sm), 2vw, var(--space-md));
+  gap: clamp(var(--space-4), 2vw, var(--space-6));
   min-height: clamp(400px, 36vw, 560px);
 }
 
 .storyWords {
   display: grid;
-  gap: 20px;
+  gap: var(--space-5);
   align-content: center;
   justify-items: start;
-  padding: clamp(28px, 3.4vw, 56px);
+  padding: clamp(var(--space-6), 3.4vw, var(--space-12));
   background: var(--ink-wash);
 }
 
@@ -106,7 +106,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   height: min(calc(100svh - var(--nav-h)), max(480px, 46vw));
-  margin-top: clamp(var(--space-xl), 6vw, var(--space-3xl));
+  margin-top: clamp(var(--space-12), 6vw, var(--space-24));
   color: var(--photo-text-white);
 }
 
@@ -136,7 +136,7 @@
 .spotlightWords {
   z-index: var(--z-raise);
   display: grid;
-  gap: var(--space-sm);
+  gap: var(--space-4);
   place-self: center;
   justify-items: center;
   max-width: 1100px;
@@ -161,7 +161,7 @@
 
 .spotlightLine {
   max-width: 40ch;
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-3);
   font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
 }
 

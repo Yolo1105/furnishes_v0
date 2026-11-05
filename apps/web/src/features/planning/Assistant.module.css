@@ -3,12 +3,12 @@
    heads; the three cards across under them */
 .assistant {
   display: grid;
-  gap: clamp(var(--space-lg), 4vw, 56px);
+  gap: clamp(var(--space-8), 4vw, var(--space-12));
 }
 
 .top {
   display: grid;
-  gap: 20px;
+  gap: var(--space-5);
   justify-items: start;
 }
 
@@ -20,13 +20,13 @@
 .line {
   composes: section-deck from global;
   max-width: 48ch;
-  margin: 0 0 var(--space-2xs);
+  margin: 0 0 var(--space-2);
 }
 
 .calls {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xs);
+  gap: var(--space-3);
 }
 
 .start {
@@ -36,7 +36,7 @@
 .cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(var(--space-xs), 1.5vw, 20px);
+  gap: clamp(var(--space-3), 1.5vw, var(--space-5));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -60,9 +60,9 @@
 
 .words {
   display: grid;
-  gap: 6px;
+  gap: var(--space-1);
   align-content: start;
-  padding: clamp(18px, 1.8vw, var(--space-md));
+  padding: clamp(var(--space-4), 1.8vw, var(--space-6));
 }
 
 .name {

@@ -3,9 +3,9 @@
 .top {
   display: grid;
   grid-template-columns: 5fr 7fr;
-  gap: clamp(var(--space-lg), 5vw, var(--space-3xl));
+  gap: clamp(var(--space-8), 5vw, var(--space-24));
   align-items: start;
-  padding: calc(var(--nav-h) + clamp(var(--space-lg), 4vw, var(--space-2xl))) var(--gutter) 0;
+  padding: calc(var(--nav-h) + clamp(var(--space-8), 4vw, var(--space-16))) var(--gutter) 0;
 }
 
 /* the title at the section titles' size rather than a full page
@@ -30,21 +30,21 @@
   position: sticky;
   top: calc(var(--nav-h) + 24px);
   display: grid;
-  gap: clamp(20px, 2.4vw, 36px);
+  gap: clamp(var(--space-5), 2.4vw, var(--space-8));
 }
 
 /* how to reach us, a row each: the label in pale capitals, its value after
    it in brown; space alone parts them */
 .details {
   display: grid;
-  gap: 14px;
+  gap: var(--space-3);
   margin: 0;
 }
 
 .details > div {
   display: grid;
   grid-template-columns: 9.5em minmax(0, 1fr);
-  gap: var(--space-sm);
+  gap: var(--space-4);
   align-items: center;
 }
 
@@ -54,7 +54,7 @@
   composes: caps from global;
   font-size: var(--text-sm);
   display: flex;
-  gap: var(--space-xs);
+  gap: var(--space-3);
   align-items: center;
   color: var(--ink-dark-pale);
 }
@@ -78,13 +78,13 @@
 .topicsTop {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: var(--space-md) clamp(var(--space-lg), 6vw, 112px);
+  gap: var(--space-6) clamp(var(--space-8), 6vw, var(--space-24));
   align-items: end;
 }
 
 .topicsNote {
   display: grid;
-  gap: 20px;
+  gap: var(--space-5);
   justify-items: end;
 }
 
@@ -99,8 +99,8 @@
 .topics {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  gap: clamp(var(--space-xs), 1.5vw, var(--space-md));
-  margin: clamp(var(--space-lg), 4vw, var(--space-2xl)) 0 0;
+  gap: clamp(var(--space-3), 1.5vw, var(--space-6));
+  margin: clamp(var(--space-8), 4vw, var(--space-16)) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -110,10 +110,10 @@
 .topic {
   position: relative;
   display: grid;
-  gap: 14px;
+  gap: var(--space-3);
   align-content: end;
   min-height: clamp(380px, 32vw, 500px);
-  padding: clamp(var(--space-md), 2.4vw, 40px);
+  padding: clamp(var(--space-6), 2.4vw, var(--space-10));
   overflow: hidden;
   color: var(--photo-text);
 
@@ -146,14 +146,14 @@
 
 .topicLine {
   max-width: 44ch;
-  margin: 0 0 10px;
+  margin: 0 0 var(--space-2);
   font: var(--weight-title-rest) var(--text-lg) / 1.45 var(--font-wordmark);
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: var(--space-2);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -166,7 +166,7 @@
   align-items: center;
   min-height: var(--tap);
   box-sizing: border-box;
-  padding: 0 18px;
+  padding: 0 var(--space-4);
   border-radius: 999px;
   background: var(--photo-chip);
   color: var(--photo-text-white);
@@ -197,7 +197,7 @@
 .enquiry {
   display: grid;
   scroll-margin-top: 24px;
-  gap: clamp(var(--space-md), 2.4vw, 36px);
+  gap: clamp(var(--space-6), 2.4vw, var(--space-8));
   justify-items: start;
 }
 
@@ -235,7 +235,7 @@
 }
 
 .blank input {
-  padding: 0 0 var(--space-3xs);
+  padding: 0 0 var(--space-1);
   border-width: 0 0 var(--line);
 }
 
@@ -258,7 +258,7 @@
    it is written */
 .more {
   min-height: clamp(200px, 28vh, 320px);
-  padding: var(--space-sm) 18px;
+  padding: var(--space-4) var(--space-4);
   font: 400 var(--text-lg) / 1.5 var(--font);
   resize: vertical;
 }
@@ -267,7 +267,7 @@
 .options {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-2xs);
+  gap: var(--space-2);
 }
 
 /* a choice in a thin frame, its name in the brown and its line pale
@@ -276,7 +276,7 @@
 .option {
   display: grid;
   gap: 2px;
-  padding: var(--space-xs) var(--space-sm);
+  padding: var(--space-3) var(--space-4);
   border: var(--line) solid var(--rule-strong);
   cursor: pointer;
 }
@@ -315,7 +315,7 @@
 /* a question: its name in small capitals over its buttons */
 .group {
   display: grid;
-  gap: var(--space-xs);
+  gap: var(--space-3);
   width: 100%;
   min-width: 0;
   margin: 0;
@@ -328,7 +328,7 @@
 .groupLegend {
   composes: caps from global;
   font-size: var(--text-sm);
-  margin: 0 0 var(--space-xs);
+  margin: 0 0 var(--space-3);
   padding: 0;
   color: var(--ink-dark-pale);
 }
@@ -336,7 +336,7 @@
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2xs);
+  gap: var(--space-2);
 }
 
 /* a choice: a small square outline, picked as the larger choices are, red
@@ -346,7 +346,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 38px;
-  padding-inline: 14px;
+  padding-inline: var(--space-3);
   border: var(--line) solid var(--rule-strong);
   color: var(--ink-dark);
   font: 400 var(--text-md) / 1.2 var(--font);
@@ -373,7 +373,7 @@
 .send {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px var(--space-lg);
+  gap: var(--space-5) var(--space-8);
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -381,7 +381,7 @@
 
 .agree {
   display: flex;
-  gap: var(--space-xs);
+  gap: var(--space-3);
   align-items: center;
   color: var(--ink-dark);
   font: 400 var(--text-md) / 1.5 var(--font);
@@ -429,8 +429,8 @@
 .ways {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(var(--space-xs), 1.5vw, 20px);
-  margin: clamp(28px, 3vw, 44px) 0 0;
+  gap: clamp(var(--space-3), 1.5vw, var(--space-5));
+  margin: clamp(var(--space-6), 3vw, var(--space-10)) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -440,13 +440,13 @@
 .way {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
-  gap: var(--space-2xs);
-  padding: clamp(18px, 1.8vw, var(--space-md));
+  gap: var(--space-2);
+  padding: clamp(var(--space-4), 1.8vw, var(--space-6));
   border: var(--line) solid var(--rule-strong);
 }
 
 .way > svg {
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-3);
 }
 
 .way > h3 {
@@ -460,7 +460,7 @@
 .wayGo {
   composes: button from global;
   justify-self: start;
-  margin-top: var(--space-sm);
+  margin-top: var(--space-4);
   font-size: var(--text-md);
 }
 
@@ -470,7 +470,7 @@
 .where {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(28px, 4vw, 72px);
+  gap: clamp(var(--space-6), 4vw, var(--space-16));
   align-items: center;
 }
 
@@ -524,7 +524,7 @@
   left: clamp(14px, 2vw, 28px);
   display: grid;
   gap: 2px;
-  padding: 14px 18px;
+  padding: var(--space-3) var(--space-4);
   border: var(--line) solid var(--rule-strong);
   background: var(--paper);
 }
@@ -534,14 +534,14 @@
 }
 
 .mapCard .mapPlace {
-  margin-bottom: var(--space-3xs);
+  margin-bottom: var(--space-1);
   color: var(--ink);
   font: 500 var(--text-md) / 1.4 var(--font);
 }
 
 .whereWords {
   display: grid;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 .whereRest {
@@ -554,8 +554,8 @@
 /* each place: its bare mark beside its name and line */
 .places {
   display: grid;
-  gap: 18px;
-  margin: var(--space-2xs) 0 0;
+  gap: var(--space-4);
+  margin: var(--space-2) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -563,7 +563,7 @@
 .places li {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  gap: 14px;
+  gap: var(--space-3);
   align-items: start;
 }
 

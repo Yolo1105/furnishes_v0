@@ -202,17 +202,20 @@
 
   /* ---------- space and layout ---------- */
 
-  /* the spacing steps margins, padding and gaps take, smallest to largest */
-  --space-3xs: 4px;
-  --space-2xs: 8px;
-  --space-xs: 12px;
-  --space-sm: 16px;
-  --space-md: 24px;
-  --space-lg: 32px;
-  --space-xl: 48px;
-  --space-2xl: 64px;
-  --space-3xl: 96px;
-  --space-4xl: 128px;
+  /* the spacing steps margins, padding and gaps take, numbered in 4px
+     units (--space-6 is 24px), smallest to largest */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
 
   /* the page's one border, left and right: the wordmark, the big words and
      the foot start on it, the button and the link end on it */

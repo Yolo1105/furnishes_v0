@@ -3,10 +3,10 @@
 .page {
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: clamp(var(--space-2xs), 1.5svh, 20px);
+  gap: clamp(var(--space-2), 1.5svh, var(--space-5));
   box-sizing: border-box;
   height: 100svh;
-  padding: calc(var(--nav-h) + 6px) var(--gutter) 0;
+  padding: calc(var(--nav-h) + var(--space-1)) var(--gutter) 0;
 }
 
 /* The reference's sentence on one line, in the banner's narrow cut at the
@@ -37,7 +37,7 @@
    the others keep theirs hidden but in place. */
 .row {
   display: flex;
-  gap: var(--space-xs);
+  gap: var(--space-3);
   min-height: 0;
   margin: 0;
   padding: 0;
@@ -48,7 +48,7 @@
   display: flex;
   flex: 1 1 0;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-3);
   justify-content: flex-end;
   min-width: 0;
 }
@@ -59,7 +59,7 @@
 
 .caption {
   display: grid;
-  gap: 6px;
+  gap: var(--space-1);
   visibility: hidden;
 }
 
@@ -170,22 +170,22 @@
 .lookRow {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(var(--space-sm), 2vw, var(--space-lg));
+  gap: clamp(var(--space-4), 2vw, var(--space-8));
 
   /* the page's last section, so it keeps the space before the footer */
-  margin: 0 0 clamp(var(--space-2xl), 8vw, var(--space-4xl));
+  margin: 0 0 clamp(var(--space-16), 8vw, var(--space-32));
   padding: 0;
   list-style: none;
 }
 
 .look {
   display: grid;
-  gap: var(--space-2xs);
+  gap: var(--space-2);
 }
 
 .lookPhoto {
   position: relative;
-  margin-bottom: var(--space-2xs);
+  margin-bottom: var(--space-2);
   overflow: hidden;
   aspect-ratio: 4 / 5;
   background: var(--birch);
@@ -211,7 +211,7 @@
 /* between the rooms and the journal, the row keeps a section's space above
    it, and the journal brings its own below */
 .noticed {
-  padding-top: clamp(var(--space-2xl), 8vw, var(--space-4xl));
+  padding-top: clamp(var(--space-16), 8vw, var(--space-32));
 }
 
 .noticed .lookRow {

@@ -3,7 +3,7 @@
 /* the line under the flats, at the reading width */
 .note {
   max-width: 68ch;
-  margin: clamp(var(--space-sm), 2vw, var(--space-md)) 0 0;
+  margin: clamp(var(--space-4), 2vw, var(--space-6)) 0 0;
   color: var(--ink-dark);
   font: 400 var(--text-md) / 1.5 var(--font);
 }

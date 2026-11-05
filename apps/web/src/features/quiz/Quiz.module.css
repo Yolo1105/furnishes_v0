@@ -84,10 +84,10 @@
   grid-template-columns: 1fr 1fr auto;
   grid-row: 3;
   grid-column: 1;
-  gap: clamp(var(--space-md), 3vw, var(--space-xl));
+  gap: clamp(var(--space-6), 3vw, var(--space-12));
   align-items: start;
   align-self: end;
-  padding: clamp(28px, 4vw, var(--space-2xl)) var(--gutter) clamp(36px, 5vw, 80px);
+  padding: clamp(var(--space-6), 4vw, var(--space-16)) var(--gutter) clamp(var(--space-8), 5vw, var(--space-16));
 }
 
 .bannerTitle {
@@ -111,9 +111,9 @@
 
 .find {
   display: grid;
-  gap: clamp(28px, 4vw, 56px);
+  gap: clamp(var(--space-6), 4vw, var(--space-12));
   justify-items: center;
-  padding: clamp(var(--space-2xl), 8vw, var(--space-4xl)) var(--gutter) 0;
+  padding: clamp(var(--space-16), 8vw, var(--space-32)) var(--gutter) 0;
 }
 
 .findTitle {
@@ -130,7 +130,7 @@
 .kinds {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xs);
+  gap: var(--space-3);
   justify-content: center;
   max-width: 1200px;
   margin: 0;
@@ -142,10 +142,10 @@
 .kind {
   composes: caps from global;
   display: inline-flex;
-  gap: var(--space-xs);
+  gap: var(--space-3);
   align-items: center;
   min-height: clamp(52px, 5vw, 76px);
-  padding-inline: clamp(20px, 2.4vw, 40px);
+  padding-inline: clamp(var(--space-5), 2.4vw, var(--space-10));
   border: var(--line) solid currentcolor;
   font: 500 var(--text-head) / 1 var(--font);
   font-variation-settings: "wdth" var(--width-display);
@@ -158,7 +158,7 @@
 
 /* how many, where the reference had its discount */
 .kindCount {
-  padding: var(--space-3xs) var(--space-2xs);
+  padding: var(--space-1) var(--space-2);
   background: var(--ink-tile);
   color: var(--ink);
   font: 500 var(--text-md) / 1 var(--font);
@@ -167,19 +167,19 @@
 /* ---------- room by room ---------- */
 
 .rooms {
-  padding: clamp(var(--space-2xl), 8vw, var(--space-4xl)) var(--gutter) clamp(var(--space-2xl), 8vw, var(--space-4xl));
+  padding: clamp(var(--space-16), 8vw, var(--space-32)) var(--gutter) clamp(var(--space-16), 8vw, var(--space-32));
 }
 
 /* the space under a section's title (the shared one, with its label and
    subtitle) before what follows it */
 .titleGap {
-  margin-bottom: clamp(var(--space-md), 3vw, 40px);
+  margin-bottom: clamp(var(--space-6), 3vw, var(--space-10));
 }
 
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(var(--space-sm), 2vw, var(--space-md));
+  gap: clamp(var(--space-4), 2vw, var(--space-6));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -212,9 +212,9 @@
 .cardWords {
   z-index: var(--z-raise);
   display: grid;
-  gap: 6px;
+  gap: var(--space-1);
   place-self: end start;
-  margin: 20px;
+  margin: var(--space-5);
   color: var(--photo-text);
 }
 
@@ -231,7 +231,7 @@
 .shop {
   composes: link-hover from global;
   justify-self: start;
-  margin-top: 6px;
+  margin-top: var(--space-1);
   font: 500 var(--text-md) / 1.3 var(--font);
 }
 
@@ -242,9 +242,9 @@
 .problems {
   display: grid;
   grid-template-columns: 5fr 7fr;
-  gap: clamp(var(--space-md), 4vw, 72px);
+  gap: clamp(var(--space-6), 4vw, var(--space-16));
   align-items: stretch;
-  padding: clamp(var(--space-2xl), 8vw, var(--space-4xl)) var(--gutter) 0;
+  padding: clamp(var(--space-16), 8vw, var(--space-32)) var(--gutter) 0;
   color: var(--ink-dark);
 }
 
@@ -258,7 +258,7 @@
 .problemRooms {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 var(--space-md);
+  gap: 0 var(--space-6);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -283,8 +283,8 @@
 /* the problems straight under the rooms, with no band between */
 .problemList {
   display: grid;
-  gap: var(--space-3xs);
-  margin: var(--space-xs) 0 0;
+  gap: var(--space-1);
+  margin: var(--space-3) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -296,7 +296,7 @@
   grid-template-columns: 2.4em 1fr;
   align-items: baseline;
   width: 100%;
-  padding: 10px 0;
+  padding: var(--space-2) 0;
   border: 0;
   background: none;
   color: var(--ink-dark-pale);
@@ -333,7 +333,7 @@
 /* the question's place in the four, in small capitals over it */
 .finderStep {
   composes: caps from global;
-  margin: 0 0 var(--space-2xs);
+  margin: 0 0 var(--space-2);
   color: var(--ink-dark-pale);
   font-size: var(--text-md);
 }
@@ -357,8 +357,8 @@
 /* back, skip and start again as words, not boxes */
 .finderBar {
   display: flex;
-  gap: var(--space-md);
-  margin-top: var(--space-sm);
+  gap: var(--space-6);
+  margin-top: var(--space-4);
 }
 
 .finderLink {
@@ -375,7 +375,7 @@
 /* the pieces that fit, three across, under how many there are */
 .finderPicks {
   display: grid;
-  gap: clamp(var(--space-sm), 2vw, 28px);
+  gap: clamp(var(--space-4), 2vw, var(--space-6));
   align-content: start;
 }
 
@@ -394,8 +394,8 @@
 /* why each fits, in the brown at the reading size under its card */
 .finderReasons {
   display: grid;
-  gap: var(--space-3xs);
-  margin: 10px 0 0;
+  gap: var(--space-1);
+  margin: var(--space-2) 0 0;
   padding: 0;
   color: var(--ink-dark);
   font: 400 var(--text-md) / 1.4 var(--font);
@@ -418,7 +418,7 @@
 /* the two guides side by side on the cream, no boxes or rules, each a name
    in red over its numbered points in the brown Jost, as the site's lines */
 .guides {
-  padding: 0 var(--gutter) clamp(var(--space-2xl), 8vw, var(--space-4xl));
+  padding: 0 var(--gutter) clamp(var(--space-16), 8vw, var(--space-32));
   color: var(--ink-dark);
 }
 
@@ -426,7 +426,7 @@
 .guideRow {
   display: grid;
   grid-template-columns: 5fr 7fr;
-  gap: clamp(var(--space-md), 4vw, 72px);
+  gap: clamp(var(--space-6), 4vw, var(--space-16));
   align-items: stretch;
 }
 
@@ -443,14 +443,14 @@
 
 .guideSide {
   display: grid;
-  gap: clamp(28px, 3vw, 44px);
+  gap: clamp(var(--space-6), 3vw, var(--space-10));
   align-content: start;
   justify-items: start;
 }
 
 .guide {
   display: grid;
-  gap: 14px;
+  gap: var(--space-3);
 }
 
 .guideName {
@@ -465,7 +465,7 @@
    wider than reads easily */
 .guidePoints {
   display: grid;
-  gap: var(--space-xs);
+  gap: var(--space-3);
   max-width: 56ch;
   margin: 0;
   padding: 0;
@@ -522,7 +522,7 @@
 @media (width <= 639px) {
   .bannerFoot {
     grid-template-columns: 1fr;
-    gap: var(--space-sm);
+    gap: var(--space-4);
   }
 
   .cards,

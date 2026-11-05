@@ -1,16 +1,16 @@
 /* one column a comfortable line long, under the bar */
 .legal {
   display: grid;
-  gap: clamp(28px, 3vw, 44px);
+  gap: clamp(var(--space-6), 3vw, var(--space-10));
   max-width: 72ch;
-  padding: calc(var(--nav-h) + clamp(var(--space-lg), 4vw, var(--space-2xl))) var(--gutter)
-    clamp(var(--space-2xl), 8vw, var(--space-4xl));
+  padding: calc(var(--nav-h) + clamp(var(--space-8), 4vw, var(--space-16))) var(--gutter)
+    clamp(var(--space-16), 8vw, var(--space-32));
 }
 
 /* each part's name in red over its paragraphs in the page's brown */
 .part {
   display: grid;
-  gap: 10px;
+  gap: var(--space-2);
 }
 
 .name {

@@ -1,17 +1,17 @@
 /* A kind's page and a piece's: on the page's gutters under the bar. */
 .page {
   display: grid;
-  gap: var(--space-md);
+  gap: var(--space-6);
   align-content: start;
   min-height: 70svh;
-  padding: calc(var(--nav-h) + var(--space-md)) var(--gutter) clamp(var(--space-xl), 6vw, var(--space-3xl));
+  padding: calc(var(--nav-h) + var(--space-6)) var(--gutter) clamp(var(--space-12), 6vw, var(--space-24));
 }
 
 /* the kind's name and its line, told apart by colour alone, as the
    inspiration page's title */
 .title {
   max-width: 24ch;
-  margin: var(--space-2xs) 0 var(--space-sm);
+  margin: var(--space-2) 0 var(--space-4);
   font: 500 var(--text-over) / 1.05 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
@@ -27,25 +27,25 @@
 .bar {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xs) var(--space-md);
+  gap: var(--space-3) var(--space-6);
   align-items: center;
-  padding: var(--space-xs) 14px;
+  padding: var(--space-3) var(--space-3);
   background: var(--ink-wash);
 }
 
 .group {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--space-1);
 }
 
 /* a choice that fills in red when on, square like the site's one boxed button */
 .chip {
   display: inline-flex;
-  gap: 6px;
+  gap: var(--space-1);
   align-items: center;
   min-height: 32px;
-  padding-inline: 10px;
+  padding-inline: var(--space-2);
   border: var(--line) solid currentcolor;
   background: none;
   color: var(--ink);
@@ -79,7 +79,7 @@
 
 .sort {
   display: flex;
-  gap: var(--space-2xs);
+  gap: var(--space-2);
   align-items: center;
   margin-left: auto;
   font: 400 var(--text-md) / 1 var(--font);
@@ -87,7 +87,7 @@
 
 .sort select {
   min-height: 32px;
-  padding-inline: var(--space-2xs);
+  padding-inline: var(--space-2);
   border: var(--line) solid currentcolor;
   border-radius: 0;
   background: var(--paper);
@@ -106,7 +106,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 40px clamp(var(--space-sm), 2vw, var(--space-lg));
+  gap: var(--space-10) clamp(var(--space-4), 2vw, var(--space-8));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -118,14 +118,14 @@
 .card {
   position: relative;
   display: grid;
-  gap: 6px;
+  gap: var(--space-1);
 }
 
 .photo {
   position: relative;
   display: block;
   aspect-ratio: 4 / 5;
-  margin-bottom: var(--space-2xs);
+  margin-bottom: var(--space-2);
   overflow: hidden;
   background: var(--birch);
 }
@@ -138,7 +138,7 @@
    owner's reference */
 .nameRow {
   display: flex;
-  gap: var(--space-xs);
+  gap: var(--space-3);
   align-items: baseline;
   justify-content: space-between;
 }
@@ -184,12 +184,12 @@
 /* a square photo, then the kind, the name and the price each on its own
    line, as the owner's "Design Edit" reference */
 .stack {
-  gap: var(--space-2xs);
+  gap: var(--space-2);
 }
 
 .stack .photo {
   aspect-ratio: 1;
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-3);
 }
 
 .stack .kind {
@@ -199,7 +199,7 @@
 
 .stack .nameRow {
   flex-direction: column;
-  gap: var(--space-2xs);
+  gap: var(--space-2);
   align-items: flex-start;
 }
 
@@ -216,7 +216,7 @@
 .featured {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
-  gap: 40px clamp(var(--space-sm), 2vw, var(--space-lg));
+  gap: var(--space-10) clamp(var(--space-4), 2vw, var(--space-8));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -243,7 +243,7 @@
 /* the finishes it comes in, as the reference's row of colours */
 .swatches {
   display: flex;
-  gap: var(--space-3xs);
+  gap: var(--space-1);
 }
 
 /* ---------- the shop: every piece, with filters ---------- */
@@ -253,7 +253,7 @@
 .top {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xs) var(--space-md);
+  gap: var(--space-3) var(--space-6);
   align-items: center;
 }
 
@@ -265,13 +265,13 @@
 .active {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--space-1);
   align-items: center;
 }
 
 .clear {
   composes: link-hover from global;
-  padding: 0 var(--space-3xs);
+  padding: 0 var(--space-1);
   border: 0;
   background: none;
   color: var(--ink);
@@ -283,7 +283,7 @@
 .shop {
   display: grid;
   grid-template-columns: 240px 1fr;
-  gap: clamp(var(--space-md), 3vw, var(--space-xl));
+  gap: clamp(var(--space-6), 3vw, var(--space-12));
   align-items: start;
 }
 
@@ -296,12 +296,12 @@
   position: sticky;
   top: calc(var(--nav-h) + 16px);
   display: grid;
-  gap: var(--space-2xs);
+  gap: var(--space-2);
 }
 
 /* each group its own tile, so no rules are needed between them */
 .facet {
-  padding: 14px var(--space-sm);
+  padding: var(--space-3) var(--space-4);
   background: var(--ink-wash);
 }
 
@@ -317,13 +317,13 @@
 .checks {
   display: grid;
   gap: 2px;
-  margin-top: 10px;
+  margin-top: var(--space-2);
 }
 
 /* a real checkbox in the red, its name, then how many it would show */
 .check {
   display: flex;
-  gap: var(--space-2xs);
+  gap: var(--space-2);
   align-items: center;
   min-height: 32px;
   font: 400 var(--text-md) / 1.2 var(--font);
@@ -369,10 +369,10 @@
 .sheetHead,
 .sheetFoot {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-4);
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-sm) var(--gutter);
+  padding: var(--space-4) var(--gutter);
 }
 
 .sheetTitle {
@@ -383,7 +383,7 @@
 
 .sheetBody {
   display: grid;
-  gap: var(--space-2xs);
+  gap: var(--space-2);
   align-content: start;
   padding: 0 var(--gutter);
   overflow-y: auto;
