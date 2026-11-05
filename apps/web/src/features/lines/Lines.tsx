@@ -7,11 +7,9 @@ import styles from "./Lines.module.css";
 
 /**
  * The two things we sell, on the landing: the title on the left, a short
- * note and the way into the collection on the right past a thin rule, then
- * a panel for each line across the page, after the owner's journal
- * reference: a row of small words across its head, a photo with no
- * border, the title large in capitals under it, and its name and way in at
- * its foot.
+ * note on the right, then the two lines side by side as a choice, after the
+ * owner's reference: each a title, a sentence, its way in, and a photo
+ * under it.
  */
 export function Lines() {
   return (
@@ -25,27 +23,18 @@ export function Lines() {
           <p>{LINES_HEAD.note}</p>
         </div>
       </div>
-      <ul className={styles.panels}>
+      <ul className={styles.options}>
         {LINES.map((l) => (
-          <li key={l.name} className={styles.panel} data-tone={l.tone}>
-            <p className={styles.head}>
-              {l.top.map((w) => (
-                <span key={w}>{w}</span>
-              ))}
-            </p>
-            <span className={styles.frame}>
-              <span className={styles.print}>
-                <Image src={l.photo} alt="" fill sizes="(max-width: 1023px) 60vw, 20vw" />
-              </span>
+          <li key={l.href} className={styles.option}>
+            <h3 className={styles.optionTitle}>{l.title}</h3>
+            <p className={styles.text}>{l.text}</p>
+            <Link className={styles.go} href={l.href}>
+              {l.go}
+              <Icon name="arrow" />
+            </Link>
+            <span className={styles.photo}>
+              <Image src={l.photo} alt="" fill sizes="(max-width: 1023px) 100vw, 46vw" />
             </span>
-            <h3 className={styles.panelTitle}>{l.title}</h3>
-            <p className={styles.foot}>
-              <span className={styles.name}>{l.name}</span>
-              <Link className={styles.go} href={l.href}>
-                {l.go}
-                <Icon name="arrow" />
-              </Link>
-            </p>
           </li>
         ))}
       </ul>

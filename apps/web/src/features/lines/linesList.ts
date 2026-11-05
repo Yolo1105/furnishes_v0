@@ -1,6 +1,5 @@
 import cabinSofa from "@/assets/banner/cabin-sofa.jpg";
 import shelfWall from "@/assets/rooms/shelf-wall.jpg";
-import { ARRIVALS, FURNITURE_WEEKS } from "@/features/catalog/catalog";
 import { routes } from "@/lib/routes";
 
 /**
@@ -16,28 +15,24 @@ export const LINES_HEAD = {
 };
 
 /**
- * `tone` picks the panel's ground: the workshop's peach, or the home
- * visit's faint red wash.
- * `top` runs across the panel's head, after the owner's journal reference:
- * its number, its kind and how long it takes, read from the catalogue.
+ * The two lines side by side as a choice, after the owner's reference: a
+ * title, one sentence that says how the two differ, the way in, then a
+ * photo. The words are drafts until the owner sets them.
  */
+
 export const LINES = [
   {
-    top: ["01", "Ready-made", FURNITURE_WEEKS],
     title: "Ready-made, ready for your room",
-    name: "Ready-made furniture",
+    text: "Sofas, tables, beds and storage in the sizes listed, made by our partner factory.",
     go: "Shop furniture",
     href: routes.furniture,
     photo: cabinSofa,
-    tone: "peach",
   },
   {
-    top: ["02", "Modular", ARRIVALS.parts.weeks],
     title: "Modular, sized to your wall",
-    name: "Modular furniture",
+    text: "Shelves, storage and room dividers built from parts, sized to your wall.",
     go: "Shop modular",
     href: routes.modular,
     photo: shelfWall,
-    tone: "wash",
   },
 ] as const;
