@@ -9,9 +9,8 @@ import styles from "./Lines.module.css";
  * The two things we sell, on the landing: the title on the left, a short
  * note and the way into the collection on the right past a thin rule, then
  * a panel for each line across the page, after the owner's journal
- * reference: a row of small words across its head, a photo with no
- * border, the title large in capitals under it, and its name and way in at
- * its foot.
+ * reference: a row of small words across its head, the photo its full
+ * width with no border, the title under it, and its way in at its foot.
  */
 export function Lines() {
   return (
@@ -35,12 +34,11 @@ export function Lines() {
             </p>
             <span className={styles.frame}>
               <span className={styles.print}>
-                <Image src={l.photo} alt="" fill sizes="(max-width: 1023px) 60vw, 20vw" />
+                <Image src={l.photo} alt="" fill sizes="(max-width: 1023px) 100vw, 50vw" />
               </span>
             </span>
             <h3 className={styles.panelTitle}>{l.title}</h3>
             <p className={styles.foot}>
-              <span className={styles.name}>{l.name}</span>
               <Link className={styles.go} href={l.href}>
                 {l.go}
                 <Icon name="arrow" />
