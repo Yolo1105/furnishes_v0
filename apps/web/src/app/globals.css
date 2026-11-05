@@ -74,6 +74,9 @@
     transparent 62%
   );
 
+  /* an even black over a whole photo, for words set in its middle */
+  --photo-shade-even: color-mix(in srgb, #000 38%, transparent);
+
   /* soft shadows that lift things off a photo: a card that floats over it,
      and a small dot that must read on light and dark rooms alike */
   --shadow-float: 0 8px 28px color-mix(in srgb, #000 22%, transparent);

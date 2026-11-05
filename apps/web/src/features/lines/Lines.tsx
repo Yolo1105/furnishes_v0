@@ -6,38 +6,40 @@ import { LINES, LINES_HEAD } from "./linesList";
 import styles from "./Lines.module.css";
 
 /**
- * The two things we sell, on the landing: the title on the left, a short
- * note on the right, then the two lines side by side as a choice, after the
- * owner's reference: each a title, a sentence, its way in, and a photo
- * under it.
+ * The two things we sell, on the landing, after the owner's reference: three
+ * columns, the first the section's title and one line set on a photo, then
+ * a card for each line, its photo, its title as the way in, and a sentence.
  */
 export function Lines() {
   return (
-    <section className={`${shared.section} ${styles.lines}`} aria-labelledby="lines-title">
-      <div className={styles.top}>
-        <h2 id="lines-title" className={shared.heading}>
-          <span className={shared.headingLabel}>{LINES_HEAD.label}</span>
-          {LINES_HEAD.title} <span className={shared.headingRest}>{LINES_HEAD.rest}</span>
-        </h2>
-        <div className={styles.note}>
-          <p>{LINES_HEAD.note}</p>
+    <section className={shared.section} aria-labelledby="lines-title">
+      <div className={styles.grid}>
+        <div className={styles.intro}>
+          <Image src={LINES_HEAD.photo} alt="" fill sizes="(max-width: 1023px) 100vw, 32vw" />
+          <div className={styles.introWords}>
+            <h2 id="lines-title" className={styles.introTitle}>
+              {LINES_HEAD.title}
+            </h2>
+            <p className={styles.introRest}>{LINES_HEAD.rest}</p>
+          </div>
         </div>
+        <ul className={styles.options}>
+          {LINES.map((l) => (
+            <li key={l.href}>
+              <Link className={styles.card} href={l.href}>
+                <span className={styles.photo}>
+                  <Image src={l.photo} alt="" fill sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 32vw" />
+                </span>
+                <h3 className={styles.cardTitle}>
+                  {l.title}
+                  <Icon name="arrow" />
+                </h3>
+                <p className={styles.text}>{l.text}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul className={styles.options}>
-        {LINES.map((l) => (
-          <li key={l.href} className={styles.option}>
-            <h3 className={styles.optionTitle}>{l.title}</h3>
-            <p className={styles.text}>{l.text}</p>
-            <Link className={styles.go} href={l.href}>
-              {l.go}
-              <Icon name="arrow" />
-            </Link>
-            <span className={styles.photo}>
-              <Image src={l.photo} alt="" fill sizes="(max-width: 1023px) 100vw, 46vw" />
-            </span>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }

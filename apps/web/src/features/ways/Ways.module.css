@@ -1,0 +1,116 @@
+/* the title centred over the three cards, as the owner's reference */
+.ways {
+  display: grid;
+  gap: clamp(var(--space-8), 4vw, var(--space-12));
+}
+
+.head {
+  composes: section-title from global;
+  color: var(--ink);
+  text-align: center;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(var(--space-4), 2vw, var(--space-8));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* a card on the cream lifted toward white, the photo across its top edge to
+   edge, the words in the padded part under it */
+.card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--paper-light);
+}
+
+.photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  background: var(--birch);
+}
+
+.photo img {
+  object-fit: cover;
+}
+
+/* the rows sit at the foot so they line up across the three cards */
+.body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--space-3);
+  padding: clamp(var(--space-5), 2.4vw, var(--space-10)) clamp(var(--space-4), 1.6vw, var(--space-6));
+}
+
+.title {
+  margin: 0;
+  padding-inline: var(--space-2);
+  color: var(--ink);
+  font: 400 var(--text-entry, var(--text-lg)) / var(--leading-h3) var(--font-heading, var(--font));
+  letter-spacing: var(--track-tight);
+}
+
+.text {
+  margin: 0;
+  padding-inline: var(--space-2);
+  color: var(--ink-dark);
+  font: 400 var(--text-body, var(--text-md)) / var(--leading-body, 1.5) var(--font);
+}
+
+.rows {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+/* one way on: a quiet frame across the card, a mark then its words; the
+   frame turns red when pointed at */
+.row {
+  display: flex;
+  gap: var(--space-5);
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--space-16);
+  padding: 0 var(--space-6);
+  border: var(--line) solid var(--rule-strong);
+  background: none;
+  color: var(--ink-dark);
+  font: 400 var(--text-md) / 1.3 var(--font);
+  text-align: left;
+  cursor: pointer;
+}
+
+.row:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.row svg {
+  flex: none;
+  width: var(--space-6);
+  height: var(--space-6);
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .row {
+    transition:
+      border-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+}
+
+@media (width <= 1023px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}

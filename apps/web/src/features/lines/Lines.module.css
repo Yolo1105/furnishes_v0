@@ -1,76 +1,113 @@
-/* ---------- the title and its note ---------- */
+/* ---------- three columns, after the owner's reference ---------- */
 
-/* the title takes the wider left part; the note sits on the right, its
-   first line level with the title's (not the small label's) top: it is
-   pushed down by the label's own line and gap, 1.2 lines of --text-sm and
-   10px, as .headingLabel sets them */
-.top {
+/* the title card and the two line cards side by side, one width each */
+.grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-  gap: var(--space-8) clamp(var(--space-8), 6vw, var(--space-24));
-  align-items: start;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(var(--space-4), 2vw, var(--space-8));
 }
 
-.note {
+/* the first card: a photo filling the card's height with the section's
+   title and one line set in its middle, over an even shade so the words
+   read on any part of the photo; the photo and its shade are layers stacked
+   under the words on purpose */
+.intro {
+  position: relative;
   display: grid;
-  gap: var(--space-6);
-  justify-items: start;
-  padding-top: calc(var(--text-sm) * 1.2 + var(--space-2));
+  place-items: center;
+  overflow: hidden;
+  padding: clamp(var(--space-6), 3vw, var(--space-12));
+  background: var(--birch);
+  color: var(--photo-text);
+  text-align: center;
 }
 
-/* the note a step lighter than the title, so the title leads */
-.note p {
-  max-width: 34ch;
-  margin: 0;
-  font: var(--weight-title-rest) var(--text-lg) / 1.45 var(--font-wordmark);
-  font-weight: var(--weight-line-soft, var(--weight-title-rest));
+.intro img {
+  object-fit: cover;
 }
 
-/* a way in: small spaced capitals and an arrow in the site's one boxed
-   button, as the flat tour's, so no link here is underlined */
-.go {
-  composes: caps boxed from global;
-  gap: var(--space-2);
+.intro::after {
+  position: absolute;
+  inset: 0;
+  background: var(--photo-shade-even);
+  content: "";
+}
+
+.introWords {
+  position: relative;
+  z-index: var(--z-raise);
+  display: grid;
+  gap: var(--space-4);
+  justify-items: center;
+}
+
+.introTitle {
+  composes: section-title from global;
+  max-width: 14ch;
   color: inherit;
 }
 
-.go svg {
-  width: 1.1em;
-  height: 1.1em;
-  stroke: currentcolor;
+.introRest {
+  composes: section-deck from global;
+  max-width: 24ch;
+  margin: 0;
+  color: inherit;
 }
 
-.go:hover svg {
-  translate: 2px -2px;
-}
-
-/* ---------- the two lines, as a choice ---------- */
-
-/* two columns whose rows line up across (title, sentence, way in, photo),
-   so the two compare at a glance however the titles wrap */
+/* the two line cards, in the grid's last two columns */
 .options {
   display: grid;
-  grid-template-rows: repeat(4, auto);
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(var(--space-6), 3vw, var(--space-12));
-  margin: clamp(var(--space-8), 3.5vw, var(--space-12)) 0 0;
+  grid-column: span 2;
+  grid-template-columns: subgrid;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.option {
+/* a whole card is the way in: its photo, its title with an arrow, and a
+   sentence; pointed at, the title fades and the arrow nudges */
+.card {
   display: grid;
-  grid-row: span 4;
-  grid-template-rows: subgrid;
-  row-gap: var(--space-4);
-  justify-items: start;
+  gap: var(--space-3);
+  align-content: start;
+  color: inherit;
 }
 
-.optionTitle {
+.photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  margin-bottom: var(--space-2);
+  background: var(--birch);
+}
+
+.photo img {
+  object-fit: cover;
+}
+
+.cardTitle {
   margin: 0;
   color: var(--ink);
   font: 400 var(--text-entry, var(--text-lg)) / var(--leading-h3) var(--font-heading, var(--font));
   letter-spacing: var(--track-tight);
+}
+
+/* the arrow runs on after the title's last word, however it wraps */
+.cardTitle svg {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: 0.3em;
+  vertical-align: -0.05em;
+  stroke: currentcolor;
+}
+
+.card:hover .cardTitle {
+  opacity: var(--hover-dim);
+}
+
+.card:hover .cardTitle svg {
+  translate: 2px -2px;
 }
 
 .text {
@@ -80,47 +117,42 @@
   font: 400 var(--text-body, var(--text-md)) / var(--leading-body, 1.5) var(--font);
 }
 
-/* the photo the column's full width, a little apart from the way in */
-.photo {
-  position: relative;
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  margin-top: var(--space-4);
-  background: var(--birch);
-}
-
-.photo img {
-  object-fit: cover;
-}
-
 @media (prefers-reduced-motion: no-preference) {
-  .go svg {
-    transition: translate var(--dur-fast);
+  .cardTitle,
+  .cardTitle svg {
+    transition:
+      opacity var(--dur-fast),
+      translate var(--dur-fast);
   }
 }
 
+/* narrower, the title card runs across the top at a photo's shape and the
+   two line cards sit side by side under it */
 @media (width <= 1023px) {
-  .top,
-  .options {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .intro {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* on a phone, everything in one column */
+@media (width <= 639px) {
+  .grid {
     grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-10);
   }
 
-  /* stacked, each line its own block, one under the other */
   .options {
-    grid-template-rows: none;
-    row-gap: var(--space-12);
+    grid-column: auto;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-10);
   }
 
-  .option {
-    grid-row: auto;
-    grid-template-rows: none;
-  }
-
-  /* stacked, the note's rule runs along its top instead */
-  .note {
-    padding: var(--space-6) 0 0;
-    border-top: var(--line) solid var(--rule-strong);
-    border-left: 0;
+  .intro {
+    aspect-ratio: 4 / 3;
   }
 }
