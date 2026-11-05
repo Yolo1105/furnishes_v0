@@ -1,0 +1,45 @@
+/* fixed to the screen's lower right corner on purpose, over the page, under
+   the bar's open menu; a pill a tap high, hidden until the page moves */
+.chat {
+  position: fixed;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  z-index: var(--z-header);
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--space-5) 0 var(--space-4);
+  border-radius: var(--tap);
+  background: var(--ink-warm);
+  color: var(--paper);
+  font: 500 var(--text-md) / 1 var(--font);
+  opacity: 0;
+  pointer-events: none;
+  translate: 0 var(--space-2);
+}
+
+.chat[data-shown] {
+  opacity: 1;
+  pointer-events: auto;
+  translate: 0 0;
+}
+
+.chat:hover {
+  background: var(--ink);
+}
+
+.chat svg {
+  width: 1.15em;
+  height: 1.15em;
+  fill: currentcolor;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .chat {
+    transition:
+      opacity var(--dur-fast),
+      translate var(--dur-fast),
+      background-color var(--dur-fast);
+  }
+}

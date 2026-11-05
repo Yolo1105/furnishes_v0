@@ -1,22 +1,11 @@
 /* the title on the left, the one way on at the right, level with its foot */
-.top {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-6) var(--space-12);
-  align-items: end;
-  justify-content: space-between;
-}
-
-.go {
-  composes: button button-fill from global;
-}
 
 /* ---------- the cards ---------- */
 
 .stack {
   display: grid;
   gap: clamp(var(--space-6), 3vw, var(--space-12));
-  margin: clamp(var(--space-8), 4vw, var(--space-16)) 0 0;
+  margin: var(--space-6) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -52,14 +41,9 @@
 /* the sentence in brown: red orange is kept for titles, figures and
    buttons, so a card carries only its three numbers in it */
 .line {
+  composes: card-title from global;
   max-width: 24ch;
-  margin: 0;
   color: var(--ink-dark);
-  font: 400 var(--text-section) / 1.12 var(--font);
-  font-size: var(--text-card-lead, var(--text-section));
-  font-weight: var(--weight-line-soft, 400);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
 }
 
 /* the sentence's opening words in red, the rest in brown, as the flat
@@ -84,10 +68,9 @@
 }
 
 .figureLine {
+  composes: card-line from global;
   max-width: 20ch;
   margin: 0;
-  color: var(--ink-dark);
-  font: var(--weight-title-rest) var(--text-md) / 1.4 var(--font-wordmark);
 }
 
 /* the pieces used, at the card's foot, as red outlined pills, since each

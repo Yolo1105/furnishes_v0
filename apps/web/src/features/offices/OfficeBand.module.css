@@ -1,0 +1,52 @@
+/* the band runs the page's full width, so the section keeps only the
+   space above it that every section has, not the side gutters */
+.section {
+  padding-top: var(--space-section, clamp(var(--space-12), 6vw, var(--space-24)));
+}
+
+/* on the page's own ground, no panel, on the owner's word; the photo and
+   words keep to the page's gutters, the photo at the left, the words
+   beside it */
+.band {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(var(--space-8), 5vw, var(--space-16));
+  align-items: center;
+  padding: 0 var(--gutter) clamp(var(--space-10), 5vw, var(--space-16));
+}
+
+.photo {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--birch);
+}
+
+.photo img {
+  object-fit: cover;
+}
+
+.words {
+  display: grid;
+  gap: var(--space-5);
+  justify-items: start;
+}
+
+/* the title at the flat tour's lead size, as the other heads on home */
+.title {
+  font-size: var(--text-lead);
+  line-height: 1.1;
+}
+
+.line {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--ink-dark);
+  font: 400 var(--text-lg) / 1.55 var(--font);
+}
+
+@media (width <= 1023px) {
+  .band {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

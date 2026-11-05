@@ -1,9 +1,10 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import type { CSSProperties } from "react";
 import { Opening } from "@/features/collection/Opening";
-import { Section, Steps } from "@/features/collection/Sections";
+import { Section } from "@/features/collection/Sections";
 import collection from "@/features/collection/Collection.module.css";
-import { FIGURES, MAKING, MANIFESTO, RECOGNITION, TEAM, WHO, WORKSHOP } from "./aboutList";
+import { FIGURES, MAKING, MANIFESTO, RECOGNITION, TEAM, WHO } from "./aboutList";
+import { Journey } from "./Journey";
 import styles from "./About.module.css";
 
 /**
@@ -26,28 +27,41 @@ export function WhoWeAre() {
   );
 }
 
+type Token = { word: string; hot?: true } | { photo: StaticImageData };
+
+/** The statement as words to light one by one, the key phrases' words marked, and its photos. */
+const TOKENS: Token[] = MANIFESTO.parts.flatMap((p): Token[] =>
+  typeof p === "string"
+    ? p.split(" ").map((word) => ({ word }))
+    : "hot" in p
+      ? p.hot.split(" ").map((word) => ({ word, hot: true as const }))
+      : [{ photo: p.photo }],
+);
+
 /**
- * The statement, its words lighting from pale to red as it scrolls past
- * (CSS only; where the browser can't, or motion is reduced, it stands in
- * full red), with two small photos set in the line. Then four figures.
+ * The statement, its words lighting from pale to their own colour as it
+ * scrolls past (CSS only; where the browser can't, or motion is reduced,
+ * it stands lit), in the brown with three phrases in the red, and
+ * two small photos set in the line. Then four figures.
  */
 export function Manifesto() {
   let n = 0;
-  const count = MANIFESTO.words.filter((w) => typeof w === "string").length;
+  const count = TOKENS.filter((t) => "word" in t).length;
   return (
     <section className={styles.manifesto} aria-labelledby="manifesto-title">
-      <h2 id="manifesto-title" className={collection.headingLabel}>
+      {/* named for readers only: on the page the statement speaks for itself */}
+      <h2 id="manifesto-title" className="visually-hidden">
         {MANIFESTO.label}
       </h2>
       <p className={styles.statement} style={{ "--n": count } as CSSProperties} data-type-keep>
-        {MANIFESTO.words.map((w, i) =>
-          typeof w === "string" ? (
-            <span key={i} className={styles.word} style={{ "--i": n++ } as CSSProperties}>
-              {w}{" "}
+        {TOKENS.map((t, i) =>
+          "word" in t ? (
+            <span key={i} className={styles.word} data-hot={t.hot} style={{ "--i": n++ } as CSSProperties}>
+              {t.word}{" "}
             </span>
           ) : (
             <span key={i} className={styles.inline}>
-              <Image src={w.photo} alt="" fill sizes="200px" />
+              <Image src={t.photo} alt="" fill sizes="200px" />
             </span>
           ),
         )}
@@ -64,37 +78,30 @@ export function Manifesto() {
   );
 }
 
-/** Where it is made: the facts as short label and value lines on a panel, joined to a photo as one block. */
-export function Workshop() {
+/**
+ * How it gets to you, from the factory to your room: the split head, then
+ * the four steps as a numbered list beside one photo that follows the step
+ * pointed at, so it reads apart from Eva's row of cards above it.
+ */
+export function MakingDays() {
   return (
-    <section className={collection.section} aria-labelledby="workshop-title">
-      <div className={styles.workshopBlock}>
-        <div className={styles.workshopText}>
-          <h2 id="workshop-title" className={collection.heading}>
-            <span className={collection.headingLabel}>{WORKSHOP.label}</span>
-            {WORKSHOP.title} <span className={collection.headingRest}>{WORKSHOP.rest}</span>
-          </h2>
-          <p className={styles.lead}>{WORKSHOP.line}</p>
-          <dl className={styles.facts}>
-            {WORKSHOP.facts.map((f) => (
-              <div key={f.label}>
-                <dt className={styles.factLabel}>{f.label}</dt>
-                <dd>{f.value}</dd>
-              </div>
+    <section className={collection.section} aria-labelledby="making-title">
+      <div className={styles.making}>
+        <div className={collection.splitHead}>
+          <h2 id="making-title" className={collection.heading}>
+            <span className={collection.headingLabel}>{MAKING.label}</span>
+            {MAKING.title.map((line) => (
+              <span key={line} className={collection.splitLine}>
+                {line}
+              </span>
             ))}
-          </dl>
+          </h2>
+          <p className={collection.splitRest}>{MAKING.rest}</p>
         </div>
-        <div className={styles.workshopPhoto}>
-          <Image src={WORKSHOP.photo} alt="" fill sizes="(max-width: 1023px) 100vw, 58vw" />
-        </div>
+        <Journey steps={MAKING.steps} />
       </div>
     </section>
   );
-}
-
-/** From order to your home: the five steps on one tile, as every page's steps. */
-export function MakingDays() {
-  return <Steps id="making-title" label={MAKING.label} title={MAKING.title} rest={MAKING.rest} steps={MAKING.steps} />;
 }
 
 /**

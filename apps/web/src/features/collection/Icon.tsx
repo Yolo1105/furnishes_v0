@@ -44,6 +44,8 @@ const PATHS = {
     </>
   ),
   arrow: <path d="M7 17L17 7M9 7h8v8" />,
+  // straight on, for a "learn more" after a reference
+  onward: <path d="M4 12h16M14 6l6 6-6 6" />,
   // the order's steps: a basket, a saw blade, a box, a ship, a house
   basket: <path d="M3 9h18l-2 11H5zM8 9l4-6 4 6M9 13v4M15 13v4" />,
   make: (

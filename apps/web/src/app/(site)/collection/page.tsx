@@ -14,7 +14,6 @@ import { QuickLinks } from "@/features/collection/QuickLinks";
 import { StartWith } from "@/features/collection/StartWith";
 import { Tiles } from "@/features/collection/Tiles";
 import { DesignOwn } from "@/features/collection/DesignOwn";
-import { FirstPiece } from "@/features/collection/FirstPiece";
 import { Details } from "@/features/collection/Details";
 import { ForYou } from "@/features/collection/ForYou";
 import { Visit } from "@/features/collection/Visit";
@@ -55,19 +54,19 @@ export default function CollectionPage() {
             tiles={FOR_AND_LOOKS.tiles}
           />
           <RoomCards />
-          <FirstPiece />
+          {/* Every room starts with one piece (FirstPiece) is hidden for now, at the owner's request. */}
           <Tiles />
           <Details />
           <DesignOwn />
           <StartWith />
           <QuickLinks />
           <Questions questions={COLLECTION_QUESTIONS} />
+          {/* the two photo bands last, as a pair: the order's photo on the left,
+              the visit's on the right, so they zigzag to the page's end; in
+              Sora with the rest, so the page reads as one, on the owner's word */}
+          <Promises />
+          <Visit />
         </TypeTrial>
-        {/* the two photo bands last, as a pair: the order's photo on the left,
-            the visit's on the right, so they zigzag to the page's end; both
-            keep the site's own faces, on the owner's word */}
-        <Promises />
-        <Visit />
       </main>
     </>
   );

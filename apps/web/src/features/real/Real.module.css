@@ -1,0 +1,60 @@
+/* the head close over the row, as Eva's */
+.real {
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* a card in the site's faint frame, as Eva's cards: the photo square at its
+   top, the words under it; pointed at, the frame turns red */
+.card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  box-sizing: border-box;
+  height: 100%;
+  border: var(--line) solid var(--rule);
+  color: inherit;
+}
+
+.card:hover {
+  border-color: var(--ink);
+}
+
+.photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  background: var(--birch);
+}
+
+.photo img {
+  object-fit: cover;
+}
+
+.words {
+  display: grid;
+  gap: var(--space-1);
+  align-content: start;
+  padding: var(--space-5) var(--space-5) var(--space-6);
+}
+
+/* the name and sentence as Eva's cards: the name in the red title face a
+   step lighter, the sentence in brown under it */
+.name {
+  composes: card-title from global;
+}
+
+.room {
+  color: var(--ink-dark-pale);
+  font: 400 var(--text-sm) / 1.4 var(--font);
+}
+
+.line {
+  composes: card-line from global;
+  margin-top: var(--space-2);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card {
+    transition: border-color var(--dur-fast);
+  }
+}

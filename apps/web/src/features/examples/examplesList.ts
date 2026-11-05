@@ -89,8 +89,9 @@ const EXAMPLES = {
 
 /** The landing's title and way on, over its examples */
 export const HOME_EXAMPLES_HEAD = {
-  title: "Rooms, put together",
-  rest: "Two homes and an office, with what went in",
+  title: "Rooms, put together.",
+  answer: "Two homes and an office.",
+  rest: "Each comes with the pieces that went in and how long they took, so you can picture what would work in yours.",
   go: { label: "See the collection", href: routes.collection },
 };
 

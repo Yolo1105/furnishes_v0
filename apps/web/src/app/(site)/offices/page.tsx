@@ -21,7 +21,7 @@ export default function OfficesPage() {
         {/* Sora, as on the other pages, on the owner's word */}
         <TypeTrial page="offices">
           <Offices />
-          <Questions questions={OFFICE_QUESTIONS} rest="Asked by offices" />
+          <Questions questions={OFFICE_QUESTIONS} rest="Here is what offices ask us most." />
         </TypeTrial>
       </main>
     </>

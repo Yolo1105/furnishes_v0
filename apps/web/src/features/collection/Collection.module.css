@@ -8,6 +8,11 @@
   color: var(--ink-dark);
 }
 
+/* a page that ends on a full-width band meets the footer with no gap */
+.page:has([data-flush-end]) {
+  padding-bottom: 0;
+}
+
 /* ---------- the banner ---------- */
 
 /* The banner fills the screen under the bar with the photo, edge to edge;
@@ -660,7 +665,7 @@
 }
 
 .headingRest {
-  composes: section-deck from global;
+  composes: lead-line from global;
   display: block;
   margin-top: var(--space-title, var(--space-2));
 }
@@ -741,21 +746,20 @@
 .lineBandLabel {
   composes: caps from global;
   margin: 0;
-  font-size: var(--text-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
   color: var(--photo-text-dim);
 }
 
 .lineBandName {
-  margin: 0;
-  font: 400 var(--text-over) / 1.08 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
+  composes: card-title from global;
+  color: inherit;
 }
 
 .lineBandIntro {
+  composes: card-line from global;
   margin: 0 0 var(--space-2);
   color: var(--photo-text-dim);
-  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
 }
 
 /* the line's pieces in one row that scrolls sideways, each card a set width
@@ -839,13 +843,8 @@
 }
 
 .promiseName {
+  composes: card-title from global;
   margin: 0 0 var(--space-3);
-  color: var(--ink);
-  font: 400 var(--text-head) / 1.1 var(--font);
-  font-size: var(--text-entry, var(--text-head));
-  font-weight: var(--weight-entry, 400);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
   text-wrap: balance;
 }
 
@@ -900,8 +899,9 @@
 }
 
 .orderLine {
+  composes: card-line from global;
   margin: 0;
-  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
+  color: inherit;
 }
 
 .orderList {
@@ -1074,10 +1074,8 @@
 }
 
 .mosaicName {
-  margin: 0;
-  font: 400 var(--text-head) / 1.1 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
+  composes: card-title from global;
+  color: inherit;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1144,14 +1142,13 @@
 }
 
 .detailName {
-  font: 400 var(--text-head) / 1.15 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
+  composes: card-title from global;
 }
 
 .detailLine {
+  composes: card-line from global;
   margin-bottom: var(--space-2);
-  font: var(--weight-title-rest) var(--text-lg) / 1.4 var(--font-wordmark);
+  color: inherit;
 }
 
 /* the way in, a square of the page's cream, red orange on hover */
@@ -1210,15 +1207,11 @@
 /* the name and line in the faces of the statement under the banner, on the
    owner's word, a size down for a card: the narrow red, then Jost in brown */
 .roomName {
-  color: var(--ink);
-  font: 400 var(--text-head) / 1.15 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
+  composes: card-title from global;
 }
 
 .roomLine {
-  color: var(--ink-dark);
-  font: var(--weight-title-rest) var(--text-lg) / 1.3 var(--font-wordmark);
+  composes: card-line from global;
 }
 
 /* the photo grows a little when the card is pointed at, to show the
@@ -1283,16 +1276,15 @@
 }
 
 .kindName {
-  font: 400 var(--text-section) / 1.1 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
+  composes: card-title from global;
+  color: inherit;
 }
 
 .kindLine {
+  composes: card-line from global;
   max-width: 32ch;
   margin-bottom: var(--space-3);
   color: var(--photo-text-dim);
-  font: var(--weight-title-rest) var(--text-line) / 1.35 var(--font-wordmark);
 }
 
 .kindPhoto {
@@ -1317,9 +1309,9 @@
 /* ---------- design your own ---------- */
 
 .designLine {
+  composes: card-line from global;
   max-width: 44ch;
   margin: 0;
-  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
 }
 
 /* the reference's outlined button, square as the site's others; it fills
@@ -1427,8 +1419,8 @@
 }
 
 .compareLine {
+  composes: card-line from global;
   margin: 0;
-  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
 }
 
 .compareFacts {
@@ -1698,9 +1690,17 @@
   gap: clamp(var(--space-4), 2vw, var(--space-6));
 }
 
+/* a title at the lead size, as the split heads, for heads not in one */
+.leadTitle {
+  font-size: var(--text-lead);
+  line-height: 1.1;
+}
+
+/* the way to ask as the shared line under a title */
 .qaAsk {
-  color: var(--ink-dark);
-  font: var(--weight-title-rest) var(--text-lg) / 1.4 var(--font-wordmark);
+  composes: lead-line from global;
+  max-width: 48ch;
+  margin: 0;
 }
 
 .qaMail {
@@ -1730,7 +1730,7 @@
   border: 0;
   background: none;
   color: var(--ink-dark);
-  font: 400 var(--text-line) / 1.3 var(--font);
+  font: var(--weight-title-rest) var(--text-line) / 1.3 var(--font);
   text-align: left;
   cursor: pointer;
 }
@@ -1786,7 +1786,7 @@
   max-width: 60ch;
   padding: 0 0 var(--space-6) calc(var(--qa-number) + var(--space-4));
   color: var(--ink-dark);
-  font: var(--weight-title-rest) var(--text-lg) / 1.5 var(--font-wordmark);
+  font: var(--weight-title-rest) var(--text-md) / 1.55 var(--font);
 }
 
 /* split, after the owner's reference: the title over the questions, and
@@ -1900,4 +1900,124 @@
   .promises {
     grid-template-columns: 1fr;
   }
+}
+
+/* ---------- a split head, as Eva's and the example rooms' ---------- */
+
+/* the title on the left half, what the section is on the right half, their
+   last lines level; stacked on narrower screens */
+.splitHead {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) clamp(var(--space-3), 1.5vw, var(--space-5));
+  align-items: end;
+}
+
+/* the title at the flat tour's lead size, on the owner's word */
+.splitHead > h2 {
+  font-size: var(--text-lead);
+  line-height: 1.1;
+}
+
+/* a title in two lines: each its own, one that wraps splits evenly; the
+   second in brown and a step lighter, as the flat tour's, so the red
+   first line leads */
+.splitLine {
+  display: block;
+  text-wrap: balance;
+}
+
+.splitLine + .splitLine {
+  color: var(--ink-dark);
+  font-weight: var(--weight-line-light, var(--weight-title-rest));
+}
+
+/* the shared line under a title, in the head's second column */
+.splitRest {
+  composes: lead-line from global;
+  grid-column: 2;
+  max-width: 48ch;
+  margin: 0;
+}
+
+/* the line with a way on beside it, the way on at the far end level
+   with the line's last words; under the line on narrower screens */
+.splitSide {
+  display: flex;
+  grid-column: 2;
+  gap: var(--space-2) var(--space-6);
+  align-items: last baseline;
+  justify-content: space-between;
+}
+
+/* the line takes what the way on leaves, its full half rather than a
+   measure, so it keeps to two lines */
+.splitSide > .splitRest {
+  flex: 1 1 0;
+  max-width: none;
+}
+
+/* the way on, in the red as a link rather than a button, an arrow up and
+   out after it */
+.splitGo {
+  composes: underline-on-hover from global;
+  display: inline-flex;
+  flex: none;
+  gap: var(--space-1);
+  align-items: center;
+  color: var(--ink);
+  white-space: nowrap;
+  font: 500 var(--text-md) / 1.3 var(--font);
+}
+
+.splitGo svg {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (width <= 1023px) {
+  .splitHead {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .splitRest,
+  .splitSide {
+    grid-column: 1;
+  }
+
+  .splitSide {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+/* ---------- a round mark ---------- */
+
+/* a drawing in a ring: the light red wash in a faint ring, the drawing in
+   the red orange; 96 px across unless a parent sets --mark-size */
+.roundMark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--mark-size, var(--space-24));
+  height: var(--mark-size, var(--space-24));
+  border: var(--line) solid var(--rule);
+  border-radius: 50%;
+  background: var(--ink-wash);
+  color: var(--ink-warm);
+}
+
+.roundMark svg {
+  width: 42%;
+  height: 42%;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }

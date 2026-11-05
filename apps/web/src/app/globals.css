@@ -151,6 +151,9 @@
   /* never under 24px, so its pale second half still counts as large text */
   --text-head: clamp(24px, 1.9vw, 34px);
 
+  /* a fifth over the head size: the flat tour's lead and the titles matched to it */
+  --text-lead: calc(var(--text-head) * 1.2);
+
   /* a title's brown second line: a step under the head size, on the owner's
      word; the brown reads at 9:1, so it needn't stay large text */
   --text-rest: clamp(18px, 1.42vw, 25px);
@@ -197,7 +200,10 @@
   --leading-h3: 1.2;
   --leading-lead: 1.45;
   --leading-body: 1.5;
-  --scale-space-section: clamp(80px, 55.46px + 6.292vw, 136px);
+
+  /* the gap between sections, a step more than the one inside "What we
+     sell" between its photo and its pair (64 px), on the owner's word */
+  --scale-space-section: clamp(64px, 6.5vw, 96px);
   --scale-space-eyebrow: clamp(8px, 6.25px + 0.449vw, 12px);
   --scale-space-title: clamp(14px, 11.37px + 0.674vw, 20px);
   --scale-space-content: clamp(48px, 37.48px + 2.697vw, 72px);
@@ -363,6 +369,33 @@ h3 {
   letter-spacing: var(--track-deck, 0);
 }
 
+/* the line under a section's title: the subtitle face a size down, in the
+   paler brown, so it reads under the title rather than beside it */
+.lead-line {
+  color: var(--ink-dark-pale);
+  font: var(--weight-deck, var(--weight-sub, var(--weight-title-rest))) var(--text-lg) / 1.55
+    var(--font-sub, var(--font-wordmark));
+  font-variation-settings: normal;
+  letter-spacing: var(--track-deck, 0);
+  text-wrap: pretty;
+}
+
+/* a card's or a step's name: the title face at the head size, red, a step
+   lighter than a section's title */
+.card-title {
+  margin: 0;
+  color: var(--ink);
+  font: var(--weight-title-rest) var(--text-head) / 1.15 var(--font-heading, var(--font));
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+/* a card's sentence: the body size in brown, a step lighter */
+.card-line {
+  color: var(--ink-dark);
+  font: var(--weight-title-rest) var(--text-md) / 1.55 var(--font);
+}
+
 /* the big words' face: narrow, tight, in capitals */
 .display {
   font-weight: 500;
@@ -487,8 +520,7 @@ h3 {
    step smaller, since Sora runs wider than the narrowed capitals. The
    sections of each page, the bar and the footer carry data-type-trial
    (TypeTrial.tsx); inside them data-type-keep holds a part to the site's
-   faces, as the region sheet's lists; collection's two photo bands sit
-   outside the wrapper. Delete this block, TypeTrial, those attributes and Sora in
+   faces, as the region sheet's lists. Delete this block, TypeTrial, those attributes and Sora in
    layout.tsx to go back. */
 [data-type-trial] {
   --font: var(--font-sora), system-ui, sans-serif;
@@ -504,7 +536,9 @@ h3 {
      demo's line heights and the space around a section's title */
   --font-heading: var(--font);
   --font-sub: var(--font-wordmark);
-  --text-heading: var(--scale-h2);
+
+  /* a section's title at the landing's lead size, so every page's titles match */
+  --text-heading: var(--text-lead);
   --leading-heading: var(--leading-h2);
   --text-deck: var(--scale-lead);
   --leading-deck: var(--leading-lead);

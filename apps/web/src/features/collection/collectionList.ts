@@ -141,7 +141,9 @@ export const MOSAIC = {
  * tile's place in the grid. Rooms stand in for photos of the pieces.
  */
 export const CATALOGUE = {
-  title: "Catalogue",
+  label: "Catalogue",
+  title: ["Every piece, by kind.", "Pick one to see them all."],
+  rest: "Each tile shows how many pieces it holds, so you know what you are opening before you open it.",
   tiles: [
     { name: "Sofas", kinds: ["Sofas"], photo: redSofa, spot: "a" },
     { name: "Chairs", kinds: ["Chairs"], photo: yellowChair, spot: "b" },

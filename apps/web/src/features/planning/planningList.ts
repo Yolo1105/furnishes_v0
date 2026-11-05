@@ -31,18 +31,18 @@ export const PLANNING = {
 };
 
 /**
- * Eva's band, after the owner's reference: the title and the two ways in on
- * the left, what she does on the right, then three cards, each drawn in
- * the planner's own lines. Home shows it with a way to this page; this page
- * leaves that way out.
+ * Eva's band, after the owner's reference: the title on the left, what she
+ * does on the right, then three cards, each drawn in
+ * the planner's own lines, on home and on this page alike.
  */
 export const EVA = {
   id: "eva-title",
-  label: "Eva, the assistant",
-  title: "An assistant that knows your home",
-  line: "Eva asks about your home first, checks your room as you draw it and suggests what fits, so you aren't left to work it out alone.",
-  start: { label: "Log in to start", href: DESIGN_NEXT },
-  more: { label: "How Eva works", href: routes.planning },
+  label: "The room planner",
+  /* the question, then the answer on its own line */
+  title: ["Ready to design?", "Meet Eva, our AI interior assistant."],
+  line: "She asks about your home, checks your room as you draw it, and suggests pieces that fit, with the reason why.",
+  /* three cards, each a drawing over its name and line; the ways on are
+     gone, on the owner's word */
   tiles: [
     {
       drawing: "room",

@@ -156,3 +156,141 @@
     aspect-ratio: 4 / 3;
   }
 }
+
+/* ---------- the landing's pair ---------- */
+
+/* the overview, after the owner's reference: what we do on the left, a
+   room on the right, the larger part, level at the top */
+.overview {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 8fr);
+  gap: var(--space-8) clamp(var(--space-8), 4vw, var(--space-16));
+  align-items: start;
+}
+
+.overviewWords {
+  display: grid;
+  gap: var(--space-5);
+  justify-items: start;
+}
+
+/* the title at the flat tour's lead size, on the owner's word */
+.overviewWords > h2 {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-lead);
+  line-height: 1.1;
+}
+
+/* the line as every split head's: a size down from the title, pale brown */
+.overviewLine {
+  composes: lead-line from global;
+  max-width: 40ch;
+  margin: 0;
+}
+
+.overviewWords > .more {
+  margin: var(--space-2) 0 0;
+}
+
+.overviewPhoto {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: var(--birch);
+}
+
+.overviewPhoto img {
+  object-fit: cover;
+}
+
+/* two columns, ready-made then modular, after the owner's reference; a
+   step closer under the overview than one section is to the next */
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-12) clamp(var(--space-6), 3vw, var(--space-12));
+  margin: clamp(var(--space-12), 5vw, var(--space-16)) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* the title, sentence and way in, then the photo at the foot, so the two
+   photos line up whatever the words' length */
+.pairItem {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  justify-items: start;
+}
+
+/* the title, sentence and way in a step smaller than a section's head and
+   set close, so the two read as one block each over their photo */
+.pairTitle {
+  composes: card-title from global;
+}
+
+/* the sentence as every card's: body size, brown, a step lighter */
+.pairText {
+  composes: card-line from global;
+  max-width: 44ch;
+  margin: var(--space-2) 0 0;
+}
+
+.more {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  margin: var(--space-4) 0 var(--space-6);
+  color: var(--ink);
+  font: 500 var(--text-md) / 1.2 var(--font);
+}
+
+.more svg {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.more:hover {
+  opacity: var(--hover-dim);
+}
+
+.more:hover svg {
+  translate: 3px 0;
+}
+
+.pairPhoto {
+  position: relative;
+  display: block;
+  justify-self: stretch;
+  aspect-ratio: 16 / 9;
+  background: var(--birch);
+}
+
+.pairPhoto img {
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .more,
+  .more svg {
+    transition:
+      opacity var(--dur-fast),
+      translate var(--dur-fast);
+  }
+}
+
+@media (width <= 1023px) {
+  .overview {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (width <= 639px) {
+  .pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

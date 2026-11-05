@@ -1,25 +1,24 @@
-import { MakingDays, Manifesto, WhoWeAre, Workshop } from "@/features/about/About";
+import { MakingDays } from "@/features/about/About";
 import { ABOUT_QUESTIONS } from "@/features/about/aboutList";
 import { Banner } from "@/features/banner/Banner";
 import { Examples } from "@/features/examples/Examples";
 import { HOME_EXAMPLES, HOME_EXAMPLES_HEAD } from "@/features/examples/examplesList";
-import { Lines } from "@/features/lines/Lines";
+import { LinesPair } from "@/features/lines/Lines";
 import { Questions } from "@/features/collection/Questions";
 import styles from "@/features/collection/Collection.module.css";
 import { Partners } from "@/features/partners/Partners";
+import { Assistant } from "@/features/planning/Assistant";
 import { RoomProvider } from "@/features/rooms/RoomContext";
 import { FlatTour } from "@/features/tour/FlatTour";
 import { TypeTrial } from "@/features/trial/TypeTrial";
-import { Ways } from "@/features/ways/Ways";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 /**
- * The landing: the banner of rooms, the partners, what we believe and four
- * figures, the two lines we sell, the flat toured a step at a time, three
- * ways to shop (a visit, samples or Eva), example rooms as stacked cards,
- * then About (who we are, the factory, the five steps to your home and
- * questions). The team is on the contact page; recognition waits for
- * something to show.
+ * The landing: the banner of rooms, the partners, the two lines we sell, the
+ * flat toured a step at a time, example rooms as stacked cards, Eva the
+ * assistant, how an order gets from the factory to you, and the
+ * questions. The team is on the contact page; recognition
+ * waits for something to show.
  */
 export default function Home() {
   return (
@@ -31,16 +30,19 @@ export default function Home() {
           <TypeTrial page="home">
             <Banner />
             <Partners />
-            <Manifesto />
-            <Lines />
+            <LinesPair />
+            {/* What we believe (Manifesto) is hidden for now, at the owner's request. */}
             <FlatTour />
-            <Ways />
             <Examples id="examples" {...HOME_EXAMPLES_HEAD} examples={HOME_EXAMPLES} />
-            <WhoWeAre />
-            <Workshop />
+            <Assistant />
+            {/* from the factory to your room, one section, on the owner's word */}
             <MakingDays />
-            {/* Recognition comes back here once there is an award or article to show. */}
+            {/* Design your own (DesignOwn) is hidden for now, at the owner's request. */}
+            {/* About Furnishes (WhoWeAre) is hidden for now, at the owner's request. */}
             <Questions questions={ABOUT_QUESTIONS} />
+            {/* Furnishes in real rooms (RealRooms) is hidden for now, at the owner's request. */}
+            {/* Recognition comes back here once there is an award or article to show. */}
+            {/* For offices (OfficeBand) is hidden for now, at the owner's request. */}
           </TypeTrial>
         </main>
       </RoomProvider>

@@ -7,8 +7,7 @@
   font-size: var(--text-body, var(--text-line));
 }
 
-.inline img,
-.workshopPhoto img {
+.inline img {
   object-fit: cover;
 }
 
@@ -16,45 +15,38 @@
 
 .manifesto {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
-  gap: var(--space-6) clamp(var(--space-6), 4vw, var(--space-16));
-  align-items: start;
-  padding: clamp(var(--space-16), 8vw, var(--space-32)) var(--gutter) 0;
+  gap: clamp(var(--space-10), 7svh, var(--space-16));
+  align-content: center;
+  box-sizing: border-box;
+  min-height: calc(100svh - var(--nav-h));
+  padding: clamp(var(--space-12), 6vw, var(--space-24)) var(--gutter);
 }
 
-/* the label alone on the left, level with the statement's first line;
-   the statement and the figures share the wide column on the right */
-.manifesto > h2 {
-  padding-top: 0.9em;
-}
-
-.statement,
-.figures {
-  grid-column: 2;
-}
-
-/* four lines in the wide column in the narrow cut at the section titles'
-   size and a fifth again; each word is red once lit */
+/* the statement across the page's whole width in long lines, in the
+   narrow cut, in the page's brown with a few words in the red */
 .statement {
-  max-width: 30ch;
   margin: 0;
-  color: var(--ink);
-  font: 400 calc(var(--text-over) * 1.2) / 1.15 var(--font);
+  color: var(--ink-dark);
+  font: 400 clamp(26px, 3vw, 60px) / 1.6 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
+
+  /* every line but the last stretched to both edges, so the block fills the width */
+  text-align: justify;
   view-timeline: --statement block;
 }
 
-/* a small photo standing in the line, a word's height and a bit, nudged
-   down so it sits on the line's foot */
+/* a photo standing in the line, a little taller than a word and twice
+   its height wide, within the line's open spacing, nudged down so it sits
+   on the line's foot */
 .inline {
   position: relative;
   display: inline-block;
-  width: 1.8em;
-  height: 0.9em;
+  width: 2.6em;
+  height: 1.2em;
   margin-right: 0.25em;
   overflow: hidden;
-  vertical-align: -0.08em;
+  vertical-align: -0.22em;
   background: var(--birch);
 }
 
@@ -70,6 +62,10 @@
   }
 }
 
+.word[data-hot] {
+  color: var(--ink);
+}
+
 @keyframes light {
   from {
     color: var(--ink-dark-pale);
@@ -82,7 +78,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-6) clamp(var(--space-4), 2vw, var(--space-8));
-  margin: clamp(var(--space-6), 3vw, var(--space-12)) 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -102,56 +98,102 @@
   font: var(--weight-title-rest) var(--text-md) / 1.4 var(--font-wordmark);
 }
 
-/* ---------- the workshop ---------- */
+/* ---------- how it gets to you ---------- */
 
-/* the words and facts on a light orange panel joined to the photo as one
-   block, after the owner's other site, the photo the larger part */
-.workshopBlock {
-  display: grid;
-  grid-template-columns: 5fr 7fr;
-}
-
-.workshopText {
+.making {
   display: grid;
   gap: var(--space-6);
-  align-content: center;
-  padding: clamp(var(--space-8), 4vw, var(--space-16)) clamp(var(--space-6), 3.4vw, var(--space-12));
-  background: var(--panel-orange);
 }
 
-/* each fact on its own line: the label in pale capitals, its value after
-   it in brown; no rules, the space alone parts them */
-.facts {
+/* the steps on the left, the one photo the larger part on the right, the
+   list as the modular page's difference beside its photo */
+.journey {
   display: grid;
-  gap: var(--space-3);
-  margin: var(--space-2) 0 0;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--space-6) clamp(var(--space-8), 4vw, var(--space-16));
+  align-items: center;
 }
 
-.facts > div {
+.days {
   display: grid;
-  grid-template-columns: 9em 1fr;
-  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* a step's whole row is its button: the number in small red capitals, the
+   name a step lighter, the line under it; the chosen step's name in red,
+   the others in brown */
+.day {
+  display: grid;
+  grid-template-columns: var(--space-12) minmax(0, 1fr);
+  gap: var(--space-2);
   align-items: baseline;
+  width: 100%;
+  padding: var(--space-4) 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
-.factLabel {
+.dayNumber {
   composes: caps from global;
+  color: var(--ink);
+}
+
+.dayWords {
+  display: grid;
+  gap: var(--space-1);
+}
+
+/* a step's name as every card's, brown until it is the chosen one */
+.dayName {
+  composes: card-title from global;
+  color: var(--ink-dark);
+}
+
+.day[aria-pressed="true"] .dayName {
+  color: var(--ink);
+}
+
+.dayLine {
+  composes: card-line from global;
+  max-width: 44ch;
   color: var(--ink-dark-pale);
 }
 
-.facts dd {
-  margin: 0;
+.day[aria-pressed="true"] .dayLine {
   color: var(--ink-dark);
-  font: 400 var(--text-lg) / 1.3 var(--font);
-  font-size: var(--text-body, var(--text-lg));
-  font-weight: var(--weight-title-rest);
 }
 
-.workshopPhoto {
+/* the frame the photos share, each faded out until it is the chosen one */
+.journeyPhoto {
   position: relative;
-  min-height: clamp(320px, 36vw, 600px);
+  aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: var(--birch);
+  background: var(--ink-wash);
+}
+
+.journeyPhoto img {
+  object-fit: cover;
+  opacity: 0;
+}
+
+.journeyPhoto img[data-on] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dayName,
+  .dayLine {
+    transition: color var(--dur-fast);
+  }
+
+  .journeyPhoto img {
+    transition: opacity var(--dur-rise);
+  }
 }
 
 /* ---------- recognition ---------- */
@@ -238,38 +280,21 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .workshopBlock {
+  /* stacked, the photo comes first, over the steps that change it */
+  .journey {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* on a phone each fact's label sits over its value, so the value keeps the panel's width */
-  .facts > div {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-1);
-  }
-
-  /* stacked, the photo comes first, as the visit's */
-  .workshopPhoto {
+  .journeyPhoto {
     order: -1;
-    min-height: 0;
-    aspect-ratio: 4 / 3;
   }
 
   .figures {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* on a phone the label sits over the statement */
-  .manifesto {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .manifesto > h2 {
-    padding-top: 0;
-  }
-
-  .statement,
-  .figures {
-    grid-column: 1;
+  /* in a narrow column long words break, so justified lines keep even gaps */
+  .statement {
+    hyphens: auto;
   }
 }

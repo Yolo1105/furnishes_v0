@@ -82,6 +82,12 @@
   object-fit: cover;
 }
 
+/* in a column, the compare takes the column's width at 4:3 */
+.compareFit {
+  height: auto;
+  aspect-ratio: 4 / 3;
+}
+
 .after {
   position: absolute;
   inset: 0;
@@ -96,6 +102,21 @@
   background: var(--paper);
   translate: -50% 0;
   box-shadow: var(--shadow-dot);
+}
+
+/* the chip on the handle, saying what to do, in the brown with cream
+   words; it doesn't catch the pointer, so dragging on it still works */
+.chip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: var(--space-2) var(--space-4);
+  background: color-mix(in srgb, var(--ink-dark) 70%, transparent);
+  color: var(--paper);
+  font: 400 var(--text-md) / 1 var(--font);
+  white-space: nowrap;
+  translate: -50% -50%;
+  pointer-events: none;
 }
 
 /* the range input over the whole picture, unseen, so dragging anywhere moves it */

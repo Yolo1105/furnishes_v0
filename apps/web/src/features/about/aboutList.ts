@@ -1,12 +1,16 @@
+import type { StaticImageData } from "next/image";
 import living from "@/assets/rooms/living.jpg";
 import shelfWall from "@/assets/rooms/shelf-wall.jpg";
+import boxes from "@/assets/details/boxes.jpg";
+import armchair from "@/assets/details/armchair.jpg";
 import sewing from "@/assets/details/sewing.jpg";
 import yellowChair from "@/assets/details/yellow-chair.jpg";
 import redSofa from "@/assets/details/red-sofa.jpg";
+import hallway from "@/assets/rooms/hallway.jpg";
+import study from "@/assets/rooms/study.jpg";
 import { ARRIVALS, FURNITURE_WEEKS } from "@/features/catalog/catalog";
 import { sgd } from "@/lib/money";
 import { FACTS } from "@/lib/site";
-import type { Step } from "@/features/collection/Sections";
 
 /**
  * The about page's words, after the rebuild's about page, cut down. Every
@@ -36,41 +40,32 @@ export const WHO = {
 };
 
 /**
- * The statement, as the rebuild's manifesto: its words light up as it
+ * The statement, as the rebuild's manifesto, in the page's brown with only
+ * its three key phrases in the red (`hot`): its words light up as it
  * scrolls past, with two small photos set in the line. `photo` marks where
- * each sits, after the word before it.
+ * a photo sits, after the words before it. `label` names it for readers
+ * only; on the page it has no title.
  */
 export const MANIFESTO = {
   label: "What we believe",
-  words: [
-    "A",
-    "room",
-    "should",
-    "fit",
-    "the",
-    "people",
-    "in",
-    "it,",
+  parts: [
+    "A room should",
+    { hot: "fit the people in it," },
     { photo: yellowChair },
-    "not",
-    "the",
-    "other",
-    "way",
-    "round.",
-    "So",
-    "we",
-    "make",
-    "furniture",
+    "not the other way round. So we make furniture",
     { photo: sewing },
-    "to",
-    "your",
-    "wall,",
-    "not",
-    "to",
-    "a",
-    "catalogue.",
-  ] as const,
-};
+    { hot: "to your wall," },
+    "not to a catalogue. Ready-made pieces come in set sizes for the rooms most flats have, and modular pieces are built from parts and cut to the space you measure.",
+    { photo: shelfWall },
+    `Every modular panel is ${FACTS.board} birch plywood,`,
+    { photo: redSofa },
+    "every piece is made after you order, and if you aren't sure what fits,",
+    { photo: study },
+    { hot: "we come to your home" },
+    { photo: hallway },
+    "and measure it with you.",
+  ],
+} as const;
 
 /** Four figures in one row, each read from the facts the rest of the site states. */
 export const FIGURES = [
@@ -80,38 +75,44 @@ export const FIGURES = [
   { value: sgd(FACTS.visitFee), line: "For a home visit, taken off your order" },
 ] as const;
 
-/** Where it is made, as short label and value lines beside a photo. */
-export const WORKSHOP = {
-  label: "Workshop",
-  title: "Made by our partner factory in China",
-  rest: "We choose the designs and the materials",
-  line: "The factory makes each piece after you order and ships it to Singapore.",
-  facts: [
-    { label: "Made in", value: "China" },
-    { label: "Factory", value: "Our partner factory in China" },
-    { label: "Material", value: `${FACTS.board} birch plywood, in birch, walnut or red` },
-    { label: "Arrives", value: "Flat-packed or already built" },
-    { label: "Delivered to", value: "Singapore" },
-  ],
-  photo: redSofa,
-};
+/** A photo tile, or a placeholder saying what photo goes there until one comes. */
+export type Tile = { caption: string; photo?: StaticImageData };
 
-/** From order to your home, in five steps on one line. */
+/**
+ * From the factory to your room, in four steps each over a tile; the factory
+ * is the first step rather than a section of its own, on the owner's word.
+ * A caption says what each photo shows, for its alt text.
+ */
 export const MAKING = {
-  label: "How it reaches you",
-  title: "From order to your home",
-  rest: `Made after you order: modular pieces take ${ARRIVALS.parts.weeks} flat-packed, ${ARRIVALS.built.weeks} built`,
+  label: "How it gets to you",
+  title: ["Made by our partner factory.", "Carried into your room."],
+  rest: "We choose every design, the factory makes it after you order, and we email you at each step until it stands in your room.",
   steps: [
-    { name: "You order", icon: "basket", line: "You choose the piece, its size and finish, and how it arrives." },
-    { name: "It is made", icon: "make", line: "Our partner factory in China makes the version you chose." },
-    { name: "It is packed", icon: "box", line: "Packed with its parts and, if flat-packed, its steps." },
-    { name: "It ships", icon: "ship", line: "From China to Singapore. We email you when it moves." },
     {
-      name: "It arrives",
-      icon: "home",
-      line: "Carried into your room at a time you choose: built pieces ready to use, flat-packed ones ready to put together.",
+      name: "Made",
+      caption: "Sewing a cushion cover",
+      photo: sewing,
+      line: `Made in China after you order. Modular pieces take ${ARRIVALS.parts.weeks} flat-packed and ${ARRIVALS.built.weeks} built.`,
     },
-  ] satisfies Step[],
+    {
+      name: "Shipped",
+      caption: "Packed for Singapore",
+      photo: boxes,
+      line: "Packed with its parts and shipped to Singapore. We email you as it moves.",
+    },
+    {
+      name: "Booked",
+      caption: "A quiet corner, waiting for its day",
+      photo: armchair,
+      line: "Once it lands in Singapore, we email you to pick the day it comes.",
+    },
+    {
+      name: "Carried in",
+      caption: "A shelf wall in its room",
+      photo: shelfWall,
+      line: "Carried into the room you choose, built pieces ready to use and flat-packed ones ready to put together.",
+    },
+  ] satisfies (Tile & { name: string; line: string })[],
 };
 
 /** The questions asked before buying from a new name; answers follow the rest of the site. */

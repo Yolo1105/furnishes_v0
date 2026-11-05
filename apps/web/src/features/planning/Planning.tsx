@@ -34,7 +34,7 @@ export function Planning() {
         </form>
       </Opening>
 
-      <Assistant more={false} />
+      <Assistant />
 
       <Steps {...PLANNER} />
 

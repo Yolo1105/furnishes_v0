@@ -20,8 +20,8 @@ type Question = { q: string; a: string; icon?: IconName };
 export function Questions({
   questions,
   label = "FAQ",
-  title = "Questions",
-  rest = "Asked before ordering",
+  title = "Got questions?",
+  rest = "Here is what people ask before ordering.",
   ask = true,
   split = false,
 }: {
@@ -45,9 +45,10 @@ export function Questions({
       aria-labelledby={`${id}-title`}
     >
       <div className={styles.qaSide}>
-        <h2 id={`${id}-title`} className={styles.heading}>
+        {/* the title in two tones at the lead size, as Eva's and the example rooms' heads */}
+        <h2 id={`${id}-title`} className={`${styles.heading} ${styles.leadTitle}`}>
           <span className={styles.headingLabel}>{label}</span>
-          {title} <span className={styles.headingRest}>{rest}</span>
+          <span className={styles.splitLine}>{title}</span> <span className={styles.splitLine}>{rest}</span>
         </h2>
         {ask && (
           <p className={styles.qaAsk}>

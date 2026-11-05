@@ -13,6 +13,9 @@ import { FACTS } from "@/lib/site";
  */
 const QUOTE = mailAbout("Office or bulk order");
 
+/** the lounge photo, on this page and in the band before home's footer */
+const LOUNGE = { src: yellowSofa, alt: "A yellow sofa and low tables in an office lounge" };
+
 /** the example offices' title, over the stacked cards */
 export const EXAMPLES_TITLE = "What a fit-out looks like";
 export const EXAMPLES_REST = "Three offices, from a studio to a shared floor";
@@ -26,10 +29,18 @@ export const OFFICES = {
     "Tell us the team's size and the space, and we send one quote for the pieces together.",
   ],
   quote: { label: "Ask for a quote", href: QUOTE },
-  photos: [
-    { src: showroom, alt: "A bright room with tables, chairs and shelves" },
-    { src: yellowSofa, alt: "A yellow sofa and low tables in an office lounge" },
-  ],
+  photos: [{ src: showroom, alt: "A bright room with tables, chairs and shelves" }, LOUNGE],
+};
+
+/** The band before the footer on home, after the owner's reference: a
+ *  photo, a line selling the offices line, and its ask for a quote. */
+export const OFFICE_BAND = {
+  label: OFFICES.label,
+  title: "Your team's first office, sorted.",
+  line: "Desks, chairs, storage and walls that grow with your startup. Tell us how many you are and the space you have, and we send one quote for the lot.",
+  /* the quote by email, as the offices page asks; no trade scheme is promised */
+  go: { label: "Get your quote today", href: QUOTE },
+  photo: LOUNGE,
 };
 
 /** Every piece made for an office, in the catalogue's order. */

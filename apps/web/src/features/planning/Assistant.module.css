@@ -1,36 +1,9 @@
-/* Eva's band: the title, what Eva does under it as every section's
-   subtitle, and the two ways in, all down the left as the other sections'
-   heads; the three cards across under them */
+/* Eva's band: the head in one row, the title on the left half so its
+   longer line fits, what Eva does on the right half, their last lines
+   level; the three cards close under them, on the owner's word */
 .assistant {
   display: grid;
-  gap: clamp(var(--space-8), 4vw, var(--space-12));
-}
-
-.top {
-  display: grid;
-  gap: var(--space-5);
-  justify-items: start;
-}
-
-.top > h2 {
-  max-width: 14ch;
-}
-
-/* the line in the subtitle face and size every section's subtitle takes */
-.line {
-  composes: section-deck from global;
-  max-width: 48ch;
-  margin: 0 0 var(--space-2);
-}
-
-.calls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-}
-
-.start {
-  composes: button button-fill from global;
+  gap: var(--space-6);
 }
 
 .cards {
@@ -42,12 +15,12 @@
   list-style: none;
 }
 
-/* a card in the thin frame the site's boxes share: the drawing on the
-   faint red ground over its top, the words under it on the cream */
+/* a card with no frame of its own, on the owner's word: the drawing on the
+   faint red ground over its top, the words under it, flush with
+   the drawing's edges */
 .card {
   display: grid;
   grid-template-rows: auto 1fr;
-  border: var(--line) solid var(--rule-strong);
 }
 
 .drawing {
@@ -62,19 +35,20 @@
   display: grid;
   gap: var(--space-1);
   align-content: start;
-  padding: clamp(var(--space-4), 1.8vw, var(--space-6));
+  padding: clamp(var(--space-4), 1.8vw, var(--space-6)) 0;
 }
 
+/* the name and sentence as the "What we sell" pair's: the name in the
+   narrow red title face, the sentence a clear step under it in brown;
+   both a step lighter than the face's regular, on the owner's word */
 .name {
-  margin: 0;
-  color: var(--ink-dark);
-  font: 500 var(--text-lg) / 1.3 var(--font);
+  composes: card-title from global;
 }
 
 .cardLine {
-  margin: 0;
-  color: var(--ink-dark-pale);
-  font: 400 var(--text-md) / 1.5 var(--font);
+  composes: card-line from global;
+  max-width: 44ch;
+  margin: var(--space-2) 0 0;
 }
 
 /* ---------- the drawings, in the planner's own lines ---------- */

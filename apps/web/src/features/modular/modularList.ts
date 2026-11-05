@@ -7,7 +7,10 @@ import yellowChair from "@/assets/details/yellow-chair.jpg";
 import hallway from "@/assets/rooms/hallway.jpg";
 import shelfWall from "@/assets/rooms/shelf-wall.jpg";
 import study from "@/assets/rooms/study.jpg";
-import { ARRIVALS, FURNITURE_LEAD, FURNITURE_WEEKS } from "@/features/catalog/catalog";
+import { ARRIVALS, FINISHES, FURNITURE_LEAD, FURNITURE_WEEKS } from "@/features/catalog/catalog";
+import type { IconName } from "@/features/collection/Icon";
+import { sgd } from "@/lib/money";
+import { FACTS } from "@/lib/site";
 
 /**
  * The Modular page's words, in one place. Sizes, limits and answers marked
@@ -219,3 +222,164 @@ export const SETS = [
     ],
   },
 ] as const;
+
+/**
+ * Shipping and delivery, after the owner's two references (a furniture
+ * guide's order process and topics, a delivery page's methods and its
+ * before, during and after). Every fact is one the site already states:
+ * the weeks, changes until production, the lift and door check, the hour
+ * a cabinet takes, no returns on pieces made to size, the reply time. No
+ * fee, payment timing or tracking is promised.
+ */
+export const DELIVERY = {
+  id: "delivery-title",
+  label: "Shipping and delivery",
+  title: "From your order to your room",
+  processTitle: "The order process",
+  process: [
+    {
+      icon: "basket",
+      name: "You order",
+      line: "Choose each piece, its size and finish, and whether it comes ready to go or in parts.",
+    },
+    {
+      icon: "make",
+      name: "It is made",
+      line: "Our partner factory in China makes each piece to the size you chose. Nothing is made before you order.",
+    },
+    {
+      icon: "box",
+      name: "It is packed",
+      line: "Pieces in parts are packed flat with their steps. Pieces ready to go are built and wrapped whole.",
+    },
+    { icon: "ship", name: "It ships", line: "From China to Singapore. We email you when it moves." },
+    {
+      icon: "clock",
+      name: "We set a time",
+      line: "Once it lands, we email you to choose a delivery time that suits you.",
+    },
+    {
+      icon: "home",
+      name: "It arrives",
+      line: "Carried into the room you choose, built pieces ready to use and flat-packed ones ready to put together.",
+    },
+  ] satisfies { icon: IconName; name: string; line: string }[],
+  waysTitle: "Two ways it arrives",
+  ways: [
+    {
+      icon: "home",
+      name: ARRIVALS.built.name,
+      weeks: ARRIVALS.built.weeks,
+      points: [
+        "Arrives built, ready to use",
+        "Measured against your lift and door before it ships",
+        "Carried into the room you choose",
+        "Delivered at a time you pick",
+      ],
+    },
+    {
+      icon: "box",
+      name: ARRIVALS.parts.name,
+      weeks: ARRIVALS.parts.weeks,
+      points: [
+        "Arrives in flat boxes with its parts and steps",
+        "The tools are in the box",
+        "About an hour for a cabinet",
+        "Carried into the room you choose",
+      ],
+    },
+  ] satisfies { icon: IconName; name: string; weeks: string; points: string[] }[],
+  stagesTitle: "Steps for a smooth delivery",
+  stages: [
+    {
+      when: "Before",
+      items: [
+        {
+          name: "Measure your space",
+          line: "Measure the spot, and the doors, turns and lift the piece passes on its way. Not sure? Book a home visit and we measure with you.",
+        },
+        {
+          name: "Clear the way",
+          line: "Clear the spot where the piece will stand and a path to it from the door.",
+        },
+      ],
+    },
+    {
+      when: "During",
+      items: [
+        {
+          name: "Check each piece",
+          line: "Look each piece over while the team is with you, and take a photo of anything that isn't right.",
+        },
+      ],
+    },
+    {
+      when: "After",
+      items: [
+        {
+          name: "Tell us",
+          line: `Email us with the photo if anything is wrong. We answer within ${FACTS.replyTime}.`,
+        },
+      ],
+    },
+  ],
+  topics: [
+    {
+      name: "Timing",
+      line: `${ARRIVALS.parts.name} pieces take ${ARRIVALS.parts.weeks} from order to door, and ${ARRIVALS.built.name.toLowerCase()} pieces ${ARRIVALS.built.weeks}.`,
+    },
+    {
+      name: "Putting it together",
+      line: "Every flat-packed piece comes with its steps and tools. A cabinet takes about an hour.",
+    },
+    {
+      name: "Changes and returns",
+      line: "You can change a piece until it goes into production, usually within a week of ordering. Modular pieces are made to your size, so they can't be returned.",
+    },
+    {
+      name: "Questions",
+      line: `Email us any time before or after your order. We answer within ${FACTS.replyTime}.`,
+    },
+  ],
+};
+
+/**
+ * Four promises in a row under a centred line, after the owner's
+ * reference; each one the site already makes elsewhere.
+ */
+export const MADE_FOR_YOU = {
+  id: "made-for-you-title",
+  title: "Modular furniture, made for your room.",
+  items: [
+    { icon: "mail", name: "Samples", line: "Ask for finish samples by email, and we send them to you." },
+    { icon: "box", name: "The pieces", line: "Shelves, cabinets, desks and separator walls, built from parts." },
+    {
+      icon: "change",
+      name: "Made to size",
+      line: "Choose the width, the height and the finish, cut to the space you measure.",
+    },
+    {
+      icon: "home",
+      name: "Home visit",
+      line: `We come and measure with you. ${sgd(FACTS.visitFee)}, taken off your order if you buy.`,
+    },
+  ] satisfies { icon: IconName; name: string; line: string }[],
+};
+
+/**
+ * What sets the line apart, after the owner's reference: the choices down
+ * the left, each in a square mark, beside the room before and after one
+ * piece, dragged across.
+ */
+export const DIFFERENCE = {
+  id: "difference-title",
+  label: "The Furnishes difference",
+  title: "Made just for you",
+  options: [
+    { icon: "change", name: "Sizes cut to your wall" },
+    { icon: "spark", name: `${FINISHES.length} finishes` },
+    { icon: "box", name: `${FACTS.board} birch plywood` },
+    { icon: "truck", name: "Ready to go or in parts" },
+    { icon: "office", name: "Separator walls" },
+  ] satisfies { icon: IconName; name: string }[],
+};

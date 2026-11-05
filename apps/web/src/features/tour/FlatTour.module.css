@@ -25,21 +25,32 @@
 
 /* the words, just clear of the scale */
 .text {
+  --text-gap: clamp(var(--space-5), 4svh, var(--space-12));
+
   display: grid;
-  gap: clamp(var(--space-5), 4svh, var(--space-12));
+  gap: var(--text-gap);
   align-content: start;
   align-self: start;
   justify-items: start;
-  padding-top: clamp(var(--space-8), 8svh, var(--space-24));
+
+  /* the label as far under the bar as a section's top space, less the bar */
+  padding-top: max(var(--space-4), calc(var(--space-section) - var(--nav-h)));
   padding-left: calc(var(--ruler-w) + var(--space-4));
 }
 
 /* the red orange carries the headline's lead, the step's number and name,
    the chosen mark, the plan and the button; the brown the label, the
    sentences and the rest, on the owner's word */
+
+/* the small label as every section's: pale brown capitals */
 .label {
   composes: caps from global;
-  color: var(--ink-dark);
+
+  /* as close over the title as every section's label, not the column's gap */
+  margin-bottom: calc(var(--space-eyebrow, var(--space-3)) - var(--text-gap));
+  color: var(--ink-dark-pale);
+  font-size: var(--text-sm);
+  line-height: 1.2;
 }
 
 .primary {
@@ -111,32 +122,23 @@
 /* the step's headline: its lead larger, the rest softer, each on lines of
    its own, with room for the longest so a shorter never moves the number */
 .head {
-  min-height: 3.6em;
-  font: 400 var(--text-head) / 1.15 var(--font);
+  min-height: 2.4em;
+  font: 400 var(--text-lead) / 1.1 var(--font);
   letter-spacing: var(--track-tight);
 }
 
 /* the lead in the red orange, the rest in brown, as the site's two-part titles */
 .lead {
   display: block;
-  color: var(--ink-warm);
-  margin-bottom: 0.2em;
-  font-size: 1.2em;
-  font-variation-settings: "wdth" var(--width-display);
-  line-height: 1;
+  color: var(--ink);
 }
 
-/* the rest as every title's second line: Jost, a little under regular, in
-   the page's brown */
+/* the rest as every two-tone title's second line: the same size, in the
+   page's brown and a step lighter */
 .soft {
   display: block;
   color: var(--ink-dark);
-
-  /* a step lighter than the lead while the home page tries Sora, on the
-     owner's word; the site's own rest weight otherwise */
   font-weight: var(--weight-line-light, var(--weight-title-rest));
-  font-family: var(--font-wordmark);
-  letter-spacing: 0;
 }
 
 /* the step's number, in the big words' face, over its name and line */
@@ -157,16 +159,15 @@
 /* the room's name in the titles' narrow regular red, its line in the
    brown Jost of the lines under the site's names */
 .name {
-  color: var(--ink-warm);
-  font: 400 var(--text-line) / 1.3 var(--font);
+  color: var(--ink);
+  font: var(--weight-title-rest) var(--text-line) / 1.3 var(--font);
   font-variation-settings: "wdth" var(--width-display);
 }
 
 .line {
+  composes: card-line from global;
   max-width: 30em;
   margin-top: var(--space-1);
-  color: var(--ink-dark);
-  font: var(--weight-title-rest) var(--text-md) / 1.5 var(--font-wordmark);
 }
 
 /* the plan moves inside its own column, never over the words */
@@ -394,4 +395,11 @@
   .slot {
     margin-left: 0;
   }
+}
+
+/* The plan sits centred in a frame a screen tall, so the frame already
+   leaves room under it; the section after it starts a short step down
+   instead of a full section's space, or the gap reads as a hole. */
+.flat + section {
+  --space-section: var(--space-8);
 }

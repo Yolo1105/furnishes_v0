@@ -63,12 +63,10 @@
   flex: 1;
 }
 
-/* the boxed way in, with room round its capitals so they don't touch the
-   line, on the owner's word */
+/* the boxed way in at the shared box's own size (28 px tall, 8 px each
+   side), a little smaller than before, on the owner's word */
 .primary {
   composes: boxed from global;
-  min-height: var(--space-8);
-  padding-inline: var(--space-3);
 }
 
 @media (width <= 1023px) {

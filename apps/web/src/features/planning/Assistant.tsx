@@ -1,4 +1,3 @@
-import Link from "next/link";
 import collection from "@/features/collection/Collection.module.css";
 import { EVA } from "./planningList";
 import styles from "./Assistant.module.css";
@@ -132,30 +131,22 @@ function Ours() {
 const DRAWINGS: Record<Drawing, () => React.ReactNode> = { room: Room, three: Three, ours: Ours };
 
 /**
- * Eva's band, after the owner's reference: the title over the two ways in
- * on the left, what Eva does on the right, and three cards, each a line
- * drawing over its name and line. `more` leaves out the way to the planning
- * page, for that page itself.
+ * Eva's band: the title on the left and what Eva does on the right in one
+ * row, three cards, each a line drawing over its name and line.
  */
-export function Assistant({ more = true }: { more?: boolean }) {
+export function Assistant() {
   return (
     <section className={`${collection.section} ${styles.assistant}`} aria-labelledby={EVA.id}>
-      <div className={styles.top}>
+      <div className={collection.splitHead}>
         <h2 id={EVA.id} className={collection.heading}>
           <span className={collection.headingLabel}>{EVA.label}</span>
-          {EVA.title}
+          {EVA.title.map((t) => (
+            <span key={t} className={collection.splitLine}>
+              {t}
+            </span>
+          ))}
         </h2>
-        <p className={styles.line}>{EVA.line}</p>
-        <div className={styles.calls}>
-          <Link className={styles.start} href={EVA.start.href}>
-            {EVA.start.label}
-          </Link>
-          {more && (
-            <Link className={collection.outline} href={EVA.more.href}>
-              {EVA.more.label}
-            </Link>
-          )}
-        </div>
+        <p className={collection.splitRest}>{EVA.line}</p>
       </div>
       <ul className={styles.cards}>
         {EVA.tiles.map((t) => {

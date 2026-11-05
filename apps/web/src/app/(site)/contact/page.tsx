@@ -24,7 +24,7 @@ export default function ContactPage() {
           <Contact />
           {/* who you are writing to, moved here from the home page on the owner's word */}
           <Team />
-          <Questions questions={CONTACT_QUESTIONS} rest="Asked before writing" split />
+          <Questions questions={CONTACT_QUESTIONS} rest="Here is what people ask before writing." split />
           <HelpWays />
           <Where />
         </TypeTrial>

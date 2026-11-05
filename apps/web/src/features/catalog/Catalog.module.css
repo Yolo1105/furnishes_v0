@@ -148,7 +148,7 @@
    tell name from description, on the owner's word */
 .name {
   color: var(--ink);
-  font: 400 var(--text-lg) / 1.2 var(--font);
+  font: var(--weight-title-rest) var(--text-lg) / 1.2 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
 }
@@ -160,8 +160,7 @@
 }
 
 .line {
-  color: var(--ink-dark);
-  font: var(--weight-title-rest) var(--text-lg) / 1.3 var(--font-wordmark);
+  composes: card-line from global;
 }
 
 /* its size, then how it arrives, small and in the pale brown, as the
@@ -176,7 +175,8 @@
 .kind {
   composes: caps from global;
   color: var(--ink-dark-pale);
-  font-size: var(--text-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
 }
 
 /* ---------- stacked: the ready-made row ---------- */
@@ -192,9 +192,10 @@
   margin-bottom: var(--space-3);
 }
 
+/* in the stacked row, the kind as every section label: spaced capitals */
 .stack .kind {
-  font: 400 var(--text-sm) / 1.2 var(--font);
-  letter-spacing: 0.12em;
+  font: 500 var(--text-sm) / 1.2 var(--font);
+  letter-spacing: var(--track-caps);
 }
 
 .stack .nameRow {

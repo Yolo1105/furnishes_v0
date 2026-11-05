@@ -250,8 +250,9 @@
   composes: link-hover from global;
   justify-self: end;
   color: var(--ink);
-  font: 400 var(--text-md) / 1 var(--font);
-  font-weight: var(--weight-line-soft, 500);
+
+  /* at the weight of every way on (500), as the other sections' links */
+  font: 500 var(--text-md) / 1 var(--font);
   text-transform: lowercase;
   white-space: nowrap;
 }
