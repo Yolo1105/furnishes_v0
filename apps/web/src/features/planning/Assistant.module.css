@@ -3,7 +3,7 @@
    heads; the three cards across under them */
 .assistant {
   display: grid;
-  gap: clamp(32px, 4vw, 56px);
+  gap: clamp(var(--space-lg), 4vw, 56px);
 }
 
 .top {
@@ -20,13 +20,13 @@
 .line {
   composes: section-deck from global;
   max-width: 48ch;
-  margin: 0 0 8px;
+  margin: 0 0 var(--space-2xs);
 }
 
 .calls {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--space-xs);
 }
 
 .start {
@@ -36,7 +36,7 @@
 .cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 1.5vw, 20px);
+  gap: clamp(var(--space-xs), 1.5vw, 20px);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -62,7 +62,7 @@
   display: grid;
   gap: 6px;
   align-content: start;
-  padding: clamp(18px, 1.8vw, 24px);
+  padding: clamp(18px, 1.8vw, var(--space-md));
 }
 
 .name {

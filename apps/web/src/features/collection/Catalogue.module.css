@@ -1,12 +1,12 @@
 .catalogue {
-  padding: clamp(48px, 6vw, 96px) var(--gutter) 0;
+  padding: clamp(var(--space-xl), 6vw, var(--space-3xl)) var(--gutter) 0;
 }
 
 /* the word large in the narrow capitals, in the page's red, its left edge
    over the second column as the reference sets it */
 .title {
   composes: display from global;
-  margin: 0 0 clamp(16px, 2vw, 28px);
+  margin: 0 0 clamp(var(--space-sm), 2vw, 28px);
   padding-left: 22%;
   color: var(--ink);
   font-size: var(--text-display);
@@ -20,7 +20,7 @@
     "a b c d g" clamp(200px, 17vw, 300px)
     "a e e f g" clamp(200px, 17vw, 300px)
     / minmax(0, 1.25fr) minmax(0, 0.75fr) minmax(0, 0.75fr) minmax(0, 1.1fr) minmax(0, 1.25fr);
-  gap: clamp(8px, 0.8vw, 12px);
+  gap: clamp(var(--space-2xs), 0.8vw, var(--space-xs));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -60,10 +60,10 @@
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: auto 1fr;
-  gap: 12px;
+  gap: var(--space-xs);
   height: 100%;
   box-sizing: border-box;
-  padding: clamp(12px, 1.2vw, 18px);
+  padding: clamp(var(--space-xs), 1.2vw, 18px);
   background: var(--ink-tile);
   color: var(--ink-dark);
   text-decoration: none;

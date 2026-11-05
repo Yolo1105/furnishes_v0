@@ -3,14 +3,14 @@
 .view {
   display: grid;
   grid-template-columns: 1.3fr 1fr;
-  gap: clamp(24px, 4vw, 72px);
+  gap: clamp(var(--space-md), 4vw, 72px);
   align-items: start;
-  margin-top: 8px;
+  margin-top: var(--space-2xs);
 }
 
 .gallery {
   display: grid;
-  gap: 12px;
+  gap: var(--space-xs);
 }
 
 /* the photos are stacked on purpose, so one can fade into the next */
@@ -103,7 +103,7 @@
 .options {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-2xs);
 }
 
 /* a real radio, hidden behind a square choice that fills in red when on,
@@ -114,7 +114,7 @@
   gap: 6px;
   align-items: center;
   min-height: 36px;
-  padding-inline: 12px;
+  padding-inline: var(--space-xs);
   border: var(--line) solid currentcolor;
   font: 500 var(--text-md) / 1 var(--font);
   cursor: pointer;
@@ -130,7 +130,7 @@
 .arrival {
   composes: option;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-3xs);
   align-items: flex-start;
   padding-block: 10px;
 }
@@ -156,7 +156,7 @@
 .space {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: var(--space-xs);
 }
 
 .spaceThree {
@@ -166,7 +166,7 @@
 /* the size check, folded under the size until asked for */
 .fit {
   display: grid;
-  gap: 12px;
+  gap: var(--space-xs);
 }
 
 .fit summary {
@@ -187,7 +187,7 @@
 
 .spaceInput {
   display: flex;
-  gap: 8px;
+  gap: var(--space-2xs);
   align-items: center;
 }
 
@@ -195,7 +195,7 @@
   width: 100%;
   min-width: 0;
   min-height: 44px;
-  padding: 0 12px;
+  padding: 0 var(--space-xs);
   border: var(--line) solid var(--rule-strong);
   border-radius: 0;
   background: none;
@@ -235,7 +235,7 @@
 .promised,
 .details,
 .others {
-  margin-top: clamp(48px, 6vw, 96px);
+  margin-top: clamp(var(--space-xl), 6vw, var(--space-3xl));
 }
 
 .heading {
@@ -249,7 +249,7 @@
    cost at the right; parted by space, as the facts below */
 .changes {
   display: grid;
-  gap: 12px;
+  gap: var(--space-xs);
   max-width: 960px;
   margin: 0;
   padding: 0;
@@ -260,7 +260,7 @@
 .changes li {
   display: grid;
   grid-template-columns: minmax(120px, 1fr) 2fr 1fr;
-  gap: 4px 32px;
+  gap: var(--space-3xs) var(--space-lg);
 }
 
 .changeName {
@@ -286,7 +286,7 @@
 .facts {
   display: grid;
   grid-template-columns: minmax(120px, 1fr) 3fr;
-  gap: 16px 32px;
+  gap: var(--space-sm) var(--space-lg);
   max-width: 960px;
   margin: 0;
   font: 400 var(--text-line) / var(--leading-line) var(--font);
@@ -302,7 +302,7 @@
 
 .sizes {
   display: grid;
-  gap: 4px;
+  gap: var(--space-3xs);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -311,7 +311,7 @@
 .sizes li {
   display: grid;
   grid-template-columns: 1fr 1.4fr auto;
-  gap: 16px;
+  gap: var(--space-sm);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -333,11 +333,11 @@
 @media (width <= 639px) {
   .facts {
     grid-template-columns: 1fr;
-    gap: 4px;
+    gap: var(--space-3xs);
   }
 
   .facts dd {
-    margin-bottom: 12px;
+    margin-bottom: var(--space-xs);
   }
 
   .sizes li {

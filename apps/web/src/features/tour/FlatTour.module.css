@@ -26,12 +26,12 @@
 /* the words, just clear of the scale */
 .text {
   display: grid;
-  gap: clamp(20px, 4svh, 48px);
+  gap: clamp(20px, 4svh, var(--space-xl));
   align-content: start;
   align-self: start;
   justify-items: start;
-  padding-top: clamp(32px, 8svh, 96px);
-  padding-left: calc(var(--ruler-w) + 16px);
+  padding-top: clamp(var(--space-lg), 8svh, var(--space-3xl));
+  padding-left: calc(var(--ruler-w) + var(--space-sm));
 }
 
 /* the red orange carries the headline's lead, the step's number and name,
@@ -142,7 +142,7 @@
 /* the step's number, in the big words' face, over its name and line */
 .step {
   display: grid;
-  gap: 8px;
+  gap: var(--space-2xs);
   align-content: start;
   min-height: 13em;
 }
@@ -164,7 +164,7 @@
 
 .line {
   max-width: 30em;
-  margin-top: 4px;
+  margin-top: var(--space-3xs);
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-md) / 1.5 var(--font-wordmark);
 }
@@ -288,7 +288,7 @@
 
 .order ol {
   display: grid;
-  gap: 4px;
+  gap: var(--space-3xs);
   margin: 10px 0 0;
   padding: 0;
   list-style: none;
@@ -297,7 +297,7 @@
 /* a stage not reached yet is pale; its dot fills once it is */
 .order li {
   display: flex;
-  gap: 8px;
+  gap: var(--space-2xs);
   align-items: center;
   opacity: 0.35;
 }
@@ -379,11 +379,11 @@
     grid-template-columns: 1fr;
     row-gap: 40px;
     height: auto;
-    padding: 64px var(--gutter);
+    padding: var(--space-2xl) var(--gutter);
   }
 
   .text {
-    gap: 16px;
+    gap: var(--space-sm);
     padding: 0;
   }
 

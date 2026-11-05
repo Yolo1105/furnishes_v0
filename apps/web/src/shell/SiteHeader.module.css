@@ -9,7 +9,7 @@
   z-index: var(--z-header);
   display: grid;
   grid-template-columns: auto 1fr auto;
-  gap: 24px;
+  gap: var(--space-md);
   align-items: baseline;
   align-content: center;
   box-sizing: border-box;
@@ -33,12 +33,12 @@
 .start,
 .end {
   display: flex;
-  gap: 32px;
+  gap: var(--space-lg);
   align-items: baseline;
 }
 
 .start {
-  margin-left: 24px;
+  margin-left: var(--space-md);
 }
 
 .end {
@@ -84,7 +84,7 @@
   position: absolute;
   inset: 100% 0 auto;
   display: grid;
-  padding: 8px var(--gutter) 24px;
+  padding: var(--space-2xs) var(--gutter) var(--space-md);
   border-bottom: var(--line) solid currentcolor;
   background: var(--paper);
 }
@@ -123,7 +123,7 @@
    one line */
 @media (width <= 639px) {
   .end {
-    gap: 16px;
+    gap: var(--space-sm);
   }
 
   .logIn,

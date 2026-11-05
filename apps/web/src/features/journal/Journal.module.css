@@ -2,8 +2,8 @@
    each parted from the next by a hairline. */
 .journal {
   display: grid;
-  gap: clamp(48px, 6vw, 96px);
-  padding: clamp(64px, 8vw, 128px) var(--gutter) clamp(48px, 6vw, 96px);
+  gap: clamp(var(--space-xl), 6vw, var(--space-3xl));
+  padding: clamp(var(--space-2xl), 8vw, var(--space-4xl)) var(--gutter) clamp(var(--space-xl), 6vw, var(--space-3xl));
 }
 
 .journal ul,
@@ -17,15 +17,15 @@
    owner's word */
 .heading {
   composes: section-title from global;
-  margin: 0 0 16px;
+  margin: 0 0 var(--space-sm);
 }
 
 /* the band under a heading: what the section holds, and a way to all of it */
 .band {
   display: flex;
-  gap: 12px;
+  gap: var(--space-xs);
   align-items: center;
-  margin: 0 0 24px;
+  margin: 0 0 var(--space-md);
   padding: 10px 14px;
   background: var(--ink-wash);
   font: 400 var(--text-md) / 1.3 var(--font);
@@ -44,13 +44,13 @@
 /* a dot between the label and its note */
 .note::before {
   content: "·";
-  margin-right: 12px;
+  margin-right: var(--space-xs);
 }
 
 .all {
   composes: link-hover from global;
   display: inline-flex;
-  gap: 4px;
+  gap: var(--space-3xs);
   align-items: center;
   margin-left: auto;
   font-weight: 400;
@@ -106,7 +106,7 @@
 .tag {
   display: inline-block;
   margin-right: 6px;
-  padding: 2px 8px;
+  padding: 2px var(--space-2xs);
   border: var(--line) solid currentcolor;
   border-radius: 999px;
   font: 400 var(--text-sm) / 1.2 var(--font);
@@ -150,14 +150,14 @@
 .small {
   display: grid;
   grid-template-columns: clamp(72px, 7vw, 112px) 1fr;
-  gap: 16px;
+  gap: var(--space-sm);
   align-items: start;
 }
 
 .grid3,
 .grid2 {
   display: grid;
-  gap: 28px 32px;
+  gap: 28px var(--space-lg);
 }
 
 .grid3 {
@@ -177,13 +177,13 @@
 .split {
   display: grid;
   grid-template-columns: 2.4fr 1fr;
-  gap: clamp(24px, 3vw, 48px);
+  gap: clamp(var(--space-md), 3vw, var(--space-xl));
   align-items: start;
 }
 
 .latest {
   display: grid;
-  gap: 32px;
+  gap: var(--space-lg);
 }
 
 /* a wide photo with the words beside it, the byline at its foot */
@@ -207,7 +207,7 @@
 .again {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: clamp(24px, 3vw, 48px);
+  gap: clamp(var(--space-md), 3vw, var(--space-xl));
   align-items: start;
 }
 

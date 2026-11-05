@@ -1,17 +1,17 @@
 /* A kind's page and a piece's: on the page's gutters under the bar. */
 .page {
   display: grid;
-  gap: 24px;
+  gap: var(--space-md);
   align-content: start;
   min-height: 70svh;
-  padding: calc(var(--nav-h) + 24px) var(--gutter) clamp(48px, 6vw, 96px);
+  padding: calc(var(--nav-h) + var(--space-md)) var(--gutter) clamp(var(--space-xl), 6vw, var(--space-3xl));
 }
 
 /* the kind's name and its line, told apart by colour alone, as the
    inspiration page's title */
 .title {
   max-width: 24ch;
-  margin: 8px 0 16px;
+  margin: var(--space-2xs) 0 var(--space-sm);
   font: 500 var(--text-over) / 1.05 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
@@ -27,9 +27,9 @@
 .bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 24px;
+  gap: var(--space-xs) var(--space-md);
   align-items: center;
-  padding: 12px 14px;
+  padding: var(--space-xs) 14px;
   background: var(--ink-wash);
 }
 
@@ -79,7 +79,7 @@
 
 .sort {
   display: flex;
-  gap: 8px;
+  gap: var(--space-2xs);
   align-items: center;
   margin-left: auto;
   font: 400 var(--text-md) / 1 var(--font);
@@ -87,7 +87,7 @@
 
 .sort select {
   min-height: 32px;
-  padding-inline: 8px;
+  padding-inline: var(--space-2xs);
   border: var(--line) solid currentcolor;
   border-radius: 0;
   background: var(--paper);
@@ -106,7 +106,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 40px clamp(16px, 2vw, 32px);
+  gap: 40px clamp(var(--space-sm), 2vw, var(--space-lg));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -125,7 +125,7 @@
   position: relative;
   display: block;
   aspect-ratio: 4 / 5;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2xs);
   overflow: hidden;
   background: var(--birch);
 }
@@ -138,7 +138,7 @@
    owner's reference */
 .nameRow {
   display: flex;
-  gap: 12px;
+  gap: var(--space-xs);
   align-items: baseline;
   justify-content: space-between;
 }
@@ -184,12 +184,12 @@
 /* a square photo, then the kind, the name and the price each on its own
    line, as the owner's "Design Edit" reference */
 .stack {
-  gap: 8px;
+  gap: var(--space-2xs);
 }
 
 .stack .photo {
   aspect-ratio: 1;
-  margin-bottom: 12px;
+  margin-bottom: var(--space-xs);
 }
 
 .stack .kind {
@@ -199,7 +199,7 @@
 
 .stack .nameRow {
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2xs);
   align-items: flex-start;
 }
 
@@ -216,7 +216,7 @@
 .featured {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
-  gap: 40px clamp(16px, 2vw, 32px);
+  gap: 40px clamp(var(--space-sm), 2vw, var(--space-lg));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -243,7 +243,7 @@
 /* the finishes it comes in, as the reference's row of colours */
 .swatches {
   display: flex;
-  gap: 4px;
+  gap: var(--space-3xs);
 }
 
 /* ---------- the shop: every piece, with filters ---------- */
@@ -253,7 +253,7 @@
 .top {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 24px;
+  gap: var(--space-xs) var(--space-md);
   align-items: center;
 }
 
@@ -271,7 +271,7 @@
 
 .clear {
   composes: link-hover from global;
-  padding: 0 4px;
+  padding: 0 var(--space-3xs);
   border: 0;
   background: none;
   color: var(--ink);
@@ -283,7 +283,7 @@
 .shop {
   display: grid;
   grid-template-columns: 240px 1fr;
-  gap: clamp(24px, 3vw, 48px);
+  gap: clamp(var(--space-md), 3vw, var(--space-xl));
   align-items: start;
 }
 
@@ -296,12 +296,12 @@
   position: sticky;
   top: calc(var(--nav-h) + 16px);
   display: grid;
-  gap: 8px;
+  gap: var(--space-2xs);
 }
 
 /* each group its own tile, so no rules are needed between them */
 .facet {
-  padding: 14px 16px;
+  padding: 14px var(--space-sm);
   background: var(--ink-wash);
 }
 
@@ -323,7 +323,7 @@
 /* a real checkbox in the red, its name, then how many it would show */
 .check {
   display: flex;
-  gap: 8px;
+  gap: var(--space-2xs);
   align-items: center;
   min-height: 32px;
   font: 400 var(--text-md) / 1.2 var(--font);
@@ -369,10 +369,10 @@
 .sheetHead,
 .sheetFoot {
   display: flex;
-  gap: 16px;
+  gap: var(--space-sm);
   align-items: center;
   justify-content: space-between;
-  padding: 16px var(--gutter);
+  padding: var(--space-sm) var(--gutter);
 }
 
 .sheetTitle {
@@ -383,7 +383,7 @@
 
 .sheetBody {
   display: grid;
-  gap: 8px;
+  gap: var(--space-2xs);
   align-content: start;
   padding: 0 var(--gutter);
   overflow-y: auto;

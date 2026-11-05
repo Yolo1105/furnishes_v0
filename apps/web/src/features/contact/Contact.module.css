@@ -3,9 +3,9 @@
 .top {
   display: grid;
   grid-template-columns: 5fr 7fr;
-  gap: clamp(32px, 5vw, 96px);
+  gap: clamp(var(--space-lg), 5vw, var(--space-3xl));
   align-items: start;
-  padding: calc(var(--nav-h) + clamp(32px, 4vw, 64px)) var(--gutter) 0;
+  padding: calc(var(--nav-h) + clamp(var(--space-lg), 4vw, var(--space-2xl))) var(--gutter) 0;
 }
 
 /* the title at the section titles' size rather than a full page
@@ -44,7 +44,7 @@
 .details > div {
   display: grid;
   grid-template-columns: 9.5em minmax(0, 1fr);
-  gap: 16px;
+  gap: var(--space-sm);
   align-items: center;
 }
 
@@ -54,7 +54,7 @@
   composes: caps from global;
   font-size: var(--text-sm);
   display: flex;
-  gap: 12px;
+  gap: var(--space-xs);
   align-items: center;
   color: var(--ink-dark-pale);
 }
@@ -78,7 +78,7 @@
 .topicsTop {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: 24px clamp(32px, 6vw, 112px);
+  gap: var(--space-md) clamp(var(--space-lg), 6vw, 112px);
   align-items: end;
 }
 
@@ -99,8 +99,8 @@
 .topics {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  gap: clamp(12px, 1.5vw, 24px);
-  margin: clamp(32px, 4vw, 64px) 0 0;
+  gap: clamp(var(--space-xs), 1.5vw, var(--space-md));
+  margin: clamp(var(--space-lg), 4vw, var(--space-2xl)) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -113,7 +113,7 @@
   gap: 14px;
   align-content: end;
   min-height: clamp(380px, 32vw, 500px);
-  padding: clamp(24px, 2.4vw, 40px);
+  padding: clamp(var(--space-md), 2.4vw, 40px);
   overflow: hidden;
   color: var(--photo-text);
 
@@ -197,7 +197,7 @@
 .enquiry {
   display: grid;
   scroll-margin-top: 24px;
-  gap: clamp(24px, 2.4vw, 36px);
+  gap: clamp(var(--space-md), 2.4vw, 36px);
   justify-items: start;
 }
 
@@ -235,7 +235,7 @@
 }
 
 .blank input {
-  padding: 0 0 4px;
+  padding: 0 0 var(--space-3xs);
   border-width: 0 0 var(--line);
 }
 
@@ -258,7 +258,7 @@
    it is written */
 .more {
   min-height: clamp(200px, 28vh, 320px);
-  padding: 16px 18px;
+  padding: var(--space-sm) 18px;
   font: 400 var(--text-lg) / 1.5 var(--font);
   resize: vertical;
 }
@@ -267,7 +267,7 @@
 .options {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  gap: var(--space-2xs);
 }
 
 /* a choice in a thin frame, its name in the brown and its line pale
@@ -276,7 +276,7 @@
 .option {
   display: grid;
   gap: 2px;
-  padding: 12px 16px;
+  padding: var(--space-xs) var(--space-sm);
   border: var(--line) solid var(--rule-strong);
   cursor: pointer;
 }
@@ -315,7 +315,7 @@
 /* a question: its name in small capitals over its buttons */
 .group {
   display: grid;
-  gap: 12px;
+  gap: var(--space-xs);
   width: 100%;
   min-width: 0;
   margin: 0;
@@ -328,7 +328,7 @@
 .groupLegend {
   composes: caps from global;
   font-size: var(--text-sm);
-  margin: 0 0 12px;
+  margin: 0 0 var(--space-xs);
   padding: 0;
   color: var(--ink-dark-pale);
 }
@@ -336,7 +336,7 @@
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-2xs);
 }
 
 /* a choice: a small square outline, picked as the larger choices are, red
@@ -373,7 +373,7 @@
 .send {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px 32px;
+  gap: 20px var(--space-lg);
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -381,7 +381,7 @@
 
 .agree {
   display: flex;
-  gap: 12px;
+  gap: var(--space-xs);
   align-items: center;
   color: var(--ink-dark);
   font: 400 var(--text-md) / 1.5 var(--font);
@@ -429,7 +429,7 @@
 .ways {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 1.5vw, 20px);
+  gap: clamp(var(--space-xs), 1.5vw, 20px);
   margin: clamp(28px, 3vw, 44px) 0 0;
   padding: 0;
   list-style: none;
@@ -440,13 +440,13 @@
 .way {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
-  gap: 8px;
-  padding: clamp(18px, 1.8vw, 24px);
+  gap: var(--space-2xs);
+  padding: clamp(18px, 1.8vw, var(--space-md));
   border: var(--line) solid var(--rule-strong);
 }
 
 .way > svg {
-  margin-bottom: 12px;
+  margin-bottom: var(--space-xs);
 }
 
 .way > h3 {
@@ -460,7 +460,7 @@
 .wayGo {
   composes: button from global;
   justify-self: start;
-  margin-top: 16px;
+  margin-top: var(--space-sm);
   font-size: var(--text-md);
 }
 
@@ -534,7 +534,7 @@
 }
 
 .mapCard .mapPlace {
-  margin-bottom: 4px;
+  margin-bottom: var(--space-3xs);
   color: var(--ink);
   font: 500 var(--text-md) / 1.4 var(--font);
 }
@@ -555,7 +555,7 @@
 .places {
   display: grid;
   gap: 18px;
-  margin: 8px 0 0;
+  margin: var(--space-2xs) 0 0;
   padding: 0;
   list-style: none;
 }

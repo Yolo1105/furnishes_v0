@@ -70,8 +70,8 @@
 .panel {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  gap: 32px;
-  padding: var(--gutter) clamp(24px, 5vw, 96px);
+  gap: var(--space-lg);
+  padding: var(--gutter) clamp(var(--space-md), 5vw, var(--space-3xl));
 }
 
 .back {
@@ -82,15 +82,15 @@
 
 .form {
   display: grid;
-  gap: 16px;
+  gap: var(--space-sm);
   place-self: center center;
   width: min(100%, 360px);
 }
 
 .head {
   display: grid;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: var(--space-2xs);
+  margin-bottom: var(--space-sm);
 }
 
 /* one small scale for the whole form, in the one face: the title at the
@@ -134,7 +134,7 @@
 }
 
 .go {
-  margin-top: 8px;
+  margin-top: var(--space-2xs);
 }
 
 .googleMark {
@@ -158,7 +158,7 @@
 
 .fields {
   display: grid;
-  gap: 16px;
+  gap: var(--space-sm);
 }
 
 /* a field: its label over a box on the page's cream, outlined faintly,
@@ -194,7 +194,7 @@
 }
 
 .field textarea {
-  padding-block: 12px;
+  padding-block: var(--space-xs);
   line-height: 1.45;
   resize: vertical;
 }
@@ -255,7 +255,7 @@
 /* a question a screen, wider than the log-in form so its boxes sit two across */
 .ask {
   display: grid;
-  gap: 24px;
+  gap: var(--space-md);
   place-self: center center;
   width: min(100%, 520px);
 }
@@ -272,7 +272,7 @@
   grid-auto-columns: minmax(0, 1fr);
   grid-auto-flow: column;
   gap: 6px;
-  margin: 0 0 12px;
+  margin: 0 0 var(--space-xs);
   padding: 0;
   list-style: none;
 }
@@ -291,7 +291,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-sm);
 }
 
 .askGo {

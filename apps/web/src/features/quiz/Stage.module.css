@@ -9,7 +9,7 @@
   grid-template-rows: 1fr auto;
   box-sizing: border-box;
   min-height: 100svh;
-  padding: calc(var(--nav-h) + clamp(32px, 9svh, 110px)) var(--gutter) clamp(24px, 5svh, 56px);
+  padding: calc(var(--nav-h) + clamp(var(--space-lg), 9svh, 110px)) var(--gutter) clamp(var(--space-md), 5svh, 56px);
   overflow: hidden;
 }
 
@@ -35,7 +35,7 @@
 
 .top {
   display: grid;
-  gap: clamp(16px, 3svh, 32px);
+  gap: clamp(var(--space-sm), 3svh, var(--space-lg));
   align-content: start;
   justify-items: start;
 }
@@ -80,7 +80,7 @@
 .options {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--space-xs);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -109,7 +109,7 @@
 
 .bar {
   display: flex;
-  gap: 16px;
+  gap: var(--space-sm);
   align-items: center;
   justify-content: space-between;
   margin-top: 40px;

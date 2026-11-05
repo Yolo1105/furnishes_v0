@@ -5,9 +5,9 @@
 .top {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(32px, 5vw, 96px);
+  gap: clamp(var(--space-lg), 5vw, var(--space-3xl));
   align-items: center;
-  padding: calc(var(--nav-h) + clamp(24px, 3vw, 48px)) var(--gutter) 0;
+  padding: calc(var(--nav-h) + clamp(var(--space-md), 3vw, var(--space-xl))) var(--gutter) 0;
 }
 
 .photo {
@@ -82,13 +82,13 @@
 .topics {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(48px, 5vw, 80px) clamp(32px, 5vw, 96px);
+  gap: clamp(var(--space-xl), 5vw, 80px) clamp(var(--space-lg), 5vw, var(--space-3xl));
   align-items: start;
-  padding: clamp(64px, 8vw, 128px) var(--gutter) 0;
+  padding: clamp(var(--space-2xl), 8vw, var(--space-4xl)) var(--gutter) 0;
 }
 
 .topicTitle {
-  margin: 0 0 12px;
+  margin: 0 0 var(--space-xs);
   color: var(--ink);
   font: 400 var(--text-head) / 1.1 var(--font);
   font-variation-settings: "wdth" var(--width-display);
@@ -105,7 +105,7 @@
    cross when open */
 .question {
   display: flex;
-  gap: 16px;
+  gap: var(--space-sm);
   align-items: baseline;
   justify-content: space-between;
   width: 100%;

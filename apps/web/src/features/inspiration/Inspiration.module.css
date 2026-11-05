@@ -3,7 +3,7 @@
 .page {
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: clamp(8px, 1.5svh, 20px);
+  gap: clamp(var(--space-2xs), 1.5svh, 20px);
   box-sizing: border-box;
   height: 100svh;
   padding: calc(var(--nav-h) + 6px) var(--gutter) 0;
@@ -37,7 +37,7 @@
    the others keep theirs hidden but in place. */
 .row {
   display: flex;
-  gap: 12px;
+  gap: var(--space-xs);
   min-height: 0;
   margin: 0;
   padding: 0;
@@ -48,7 +48,7 @@
   display: flex;
   flex: 1 1 0;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-xs);
   justify-content: flex-end;
   min-width: 0;
 }
@@ -170,22 +170,22 @@
 .lookRow {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(16px, 2vw, 32px);
+  gap: clamp(var(--space-sm), 2vw, var(--space-lg));
 
   /* the page's last section, so it keeps the space before the footer */
-  margin: 0 0 clamp(64px, 8vw, 128px);
+  margin: 0 0 clamp(var(--space-2xl), 8vw, var(--space-4xl));
   padding: 0;
   list-style: none;
 }
 
 .look {
   display: grid;
-  gap: 8px;
+  gap: var(--space-2xs);
 }
 
 .lookPhoto {
   position: relative;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2xs);
   overflow: hidden;
   aspect-ratio: 4 / 5;
   background: var(--birch);
@@ -211,7 +211,7 @@
 /* between the rooms and the journal, the row keeps a section's space above
    it, and the journal brings its own below */
 .noticed {
-  padding-top: clamp(64px, 8vw, 128px);
+  padding-top: clamp(var(--space-2xl), 8vw, var(--space-4xl));
 }
 
 .noticed .lookRow {

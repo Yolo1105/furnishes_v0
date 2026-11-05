@@ -4,9 +4,9 @@
 .planner {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: clamp(24px, 3vw, 56px);
+  gap: clamp(var(--space-md), 3vw, 56px);
   align-items: start;
-  padding: clamp(32px, 4vw, 64px) var(--gutter) 0;
+  padding: clamp(var(--space-lg), 4vw, var(--space-2xl)) var(--gutter) 0;
 }
 
 .stage {
@@ -124,12 +124,12 @@
 
 .side {
   display: grid;
-  gap: clamp(32px, 3vw, 48px);
+  gap: clamp(var(--space-lg), 3vw, var(--space-xl));
 }
 
 .block {
   display: grid;
-  gap: 12px;
+  gap: var(--space-xs);
   align-content: start;
 }
 
@@ -155,7 +155,7 @@
 
 .notes {
   display: grid;
-  gap: 12px;
+  gap: var(--space-xs);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -189,26 +189,26 @@
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--space-xs);
 }
 
 .addRow {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 12px;
+  gap: var(--space-xs);
   align-items: end;
 }
 
 .fields {
   display: grid;
-  gap: 16px;
+  gap: var(--space-sm);
 }
 
 .pair,
 .opening {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: var(--space-xs);
 }
 
 .opening {
@@ -219,13 +219,13 @@
 
 .opening legend {
   grid-column: 1 / -1;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2xs);
   padding: 0;
 }
 
 .list {
   display: grid;
-  gap: 8px;
+  gap: var(--space-2xs);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -234,7 +234,7 @@
 .item {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-sm);
   color: var(--ink-dark);
   font: 400 var(--text-md) / 1.5 var(--font);
 }
@@ -246,8 +246,8 @@
 /* a piece's line with its finish and arrival under it */
 .choice {
   display: grid;
-  gap: 8px;
-  padding-bottom: 8px;
+  gap: var(--space-2xs);
+  padding-bottom: var(--space-2xs);
 }
 
 @media (width <= 1023px) {

@@ -4,7 +4,7 @@
   /* the space over and under the statement below the overview's banner */
   --intro-space: clamp(24px, 2.6vw, 40px);
 
-  padding-bottom: clamp(64px, 8vw, 128px);
+  padding-bottom: clamp(var(--space-2xl), 8vw, var(--space-4xl));
   color: var(--ink-dark);
 }
 
@@ -287,7 +287,7 @@
   align-items: center;
   width: max-content;
   max-width: 240px;
-  padding: 9px 12px 10px 14px;
+  padding: 9px var(--space-xs) 10px 14px;
   background: var(--paper);
   color: var(--ink-dark);
   box-shadow: var(--shadow-float);
@@ -411,9 +411,9 @@
 
 .spot[data-pinned] .spotMore {
   display: grid;
-  gap: 4px;
+  gap: var(--space-3xs);
   max-width: 24ch;
-  margin-top: 8px;
+  margin-top: var(--space-2xs);
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-sm) / 1.4 var(--font-wordmark);
 }
@@ -424,7 +424,7 @@
 
 .spotSee {
   composes: link-hover from global;
-  margin-top: 4px;
+  margin-top: var(--space-3xs);
   color: var(--ink);
   font: 400 var(--text-sm) / 1.3 var(--font);
 }
@@ -439,10 +439,10 @@
 .bannerWords {
   z-index: var(--z-raise);
   display: grid;
-  gap: 12px;
+  gap: var(--space-xs);
   place-self: end start;
   max-width: 760px;
-  margin: 0 var(--gutter) clamp(28px, 4vw, 64px);
+  margin: 0 var(--gutter) clamp(28px, 4vw, var(--space-2xl));
 }
 
 /* on the photo the title is one cream, at the type's normal width and a
@@ -494,7 +494,7 @@
 .heroLinks {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px clamp(24px, 2.4vw, 40px);
+  gap: var(--space-xs) clamp(var(--space-md), 2.4vw, 40px);
   margin-top: 2px;
 }
 
@@ -531,8 +531,8 @@
 
   display: grid;
   grid-template-columns: 5fr 7fr;
-  gap: var(--opening-row-gap) clamp(24px, 4vw, 72px);
-  padding: calc(var(--nav-h) + clamp(32px, 4vw, 64px)) var(--gutter) 0;
+  gap: var(--opening-row-gap) clamp(var(--space-md), 4vw, 72px);
+  padding: calc(var(--nav-h) + clamp(var(--space-lg), 4vw, var(--space-2xl))) var(--gutter) 0;
 }
 
 .openingTitle {
@@ -548,7 +548,7 @@
 /* as a section of a page, the opening starts the same way down from the
    section above as every other section, not from under the bar */
 .opening:has(> .openingTitleSection) {
-  padding-top: var(--space-section, calc(var(--nav-h) + clamp(32px, 4vw, 64px)));
+  padding-top: var(--space-section, calc(var(--nav-h) + clamp(var(--space-lg), 4vw, var(--space-2xl))));
 }
 
 /* as a section of the home page, the title at the size of every other
@@ -560,21 +560,21 @@
   display: flex;
   flex-direction: column;
   max-width: none;
-  margin-bottom: max(0px, calc(var(--space-head, 24px) - var(--opening-row-gap)));
+  margin-bottom: max(0px, calc(var(--space-head, var(--space-md)) - var(--opening-row-gap)));
 }
 
 .openingPhotos {
   display: grid;
   grid-column: 1 / -1;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(12px, 1.5vw, 24px);
+  gap: clamp(var(--space-xs), 1.5vw, var(--space-md));
   align-items: start;
 }
 
 /* the second room set lower than the first, as the owner's earlier about
    page, so the pair reads as two photographs laid down rather than a row */
 .openingPhoto + .openingPhoto {
-  margin-top: clamp(24px, 6vh, 72px);
+  margin-top: clamp(var(--space-md), 6vh, 72px);
 }
 
 .openingPhoto {
@@ -611,7 +611,7 @@
 /* ---------- the sections under the banner ---------- */
 
 .section {
-  padding: var(--space-section, clamp(48px, 6vw, 96px)) var(--gutter) 0;
+  padding: var(--space-section, clamp(var(--space-xl), 6vw, var(--space-3xl))) var(--gutter) 0;
 }
 
 /* a section's title and what follows it each rise a short way into place
@@ -638,13 +638,13 @@
 .head {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 24px;
+  gap: var(--space-2xs) var(--space-md);
   align-items: flex-end;
   justify-content: space-between;
 
   /* more air under the title while the home page tries Sora, so the title
      block and the columns read as two levels */
-  margin-bottom: var(--space-head, 24px);
+  margin-bottom: var(--space-head, var(--space-md));
 }
 
 /* every section's title as the home visit's once was, on the owner's word:
@@ -662,7 +662,7 @@
 .headingRest {
   composes: section-deck from global;
   display: block;
-  margin-top: var(--space-title, 8px);
+  margin-top: var(--space-title, var(--space-2xs));
 }
 
 /* the small label over every title, as the home visit's: spaced capitals in
@@ -695,7 +695,7 @@
 .lineBlock {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: clamp(16px, 2vw, 24px);
+  gap: clamp(var(--space-sm), 2vw, var(--space-md));
 }
 
 /* the block's gap already spaces its heading from the photo */
@@ -730,11 +730,11 @@
 .lineBandWords {
   z-index: var(--z-raise);
   display: grid;
-  gap: 12px;
+  gap: var(--space-xs);
   justify-items: start;
   place-self: end start;
   max-width: 600px;
-  margin: 0 clamp(20px, 3vw, 48px) clamp(24px, 3vw, 48px);
+  margin: 0 clamp(20px, 3vw, var(--space-xl)) clamp(var(--space-md), 3vw, var(--space-xl));
   color: var(--photo-text);
 }
 
@@ -753,7 +753,7 @@
 }
 
 .lineBandIntro {
-  margin: 0 0 8px;
+  margin: 0 0 var(--space-2xs);
   color: var(--photo-text-dim);
   font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
 }
@@ -762,7 +762,7 @@
    so a part of the next one shows, telling there are more */
 .row {
   display: flex;
-  gap: clamp(16px, 2vw, 24px);
+  gap: clamp(var(--space-sm), 2vw, var(--space-md));
   margin: 0;
   padding: 0;
   overflow-x: auto;
@@ -806,7 +806,7 @@
 .promises {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 56px clamp(24px, 3vw, 48px);
+  gap: 56px clamp(var(--space-md), 3vw, var(--space-xl));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -839,7 +839,7 @@
 }
 
 .promiseName {
-  margin: 0 0 12px;
+  margin: 0 0 var(--space-xs);
   color: var(--ink);
   font: 400 var(--text-head) / 1.1 var(--font);
   font-size: var(--text-entry, var(--text-head));
@@ -881,10 +881,10 @@
 
 .orderPanel {
   display: grid;
-  gap: clamp(20px, 2.4vw, 32px);
+  gap: clamp(20px, 2.4vw, var(--space-lg));
   align-content: start;
   justify-items: start;
-  padding: clamp(32px, 4vw, 72px) clamp(28px, 3.4vw, 56px);
+  padding: clamp(var(--space-lg), 4vw, 72px) clamp(28px, 3.4vw, 56px);
   background: var(--ink-warm);
   color: var(--paper);
 }
@@ -893,7 +893,7 @@
   composes: section-title from global;
   display: flex;
   flex-direction: column;
-  margin: 0 0 clamp(8px, 2vw, 32px);
+  margin: 0 0 clamp(var(--space-2xs), 2vw, var(--space-lg));
 
   /* the photo bands keep the site's faces, at their own tighter leading */
   line-height: var(--leading-heading, 1.05);
@@ -907,7 +907,7 @@
 .orderList {
   display: grid;
   gap: 18px;
-  margin: 8px 0;
+  margin: var(--space-2xs) 0;
   padding: 0;
   list-style: none;
 }
@@ -915,7 +915,7 @@
 /* each promise's drawing in the panel's cream beside its name */
 .orderItem {
   display: flex;
-  gap: 16px;
+  gap: var(--space-sm);
   align-items: center;
   font: var(--weight-title-rest) var(--text-lg) / 1.3 var(--font-wordmark);
 }
@@ -945,8 +945,8 @@
   display: grid;
   gap: clamp(28px, 3vw, 44px);
   justify-items: center;
-  margin-top: clamp(48px, 6vw, 96px);
-  padding: clamp(64px, 8vw, 128px) var(--gutter);
+  margin-top: clamp(var(--space-xl), 6vw, var(--space-3xl));
+  padding: clamp(var(--space-2xl), 8vw, var(--space-4xl)) var(--gutter);
   background: var(--ink-wash);
   text-align: center;
 }
@@ -960,7 +960,7 @@
 .quickLinks {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--space-xs);
   justify-content: center;
   max-width: 1100px;
   margin: 0;
@@ -980,8 +980,8 @@
 .tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px clamp(20px, 2vw, 34px);
-  margin: 0 0 clamp(8px, 0.9vw, 16px);
+  gap: var(--space-2xs) clamp(20px, 2vw, 34px);
+  margin: 0 0 clamp(var(--space-2xs), 0.9vw, var(--space-sm));
 }
 
 .tab {
@@ -1004,7 +1004,7 @@
 /* the row runs to the page's right edge, so the fifth piece shows in part
    and tells there is more; it moves by touch, trackpad, or tabbing through */
 .editRow {
-  gap: 12px;
+  gap: var(--space-xs);
   margin-right: calc(-1 * var(--gutter));
 }
 
@@ -1026,7 +1026,7 @@
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 2fr 1fr;
-  gap: 12px;
+  gap: var(--space-xs);
   height: clamp(480px, 48vw, 820px);
 }
 
@@ -1097,7 +1097,7 @@
 .details {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: var(--space-xs);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1124,10 +1124,10 @@
    finish and birch with the page's brown */
 .detailWords {
   display: grid;
-  gap: 12px;
+  gap: var(--space-xs);
   align-content: start;
   justify-items: start;
-  padding: clamp(24px, 2.4vw, 40px);
+  padding: clamp(var(--space-md), 2.4vw, 40px);
   color: var(--ink-dark);
 }
 
@@ -1150,7 +1150,7 @@
 }
 
 .detailLine {
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2xs);
   font: var(--weight-title-rest) var(--text-lg) / 1.4 var(--font-wordmark);
 }
 
@@ -1181,7 +1181,7 @@
 .roomCards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(12px, 1.4vw, 20px);
+  gap: clamp(var(--space-xs), 1.4vw, 20px);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1198,7 +1198,7 @@
   position: relative;
   justify-self: stretch;
   aspect-ratio: 4 / 5;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2xs);
   overflow: hidden;
   background: var(--birch);
 }
@@ -1244,7 +1244,7 @@
 .kinds {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: clamp(16px, 2vw, 24px);
+  gap: clamp(var(--space-sm), 2vw, var(--space-md));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1275,10 +1275,10 @@
 .kindWords {
   z-index: var(--z-raise);
   display: grid;
-  gap: 12px;
+  gap: var(--space-xs);
   align-content: end;
   justify-items: start;
-  padding: clamp(24px, 2.6vw, 40px);
+  padding: clamp(var(--space-md), 2.6vw, 40px);
   color: var(--photo-text);
 }
 
@@ -1290,7 +1290,7 @@
 
 .kindLine {
   max-width: 32ch;
-  margin-bottom: 12px;
+  margin-bottom: var(--space-xs);
   color: var(--photo-text-dim);
   font: var(--weight-title-rest) var(--text-line) / 1.35 var(--font-wordmark);
 }
@@ -1350,10 +1350,10 @@
 
 .visitSide {
   display: grid;
-  gap: 24px;
+  gap: var(--space-md);
   align-content: center;
   justify-items: start;
-  padding: clamp(32px, 4vw, 72px) clamp(28px, 3.4vw, 56px);
+  padding: clamp(var(--space-lg), 4vw, 72px) clamp(28px, 3.4vw, 56px);
   background: var(--ink-wash);
 }
 
@@ -1384,7 +1384,7 @@
 .compare {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 40px clamp(24px, 3vw, 56px);
+  gap: 40px clamp(var(--space-md), 3vw, 56px);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1395,7 +1395,7 @@
 .compareKind {
   display: grid;
   grid-template-rows: auto auto 1fr auto auto;
-  gap: 12px;
+  gap: var(--space-xs);
   justify-items: start;
   height: 100%;
   color: var(--ink-dark);
@@ -1405,7 +1405,7 @@
 .comparePhoto {
   position: relative;
   justify-self: stretch;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2xs);
   overflow: hidden;
   aspect-ratio: 4 / 3;
   background: var(--birch);
@@ -1441,7 +1441,7 @@
    both go to the same place */
 .compareGo {
   composes: button from global;
-  margin-top: 8px;
+  margin-top: var(--space-2xs);
 }
 
 .compareKind:has(.comparePhoto:hover) .compareGo {
@@ -1479,7 +1479,7 @@
 .index {
   display: grid;
   grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
-  gap: clamp(32px, 3.4vw, 52px) clamp(20px, 2.4vw, 40px);
+  gap: clamp(var(--space-lg), 3.4vw, 52px) clamp(20px, 2.4vw, 40px);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1505,7 +1505,7 @@
 
 .entry {
   display: grid;
-  gap: 12px;
+  gap: var(--space-xs);
   align-content: start;
 }
 
@@ -1617,7 +1617,7 @@
 /* labelled facts: the label in the small capitals, its words under it */
 .entryFacts {
   display: grid;
-  gap: 8px;
+  gap: var(--space-2xs);
   margin: 0;
 }
 
@@ -1689,13 +1689,13 @@
 .qa {
   display: grid;
   grid-template-columns: 1fr 1.7fr;
-  gap: clamp(24px, 3vw, 48px);
+  gap: clamp(var(--space-md), 3vw, var(--space-xl));
   align-items: start;
 }
 
 .qaSide {
   display: grid;
-  gap: clamp(16px, 2vw, 28px);
+  gap: clamp(var(--space-sm), 2vw, 28px);
 }
 
 .qaAsk {
@@ -1723,7 +1723,7 @@
 .qaQuestion {
   display: grid;
   grid-template-columns: var(--qa-number) 1fr auto;
-  gap: 16px;
+  gap: var(--space-sm);
   align-items: baseline;
   width: 100%;
   padding: 22px 0;
@@ -1784,7 +1784,7 @@
 /* the answer starts under the question's words, not its number */
 .qaAnswer p {
   max-width: 60ch;
-  padding: 0 0 24px calc(var(--qa-number) + 16px);
+  padding: 0 0 var(--space-md) calc(var(--qa-number) + var(--space-sm));
   color: var(--ink-dark);
   font: var(--weight-title-rest) var(--text-lg) / 1.5 var(--font-wordmark);
 }
@@ -1798,7 +1798,7 @@
 .qa[data-split] .qaColumns {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 clamp(24px, 4vw, 72px);
+  gap: 0 clamp(var(--space-md), 4vw, 72px);
   align-items: start;
 }
 
