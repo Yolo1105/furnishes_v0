@@ -70,29 +70,21 @@
   padding: clamp(var(--space-3), 1.2vw, var(--space-5));
 }
 
-/* one panel filled red orange with cream words; the other on the page's
-   cream inside a thin red-orange line, as the bar's boxed link, its title
-   in red and its small words in brown, on the owner's word. The line is
-   drawn inside, so both panels keep one size. */
-.panel[data-tone="warm"] {
-  background: var(--ink-warm);
-  color: var(--paper);
-}
-
-.panel[data-tone="outline"] {
-  outline: var(--line) solid var(--ink-warm);
-  outline-offset: calc(var(--line) * -1);
+/* one panel on the workshop's peach, the other on the home visit's faint
+   red wash; both with titles in red and small words in brown, on the
+   owner's word */
+.panel[data-tone="peach"] {
+  background: var(--panel-orange);
   color: var(--ink-dark);
 }
 
-/* on the red-orange panel the box fills cream when pointed at, since the
-   shared red fill would vanish into the panel */
-.panel[data-tone="warm"] .go:hover {
-  background: var(--paper);
-  color: var(--ink-warm);
+.panel[data-tone="wash"] {
+  background: var(--ink-wash);
+  color: var(--ink-dark);
 }
 
-.panel[data-tone="outline"] .panelTitle {
+.panel[data-tone="wash"] .panelTitle,
+.panel[data-tone="peach"] .panelTitle {
   color: var(--ink);
 }
 
