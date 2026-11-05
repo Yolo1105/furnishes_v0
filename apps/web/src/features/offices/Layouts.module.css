@@ -53,18 +53,12 @@
 
 /* the layout's name in red, its area under it a step paler, as the
    reference's suite and square feet */
-.name,
-.area {
-  margin: 0;
-  font: 400 var(--text-head) / 1.15 var(--font);
-  letter-spacing: var(--track-tight);
-}
-
 .name {
-  color: var(--ink);
+  composes: card-title from global;
 }
 
 .area {
+  composes: card-title from global;
   color: var(--ink-dark-pale);
 }
 

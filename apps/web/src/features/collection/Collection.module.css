@@ -782,10 +782,11 @@
 
 /* a small label in capitals over a title, as a step's number */
 .cardLabel {
-  color: var(--ink-dark-pale);
   composes: caps from global;
   margin: 0 0 var(--space-2);
-  font-size: var(--text-md);
+  color: var(--ink-dark-pale);
+  font-size: var(--text-sm);
+  font-weight: 500;
 }
 
 .cardLine {
@@ -851,11 +852,10 @@
 /* paler than the page's text, whatever that is: the deep brown on the
    collection's pages, the red on a piece's */
 .promiseLine {
+  composes: card-line from global;
   max-width: 32ch;
   margin: 0;
   color: color-mix(in srgb, currentcolor 72%, var(--paper));
-  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
-  font-size: var(--text-body, var(--text-line));
 }
 
 /* ---------- with every order ---------- */
@@ -1580,13 +1580,7 @@
 }
 
 .entryName {
-  margin: 0;
-  color: var(--ink);
-  font: 400 var(--text-head) / 1.1 var(--font);
-  font-size: var(--text-entry, var(--text-head));
-  font-weight: var(--weight-entry, 400);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
+  composes: card-title from global;
   text-wrap: balance;
 }
 

@@ -134,17 +134,12 @@
 }
 
 .title {
-  margin: 0;
-  color: var(--ink);
-  font: 400 var(--text-head) / 1.1 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
+  composes: card-title from global;
 }
 
 .line {
+  composes: card-line from global;
   margin: 0;
-  color: var(--ink-dark);
-  font: 400 var(--text-md) / 1.5 var(--font);
 }
 
 .small {

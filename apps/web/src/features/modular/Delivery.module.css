@@ -18,11 +18,9 @@
   gap: clamp(var(--space-6), 3vw, var(--space-10));
 }
 
-/* each block's name centred in the narrow brown face, a step under the title */
+/* each block's name centred, as every card's title, a step under the title */
 .blockTitle {
-  margin: 0;
-  color: var(--ink-dark);
-  font: var(--weight-title-rest) var(--text-head) / 1.2 var(--font);
+  composes: card-title from global;
   text-align: center;
 }
 

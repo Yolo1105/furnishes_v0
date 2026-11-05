@@ -191,7 +191,7 @@ export function FlatTour() {
             </FloorPlan>
           </div>
           <div className={styles.order} aria-hidden="true">
-            <p className={styles.orderLabel}>Your order</p>
+            <p className={styles.orderLabel}>How an order moves</p>
             <p className={styles.orderName}>{ORDER.name}</p>
             <p>{ORDER.finish}</p>
             <ol>

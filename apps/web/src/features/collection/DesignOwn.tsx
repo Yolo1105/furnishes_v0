@@ -3,7 +3,7 @@ import Link from "next/link";
 import { DESIGN } from "./collectionList";
 import styles from "./Collection.module.css";
 
-/** Design your own as the visit's band turned round: the room on the left, the title and the way into the 3D visualizer on a panel beside it. */
+/** Design your own as the visit's band turned round: the room on the left, the title and the way into the room planner on a panel beside it. */
 export function DesignOwn() {
   return (
     <section className={styles.section} aria-labelledby="design-title">
@@ -13,7 +13,7 @@ export function DesignOwn() {
         </div>
         <div className={styles.visitSide}>
           <h2 id="design-title" className={styles.heading}>
-            <span className={styles.headingLabel}>3D visualizer</span>
+            <span className={styles.headingLabel}>Room planner</span>
             {DESIGN.title} <span className={styles.headingRest}>{DESIGN.rest}</span>
           </h2>
           <p className={styles.designLine}>{DESIGN.line}</p>

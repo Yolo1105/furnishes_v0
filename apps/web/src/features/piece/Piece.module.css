@@ -70,7 +70,7 @@
 /* the name and its line, told apart by colour alone */
 .name {
   margin: 0;
-  font: 500 var(--text-over) / 1.05 var(--font);
+  font: 400 var(--text-over) / 1.05 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
   text-wrap: balance;
@@ -239,10 +239,8 @@
 }
 
 .heading {
+  composes: card-title from global;
   margin: 0 0 var(--space-5);
-  font: 500 var(--text-head) / 1.1 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
 }
 
 /* what you can change: four lines, each its name, what it means and its

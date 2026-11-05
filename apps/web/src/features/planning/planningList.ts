@@ -39,7 +39,7 @@ export const EVA = {
   id: "eva-title",
   label: "The room planner",
   /* the question, then the answer on its own line */
-  title: ["Ready to design?", "Meet Eva, our AI interior assistant."],
+  title: ["Ready to design?", "Meet Eva, our AI assistant, coming to the planner."],
   line: "She asks about your home, checks your room as you draw it, and suggests pieces that fit, with the reason why.",
   /* three cards, each a drawing over its name and line; the ways on are
      gone, on the owner's word */

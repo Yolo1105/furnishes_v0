@@ -27,7 +27,7 @@ export const ROOMS: readonly Room[] = [
     key: "home",
     word: "Furniture",
     under: "Made to fit",
-    line: "Ready-made and modular furniture for Singapore homes, cut to fit and delivered built or flat-packed. Tell us the room and the gap you have, and we make the pieces to suit it, from one shelf to a whole flat.",
+    line: "Ready-made and modular furniture for Singapore homes. Pick a ready-made piece in a set size, or have a modular one cut to the gap you have.",
     photo: home,
     note: {
       name: "The whole flat",

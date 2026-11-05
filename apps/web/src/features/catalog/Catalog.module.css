@@ -12,7 +12,7 @@
 .title {
   max-width: 24ch;
   margin: var(--space-2) 0 var(--space-4);
-  font: 500 var(--text-over) / 1.05 var(--font);
+  font: 400 var(--text-over) / 1.05 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
   text-wrap: balance;

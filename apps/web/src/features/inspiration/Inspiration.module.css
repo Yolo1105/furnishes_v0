@@ -71,10 +71,8 @@
    in the page's near-black brown on the owner's word;
    its line below in the softer red, so they part by colour */
 .name {
+  composes: card-title from global;
   color: var(--ink-dark);
-  font: 400 var(--text-head) / 1.1 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
 }
 
 /* a short arrow at the end of the card's second line, on the owner's word,
@@ -93,8 +91,8 @@
 /* its line in the softer red, on the owner's word, in the collection's
    lighter Jost */
 .line {
+  composes: card-line from global;
   color: var(--ink-pale);
-  font: var(--weight-title-rest) var(--text-line) / var(--leading-line) var(--font-wordmark);
 }
 
 .card {
@@ -197,7 +195,7 @@
 
 .lookName {
   color: var(--ink-dark);
-  font: 400 var(--text-lg) / 1.2 var(--font);
+  font: var(--weight-title-rest) var(--text-lg) / 1.2 var(--font);
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
 }

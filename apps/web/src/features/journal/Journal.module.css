@@ -34,11 +34,11 @@
 /* the label in red, its note in the page's brown, as the collection parts
    its lines from the red */
 .label {
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .note {
-  color: var(--ink-dark);
+  composes: card-line from global;
 }
 
 /* a dot between the label and its note */
@@ -53,7 +53,7 @@
   gap: var(--space-1);
   align-items: center;
   margin-left: auto;
-  font-weight: 400;
+  font-weight: 500;
   white-space: nowrap;
 }
 
@@ -79,7 +79,7 @@
 .sm,
 .lg {
   margin: 0;
-  font-weight: 400;
+  font-weight: var(--weight-title-rest);
   letter-spacing: var(--track-tight);
 }
 

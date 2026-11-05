@@ -73,8 +73,8 @@
   margin: 0;
 }
 
-/* the pieces used, at the card's foot, as red outlined pills, since each
-   is a link to the piece */
+/* the pieces used, at the card's foot, as the site's square red buttons,
+   since each is a link to the piece */
 .pieces {
   display: flex;
   flex-wrap: wrap;
@@ -86,22 +86,8 @@
 }
 
 .piece {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap);
+  composes: button from global;
   box-sizing: border-box;
-  padding: 0 var(--space-4);
-  border: var(--line) solid var(--ink);
-  border-radius: 999px;
-  color: var(--ink);
-  font: 400 var(--text-md) / 1.2 var(--font);
-  text-decoration: none;
-}
-
-.piece:hover,
-.piece:focus-visible {
-  background: var(--ink);
-  color: var(--paper);
 }
 
 /* On a desktop each card holds under the bar as the next slides over it,

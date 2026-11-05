@@ -2,8 +2,7 @@
 
 /* the line under the flats, at the reading width */
 .note {
+  composes: card-line from global;
   max-width: 68ch;
   margin: clamp(var(--space-4), 2vw, var(--space-6)) 0 0;
-  color: var(--ink-dark);
-  font: 400 var(--text-md) / 1.5 var(--font);
 }

@@ -86,10 +86,7 @@
 }
 
 .cardTitle {
-  margin: 0;
-  color: var(--ink);
-  font: 400 var(--text-entry, var(--text-lg)) / var(--leading-h3) var(--font-heading, var(--font));
-  letter-spacing: var(--track-tight);
+  composes: card-title from global;
 }
 
 /* the arrow runs on after the title's last word, however it wraps */

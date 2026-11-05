@@ -22,7 +22,7 @@ export const MODULAR_BANNER = {
   photo: aFrame,
   room: "Living room",
   lead: "Modular furniture,",
-  rest: "sized to your room. Ready to go, or make it yourself.",
+  rest: "sized to your room. Ready to go (arrives built), or make it yourself (arrives in parts).",
 };
 
 /** How it works, in the order a visitor does it. */
@@ -31,10 +31,10 @@ export const STEPS = [
     name: "Choose a piece",
     line: "Start from one of our designs: storage, an entry pack, a bedside block or a separator wall.",
   },
-  { name: "Make it yours", line: "Set its width, height and finish to fit the room you have [placeholder limits]." },
+  { name: "Make it yours", line: "Set its width, height and finish to fit the room you have." },
   {
     name: "Choose how it arrives",
-    line: `${ARRIVALS.built.name}: assembled, in ${ARRIVALS.built.weeks}. ${ARRIVALS.parts.name}: in parts, in ${ARRIVALS.parts.weeks}, for less.`,
+    line: `${ARRIVALS.built.name} arrives built. ${ARRIVALS.parts.name} arrives in parts, for less.`,
   },
 ] as const;
 
@@ -53,7 +53,7 @@ export const WALLS = {
   limits: [
     "Up to 1600 mm high; it stands on the floor, not fixed to the ceiling.",
     "It divides the space, not the sound: it is not a soundproof wall.",
-    "No drilling into your walls, so it suits HDB flats and rented offices.",
+    "It stands on its own, so most rooms need no drilling. Taller walls may need fixing to the wall for safety.",
   ],
 } as const;
 
@@ -326,15 +326,15 @@ export const DELIVERY = {
   topics: [
     {
       name: "Timing",
-      line: `${ARRIVALS.parts.name} pieces take ${ARRIVALS.parts.weeks} from order to door, and ${ARRIVALS.built.name.toLowerCase()} pieces ${ARRIVALS.built.weeks}.`,
+      line: "Each piece's page shows its weeks, and we email you at every step.",
     },
     {
       name: "Putting it together",
-      line: "Every flat-packed piece comes with its steps and tools. A cabinet takes about an hour.",
+      line: "Every flat-packed piece comes with its steps and the tools to put it together.",
     },
     {
       name: "Changes and returns",
-      line: "You can change a piece until it goes into production, usually within a week of ordering. Modular pieces are made to your size, so they can't be returned.",
+      line: "You can change a piece until it goes into production, usually within a week of ordering. Modular pieces are made to your size, so we take them back only if they arrive faulty or damaged.",
     },
     {
       name: "Questions",
@@ -349,7 +349,7 @@ export const DELIVERY = {
  */
 export const MADE_FOR_YOU = {
   id: "made-for-you-title",
-  title: "Modular furniture, made for your room.",
+  title: "Four things every modular piece comes with.",
   items: [
     { icon: "mail", name: "Samples", line: "Ask for finish samples by email, and we send them to you." },
     { icon: "box", name: "The pieces", line: "Shelves, cabinets, desks and separator walls, built from parts." },

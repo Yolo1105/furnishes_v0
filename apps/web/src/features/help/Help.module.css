@@ -88,11 +88,8 @@
 }
 
 .topicTitle {
+  composes: card-title from global;
   margin: 0 0 var(--space-3);
-  color: var(--ink);
-  font: 400 var(--text-head) / 1.1 var(--font);
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
 }
 
 .list {

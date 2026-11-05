@@ -135,7 +135,7 @@ export const ABOUT_QUESTIONS = [
   },
   {
     q: "Can I return a piece?",
-    a: `Ready-made pieces can be returned within ${FACTS.returnDays} days of delivery. Modular pieces are made to your size, so they can't.`,
+    a: `Ready-made pieces can be returned within ${FACTS.returnDays} days of delivery. Modular pieces are made to your size, so we take them back only if they arrive faulty or damaged.`,
   },
 ] as const;
 

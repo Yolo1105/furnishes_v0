@@ -8,7 +8,7 @@ import styles from "./SiteFooter.module.css";
 const YEAR = new Date().getFullYear();
 
 /** Where we are and how to reach us, each a place's name over its lines. */
-const REACH = [{ name: PLACE[0], lines: [...PLACE.slice(1), "Home visits", HOURS.join(", ")] }] as const;
+const REACH = [{ name: PLACE[0], lines: [...PLACE.slice(1), HOURS.join(", ")] }] as const;
 
 /**
  * The footer, kept short: the wordmark and a line asking to get in touch,

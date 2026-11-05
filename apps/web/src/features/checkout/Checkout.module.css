@@ -7,10 +7,9 @@
 }
 
 .line {
+  composes: card-line from global;
   max-width: 60ch;
   margin: 0;
-  color: var(--ink-dark);
-  font: 400 var(--text-md) / 1.5 var(--font);
 }
 
 .line:empty {

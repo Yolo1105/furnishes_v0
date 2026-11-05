@@ -60,7 +60,7 @@ export function PieceCard({
             </span>
             <span className={styles.meta}>
               {modular
-                ? `${ARRIVALS.built.name} or ${ARRIVALS.parts.name.toLowerCase()}`
+                ? `${ARRIVALS.built.name} (built) or ${ARRIVALS.parts.name.toLowerCase()} (in parts)`
                 : `Ready-made · ${FURNITURE_WEEKS}`}
             </span>
           </>
