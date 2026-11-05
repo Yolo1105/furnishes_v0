@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { routes } from "@/lib/routes";
 import { BANNER, FIND, GUIDES, GUIDES_CALL, GUIDES_HEAD, KINDS, ROOMS, ROOMS_HEAD } from "./quizList";
+import collection from "@/features/collection/Collection.module.css";
 import styles from "./Quiz.module.css";
 
 /**
@@ -65,9 +66,9 @@ export function FindYourPiece() {
 export function RoomByRoom() {
   return (
     <section className={styles.rooms} aria-labelledby="rooms-title">
-      <p className={styles.label}>{ROOMS_HEAD.label}</p>
-      <h2 id="rooms-title" className={styles.roomsTitle}>
-        {ROOMS_HEAD.title}
+      <h2 id="rooms-title" className={`${collection.heading} ${styles.titleGap}`}>
+        <span className={collection.headingLabel}>{ROOMS_HEAD.label}</span>
+        {ROOMS_HEAD.title} <span className={collection.headingRest}>{ROOMS_HEAD.rest}</span>
       </h2>
       <ul className={styles.cards}>
         {ROOMS.map((r) => (
@@ -95,9 +96,9 @@ export function RoomByRoom() {
 export function Guides() {
   return (
     <section className={styles.guides} aria-labelledby="guides-title">
-      <p className={styles.label}>{GUIDES_HEAD.label}</p>
-      <h2 id="guides-title" className={styles.roomsTitle}>
-        {GUIDES_HEAD.title}
+      <h2 id="guides-title" className={`${collection.heading} ${styles.titleGap}`}>
+        <span className={collection.headingLabel}>{GUIDES_HEAD.label}</span>
+        {GUIDES_HEAD.title} <span className={collection.headingRest}>{GUIDES_HEAD.rest}</span>
       </h2>
       <div className={styles.guideRow}>
         <span className={styles.guidePhoto}>

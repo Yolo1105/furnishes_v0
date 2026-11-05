@@ -90,14 +90,6 @@
   /* the dot itself: pure white, the brightest thing on any room */
   --photo-dot: #fff;
 
-  /* a warm black across a whole photo, deepest on the left where the
-     words sit, for the closing band, as the owner's earlier studio page */
-  --photo-shade-side: linear-gradient(
-    to right,
-    color-mix(in srgb, var(--ink-dark) 18%, #000 82%) 0%,
-    color-mix(in srgb, var(--ink-dark) 18%, #000 50%) 100%
-  );
-
   /* a light black over a whole photo, for words set anywhere on it */
   --photo-dim: color-mix(in srgb, #000 30%, transparent);
 
@@ -221,6 +213,9 @@
 
   /* one pass of the quiz band's running words, slow enough to read */
   --dur-run: 40s;
+
+  /* how pale a link goes when pointed at */
+  --hover-dim: 0.65;
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-roll: cubic-bezier(0.3, 0.7, 0.15, 1);
   --ease-draw: cubic-bezier(0.65, 0, 0.35, 1);
@@ -309,14 +304,14 @@ h3 {
   text-transform: lowercase;
 }
 
-/* a link that underlines when pointed at */
-.underline-on-hover {
-  text-underline-offset: 0.45em;
-  text-decoration-thickness: 1px;
+/* a link that goes paler when pointed at: never an underline, on the
+   owner's word, and the same for a link in any colour */
+.link-hover {
+  transition: opacity var(--dur-fast);
 }
 
-.underline-on-hover:hover {
-  text-decoration: underline;
+.link-hover:hover {
+  opacity: var(--hover-dim);
 }
 
 /* the one boxed button: an outline that fills on hover */
@@ -412,14 +407,15 @@ h3 {
   translate: 0 0;
 }
 
-/* ---------- trial: Sora on the home, collection and inspiration pages ----------
+/* ---------- trial: Sora on the home, collection, inspiration, quiz and contact pages ----------
    After the owner's type-scale demo: Sora, a wide geometric sans, in place
    of both faces, its big words at a regular weight in sentence case and a
    step smaller, since Sora runs wider than the narrowed capitals. Only the
-   home, collection and inspiration pages' sections carry data-type-trial
-   (TypeTrial.tsx), so the bar, the footer and the other pages keep the
-   site's faces. Delete this block,
-   TypeTrial and Sora in layout.tsx to go back. */
+   home, collection, inspiration, quiz and contact pages' sections carry data-type-trial
+   (TypeTrial.tsx), as do the bar's search and the top of its region and
+   language sheet; the rest of the bar, the footer and the other pages keep the
+   site's faces. Delete this block, TypeTrial, those two attributes and
+   Sora in layout.tsx to go back. */
 [data-type-trial] {
   --font: var(--font-sora), system-ui, sans-serif;
   --font-wordmark: var(--font-sora), system-ui, sans-serif;

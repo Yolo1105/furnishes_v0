@@ -29,7 +29,11 @@ export const KINDS = [
   })),
 ];
 
-export const ROOMS_HEAD = { label: "Room by room", title: "Storage to sofas, sized to the rooms you have" };
+export const ROOMS_HEAD = {
+  label: "Room by room",
+  title: "Storage to sofas, sized to the rooms you have",
+  rest: "Pick a room to see what fits it",
+};
 
 const room = (name: string, line: string, photo: typeof living) => ({
   name,
@@ -63,7 +67,12 @@ export const BANNER = {
  * Two short guides at the page's foot, from the rebuild's help and HDB
  * pages, set here on the page rather than as links to pages not built yet.
  */
-export const GUIDES_HEAD = { label: "Before you order", title: "Measure first, then choose", photo: study };
+export const GUIDES_HEAD = {
+  label: "Before you order",
+  title: "Measure first, then choose",
+  rest: "Two short guides, before you order",
+  photo: study,
+};
 
 export const GUIDES = [
   {

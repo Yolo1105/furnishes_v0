@@ -5,6 +5,7 @@ import { readAnswers } from "@/features/quiz/match";
 import { FINDER_HEAD, OPENING_LABEL } from "@/features/quiz/quizList";
 import { Problems } from "@/features/quiz/Problems";
 import { QuizStart } from "@/features/quiz/Stage";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 export const metadata: Metadata = {
@@ -21,15 +22,18 @@ export default async function QuizPage({ searchParams }: Props) {
     <>
       <SiteHeader />
       <main id="main">
-        <QuizStart
-          initial={initial}
-          opening={<Opening label={OPENING_LABEL} title={FINDER_HEAD.title} photos={[]} rest={FINDER_HEAD.line} />}
-        />
-        <QuizBanner />
-        <FindYourPiece />
-        <Problems />
-        <RoomByRoom />
-        <Guides />
+        {/* Sora, as on the other pages, on the owner's word */}
+        <TypeTrial page="quiz">
+          <QuizStart
+            initial={initial}
+            opening={<Opening label={OPENING_LABEL} title={FINDER_HEAD.title} photos={[]} rest={FINDER_HEAD.line} />}
+          />
+          <QuizBanner />
+          <FindYourPiece />
+          <Problems />
+          <RoomByRoom />
+          <Guides />
+        </TypeTrial>
       </main>
     </>
   );

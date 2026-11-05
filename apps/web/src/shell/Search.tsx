@@ -77,12 +77,14 @@ export function Search({ className, inMenu }: { className?: string | undefined; 
         </li>,
       ];
 
+  // Sora, as on the pages under the bar, on the owner's word
   return (
     <div
       ref={box}
       className={[styles.search, inMenu && styles.inMenu, className].filter(Boolean).join(" ")}
       data-open={shown || undefined}
       data-searching={open || undefined}
+      data-type-trial="search"
     >
       <label className={styles.field}>
         <span className="visually-hidden">What are you looking for?</span>

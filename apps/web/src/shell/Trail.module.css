@@ -16,7 +16,7 @@
 }
 
 .step {
-  composes: underline-on-hover from global;
+  composes: link-hover from global;
   color: var(--ink-pale);
 }
 

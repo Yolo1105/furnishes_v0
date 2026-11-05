@@ -1,73 +1,102 @@
+/* paper on the full red, as before: the cream on it reads at 4.5:1 at the
+   small print's size. Three rows, kept short: the wordmark and the call,
+   four columns, the small print */
 .foot {
   display: grid;
-  grid-template-columns: var(--split) 1fr;
-  row-gap: 5vw;
-  padding: 6vw var(--gutter) 2vw;
-
-  /* full red: the cream on it reads at 4.5:1 at the small print's size */
+  gap: clamp(32px, 3.5vw, 56px);
+  padding: clamp(40px, 4vw, 64px) var(--gutter) clamp(20px, 2vw, 28px);
   background: var(--ink-warm);
   color: var(--paper);
 }
 
+/* links say they are links by going paler when pointed at, never by an
+   underline, on the owner's word */
+.foot a {
+  transition: color var(--dur-fast);
+}
+
 .foot a:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.3em;
-  text-decoration-thickness: 1px;
+  color: var(--paper-dim);
 }
 
-/* the big words' face, a step smaller */
-.call {
-  composes: display from global;
-  grid-column: 1 / -1;
-  margin-left: -0.06em;
-  font-size: calc(var(--text-display) * 0.8);
-}
-
-.call a:hover {
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.12em;
-}
-
-.about {
-  display: grid;
-  gap: 16px;
-  align-content: start;
-}
-
-.about p {
-  max-width: 30ch;
-  font: 400 var(--text-line) / var(--leading-line) var(--font);
-}
-
-.wordmark {
-  composes: wordmark from global;
-  justify-self: start;
-}
-
-.cols {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 24px;
-  font: 400 var(--text-sm) / 1.5 var(--font);
-}
-
-.cols ul {
+.foot p,
+.foot ul {
   margin: 0;
+}
+
+.foot ul {
   padding: 0;
   list-style: none;
 }
 
+/* the wordmark on the left, the call on the right, on one baseline */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.mark {
+  composes: wordmark from global;
+  font-size: var(--text-head);
+}
+
+.call {
+  font: 400 var(--text-lg) / 1.2 var(--font);
+}
+
+/* where we are, then the pages, in four even columns */
+.cols {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px var(--gutter);
+  font: 400 var(--text-sm) / 1.6 var(--font);
+}
+
+.reach,
+.col {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+  justify-items: start;
+}
+
+/* the pages' columns sit straight in the grid, beside where we are */
+.pages {
+  display: contents;
+}
+
+/* every heading, a place's or a group's, and a page standing alone: small
+   capitals, so the footer keeps one size */
 .head {
   composes: caps from global;
-  margin-bottom: 12px;
-  line-height: 1.5;
+  display: block;
+  margin: 0 0 4px;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+/* the languages in a row, the one in use full, the coming ones paler */
+.languages {
+  display: flex;
+  gap: 12px;
+}
+
+.language {
+  font-weight: 500;
+}
+
+.soon {
+  color: var(--paper-dim);
 }
 
 .small {
-  grid-column: 1 / -1;
   display: flex;
   gap: 24px;
   justify-content: space-between;
+  color: var(--paper-dim);
   font: 400 var(--text-sm) / 1.3 var(--font);
 }
 
@@ -77,15 +106,8 @@
 }
 
 @media (width <= 1023px) {
-  .foot {
-    grid-template-columns: 1fr;
-    row-gap: 48px;
-    padding: 64px var(--gutter) 24px;
-  }
-
   .cols {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 32px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .small {

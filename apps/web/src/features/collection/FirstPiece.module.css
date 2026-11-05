@@ -105,11 +105,9 @@
   text-align: center;
 }
 
-/* the way to every piece: small capitals over a thin line */
+/* the way to every piece: small capitals in the red */
 .allLink {
-  composes: caps from global;
-  padding-bottom: 6px;
-  border-bottom: var(--line) solid currentcolor;
+  composes: caps link-hover from global;
   color: var(--ink);
   text-decoration: none;
 }

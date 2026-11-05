@@ -247,7 +247,7 @@
 /* the banner's way on: lowercase, in the red orange so it reads as the one
    thing in the row to press */
 .more {
-  composes: underline-on-hover from global;
+  composes: link-hover from global;
   justify-self: end;
   color: var(--ink);
   font: 400 var(--text-md) / 1 var(--font);

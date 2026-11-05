@@ -270,7 +270,7 @@
 }
 
 .clear {
-  composes: underline-on-hover from global;
+  composes: link-hover from global;
   padding: 0 4px;
   border: 0;
   background: none;

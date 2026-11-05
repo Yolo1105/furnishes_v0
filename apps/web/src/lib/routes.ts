@@ -42,16 +42,45 @@ export const BROWSE = [
 ] as const;
 
 /**
- * The footer's pages: the bar's, then About (a part of the home page, so the
- * bar leaves it out), the offices, planning help, the guide and help.
+ * The footer's links, after the owner's reference: groups under a heading
+ * in capitals, then single pages standing alone in capitals, then the
+ * small print.
  */
-export const FOOT_PAGES = [
-  ...BROWSE,
-  { href: routes.about, label: "About" },
-  { href: routes.offices, label: "For offices" },
-  { href: routes.planning, label: "Planning help" },
+export const FOOT_GROUPS = [
+  [
+    {
+      label: "Shop",
+      links: [
+        { href: routes.collection, label: "The collection" },
+        { href: routes.furniture, label: "Ready-made" },
+        { href: routes.modular, label: "Modular" },
+      ],
+    },
+    { label: "For offices", href: routes.offices, links: [] },
+  ],
+  [
+    {
+      label: "Ideas",
+      links: [
+        { href: routes.inspiration, label: "Inspiration" },
+        { href: routes.quiz, label: "Quiz" },
+        { href: routes.planning, label: "Planning help" },
+      ],
+    },
+    {
+      label: "Who we are",
+      links: [
+        { href: routes.about, label: "About us" },
+        { href: routes.contact, label: "Contact" },
+      ],
+    },
+  ],
+] as const;
+
+export const FOOT_SINGLES = [
   { href: routes.buyingGuide, label: "Buying guide" },
   { href: routes.help, label: "Help" },
+  { href: routes.designYourRoom, label: "Design your room" },
 ] as const;
 
 export const LEGAL = [

@@ -7,6 +7,7 @@ import { fromPrice, pieceBySlug } from "@/features/catalog/catalog";
 import { sgd } from "@/lib/money";
 import { pieceOf } from "@/lib/routes";
 import { PROBLEMS, PROBLEMS_HEAD } from "./quizList";
+import collection from "@/features/collection/Collection.module.css";
 import styles from "./Quiz.module.css";
 
 /**
@@ -25,11 +26,10 @@ export function Problems() {
   return (
     <section className={styles.problems} aria-labelledby="problems-title">
       <div className={styles.problemSide}>
-        <p className={styles.label}>{PROBLEMS_HEAD.label}</p>
-        <h2 id="problems-title" className={styles.roomsTitle}>
-          {PROBLEMS_HEAD.title}
+        <h2 id="problems-title" className={`${collection.heading} ${styles.titleGap}`}>
+          <span className={collection.headingLabel}>{PROBLEMS_HEAD.label}</span>
+          {PROBLEMS_HEAD.title} <span className={collection.headingRest}>{PROBLEMS_HEAD.line}</span>
         </h2>
-        <p className={styles.problemsLine}>{PROBLEMS_HEAD.line}</p>
         <ul className={styles.problemRooms}>
           {PROBLEMS.map((r, i) => (
             <li key={r.room}>

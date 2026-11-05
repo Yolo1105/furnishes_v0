@@ -66,7 +66,7 @@
 }
 
 .name {
-  composes: underline-on-hover from global;
+  composes: link-hover from global;
   font: 500 var(--text-lg) / 1.2 var(--font);
   letter-spacing: var(--track-tight);
 }
@@ -117,7 +117,7 @@
 }
 
 .remove {
-  composes: underline-on-hover from global;
+  composes: link-hover from global;
   padding: 0;
   border: 0;
   background: none;

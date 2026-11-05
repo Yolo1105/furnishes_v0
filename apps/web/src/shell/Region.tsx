@@ -95,7 +95,9 @@ export function Region({ className }: { className?: string | undefined }) {
         </svg>
       </button>
 
-      {/* a click on the dim backdrop lands on the dialog itself, and closes it */}
+      {/* a click on the dim backdrop lands on the dialog itself, and closes
+          it; its title, tabs and the place in use are in Sora, as on the
+          pages, and the lists keep the site's own faces, on the owner's word */}
       <dialog
         ref={sheet}
         className={styles.sheet}
@@ -107,7 +109,7 @@ export function Region({ className }: { className?: string | undefined }) {
         }}
       >
         <div className={styles.inner}>
-          <div className={styles.head}>
+          <div className={styles.head} data-type-trial="region">
             <h2 id={`${id}-title`} className={styles.title}>
               Region and language
             </h2>
@@ -118,14 +120,14 @@ export function Region({ className }: { className?: string | undefined }) {
             </button>
           </div>
 
-          <div className={styles.tabs} role="tablist">
+          <div className={styles.tabs} role="tablist" data-type-trial="region">
             {tabButton("region", "Country or region")}
             {tabButton("language", "Language")}
           </div>
 
           {tab === "region" ? (
             <div id={`${id}-region`} role="tabpanel" aria-labelledby={`${id}-region-tab`} className={styles.panel}>
-              <div className={styles.now}>
+              <div className={styles.now} data-type-trial="region">
                 <p className={styles.nowName}>
                   {region.name}
                   <span className={styles.nowCurrency}>

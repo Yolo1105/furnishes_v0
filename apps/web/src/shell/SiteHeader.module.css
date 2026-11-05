@@ -44,7 +44,7 @@
 }
 
 .link {
-  composes: caps underline-on-hover from global;
+  composes: caps link-hover from global;
 }
 
 /* the boxed way in, a little tighter than the shared box, on the owner's word */
@@ -92,7 +92,7 @@
 }
 
 .menuLink {
-  composes: caps underline-on-hover from global;
+  composes: caps link-hover from global;
   display: flex;
   align-items: center;
   min-height: var(--tap);

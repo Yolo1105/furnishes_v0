@@ -18,6 +18,8 @@
 .heading {
   margin: 0 0 16px;
   font: 400 var(--text-over) / 1.08 var(--font);
+  font-size: var(--text-heading, var(--text-over));
+  font-family: var(--font-heading, var(--font));
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
 }
@@ -50,7 +52,7 @@
 }
 
 .all {
-  composes: underline-on-hover from global;
+  composes: link-hover from global;
   display: inline-flex;
   gap: 4px;
   align-items: center;

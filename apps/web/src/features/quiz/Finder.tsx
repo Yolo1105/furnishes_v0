@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { PieceCard } from "@/features/catalog/PieceCard";
 import catalog from "@/features/catalog/Catalog.module.css";
+import collection from "@/features/collection/Collection.module.css";
 import { type Answers, match } from "./match";
 import { FINDER, FINDER_HEAD } from "./quizList";
 import styles from "./Quiz.module.css";
@@ -57,13 +58,10 @@ export function Finder({
       <div className={styles.problemSide}>
         {/* on the quiz page the page's opening carries the title and line instead */}
         {titled && (
-          <>
-            <p className={styles.label}>{FINDER_HEAD.label}</p>
-            <h2 id="finder-title" className={styles.roomsTitle}>
-              {FINDER_HEAD.title}
-            </h2>
-            <p className={styles.problemsLine}>{FINDER_HEAD.line}</p>
-          </>
+          <h2 id="finder-title" className={`${collection.heading} ${styles.titleGap}`}>
+            <span className={collection.headingLabel}>{FINDER_HEAD.label}</span>
+            {FINDER_HEAD.title} <span className={collection.headingRest}>{FINDER_HEAD.line}</span>
+          </h2>
         )}
 
         {question ? (
@@ -158,7 +156,7 @@ export function Finder({
         ) : (
           <p className={styles.finderNone}>
             {FINDER_HEAD.none}{" "}
-            <Link className="underline-on-hover" href={FINDER_HEAD.visit.href}>
+            <Link className="link-hover" href={FINDER_HEAD.visit.href}>
               {FINDER_HEAD.visit.label}
             </Link>
           </p>

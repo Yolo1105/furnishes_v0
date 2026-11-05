@@ -75,7 +75,7 @@
 }
 
 .back {
-  composes: caps underline-on-hover from global;
+  composes: caps link-hover from global;
   justify-self: end;
   color: var(--ink-dark-pale);
 }
@@ -210,9 +210,9 @@
   outline: none;
 }
 
-/* a link in a line: red, underlined only when pointed at */
+/* a link in a line: red, paler when pointed at */
 .link {
-  composes: underline-on-hover from global;
+  composes: link-hover from global;
   color: var(--ink);
 }
 

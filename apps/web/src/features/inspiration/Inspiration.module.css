@@ -16,6 +16,8 @@
 .title {
   margin: 0;
   font: 400 var(--text-over) / 1.1 var(--font);
+  font-size: var(--text-heading, var(--text-over));
+  font-family: var(--font-heading, var(--font));
   font-variation-settings: "wdth" var(--width-display);
   letter-spacing: var(--track-tight);
 }

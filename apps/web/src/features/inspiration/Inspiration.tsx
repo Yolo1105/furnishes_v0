@@ -60,7 +60,7 @@ export function Inspiration() {
     <section className={styles.page} aria-labelledby="inspiration-title">
       <div className={styles.head}>
         <h1 id="inspiration-title" className={styles.title}>
-          Real rooms in HDB flats and offices, each furnished to fit…{" "}
+          Real rooms in HDB flats and offices, furnished to fit…{" "}
           <Link className={styles.more} href={routes.collection}>
             See the collection
           </Link>

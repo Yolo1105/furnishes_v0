@@ -1,69 +1,98 @@
 import Link from "next/link";
 import { EMAIL, HOURS, MAILTO, PLACE } from "@/lib/contact";
-import { FOOT_PAGES, LEGAL, routes } from "@/lib/routes";
-import { SITE } from "@/lib/site";
+import { LANGUAGES } from "@/lib/regions";
+import { FOOT_GROUPS, FOOT_SINGLES, LEGAL, routes } from "@/lib/routes";
 import styles from "./SiteFooter.module.css";
 
 /** The year the copyright line names; fixed at build, as the page is static. */
 const YEAR = new Date().getFullYear();
 
+/** Where we are and how to reach us, each a place's name over its lines. */
+const REACH = [{ name: PLACE[0], lines: [...PLACE.slice(1), "Home visits", HOURS.join(", ")] }] as const;
+
 /**
- * The footer: one big line asking to get in touch, then who we are, how to
- * reach us and the pages, then the small print. The page turned over, paper
- * on red, on the same two columns as the banner.
+ * The footer, kept short: the wordmark and a line asking to get in touch,
+ * then four columns (where we are, then the pages: groups under a heading,
+ * single pages and the languages), then the small print. Paper on the red,
+ * as before.
  */
 export function SiteFooter() {
   return (
     <footer className={styles.foot}>
-      <p className={styles.call}>
-        <a href={MAILTO}>Sounds right? Let’s fit your room.</a>
-      </p>
-      <div className={styles.about}>
-        <Link className={styles.wordmark} href={routes.home}>
+      <div className={styles.top}>
+        <Link className={styles.mark} href={routes.home}>
           furnishes.
         </Link>
-        <p>{SITE.description}</p>
+        <a className={styles.call} href={MAILTO}>
+          Sounds right? Let’s fit your room.
+        </a>
       </div>
+
       <div className={styles.cols}>
-        <div>
-          <h2 className={styles.head}>Visit</h2>
-          <ul>
-            {PLACE.map((l) => (
-              <li key={l}>{l}</li>
-            ))}
-            <li>Home visits</li>
-          </ul>
-        </div>
-        <div>
-          <h2 className={styles.head}>Hours</h2>
-          <ul>
-            {HOURS.map((l) => (
-              <li key={l}>{l}</li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2 className={styles.head}>Contact</h2>
-          <ul>
-            <li>
+        <div className={styles.reach}>
+          {REACH.map((r) => (
+            <div key={r.name}>
+              <h2 className={styles.head}>{r.name}</h2>
+              {r.lines.map((l) => (
+                <p key={l}>{l}</p>
+              ))}
+            </div>
+          ))}
+          <div>
+            <h2 className={styles.head}>Email</h2>
+            <p>
               <a href={MAILTO}>{EMAIL}</a>
-            </li>
-            <li>Email and AI support</li>
-          </ul>
+            </p>
+          </div>
         </div>
-        <nav aria-labelledby="foot-pages">
-          <h2 className={styles.head} id="foot-pages">
-            Pages
-          </h2>
-          <ul>
-            {FOOT_PAGES.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href}>{l.label}</Link>
-              </li>
+
+        <nav className={styles.pages} aria-label="Footer">
+          {FOOT_GROUPS.map((col, i) => (
+            <div key={i} className={styles.col}>
+              {col.map((g) =>
+                "href" in g ? (
+                  <Link key={g.label} className={styles.head} href={g.href}>
+                    {g.label}
+                  </Link>
+                ) : (
+                  <div key={g.label}>
+                    <h2 className={styles.head}>{g.label}</h2>
+                    <ul>
+                      {g.links.map((l) => (
+                        <li key={l.href}>
+                          <Link href={l.href}>{l.label}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ),
+              )}
+            </div>
+          ))}
+          <div className={styles.col}>
+            {FOOT_SINGLES.map((l) => (
+              <Link key={l.href} className={styles.head} href={l.href}>
+                {l.label}
+              </Link>
             ))}
-          </ul>
+            <p className={styles.languages}>
+              {LANGUAGES.map((l) =>
+                l.ready ? (
+                  <span key={l.code} className={styles.language} aria-current="true">
+                    {l.code}
+                  </span>
+                ) : (
+                  <span key={l.code} className={styles.soon} title={`${l.name}: coming`}>
+                    {l.code}
+                    <span className="visually-hidden"> ({l.name}, coming)</span>
+                  </span>
+                ),
+              )}
+            </p>
+          </div>
         </nav>
       </div>
+
       <div className={styles.small}>
         <nav aria-label="Legal">
           {LEGAL.map((l) => (
