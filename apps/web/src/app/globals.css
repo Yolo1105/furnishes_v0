@@ -140,7 +140,7 @@
   --text-sm: clamp(12px, 0.78vw, 14px);
   --text-nav: clamp(11.5px, 0.75vw, 13px);
   --weight-caps: 500;
-  --weight-caps-bar: 400;
+  --weight-caps-bar: 450;
   --text-md: clamp(13px, 0.95vw, 15px);
   --text-lg: clamp(16px, 1.25vw, 20px);
   --text-line: clamp(16px, 1.3vw, 22px);

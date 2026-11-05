@@ -1,19 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { BROWSE, routes } from "@/lib/routes";
+import { logOut } from "@/features/account/actions";
+import { readLoggedIn } from "@/features/account/loggedIn";
 import { TypeTrial } from "@/features/trial/TypeTrial";
 import { Region } from "./Region";
 import { Search } from "./Search";
 import styles from "./SiteHeader.module.css";
+
+/** The log-in flag never changes while a page is open: logging in or out loads a new one. */
+const unchanging = () => () => {};
 
 /** Where the browsing links fold into the menu, px; the CSS's 1023px breakpoint. */
 const FOLD = 1023;
 
 /**
  * The bar: the wordmark, the browsing links and contact on the left; a
- * search magnifier that opens a field leftwards, the region and currency, "Design your room" boxed, and log in on the right
+ * search magnifier that opens a field leftwards, the region and currency, "Design your room" boxed, and log in (log out, once in) on the right
  * (contact moved left to make room for the region, on the owner's word). It floats over the
  * banner with no fill of its own, and takes the paper behind it once the
  * page moves, so what scrolls under stays out of the links.
@@ -25,6 +30,8 @@ const FOLD = 1023;
 export function SiteHeader() {
   const [stuck, setStuck] = useState(false);
   const [open, setOpen] = useState(false);
+  // logged in, the bar offers Log out where it offered Log in
+  const inside = useSyncExternalStore(unchanging, readLoggedIn, () => false);
 
   useEffect(() => {
     const stick = () => setStuck(scrollY > 0);
@@ -71,9 +78,17 @@ export function SiteHeader() {
           <Link className={`${styles.link} ${styles.primary}`} href={routes.designYourRoom}>
             Design your room
           </Link>
-          <Link className={`${styles.link} ${styles.logIn}`} href={routes.logIn}>
-            Log in
-          </Link>
+          {inside ? (
+            <form className={styles.logIn} action={logOut}>
+              <button type="submit" className={`${styles.link} ${styles.logOut}`}>
+                Log out
+              </button>
+            </form>
+          ) : (
+            <Link className={`${styles.link} ${styles.logIn}`} href={routes.logIn}>
+              Log in
+            </Link>
+          )}
           <button
             type="button"
             className={`${styles.link} ${styles.menuButton}`}
@@ -95,9 +110,17 @@ export function SiteHeader() {
           </Link>
           <Search className={styles.menuRegion} inMenu />
           <Region className={`${styles.menuLink} ${styles.menuRegion}`} />
-          <Link className={`${styles.menuLink} ${styles.menuLogIn}`} href={routes.logIn} onClick={close}>
-            Log in
-          </Link>
+          {inside ? (
+            <form className={styles.menuLogIn} action={logOut}>
+              <button type="submit" className={`${styles.menuLink} ${styles.logOut}`}>
+                Log out
+              </button>
+            </form>
+          ) : (
+            <Link className={`${styles.menuLink} ${styles.menuLogIn}`} href={routes.logIn} onClick={close}>
+              Log in
+            </Link>
+          )}
         </nav>
       </header>
     </TypeTrial>

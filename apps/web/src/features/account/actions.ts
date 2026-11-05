@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { routes } from "@/lib/routes";
+import { LOGGED_IN } from "./loggedIn";
 import { safeNext, SESSION, SESSION_AGE, WELCOMED } from "./session";
 
 /** Both of the stand-in's cookies: unread by the page's scripts, sent only to this site, kept as long as a log-in. */
@@ -45,11 +46,15 @@ export async function tryDemo() {
 }
 
 async function startSession() {
-  (await cookies()).set(SESSION, "1", COOKIE);
+  const jar = await cookies();
+  jar.set(SESSION, "1", COOKIE);
+  jar.set(LOGGED_IN, "1", { ...COOKIE, httpOnly: false });
 }
 
 export async function logOut() {
-  (await cookies()).delete(SESSION);
+  const jar = await cookies();
+  jar.delete(SESSION);
+  jar.delete(LOGGED_IN);
   redirect(routes.home);
 }
 

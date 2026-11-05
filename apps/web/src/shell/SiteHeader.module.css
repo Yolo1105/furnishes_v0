@@ -49,11 +49,26 @@
   composes: caps link-hover from global;
 }
 
-/* the boxed way in, a little tighter than the shared box, on the owner's word */
+/* Log out is a form's button, drawn as the links beside it */
+.logOut {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* in the menu, its row the menu's full width, ruled as the others */
+.menuLogIn > .logOut {
+  flex: 1;
+}
+
+/* the boxed way in, with room round its capitals so they don't touch the
+   line, on the owner's word */
 .primary {
   composes: boxed from global;
-  min-height: 24px;
-  padding-inline: var(--space-1);
+  min-height: var(--space-8);
+  padding-inline: var(--space-3);
 }
 
 @media (width <= 1023px) {
