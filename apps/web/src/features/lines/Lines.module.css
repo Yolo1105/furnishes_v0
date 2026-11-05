@@ -70,16 +70,18 @@
   padding: clamp(var(--space-3), 1.2vw, var(--space-5));
 }
 
-/* the ready-made on the red orange in cream; the modular on the pale
-   orange of the factory panel, on the owner's pick, its title in red and
-   its small words in brown (6.9:1), as cream would not read on it */
+/* one panel filled red orange with cream words; the other on the page's
+   cream inside a thin red-orange line, as the bar's boxed link, its title
+   in red and its small words in brown, on the owner's word. The line is
+   drawn inside, so both panels keep one size. */
 .panel[data-tone="warm"] {
   background: var(--ink-warm);
   color: var(--paper);
 }
 
-.panel[data-tone="pale"] {
-  background: var(--panel-orange);
+.panel[data-tone="outline"] {
+  outline: var(--line) solid var(--ink-warm);
+  outline-offset: calc(var(--line) * -1);
   color: var(--ink-dark);
 }
 
@@ -90,7 +92,7 @@
   color: var(--ink-warm);
 }
 
-.panel[data-tone="pale"] .panelTitle {
+.panel[data-tone="outline"] .panelTitle {
   color: var(--ink);
 }
 

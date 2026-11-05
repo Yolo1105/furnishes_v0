@@ -16,7 +16,8 @@ export const LINES_HEAD = {
 };
 
 /**
- * `tone` picks the panel's ground: the red orange, or the pale orange.
+ * `tone` picks the panel's ground: filled red orange, or the page's cream
+ * inside a red-orange line.
  * `top` runs across the panel's head, after the owner's journal reference:
  * its number, its kind and how long it takes, read from the catalogue.
  */
@@ -28,7 +29,7 @@ export const LINES = [
     go: "Shop furniture",
     href: routes.furniture,
     photo: cabinSofa,
-    tone: "warm",
+    tone: "outline",
   },
   {
     top: ["02", "Modular", ARRIVALS.parts.weeks],
@@ -37,6 +38,6 @@ export const LINES = [
     go: "Shop modular",
     href: routes.modular,
     photo: shelfWall,
-    tone: "pale",
+    tone: "warm",
   },
 ] as const;
