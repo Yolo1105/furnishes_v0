@@ -218,8 +218,13 @@
   --search-w: clamp(200px, 18vw, 300px);
   --line: 1.25px;
   --tap: 44px;
+  --z-under-more: -2;
+  --z-under: -1;
+  --z-raise: 1;
+  --z-raise-more: 2;
   --z-header: 5;
   --z-loader: 10;
+  --z-toggle: 10;
 
   /* ---------- motion ---------- */
   --dur-fast: 0.2s;
@@ -233,6 +238,19 @@
 
   /* one pass of the quiz band's running words, slow enough to read */
   --dur-run: 40s;
+
+  /* the banner's photos gliding after the mouse, slower than a fade */
+  --dur-glide: 1.6s;
+
+  /* the floor plan drawing itself: one line, the wait before the first,
+     one typed letter, and its grid fading */
+  --dur-draw: 0.35s;
+  --dur-draw-wait: 0.3s;
+  --dur-type: 20ms;
+  --dur-grid: 0.5s;
+
+  /* the flat tour's piece holding each finish */
+  --dur-finish: 3s;
 
   /* how pale a link goes when pointed at */
   --hover-dim: 0.65;
@@ -307,6 +325,24 @@ h3 {
   letter-spacing: var(--track-caps);
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+/* every section's title: the scale's heading size, face and leading,
+   narrowed and tight; a module adds only its own layout and margins */
+.section-title {
+  margin: 0;
+  font: 400 var(--text-heading, var(--text-over)) / var(--leading-heading, 1.08) var(--font-heading, var(--font));
+  font-variation-settings: "wdth" var(--width-display);
+  letter-spacing: var(--track-tight);
+}
+
+/* every section's one-line subtitle, in the subtitle face under its title */
+.section-deck {
+  color: var(--ink-dark);
+  font: var(--weight-deck, var(--weight-sub, var(--weight-title-rest))) var(--text-deck, var(--text-rest)) /
+    var(--leading-deck, 1.3) var(--font-sub, var(--font-wordmark));
+  font-variation-settings: normal;
+  letter-spacing: var(--track-deck, 0);
 }
 
 /* the big words' face: narrow, tight, in capitals */

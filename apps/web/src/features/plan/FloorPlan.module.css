@@ -113,7 +113,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .grid {
-    transition: opacity 0.5s;
+    transition: opacity var(--dur-grid);
   }
 }
 
@@ -129,11 +129,13 @@
 }
 
 .plan[data-intro="play"] .lines path {
-  animation: draw calc(0.35s * var(--pace, 1)) var(--ease-draw) calc(0.3s + var(--at)) backwards;
+  animation: draw calc(var(--dur-draw) * var(--pace, 1)) var(--ease-draw) calc(var(--dur-draw-wait) + var(--at))
+    backwards;
 }
 
 .plan[data-intro="play"] .outline path {
-  animation: trace calc(0.35s * 2.6 * var(--pace, 1)) var(--ease-draw) calc(0.3s + var(--at)) both;
+  animation: trace calc(var(--dur-draw) * 2.6 * var(--pace, 1)) var(--ease-draw) calc(var(--dur-draw-wait) + var(--at))
+    both;
 }
 
 .plan[data-intro="play"] .lines .light {
@@ -141,11 +143,12 @@
 }
 
 .plan[data-intro="play"] .walls {
-  animation: appear 0.35s ease-in-out 0.9s backwards;
+  animation: appear var(--dur-draw) ease-in-out var(--dur-move) backwards;
 }
 
 .plan[data-intro="play"] .names text {
-  animation: type calc(var(--chars) * 20ms) steps(var(--chars), end) calc(0.3s + var(--at)) backwards;
+  animation: type calc(var(--chars) * var(--dur-type)) steps(var(--chars), end) calc(var(--dur-draw-wait) + var(--at))
+    backwards;
 }
 
 @keyframes draw {

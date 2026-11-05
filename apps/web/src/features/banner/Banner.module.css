@@ -105,7 +105,7 @@
 .about,
 .foot {
   position: relative;
-  z-index: 1;
+  z-index: var(--z-raise);
 }
 
 .words {
@@ -278,7 +278,7 @@
   .sheet,
   .shot {
     transform: translate(calc(var(--mx, 0) * var(--glide-x) * -1), calc(var(--my, 0) * var(--glide-y) * -1));
-    transition: transform 1.6s var(--ease-out);
+    transition: transform var(--dur-glide) var(--ease-out);
   }
 }
 

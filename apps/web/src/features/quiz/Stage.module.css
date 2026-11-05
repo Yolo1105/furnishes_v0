@@ -115,8 +115,9 @@
   margin-top: 40px;
 }
 
-/* Back sits over the letters, so it is boxed on the cream too */
-.back {
+/* Back and Skip sit over the letters, so they are boxed on the cream too */
+.back,
+.skip {
   composes: boxed from global;
   min-height: var(--tap);
   padding-inline: 18px;
@@ -126,9 +127,8 @@
   cursor: pointer;
 }
 
-/* Next keeps to the right even when Back is not there */
-.next {
-  gap: 10px;
+/* Skip keeps to the right even when Back is not there */
+.skip {
   margin-left: auto;
 }
 

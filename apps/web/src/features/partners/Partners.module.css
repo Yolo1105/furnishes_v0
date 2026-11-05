@@ -73,7 +73,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .track {
-    animation: run-right 40s linear infinite;
+    animation: run-right var(--dur-run) linear infinite;
   }
 
   .partners:hover .track {

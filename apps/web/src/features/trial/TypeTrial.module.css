@@ -11,7 +11,7 @@
   position: fixed;
   bottom: 24px;
   left: 50%;
-  z-index: 10;
+  z-index: var(--z-toggle);
   min-height: var(--tap);
   padding-inline: 16px;
   background: var(--paper);

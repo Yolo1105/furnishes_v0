@@ -18,14 +18,9 @@
 
 /* the line in the subtitle face and size every section's subtitle takes */
 .line {
+  composes: section-deck from global;
   max-width: 48ch;
   margin: 0 0 8px;
-  color: var(--ink-dark);
-  font: var(--weight-title-rest) var(--text-rest) / 1.4 var(--font-wordmark);
-  font-size: var(--text-deck, var(--text-rest));
-  font-weight: var(--weight-deck, var(--weight-title-rest));
-  font-family: var(--font-sub, var(--font-wordmark));
-  letter-spacing: var(--track-deck, 0);
 }
 
 .calls {

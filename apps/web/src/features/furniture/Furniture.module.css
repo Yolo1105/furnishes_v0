@@ -24,16 +24,11 @@
 }
 
 .splitTitle {
+  composes: section-title from global;
   display: flex;
   flex-direction: column;
   max-width: 16ch;
   margin: 0;
-  font: 400 var(--text-over) / 1.15 var(--font);
-  font-size: var(--text-heading, var(--text-over));
-  line-height: var(--leading-heading, 1.15);
-  font-family: var(--font-heading, var(--font));
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
   text-wrap: balance;
 }
 
@@ -139,7 +134,7 @@
 }
 
 .spotlightWords {
-  z-index: 1;
+  z-index: var(--z-raise);
   display: grid;
   gap: 16px;
   place-self: center;

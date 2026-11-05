@@ -51,6 +51,7 @@
   stroke-dasharray: 4 4;
 }
 
+/* 120 here and 110 below are in the plan's own units, not screen pixels */
 .size {
   fill: var(--ink-dark-pale);
   font: 400 120px / 1 var(--font);

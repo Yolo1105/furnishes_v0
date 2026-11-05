@@ -16,13 +16,8 @@
 /* each section's title at the collection's section-title size, on the
    owner's word */
 .heading {
+  composes: section-title from global;
   margin: 0 0 16px;
-  font: 400 var(--text-over) / 1.08 var(--font);
-  font-size: var(--text-heading, var(--text-over));
-  line-height: var(--leading-heading, 1.08);
-  font-family: var(--font-heading, var(--font));
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
 }
 
 /* the band under a heading: what the section holds, and a way to all of it */

@@ -114,7 +114,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .go {
-    transition: background 0.2s;
+    transition: background var(--dur-fast);
   }
 }
 

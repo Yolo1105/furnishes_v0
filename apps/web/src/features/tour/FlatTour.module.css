@@ -211,6 +211,7 @@
   vector-effect: non-scaling-stroke;
 }
 
+/* 200 is in the drawing's own units, not screen pixels */
 .size {
   opacity: 0;
   fill: currentcolor;
@@ -233,7 +234,7 @@
 
 /* its finishes in turn, the catalogue's three: birch, walnut, red */
 .flat:is([data-step="4"], [data-step="7"]) .piece rect {
-  animation: finishes 3s steps(1) infinite;
+  animation: finishes var(--dur-finish) steps(1) infinite;
 }
 
 .flat:is([data-step="8"], [data-step="9"], [data-step="10"]) .piece rect {

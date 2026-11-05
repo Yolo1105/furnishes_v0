@@ -34,8 +34,8 @@ export function QuizStart({ initial, opening }: { initial: Answers; opening: Rea
 
 /**
  * One question at a time, large, its options in a row of boxes, over the
- * question's word in giant letters. Next moves on (with nothing picked, it
- * skips); after the last, the answers go to the finder.
+ * question's word in giant letters. A pick moves straight on, Skip leaves
+ * the question blank; after the last, the answers go to the finder.
  */
 function Stage({ onDone }: { onDone: (a: Answers) => void }) {
   const [step, setStep] = useState(0);
@@ -52,7 +52,7 @@ function Stage({ onDone }: { onDone: (a: Answers) => void }) {
     moved.current = true;
   }, [step]);
 
-  const next = () => (last ? onDone(answers) : setStep(step + 1));
+  const next = (a: Answers) => (last ? onDone(a) : setStep(step + 1));
 
   return (
     <section className={styles.stage} aria-labelledby="stage-title">
@@ -79,14 +79,11 @@ function Stage({ onDone }: { onDone: (a: Answers) => void }) {
                 type="button"
                 className={styles.option}
                 aria-pressed={answers[question.id] === o.id}
-                onClick={() =>
-                  setAnswers((a) => {
-                    const rest = { ...a };
-                    if (a[question.id] === o.id) delete rest[question.id];
-                    else rest[question.id] = o.id;
-                    return rest;
-                  })
-                }
+                onClick={() => {
+                  const picked = { ...answers, [question.id]: o.id };
+                  setAnswers(picked);
+                  next(picked);
+                }}
               >
                 {o.name}
               </button>
@@ -101,8 +98,8 @@ function Stage({ onDone }: { onDone: (a: Answers) => void }) {
             {STAGE.back}
           </button>
         )}
-        <button type="button" className={`button button-fill ${styles.next}`} onClick={next}>
-          {last ? STAGE.last : STAGE.next} <span aria-hidden="true">→</span>
+        <button type="button" className={styles.skip} onClick={() => next(answers)}>
+          {last ? STAGE.last : STAGE.skip}
         </button>
       </div>
     </section>

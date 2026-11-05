@@ -159,7 +159,7 @@
 .tile[data-spot="top"] {
   top: 0;
   left: 8%;
-  z-index: 1;
+  z-index: var(--z-raise);
   width: 36%;
   height: 19%;
 }
@@ -167,7 +167,7 @@
 .tile[data-spot="side"] {
   top: 50%;
   left: 63%;
-  z-index: 1;
+  z-index: var(--z-raise);
   width: 37%;
   height: 34%;
 }
@@ -186,14 +186,9 @@
 }
 
 .finishTitle {
+  composes: section-title from global;
   margin: 0 0 8px;
   color: var(--ink);
-  font: 400 var(--text-over) / 1.08 var(--font);
-  font-size: var(--text-heading, var(--text-over));
-  line-height: var(--leading-heading, 1.08);
-  font-family: var(--font-heading, var(--font));
-  font-variation-settings: "wdth" var(--width-display);
-  letter-spacing: var(--track-tight);
 }
 
 .finishLine {

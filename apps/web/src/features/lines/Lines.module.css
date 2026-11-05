@@ -148,7 +148,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .go svg {
-    transition: translate 0.2s;
+    transition: translate var(--dur-fast);
   }
 }
 

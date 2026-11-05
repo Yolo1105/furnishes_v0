@@ -188,7 +188,7 @@ export const FINDER_HEAD = {
  */
 export const STAGE = {
   question: "Question",
-  next: "Next",
+  skip: "Skip",
   last: "See what fits",
   back: "Back",
 };
