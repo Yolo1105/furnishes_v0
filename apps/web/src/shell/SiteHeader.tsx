@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BROWSE, routes } from "@/lib/routes";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { Region } from "./Region";
 import { Search } from "./Search";
 import styles from "./SiteHeader.module.css";
@@ -47,55 +48,58 @@ export function SiteHeader() {
 
   const close = () => setOpen(false);
 
+  // Sora, as on the pages, on the owner's word
   return (
-    <header className={styles.header} data-stuck={stuck || undefined} data-open={open || undefined}>
-      <Link className={styles.wordmark} href={routes.home}>
-        furnishes.
-      </Link>
-      <nav className={styles.start} aria-label="Browse">
-        {BROWSE.map((l) => (
-          <Link key={l.href} className={styles.link} href={l.href}>
-            {l.label}
+    <TypeTrial page="bar">
+      <header className={styles.header} data-stuck={stuck || undefined} data-open={open || undefined}>
+        <Link className={styles.wordmark} href={routes.home}>
+          furnishes.
+        </Link>
+        <nav className={styles.start} aria-label="Browse">
+          {BROWSE.map((l) => (
+            <Link key={l.href} className={styles.link} href={l.href}>
+              {l.label}
+            </Link>
+          ))}
+          <Link className={styles.link} href={routes.contact}>
+            Contact
           </Link>
-        ))}
-        <Link className={styles.link} href={routes.contact}>
-          Contact
-        </Link>
-      </nav>
-      <div className={styles.end}>
-        <Search className={styles.barRegion} />
-        <Region className={styles.barRegion} />
-        <Link className={`${styles.link} ${styles.primary}`} href={routes.designYourRoom}>
-          Design your room
-        </Link>
-        <Link className={`${styles.link} ${styles.logIn}`} href={routes.logIn}>
-          Log in
-        </Link>
-        <button
-          type="button"
-          className={`${styles.link} ${styles.menuButton}`}
-          aria-expanded={open}
-          aria-controls="site-menu"
-          onClick={() => setOpen((o) => !o)}
-        >
-          {open ? "Close" : "Menu"}
-        </button>
-      </div>
-      <nav id="site-menu" className={styles.menu} aria-label="Menu" hidden={!open}>
-        {BROWSE.map((l) => (
-          <Link key={l.href} className={styles.menuLink} href={l.href} onClick={close}>
-            {l.label}
+        </nav>
+        <div className={styles.end}>
+          <Search className={styles.barRegion} />
+          <Region className={styles.barRegion} />
+          <Link className={`${styles.link} ${styles.primary}`} href={routes.designYourRoom}>
+            Design your room
           </Link>
-        ))}
-        <Link className={styles.menuLink} href={routes.contact} onClick={close}>
-          Contact
-        </Link>
-        <Search className={styles.menuRegion} inMenu />
-        <Region className={`${styles.menuLink} ${styles.menuRegion}`} />
-        <Link className={`${styles.menuLink} ${styles.menuLogIn}`} href={routes.logIn} onClick={close}>
-          Log in
-        </Link>
-      </nav>
-    </header>
+          <Link className={`${styles.link} ${styles.logIn}`} href={routes.logIn}>
+            Log in
+          </Link>
+          <button
+            type="button"
+            className={`${styles.link} ${styles.menuButton}`}
+            aria-expanded={open}
+            aria-controls="site-menu"
+            onClick={() => setOpen((o) => !o)}
+          >
+            {open ? "Close" : "Menu"}
+          </button>
+        </div>
+        <nav id="site-menu" className={styles.menu} aria-label="Menu" hidden={!open}>
+          {BROWSE.map((l) => (
+            <Link key={l.href} className={styles.menuLink} href={l.href} onClick={close}>
+              {l.label}
+            </Link>
+          ))}
+          <Link className={styles.menuLink} href={routes.contact} onClick={close}>
+            Contact
+          </Link>
+          <Search className={styles.menuRegion} inMenu />
+          <Region className={`${styles.menuLink} ${styles.menuRegion}`} />
+          <Link className={`${styles.menuLink} ${styles.menuLogIn}`} href={routes.logIn} onClick={close}>
+            Log in
+          </Link>
+        </nav>
+      </header>
+    </TypeTrial>
   );
 }

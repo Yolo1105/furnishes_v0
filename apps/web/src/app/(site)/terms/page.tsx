@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Legal } from "@/features/legal/Legal";
 import { TERMS } from "@/features/legal/legalList";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 export const metadata: Metadata = { title: TERMS.title, description: TERMS.lead };
@@ -11,7 +12,10 @@ export default function TermsPage() {
     <>
       <SiteHeader />
       <main id="main">
-        <Legal page={TERMS} />
+        {/* Sora, as on the other pages, on the owner's word */}
+        <TypeTrial page="terms">
+          <Legal page={TERMS} />
+        </TypeTrial>
       </main>
     </>
   );

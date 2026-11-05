@@ -22,8 +22,8 @@ export default async function ProductsPage({ searchParams }: Props) {
     <>
       <SiteHeader />
       <main id="main" className={styles.page}>
-        {/* Sora, as on the other pages, with Before/After while the owner decides */}
-        <TypeTrial page="products" compare>
+        {/* Sora, as on the other pages, on the owner's word */}
+        <TypeTrial page="products">
           <Trail steps={[{ href: routes.collection, label: "Collection" }]} here="Every piece" />
           <Shop initial={initial} />
         </TypeTrial>

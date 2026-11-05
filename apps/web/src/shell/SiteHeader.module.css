@@ -2,6 +2,8 @@
    wordmark and the small capitals read as one line; the line itself is
    centred in the bar. */
 .header {
+  --weight-caps: var(--weight-caps-bar);
+
   position: fixed;
   inset: 0 0 auto;
   z-index: var(--z-header);

@@ -97,10 +97,12 @@ export function Region({ className }: { className?: string | undefined }) {
 
       {/* a click on the dim backdrop lands on the dialog itself, and closes
           it; its title, tabs and the place in use are in Sora, as on the
-          pages, and the lists keep the site's own faces, on the owner's word */}
+          pages, and the lists keep the site's own faces (data-type-keep),
+          even inside the bar's Sora, on the owner's word */}
       <dialog
         ref={sheet}
         className={styles.sheet}
+        data-type-keep
         aria-labelledby={`${id}-title`}
         onClick={(e) => e.target === e.currentTarget && close()}
         onClose={() => {

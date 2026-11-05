@@ -139,6 +139,8 @@
   --font-wordmark: var(--font-wordmark-site);
   --text-sm: clamp(12px, 0.78vw, 14px);
   --text-nav: clamp(11.5px, 0.75vw, 13px);
+  --weight-caps: 500;
+  --weight-caps-bar: 400;
   --text-md: clamp(13px, 0.95vw, 15px);
   --text-lg: clamp(16px, 1.25vw, 20px);
   --text-line: clamp(16px, 1.3vw, 22px);
@@ -301,7 +303,7 @@ h3 {
 
 /* the bar's small spaced capitals */
 .caps {
-  font: 500 var(--text-nav) / 1 var(--font);
+  font: var(--weight-caps) var(--text-nav) / 1 var(--font);
   letter-spacing: var(--track-caps);
   text-transform: uppercase;
   white-space: nowrap;
@@ -429,11 +431,11 @@ h3 {
    After the owner's type-scale demo: Sora, a wide geometric sans, in place
    of both faces, its big words at a regular weight in sentence case and a
    step smaller, since Sora runs wider than the narrowed capitals. The
-   sections of each page switched so far carry data-type-trial
-   (TypeTrial.tsx), as do the bar's search and the top of its region and
-   language sheet; the rest of the bar, the footer and the pages not yet
-   switched keep the site's faces. Delete this block, TypeTrial, those two attributes and
-   Sora in layout.tsx to go back. */
+   sections of each page, the bar and the footer carry data-type-trial
+   (TypeTrial.tsx); inside them data-type-keep holds a part to the site's
+   faces, as the region sheet's lists; collection's two photo bands sit
+   outside the wrapper. Delete this block, TypeTrial, those attributes and Sora in
+   layout.tsx to go back. */
 [data-type-trial] {
   --font: var(--font-sora), system-ui, sans-serif;
   --font-wordmark: var(--font-sora), system-ui, sans-serif;

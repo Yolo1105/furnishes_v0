@@ -11,8 +11,8 @@ export default function CartPage() {
     <>
       <SiteHeader />
       <main id="main">
-        {/* Sora, as on the other pages, with Before/After while the owner decides */}
-        <TypeTrial page="cart" compare>
+        {/* Sora, as on the other pages, on the owner's word */}
+        <TypeTrial page="cart">
           <CartView />
         </TypeTrial>
       </main>

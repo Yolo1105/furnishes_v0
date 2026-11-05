@@ -11,8 +11,8 @@ export default function CheckoutPage() {
     <>
       <SiteHeader />
       <main id="main">
-        {/* Sora, as on the other pages, with Before/After while the owner decides */}
-        <TypeTrial page="checkout" compare>
+        {/* Sora, as on the other pages, on the owner's word */}
+        <TypeTrial page="checkout">
           <Checkout />
         </TypeTrial>
       </main>

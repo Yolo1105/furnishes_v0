@@ -44,8 +44,8 @@ export default async function PiecePage({ params }: Props) {
     <>
       <SiteHeader />
       <main id="main" className={catalog.page}>
-        {/* Sora, as on the other pages, with Before/After while the owner decides */}
-        <TypeTrial page="piece" compare>
+        {/* Sora, as on the other pages, on the owner's word */}
+        <TypeTrial page="piece">
           <Trail
             steps={[
               { href: routes.collection, label: "Collection" },

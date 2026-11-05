@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Legal } from "@/features/legal/Legal";
 import { REFUND } from "@/features/legal/legalList";
+import { TypeTrial } from "@/features/trial/TypeTrial";
 import { SiteHeader } from "@/shell/SiteHeader";
 
 export const metadata: Metadata = { title: REFUND.title, description: REFUND.lead };
@@ -11,7 +12,10 @@ export default function RefundPage() {
     <>
       <SiteHeader />
       <main id="main">
-        <Legal page={REFUND} />
+        {/* Sora, as on the other pages, on the owner's word */}
+        <TypeTrial page="refund-policy">
+          <Legal page={REFUND} />
+        </TypeTrial>
       </main>
     </>
   );

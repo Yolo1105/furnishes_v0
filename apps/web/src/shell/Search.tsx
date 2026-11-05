@@ -84,7 +84,6 @@ export function Search({ className, inMenu }: { className?: string | undefined; 
       className={[styles.search, inMenu && styles.inMenu, className].filter(Boolean).join(" ")}
       data-open={shown || undefined}
       data-searching={open || undefined}
-      data-type-trial="search"
     >
       <label className={styles.field}>
         <span className="visually-hidden">What are you looking for?</span>
