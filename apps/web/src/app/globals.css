@@ -1,0 +1,340 @@
+/*
+ * The tokens: every colour, size, space and timing the site uses, each named
+ * once here. Modules use these names and never a raw value. A token arrives
+ * with the first part that uses it, except the values the plan records as
+ * settled (sizes, rhythm, widths), which are here from the start.
+ */
+:root {
+  /* ---------- colour ---------- */
+
+  /* the cream page and the red ink: red for titles and links */
+  --paper: #f8ebcb;
+  --ink: #d31b00;
+
+  /* the red orange, for fills and words of 24px and up only (3.9:1) */
+  --ink-warm: #d9380c;
+
+  /* the red's pale half, for large words only (3.2:1) */
+  --ink-pale: color-mix(in srgb, var(--ink) 70%, var(--paper));
+
+  /* brown for sentences (9:1), and its paler half for labels and what comes
+     second, such as a price beside a name (4.6:1) */
+  --ink-dark: #5e2a15;
+  --ink-dark-pale: color-mix(in srgb, var(--ink-dark) 72%, var(--paper));
+
+  /* a faint line between parts */
+  --rule: color-mix(in srgb, var(--ink-dark) 18%, transparent);
+
+  /* ---------- type ----------
+     Started from what v0 shows (measured on its pages, 6 Nov 2026); the
+     owner then picked the page title, card line and body sizes and the card
+     title's weight from a side-by-side comparison. Parts that differ on
+     purpose keep their own values in their sections. */
+
+  /* Sora for nearly everything; Instrument Sans only for the banner's big
+     capitals; Jost only for the logo. Each family is named once here. */
+  --font-text: var(--font-sora), system-ui, sans-serif;
+  --font-banner: var(--font-instrument), "Helvetica Neue", helvetica, arial, sans-serif;
+  --font-logo: var(--font-jost), system-ui, sans-serif;
+
+  /* 300 for a title's soft second line, 350 for the line under a title and
+     card sentences, 400 for
+     titles and text, 500 for labels and the banner, 420 in the logo only */
+  --weight-light: 300;
+  --weight-soft: 350;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-logo: 420;
+
+  /* Letter spacing by size: big words sit closer, small ones get room.
+     Sora runs wide, so titles sit a little closer than the default; the
+     banner's narrowed Instrument capitals closer still; reading text only
+     a touch; text of 15px and under at the font's own spacing; small
+     capitals spaced out. */
+  --track-banner: -0.04em;
+  --track-display: -0.03em;
+  --track-title: -0.02em;
+  --track-read: -0.01em;
+  --track-small: 0;
+  --track-caps: 0.06em;
+  --width-banner: 85;
+
+  /* The sizes, in rem so a visitor's own font size still counts. Each grows
+     evenly from its phone size at 375px to its full size at 1440px and
+     holds there, so the steps between roles stay the same at every width
+     in between (a 1280px laptop no longer gets phone sizes). At 1440px:
+     page title 60px, section title 33px, the line under it 20px and body
+     18px (told apart by the line's lighter weight and paler colour, not by
+     size alone). The card line (15px) and small text (12px) stay one size
+     everywhere. The page title never goes under 36px, so
+     on a phone it stays 1.25 times a section title; a section title is a
+     fifth over a card title. The banner takes a fifth of the height left
+     under the bar, at most 6.5% of the width. */
+  --size-banner: clamp(2.8125rem, min(6.5vw, (100svh - var(--nav-h) - 240px) / 5.3), 7.5rem);
+  --size-page-title: clamp(2.25rem, 1.7218rem + 2.2535vw, 3.75rem);
+  --size-card-title: clamp(1.5rem, 1.4296rem + 0.3005vw, 1.7rem);
+  --size-section-title: calc(var(--size-card-title) * 1.2);
+  --size-lead: clamp(1.125rem, 1.081rem + 0.1878vw, 1.25rem);
+  --size-body: clamp(1rem, 0.956rem + 0.1878vw, 1.125rem);
+  --size-card-line: 0.9375rem;
+  --size-small: 0.75rem;
+  --size-run: clamp(4rem, 2.2394rem + 7.5117vw, 12.5rem);
+
+  /* form fields never under 16px, so phones don't zoom into them */
+  --size-field: 1rem;
+
+  /* each role's line height */
+  --leading-banner: 0.92;
+  --leading-page-title: 1.05;
+  --leading-section-title: 1.1;
+  --leading-card-title: 1.15;
+  --leading-lead: 1.4;
+  --leading-card-line: 1.55;
+  --leading-body: 1.5;
+  --leading-label: 1.2;
+  --leading-run: 1;
+
+  /* a paragraph stops at about 65 letters, the line under a title at about
+     45, a title at about 20 */
+  --measure-text: 65ch;
+  --measure-lead: 45ch;
+  --measure-title: 20ch;
+
+  /* ---------- space and layout ---------- */
+
+  /* the spacing steps, numbered in 4px units (--space-6 is 24px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* the rhythm: one gap between sections, and the steps inside one, each
+     larger than the last so a heading reads as one block: label to title
+     8 to 12px, title to the line under it 16px, heading to content 48 to
+     72px, between grid items 16 to 28px */
+  --space-section: clamp(64px, 6.5vw, 96px);
+  --space-label: clamp(8px, 0.6vw, 12px);
+  --space-rest: var(--space-4);
+  --space-content: clamp(48px, 3.75vw, 72px);
+  --space-grid: clamp(16px, 1.4vw, 28px);
+
+  /* the page's one border, left and right, and where text and grids stop;
+     banners and photo bands run edge to edge past it */
+  --gutter: clamp(20px, 2.4vw, 48px);
+  --width-max: 1600px;
+  --nav-h: 56px;
+
+  /* the hero, the only section that fills the screen (two a page at most) */
+  --hero-h: clamp(560px, calc(100svh - var(--nav-h)), 1000px);
+
+  /* Breakpoints are 640, 1024 and 1440px. Media queries can't read tokens,
+     so these three numbers are written out where a module switches. */
+
+  /* a thin line's width, and the layer the skip link sits on */
+  --line: 1.25px;
+  --z-top: 10;
+}
+
+/* ---------- the page ---------- */
+
+/* the page stays put at its edges: no rubber-band drag, nothing wider than
+   the window pulling it sideways; rows that scroll sideways still do */
+html,
+body {
+  overscroll-behavior: none;
+  overflow-x: clip;
+}
+
+html {
+  scroll-padding-top: var(--nav-h);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  margin: 0;
+  font: var(--weight-regular) var(--size-body) / var(--leading-body) var(--font-text);
+  letter-spacing: var(--track-read);
+  text-align: left;
+}
+
+/* no scroll bars; the page and its rows still scroll by wheel, touch and keys */
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* a link inside a sentence is red and underlined, since the red differs
+   from the brown around it by only 2.2:1 */
+p a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+/* buttons and fields don't inherit type by default; here they do, and
+   fields stay at 16px */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+input,
+select,
+textarea {
+  font-size: var(--size-field);
+}
+
+/* no box round what has focus; what the keyboard reaches is underlined */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+
+/* ---------- the type roles ---------- */
+
+/* the banner's big words: narrowed Instrument capitals, the one place
+   that face is used */
+.type-banner {
+  font: var(--weight-medium) var(--size-banner) / var(--leading-banner) var(--font-banner);
+  font-variation-settings: "wdth" var(--width-banner);
+  letter-spacing: var(--track-banner);
+  text-transform: uppercase;
+}
+
+/* a page's title, as a piece's name or the modular page's opening */
+.type-page-title {
+  max-width: var(--measure-title);
+  color: var(--ink);
+  font: var(--weight-regular) var(--size-page-title) / var(--leading-page-title) var(--font-text);
+  letter-spacing: var(--track-display);
+  text-wrap: balance;
+}
+
+/* every section's title, in red */
+.type-section-title {
+  color: var(--ink);
+  font: var(--weight-regular) var(--size-section-title) / var(--leading-section-title) var(--font-text);
+  letter-spacing: var(--track-title);
+  text-wrap: balance;
+}
+
+/* a title's second line at the same size: brown and a step lighter, so
+   the red first line leads (the flat tour's, the split heads') */
+.type-section-soft {
+  display: block;
+  color: var(--ink-dark);
+  font-weight: var(--weight-light);
+}
+
+/* the line under a section's title: paler brown and a step lighter, so it
+   reads as a soft sentence under the title, not a second title */
+.type-lead {
+  max-width: var(--measure-lead);
+  color: var(--ink-dark-pale);
+  font: var(--weight-soft) var(--size-lead) / var(--leading-lead) var(--font-text);
+  letter-spacing: var(--track-read);
+  text-wrap: pretty;
+}
+
+/* the small spaced capitals over a title, in the paler brown */
+.type-label {
+  color: var(--ink-dark-pale);
+  font: var(--weight-medium) var(--size-small) / var(--leading-label) var(--font-text);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+}
+
+/* a card's or a step's name, in red */
+.type-card-title {
+  color: var(--ink);
+  font: var(--weight-regular) var(--size-card-title) / var(--leading-card-title) var(--font-text);
+  letter-spacing: var(--track-title);
+  text-wrap: balance;
+}
+
+/* a card's sentence, in brown, a step lighter than the body */
+.type-card-line {
+  color: var(--ink-dark);
+  font: var(--weight-soft) var(--size-card-line) / var(--leading-card-line) var(--font-text);
+  letter-spacing: var(--track-small);
+}
+
+.type-body {
+  max-width: var(--measure-text);
+  color: var(--ink-dark);
+  font: var(--weight-regular) var(--size-body) / var(--leading-body) var(--font-text);
+  letter-spacing: var(--track-read);
+  text-wrap: pretty;
+}
+
+/* small print: the footer's lines, a colour's name */
+.type-small {
+  font: var(--weight-regular) var(--size-small) / var(--leading-label) var(--font-text);
+  letter-spacing: var(--track-small);
+}
+
+/* the words that run across a band, a tenth of the width (the quiz's) */
+.type-run {
+  font: var(--weight-regular) var(--size-run) / var(--leading-run) var(--font-text);
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+}
+
+/* ---------- helpers ---------- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--gutter);
+  z-index: var(--z-top);
+  padding: var(--space-2) var(--space-3);
+  background: var(--ink-warm);
+  color: var(--paper);
+  translate: 0 -200%;
+}
+
+.skip-link:focus-visible {
+  translate: 0 0;
+}

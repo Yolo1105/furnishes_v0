@@ -8,6 +8,8 @@ const config = {
     "color-no-hex": [true, { severity: "error" }],
     "color-named": ["never", { severity: "error" }],
     "media-query-no-invalid": true,
+    // the three breakpoints, and no others
+    "media-feature-name-value-allowed-list": { width: ["640px", "1024px", "1440px"] },
     "selector-class-pattern": null,
     "custom-property-pattern": null,
     "keyframes-name-pattern": null,
