@@ -1,0 +1,8 @@
+packages:
+  - apps/*
+
+# No package younger than a day, in minutes: a bad release is usually pulled by then.
+minimumReleaseAge: 1440
+
+onlyBuiltDependencies:
+  - sharp
