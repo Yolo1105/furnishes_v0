@@ -406,8 +406,11 @@ h3 {
   text-transform: uppercase;
 }
 
+/* the name always in its own Jost at its own spacing, never in the
+   page's face, so the trial's Sora leaves it as it was first drawn */
 .wordmark {
-  font: 420 var(--text-lg) / 1 var(--font-wordmark);
+  font: 420 var(--text-lg) / 1 var(--font-wordmark-site);
+  letter-spacing: normal;
   text-transform: lowercase;
 }
 
