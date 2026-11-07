@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BROWSE, routes } from "@/lib/routes";
 import styles from "./SiteHeader.module.css";
@@ -22,6 +23,9 @@ const FOLD = 1024;
  * built.
  */
 export function SiteHeader() {
+  const path = usePathname();
+  // the page you are on, or one inside it (a piece inside the collection)
+  const here = (href: string) => (path === href || path.startsWith(`${href}/`) ? ("page" as const) : undefined);
   const [stuck, setStuck] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -54,16 +58,20 @@ export function SiteHeader() {
       </Link>
       <nav className={styles.start} aria-label="Browse">
         {BROWSE.map((l) => (
-          <Link key={l.href} className={styles.link} href={l.href}>
+          <Link key={l.href} className={styles.link} href={l.href} aria-current={here(l.href)}>
             {l.label}
           </Link>
         ))}
-        <Link className={styles.link} href={routes.contact}>
+        <Link className={styles.link} href={routes.contact} aria-current={here(routes.contact)}>
           Contact
         </Link>
       </nav>
       <div className={styles.end}>
-        <Link className={`${styles.link} ${styles.primary}`} href={routes.designYourRoom}>
+        <Link
+          className={`${styles.link} ${styles.primary}`}
+          href={routes.designYourRoom}
+          aria-current={here(routes.designYourRoom)}
+        >
           Design your room
         </Link>
         <Link className={`${styles.link} ${styles.logIn}`} href={routes.logIn}>
@@ -81,11 +89,11 @@ export function SiteHeader() {
       </div>
       <nav id="site-menu" className={styles.menu} aria-label="Menu" hidden={!open}>
         {BROWSE.map((l) => (
-          <Link key={l.href} className={styles.menuLink} href={l.href} onClick={close}>
+          <Link key={l.href} className={styles.menuLink} href={l.href} aria-current={here(l.href)} onClick={close}>
             {l.label}
           </Link>
         ))}
-        <Link className={styles.menuLink} href={routes.contact} onClick={close}>
+        <Link className={styles.menuLink} href={routes.contact} aria-current={here(routes.contact)} onClick={close}>
           Contact
         </Link>
         <Link className={`${styles.menuLink} ${styles.menuLogIn}`} href={routes.logIn} onClick={close}>
