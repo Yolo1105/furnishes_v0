@@ -25,6 +25,12 @@
   /* a faint line between parts */
   --rule: color-mix(in srgb, var(--ink-dark) 18%, transparent);
 
+  /* a firmer line, round a field */
+  --rule-strong: color-mix(in srgb, var(--ink-dark) 40%, transparent);
+
+  /* the dim over the page behind a sheet */
+  --page-dim: color-mix(in srgb, #000 30%, transparent);
+
   /* a faint red ground, for a row pointed at in a list */
   --ink-wash: color-mix(in srgb, var(--ink) 7%, var(--paper));
 
@@ -76,7 +82,11 @@
   --size-banner: clamp(2.8125rem, min(6.5vw, (100svh - var(--nav-h) - 240px) / 5.3), 7.5rem);
   --size-page-title: clamp(2.25rem, 1.7218rem + 2.2535vw, 3.75rem);
   --size-card-title: clamp(1.5rem, 1.4296rem + 0.3005vw, 1.7rem);
-  --size-section-title: calc(var(--size-card-title) * 1.2);
+
+  /* a section's title 1.5 times the card title at 1440px (41 over 27), so
+     the two read as two levels, the same step as card title over body (27
+     over 18); on phones it keeps a fifth over the card title (29 over 24) */
+  --size-section-title: clamp(1.8rem, 1.5359rem + 1.1268vw, 2.55rem);
   --size-lead: clamp(1.125rem, 1.081rem + 0.1878vw, 1.25rem);
   --size-body: clamp(1rem, 0.956rem + 0.1878vw, 1.125rem);
   --size-card-line: 0.9375rem;
@@ -139,15 +149,22 @@
   /* the bar's search field, opened */
   --search-w: clamp(200px, 18vw, 300px);
 
+  /* a sheet sliding in from the right (the region sheet), and its sides */
+  --sheet-w: 540px;
+  --sheet-pad: clamp(20px, 3vw, 40px);
+
   /* the hero, the only section that fills the screen (two a page at most) */
   --hero-h: clamp(560px, calc(100svh - var(--nav-h)), 1000px);
 
   /* Breakpoints are 640, 1024 and 1440px. Media queries can't read tokens,
      so these three numbers are written out where a module switches. */
 
-  /* a thin line's width, the smallest target a finger can press, and the
-     layers: the bar over the page, the skip link over everything */
+  /* a thin line's width, an icon's line (a little over it, as an open
+     drawn mark looks lighter than solid letters), the smallest target a
+     finger can press, and the layers: the bar over the page, the skip
+     link over everything */
   --line: 1.25px;
+  --line-icon: 1.5px;
   --tap: 44px;
   --z-header: 5;
   --z-top: 10;
@@ -159,6 +176,16 @@
   --dur-fast: 0.2s;
   --dur-rise: 0.45s;
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* the floor plan drawing itself: one line, the wait before the first, the
+     walls filling in, one typed letter, its grid fading, and the easing its
+     lines are drawn with */
+  --dur-draw: 0.35s;
+  --dur-draw-wait: 0.3s;
+  --dur-move: 0.9s;
+  --dur-type: 20ms;
+  --dur-grid: 0.5s;
+  --ease-draw: cubic-bezier(0.65, 0, 0.35, 1);
   --hover-dim: 0.65;
 }
 

@@ -26,12 +26,6 @@
   background: var(--paper);
 }
 
-/* once the page moves, a faint line under the bar, so a cream page
-   scrolling under the cream bar still reads as passing beneath it */
-.header[data-stuck] {
-  box-shadow: inset 0 calc(var(--line) * -1) 0 var(--rule);
-}
-
 /* the logo: Jost, lowercase, at its own weight */
 .wordmark {
   font: var(--weight-logo) var(--size-logo) / 1 var(--font-logo);
@@ -74,12 +68,14 @@
   font-weight: var(--weight-medium);
 }
 
-/* the boxed way in, drawn 28px tall and snug round the words, with an
-   invisible layer round it so a finger has the full 44px to press */
+/* the boxed way in, drawn 28px tall with 12px at each side, about twice
+   the room above and below the words, as a button sets them; an invisible
+   layer round it gives a finger the full 44px to press */
 .primary {
   composes: boxed from global;
   position: relative;
   padding-block: 0;
+  padding-inline: var(--space-3);
 }
 
 .primary::after {
@@ -124,11 +120,11 @@
   padding-block: 0;
   align-items: center;
   min-height: var(--tap);
-  border-top: 1px solid currentcolor;
+  border-top: var(--line) solid currentcolor;
 }
 
 /* parts that sit in the bar on wider screens and in the menu on a phone */
-.menuLogIn,
+.menuPhone,
 .menuOnly {
   display: none;
 }
@@ -150,7 +146,7 @@
   }
 }
 
-/* on a phone, search and log in move into the menu so the bar fits on
+/* on a phone, search, the region and log in move into the menu so the bar fits on
    one line */
 @media (width < 640px) {
   .end {
@@ -162,7 +158,7 @@
     display: none;
   }
 
-  .menuLogIn {
+  .menuPhone {
     display: flex;
   }
 

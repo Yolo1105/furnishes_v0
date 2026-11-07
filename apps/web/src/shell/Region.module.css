@@ -1,0 +1,301 @@
+/* The bar's region button: a plain button that takes the bar's link style
+   from the class the bar gives it, the currency and language in words, and
+   a small chevron after. */
+.open {
+  display: inline-flex;
+  gap: var(--space-1);
+  align-items: baseline;
+  padding-inline: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* the codes in the bar's own size and spacing, as every other item in
+   it, on the owner's word */
+.codes {
+  display: inline-flex;
+  gap: var(--space-1);
+}
+
+.dot {
+  color: var(--ink-pale);
+}
+
+/* small and fine, about the letters' stroke, so it reads as part of the
+   words. It stands on the words' baseline, as a letter does, so it sits at
+   the same height whatever the words are, capitals or not: its mark is
+   drawn in the middle of its square, which puts it level with the middle
+   of a lowercase letter */
+.chevron {
+  width: 0.7em;
+  height: 0.7em;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: var(--line);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ---------- the sheet ---------- */
+
+/* a tall sheet against the right edge, over a dimmed page, after the
+   owner's reference: square, with thin lines under the head and the tabs.
+   The title, the open tab and what is chosen in red, names in brown,
+   currencies in the softer red, as v0 shows them */
+.sheet {
+  width: min(100%, var(--sheet-w));
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: var(--paper);
+  color: var(--ink-dark);
+}
+
+.sheet::backdrop {
+  background: var(--page-dim);
+}
+
+/* the head, the tabs and the panel all on the sheet's inner margins, so
+   the two lines are one length and every left edge is one; the panel fills
+   the rest */
+.inner {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  box-sizing: border-box;
+  height: 100%;
+  padding-inline: var(--sheet-pad);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-3);
+  border-bottom: var(--line) solid var(--rule);
+}
+
+.title {
+  color: var(--ink);
+  font: var(--weight-regular) var(--size-lead) / 1.1 var(--font-text);
+  letter-spacing: var(--track-title);
+}
+
+/* the cross, a full tap square, pulled out so the drawn cross lines up
+   with the sheet's right margin */
+.close {
+  display: inline-grid;
+  place-items: center;
+  width: var(--tap);
+  height: var(--tap);
+  margin-right: -13px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.close:hover {
+  color: var(--ink-pale);
+}
+
+.close svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: var(--line-icon);
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* the tabs on a thin line, the open one standing on a heavier bar of its
+   own width */
+.tabs {
+  display: flex;
+  gap: var(--space-6);
+  margin-top: var(--space-1);
+  border-bottom: var(--line) solid var(--rule);
+}
+
+.tab {
+  min-height: var(--tap);
+  margin-bottom: calc(var(--line) * -1);
+  padding: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--ink-dark-pale);
+  font: var(--weight-regular) var(--size-nav) / 1.2 var(--font-text);
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: var(--ink);
+}
+
+.tab[aria-selected="true"] {
+  border-bottom-color: currentcolor;
+  color: var(--ink);
+}
+
+/* where you are and the search stay put; the list scrolls */
+.panel {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: var(--space-4);
+  min-height: 0;
+  padding-top: var(--space-4);
+}
+
+.panelPlain {
+  grid-template-rows: auto 1fr;
+}
+
+.now {
+  display: grid;
+  gap: var(--space-1);
+}
+
+/* the place, a short upright rule, then its currency */
+.nowName {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  color: var(--ink);
+  font: var(--weight-regular) var(--size-nav) / 1.3 var(--font-text);
+}
+
+.nowName::after {
+  order: 1;
+  width: var(--line);
+  height: 1.1em;
+  background: currentcolor;
+  content: "";
+}
+
+.nowCurrency {
+  order: 2;
+  color: var(--ink-pale);
+}
+
+.nowLine {
+  color: var(--ink-dark-pale);
+  font: var(--weight-soft) var(--size-small) / 1.5 var(--font-text);
+}
+
+/* the search in a thin outline, square as the site. The field and the
+   lists are in Instrument Sans, as v0 shows them on the owner's word, at
+   the banner's face without its narrowing */
+.search {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  min-height: var(--tap);
+  padding-inline: var(--space-3);
+  border: var(--line) solid var(--rule-strong);
+}
+
+.search:focus-within {
+  border-color: var(--ink-dark);
+}
+
+.search svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: var(--line-icon);
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-dark);
+  font: var(--weight-regular) var(--size-field) / 1 var(--font-banner);
+  outline: none;
+}
+
+.search input::placeholder {
+  color: var(--ink-dark-pale);
+}
+
+.list {
+  margin: 0 calc(var(--sheet-pad) * -1);
+  padding: 0 0 var(--space-6);
+  overflow-y: auto;
+  list-style: none;
+  overscroll-behavior: contain;
+}
+
+/* a row a tap high: its name, and its currency or code at the right; the
+   one chosen in red */
+.row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  width: 100%;
+  min-height: var(--tap);
+  padding: 2px var(--sheet-pad);
+  border: 0;
+  background: none;
+  color: var(--ink-dark);
+  font: var(--weight-regular) var(--size-nav) / 1.3 var(--font-banner);
+  text-align: left;
+  cursor: pointer;
+}
+
+.row:hover {
+  background: var(--ink-wash);
+}
+
+.row[aria-pressed="true"] {
+  color: var(--ink);
+}
+
+.rowName {
+  flex: 1;
+}
+
+/* what sits at a row's right, its currency or code, in the softer red */
+.row > :last-child:not(.rowName) {
+  color: var(--ink-pale);
+}
+
+.row:disabled {
+  color: var(--ink-dark-pale);
+  cursor: default;
+}
+
+.row:disabled:hover {
+  background: none;
+}
+
+.none {
+  padding: var(--space-2) var(--sheet-pad);
+  font: var(--weight-regular) var(--size-nav) / 1.3 var(--font-banner);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sheet[open] {
+    animation: slide-in var(--dur-rise) var(--ease-out);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    translate: 100% 0;
+  }
+}

@@ -125,8 +125,8 @@ export function Search({ className, inMenu }: { className?: string | undefined; 
           }}
         >
           <svg className={styles.icon} viewBox="0 0 16 16" aria-hidden="true">
-            <circle cx="7" cy="7" r="4.5" />
-            <path d="m10.5 10.5 3 3" />
+            <circle cx="6.75" cy="6.75" r="5.75" />
+            <path d="m11 11 4.25 4.25" />
           </svg>
         </button>
       )}
