@@ -39,10 +39,12 @@
 
   /* 300 for a title's soft second line, 350 for the line under a title and
      card sentences, 400 for
-     titles and text, 500 for labels and the banner, 420 in the logo only */
+     titles and text, 450 for the bar's capitals, 500 for labels and the
+     banner, 420 in the logo only */
   --weight-light: 300;
   --weight-soft: 350;
   --weight-regular: 400;
+  --weight-bar: 450;
   --weight-medium: 500;
   --weight-logo: 420;
 
@@ -78,6 +80,7 @@
   --size-body: clamp(1rem, 0.956rem + 0.1878vw, 1.125rem);
   --size-card-line: 0.9375rem;
   --size-small: 0.75rem;
+  --size-logo: clamp(1rem, 0.956rem + 0.1878vw, 1.125rem);
   --size-run: clamp(4rem, 2.2394rem + 7.5117vw, 12.5rem);
 
   /* form fields never under 16px, so phones don't zoom into them */
@@ -137,9 +140,18 @@
   /* Breakpoints are 640, 1024 and 1440px. Media queries can't read tokens,
      so these three numbers are written out where a module switches. */
 
-  /* a thin line's width, and the layer the skip link sits on */
+  /* a thin line's width, the smallest target a finger can press, and the
+     layers: the bar over the page, the skip link over everything */
   --line: 1.25px;
+  --tap: 44px;
+  --z-header: 5;
   --z-top: 10;
+
+  /* ---------- motion ---------- */
+
+  /* a quick fade, and how pale a link goes when pointed at */
+  --dur-fast: 0.2s;
+  --hover-dim: 0.65;
 }
 
 /* ---------- the page ---------- */
@@ -311,6 +323,27 @@ textarea {
   font: var(--weight-regular) var(--size-run) / var(--leading-run) var(--font-text);
   letter-spacing: var(--track-display);
   text-transform: uppercase;
+}
+
+/* ---------- shared parts ---------- */
+
+/* the small boxed button: an outline round its words, filled red-orange
+   when pointed at */
+.boxed {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding-inline: var(--space-2);
+  border: var(--line) solid currentcolor;
+  transition:
+    background-color var(--dur-fast),
+    color var(--dur-fast);
+}
+
+.boxed:hover {
+  border-color: var(--ink-warm);
+  background: var(--ink-warm);
+  color: var(--paper);
 }
 
 /* ---------- helpers ---------- */

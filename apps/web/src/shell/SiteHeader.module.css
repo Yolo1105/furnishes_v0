@@ -1,0 +1,140 @@
+/* Everything in the bar sits on one text baseline, so the big lowercase
+   wordmark and the small capitals read as one line; the line itself is
+   centred in the bar. */
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-header);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-6);
+  align-items: baseline;
+  align-content: center;
+  box-sizing: border-box;
+  height: var(--nav-h);
+  padding-inline: var(--gutter);
+  line-height: 1;
+  transition: background-color var(--dur-fast);
+}
+
+/* the cream behind the bar once the page moves, or while the menu is
+   open, so the menu under it reads as one sheet */
+.header[data-stuck],
+.header[data-open] {
+  background: var(--paper);
+}
+
+/* the logo: Jost, lowercase, at its own weight */
+.wordmark {
+  font: var(--weight-logo) var(--size-logo) / 1 var(--font-logo);
+  letter-spacing: normal;
+  text-transform: lowercase;
+}
+
+.start,
+.end {
+  display: flex;
+  gap: var(--space-8);
+  align-items: baseline;
+}
+
+.start {
+  margin-left: var(--space-6);
+}
+
+.end {
+  justify-self: end;
+}
+
+/* the bar's small capitals, a touch lighter than a label's, going paler
+   when pointed at */
+.link {
+  font: var(--weight-bar) var(--size-small) / 1 var(--font-text);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: opacity var(--dur-fast);
+}
+
+.link:hover {
+  opacity: var(--hover-dim);
+}
+
+/* the boxed way in */
+.primary {
+  composes: boxed from global;
+}
+
+.primary:hover {
+  opacity: 1;
+}
+
+/* ---------- the menu, on narrower screens ---------- */
+
+.menuButton {
+  display: none;
+  min-height: var(--tap);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* a sheet under the bar, one link to a row, each row a full tap high */
+.menu {
+  position: absolute;
+  inset: 100% 0 auto;
+  display: grid;
+  padding: var(--space-2) var(--gutter) var(--space-6);
+  border-bottom: var(--line) solid currentcolor;
+  background: var(--paper);
+}
+
+.menu[hidden] {
+  display: none;
+}
+
+.menuLink {
+  composes: link;
+  display: flex;
+  align-items: center;
+  min-height: var(--tap);
+  border-top: 1px solid currentcolor;
+}
+
+.menuLogIn {
+  display: none;
+}
+
+@media (width < 1024px) {
+  .start {
+    display: none;
+  }
+
+  .menuButton {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+@media (width >= 1024px) {
+  .menu {
+    display: none;
+  }
+}
+
+/* on a phone, log in moves into the menu so the bar fits on one line */
+@media (width < 640px) {
+  .end {
+    gap: var(--space-4);
+  }
+
+  .logIn {
+    display: none;
+  }
+
+  .menuLogIn {
+    display: flex;
+  }
+}

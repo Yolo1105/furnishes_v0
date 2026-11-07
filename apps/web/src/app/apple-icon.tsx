@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { BRAND } from "@/lib/brand";
 
 /* The icon a phone shows when the site is saved to its home screen: the
-   same red full stop as the tab icon, at the size iOS asks for (180px). */
+   same "f." as the tab icon, at the size iOS asks for (180px). */
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
@@ -15,10 +15,14 @@ export default function AppleIcon() {
         height: "100%",
         alignItems: "center",
         justifyContent: "center",
-        background: BRAND.paper,
+        background: BRAND.ink,
+        color: BRAND.paper,
+        fontSize: 110,
+        letterSpacing: "-0.04em",
+        lineHeight: 1,
       }}
     >
-      <div style={{ width: "40%", height: "40%", borderRadius: "50%", background: BRAND.ink }} />
+      f.
     </div>,
     size,
   );
