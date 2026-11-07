@@ -10,7 +10,11 @@ export const routes = {
   contact: "/contact",
   designYourRoom: "/design",
   logIn: "/log-in",
+  products: "/products",
 } as const;
+
+/** One piece's page. */
+export const pieceOf = (slug: string) => `${routes.products}/${slug}`;
 
 /** The pages a visitor browses, in the bar's order. */
 export const BROWSE = [

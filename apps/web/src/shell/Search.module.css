@@ -1,0 +1,167 @@
+/* The bar's search: the field and the magnifier side by side, the field
+   folded to nothing until opened, then growing leftwards along the bar,
+   since the group sits at the bar's right end. The list under it is a
+   layer stacked on the page on purpose, held to the field's right edge. */
+.search {
+  position: relative;
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  align-self: center;
+}
+
+.field {
+  display: flex;
+  overflow: hidden;
+  width: 0;
+  border-bottom: var(--line) solid transparent;
+  visibility: hidden;
+}
+
+.search[data-open] .field {
+  width: var(--search-w);
+  border-bottom-color: currentcolor;
+  visibility: visible;
+}
+
+.field input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-1) 0;
+  border: 0;
+  background: none;
+  color: var(--ink-dark);
+  font: var(--weight-regular) var(--size-field) / 1.2 var(--font-text);
+  letter-spacing: var(--track-read);
+  outline: none;
+}
+
+.field input::placeholder {
+  color: var(--ink-dark-pale);
+}
+
+/* the magnifier, with an invisible layer round it so a finger has the
+   full 44px to press */
+.open {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.open::after {
+  position: absolute;
+  inset: calc((var(--tap) - 100%) / -2);
+  content: "";
+}
+
+.open:hover {
+  color: var(--ink-pale);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.5;
+}
+
+/* the short list of matches, under the field once something is typed: a
+   flat box of hairlines on the paper, as wide as the field and magnifier */
+.drop {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  border: var(--line) solid var(--rule);
+  list-style: none;
+  background: var(--paper);
+}
+
+.drop li + li {
+  border-top: var(--line) solid var(--rule);
+}
+
+.row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-height: var(--tap);
+  padding: var(--space-2) var(--space-3);
+  color: var(--ink-dark);
+  font: var(--weight-regular) var(--size-card-line) / 1.3 var(--font-text);
+  letter-spacing: var(--track-small);
+  text-transform: none;
+}
+
+.row:hover {
+  background: var(--ink-wash);
+  color: var(--ink);
+}
+
+/* a piece's name with its kind small and pale under it */
+.rowName {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+}
+
+.kind {
+  color: var(--ink-dark-pale);
+  font-size: var(--size-small);
+}
+
+/* a row's price, second to the name: small and pale brown, with digits of
+   equal width so prices line up */
+.rowSide {
+  color: var(--ink-dark-pale);
+  font-size: var(--size-small);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .field {
+    transition:
+      width var(--dur-rise) var(--ease-out),
+      visibility 0s var(--dur-rise);
+  }
+
+  .search[data-open] .field {
+    transition: width var(--dur-rise) var(--ease-out);
+  }
+}
+
+/* ---------- in the phone's menu ---------- */
+
+/* the field stands open across the menu, the list under it in the flow,
+   with a line above it like every other row of the menu */
+.inMenu {
+  display: grid;
+  gap: var(--space-2);
+  padding-block: var(--space-3);
+  border-top: 1px solid currentcolor;
+}
+
+/* full width, with no underline of its own: the menu's row lines already
+   frame it */
+.search.inMenu .field {
+  width: 100%;
+  border-bottom-color: transparent;
+}
+
+.inMenu .drop {
+  position: static;
+  border: 0;
+  background: none;
+}
+
+.inMenu .row {
+  padding-inline: 0;
+}

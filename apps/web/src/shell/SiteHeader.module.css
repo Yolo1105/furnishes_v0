@@ -1,5 +1,5 @@
-/* Everything in the bar sits on one text baseline, so the big lowercase
-   wordmark and the small capitals read as one line; the line itself is
+/* Everything in the bar sits on one text baseline, so the lowercase
+   wordmark and the links read as one line; the line itself is
    centred in the bar. */
 .header {
   position: fixed;
@@ -18,9 +18,11 @@
 }
 
 /* the cream behind the bar once the page moves, or while the menu is
-   open, so the menu under it reads as one sheet */
+   open, so the menu under it reads as one sheet, or while the search field
+   is open, so the field never sits on a banner's photo */
 .header[data-stuck],
-.header[data-open] {
+.header[data-open],
+.header:has([data-searching]) {
   background: var(--paper);
 }
 
@@ -52,14 +54,13 @@
   justify-self: end;
 }
 
-/* the bar's small capitals, a touch lighter than a label's, going paler
-   when pointed at. Each reaches the bar's full height, so the whole strip
+/* the bar's words, in normal case at 14px and the reading weight, going
+   paler when pointed at. Each reaches the bar's full height, so the whole strip
    above and below the words can be clicked, not just the words. */
 .link {
-  padding-block: calc((var(--nav-h) - var(--size-small)) / 2);
-  font: var(--weight-bar) var(--size-small) / 1 var(--font-text);
-  letter-spacing: var(--track-caps);
-  text-transform: uppercase;
+  padding-block: calc((var(--nav-h) - var(--size-nav)) / 2);
+  font: var(--weight-regular) var(--size-nav) / 1 var(--font-text);
+  letter-spacing: var(--track-read);
   white-space: nowrap;
   transition: opacity var(--dur-fast);
 }
@@ -73,8 +74,8 @@
   font-weight: var(--weight-medium);
 }
 
-/* the boxed way in, drawn 28px tall, with an invisible layer round it so
-   a finger has the full 44px to press */
+/* the boxed way in, drawn 28px tall and snug round the words, with an
+   invisible layer round it so a finger has the full 44px to press */
 .primary {
   composes: boxed from global;
   position: relative;
@@ -126,7 +127,9 @@
   border-top: 1px solid currentcolor;
 }
 
-.menuLogIn {
+/* parts that sit in the bar on wider screens and in the menu on a phone */
+.menuLogIn,
+.menuOnly {
   display: none;
 }
 
@@ -147,17 +150,24 @@
   }
 }
 
-/* on a phone, log in moves into the menu so the bar fits on one line */
+/* on a phone, search and log in move into the menu so the bar fits on
+   one line */
 @media (width < 640px) {
   .end {
     gap: var(--space-4);
   }
 
-  .logIn {
+  .logIn,
+  .barOnly {
     display: none;
   }
 
   .menuLogIn {
     display: flex;
+  }
+
+  /* the menu's search stacks its list under the field */
+  .menuOnly {
+    display: grid;
   }
 }

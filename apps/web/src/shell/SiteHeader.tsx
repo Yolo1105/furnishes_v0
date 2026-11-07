@@ -4,23 +4,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BROWSE, routes } from "@/lib/routes";
+import { Search } from "./Search";
 import styles from "./SiteHeader.module.css";
 
 /** Where the browsing links fold into the menu, px: the 1024px breakpoint. */
 const FOLD = 1024;
 
 /**
- * The bar: the wordmark, the browsing links and contact on the left;
- * "Design your room" boxed and log in on the right. It floats with no fill
+ * The bar: the wordmark, the browsing links and contact on the left; a
+ * search magnifier that opens a field leftwards, "Design your room" boxed
+ * and log in on the right. It floats with no fill
  * of its own, and takes the paper behind it once the page moves, so what
  * scrolls under stays out of the links.
  *
  * Narrower than FOLD the browsing links and contact fold into a menu that
- * opens under the bar (on a phone, log in goes in it too). It closes on
+ * opens under the bar (on a phone, search and log in go in it too). It closes on
  * Escape, on choosing a link, and when the screen widens past the fold.
  *
- * Search and the region come in the next steps; log out, once accounts are
- * built.
+ * The region comes in the next step; log out, once accounts are built.
  */
 export function SiteHeader() {
   const path = usePathname();
@@ -67,6 +68,7 @@ export function SiteHeader() {
         </Link>
       </nav>
       <div className={styles.end}>
+        <Search className={styles.barOnly} />
         <Link
           className={`${styles.link} ${styles.primary}`}
           href={routes.designYourRoom}
@@ -96,6 +98,7 @@ export function SiteHeader() {
         <Link className={styles.menuLink} href={routes.contact} aria-current={here(routes.contact)} onClick={close}>
           Contact
         </Link>
+        <Search className={styles.menuOnly} inMenu />
         <Link className={`${styles.menuLink} ${styles.menuLogIn}`} href={routes.logIn} onClick={close}>
           Log in
         </Link>
