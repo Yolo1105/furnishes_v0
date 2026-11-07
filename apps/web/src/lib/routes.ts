@@ -5,6 +5,8 @@
 export const routes = {
   home: "/",
   collection: "/collection",
+  furniture: "/collection/furniture",
+  modular: "/collection/modular",
   inspiration: "/inspiration",
   quiz: "/quiz",
   contact: "/contact",
